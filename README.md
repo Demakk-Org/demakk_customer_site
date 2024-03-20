@@ -27,3 +27,7 @@ This repository is for the customer site
 7.  When you create a pull request, use the issue key in the pull request title.
 8.  Push changes.
 9.  Create a pull request to merge the new branch into `dev` branch.
+
+d/ce between utils and lib
+
+use case features

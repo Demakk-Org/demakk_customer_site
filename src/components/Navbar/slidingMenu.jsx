@@ -1,6 +1,12 @@
-import { Close, EastOutlined } from "@mui/icons-material";
 import {
-  Avatar,
+  ArrowForwardIos,
+  Close,
+  HeadsetMicOutlined,
+  MonetizationOnOutlined,
+  PinDropOutlined,
+  TranslateOutlined,
+} from "@mui/icons-material";
+import {
   Box,
   Button,
   IconButton,
@@ -9,7 +15,6 @@ import {
   Typography,
 } from "@mui/material";
 import SmallDeviceButton from "./smallDeviceButton";
-// import { GoHome } from "@/";
 const style = {
   position: "absolute",
   top: "0%",
@@ -17,10 +22,6 @@ const style = {
   width: "80%",
   bgcolor: "background.paper",
   boxShadow: 24,
-  // p: {
-  //   xs: 1,
-  //   sm: 3,
-  // },
   height: 1,
   overflow: "scroll",
 };
@@ -79,7 +80,7 @@ function SlidingMenu({ open, handleClose }) {
               id="category-title"
               color={"dark"}
               fullWidth
-              endIcon={<EastOutlined />}
+              endIcon={<ArrowForwardIos />}
               sx={{
                 display: "flex",
                 justifyContent: "space-between",
@@ -87,36 +88,40 @@ function SlidingMenu({ open, handleClose }) {
                 mb: "0.5rem",
               }}
             >
-              <Typography textTransform={"capitalize"} fontWeight={"bold"}>
+              <Typography
+                textTransform={"capitalize"}
+                fontWeight={"bold"}
+                sx={{ fontSize: { sm: "1.7rem" } }}
+              >
                 Popular Category
               </Typography>
             </Button>
             <SmallDeviceButton
-              imgUrl={"/assets/images/product.webp"}
+              startImage={"/assets/images/product.webp"}
               title={"Women's Clothes"}
             />
             <SmallDeviceButton
-              imgUrl={"/assets/images/product3.webp"}
+              startImage={"/assets/images/product3.webp"}
               title={"Watches"}
             />
             <SmallDeviceButton
-              imgUrl={"/assets/images/product2.webp"}
+              startImage={"/assets/images/product2.webp"}
               title={"Bags"}
             />
             <SmallDeviceButton
-              imgUrl={"/assets/images/product6.webp"}
+              startImage={"/assets/images/product6.webp"}
               title={"Men's Clothes"}
             />
             <SmallDeviceButton
-              imgUrl={"/assets/images/product1.webp"}
+              startImage={"/assets/images/product1.webp"}
               title={"Education & Office supplies"}
             />
             <SmallDeviceButton
-              imgUrl={"/assets/images/product6.webp"}
+              startImage={"/assets/images/product6.webp"}
               title={"Men's Clothes"}
             />
             <SmallDeviceButton
-              imgUrl={"/assets/images/product5.webp"}
+              startImage={"/assets/images/product5.webp"}
               title={"Sports & Outdoor"}
             />
           </Box>
@@ -131,7 +136,7 @@ function SlidingMenu({ open, handleClose }) {
               id="category-title"
               color={"dark"}
               fullWidth
-              endIcon={<EastOutlined />}
+              endIcon={<ArrowForwardIos />}
               sx={{
                 display: "flex",
                 justifyContent: "space-between",
@@ -139,37 +144,86 @@ function SlidingMenu({ open, handleClose }) {
                 mb: "0.5rem",
               }}
             >
-              <Typography textTransform={"capitalize"} fontWeight={"bold"}>
-                Shopping inpirations
+              <Typography
+                textTransform={"capitalize"}
+                fontWeight={"bold"}
+                sx={{ fontSize: { sm: "1.7rem" } }}
+              >
+                Shopping inspirations
               </Typography>
             </Button>
             <SmallDeviceButton
-              imgUrl={"/assets/images/product.webp"}
-              title={"Women's Clothes"}
+              startImage={"/assets/images/shop.webp"}
+              title={"Summer OOTD ideas"}
             />
             <SmallDeviceButton
-              imgUrl={"/assets/images/product3.webp"}
-              title={"Watches"}
+              startImage={"/assets/images/shop2.webp"}
+              title={"Cool home gadgets"}
             />
             <SmallDeviceButton
-              imgUrl={"/assets/images/product2.webp"}
-              title={"Bags"}
+              startImage={"/assets/images/shop1.webp"}
+              title={"Beauty hacks"}
+            />
+          </Box>
+          <Box
+            id="category-container"
+            p={{
+              xs: 1,
+              sm: 3,
+            }}
+          >
+            <Button
+              id="category-title"
+              color={"dark"}
+              fullWidth
+              endIcon={<ArrowForwardIos />}
+              sx={{
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "center",
+                mb: "0.5rem",
+              }}
+            >
+              <Typography
+                textTransform={"capitalize"}
+                fontWeight={"bold"}
+                sx={{ fontSize: { sm: "1.7rem" } }}
+              >
+                Settings
+              </Typography>
+            </Button>
+            <SmallDeviceButton
+              title={"Ship to"}
+              startImage={
+                <PinDropOutlined
+                  sx={{ fontSize: { xs: "1.5rem", sm: "2.5rem" } }}
+                />
+              }
+              endImage={"/assets/images/et-flag.png"}
             />
             <SmallDeviceButton
-              imgUrl={"/assets/images/product6.webp"}
-              title={"Men's Clothes"}
+              startImage={
+                <MonetizationOnOutlined
+                  sx={{ fontSize: { xs: "1.5rem", sm: "2.5rem" } }}
+                />
+              }
+              title={"Currency"}
             />
             <SmallDeviceButton
-              imgUrl={"/assets/images/product1.webp"}
-              title={"Education & Office supplies"}
+              startImage={
+                <TranslateOutlined
+                  sx={{ fontSize: { xs: "1.5rem", sm: "2.5rem" } }}
+                />
+              }
+              title={"Languages"}
             />
             <SmallDeviceButton
-              imgUrl={"/assets/images/product6.webp"}
-              title={"Men's Clothes"}
-            />
-            <SmallDeviceButton
-              imgUrl={"/assets/images/product5.webp"}
-              title={"Sports & Outdoor"}
+              startImage={
+                <HeadsetMicOutlined
+                  sx={{ fontSize: { xs: "1.5rem", sm: "2.5rem" } }}
+                />
+              }
+              title={"Help Center"}
             />
           </Box>
         </Box>

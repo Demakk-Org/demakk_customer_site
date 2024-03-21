@@ -1,6 +1,10 @@
 import {
+  ConfirmationNumberOutlined,
+  CreditCard,
   ExpandLess,
   ExpandMore,
+  FavoriteBorderOutlined,
+  FavoriteOutlined,
   Language,
   Menu,
   PersonOutlineOutlined,
@@ -8,8 +12,10 @@ import {
   ShoppingCart,
 } from "@mui/icons-material";
 import {
+  Avatar,
   Box,
   Button,
+  Divider,
   FormControl,
   Grid,
   IconButton,
@@ -22,10 +28,18 @@ import { useState } from "react";
 import SelectBotton from "./selectBotton";
 import NavbarButton from "./navbarButton";
 import SlidingMenu from "./slidingMenu";
+import SmallDeviceButton from "./smallDeviceButton";
+import { LuClipboardList } from "react-icons/lu";
+import { RiCopperCoinLine } from "react-icons/ri";
+import { AiOutlineMessage } from "react-icons/ai";
+import useUserStore from "@/store/user";
 
 function index() {
+  const { user, setUser, signOut } = useUserStore();
+
   const [allPropOpen, setAllPropOpen] = useState(false);
   const [openMore, setOpenMore] = useState(false);
+  const [openUserInfo, setOpenUserInfo] = useState(false);
   const [open, setOpen] = useState(false);
 
   const handleOpen = () => setOpen(true);
@@ -43,10 +57,10 @@ function index() {
       let bodyWidth = body.clientWidth;
 
       if (bodyWidth - (containerWidth + containerLeft) < 0) {
-        container.style.left =
-          "" + bodyWidth - (containerWidth + containerLeft + 30) + "px";
-        after.style.left =
-          "" + (after.clientLeft + bodyWidth - containerLeft - 30) + "px";
+        container.style.left = "unset";
+        container.style.right = 0;
+        after.style.left = "unset";
+        after.style.right = "20%";
       }
     }
   };
@@ -197,7 +211,12 @@ function index() {
                 </Box>
               </Box>
             </Grid>
-            <Grid item>
+            <Grid
+              item
+              position={"relative"}
+              onMouseOver={() => setOpenUserInfo(true)}
+              onMouseLeave={() => setOpenUserInfo(false)}
+            >
               <Box
                 display={"flex"}
                 alignItems={"center"}
@@ -208,7 +227,7 @@ function index() {
                   },
                 }}
               >
-                <IconButton
+                <Box
                   size="medium"
                   sx={{
                     color: {
@@ -220,7 +239,7 @@ function index() {
                   <PersonOutlineOutlined
                     sx={{ fontSize: { xs: 25, sm: 37.5, md: 40 } }}
                   />
-                </IconButton>
+                </Box>
                 <Box
                   display={"flex"}
                   flexDirection={"column"}
@@ -228,22 +247,182 @@ function index() {
                 >
                   <Typography
                     fontSize={"0.8rem"}
-                    sx={{ display: { xs: "none", sm: "flex" } }}
+                    sx={{ display: { xs: "none", xl: "flex" } }}
                   >
-                    Welcome
+                    {user?.name ? `Hi, ${user.name}` : "Welcome"}
                   </Typography>
                   <Box
                     display={"flex"}
                     alignItems={"center"}
                     sx={{ display: { xs: "none", sm: "flex" } }}
                   >
-                    <Typography fontSize={"0.8rem"} fontWeight={"bold"}>
-                      Sign in/Register
+                    <Typography
+                      fontSize={"0.8rem"}
+                      fontWeight={"bold"}
+                      sx={{ display: { xs: "none", xl: "inline" } }}
+                    >
+                      {user?.name ? `Account` : "Sign in/Register"}
                     </Typography>
-                    <ExpandMore fontSize="small" color="dark" />
+                    {!openUserInfo ? (
+                      <ExpandMore fontSize="small" color="white" />
+                    ) : (
+                      <ExpandLess fontSize="small" color="white" />
+                    )}
                   </Box>
                 </Box>
               </Box>
+              {openUserInfo && (
+                <>
+                  <Box
+                    position={"absolute"}
+                    top={"100%"}
+                    right={0}
+                    minWidth={300}
+                    bgcolor={"Background"}
+                    border={"1px solid lightgray"}
+                    p={"1.5rem"}
+                    borderRadius={"1rem"}
+                    flexDirection={"column"}
+                    gap={"0.25rem"}
+                    overflow={"auto"}
+                    sx={{
+                      display: { xs: "none", md: "flex" },
+                      zIndex: 1000,
+                    }}
+                  >
+                    {" "}
+                    {!user?.name ? (
+                      <>
+                        <Button
+                          variant="contained"
+                          size="large"
+                          color="dark"
+                          fullWidth
+                          sx={{
+                            borderRadius: "1.5rem",
+                            color: "white.main",
+                            textTransform: "capitalize",
+                          }}
+                          onClick={() =>
+                            setUser({
+                              name: "Emily",
+                              img: "/assets/images/emily.png",
+                            })
+                          }
+                        >
+                          Sign Up
+                        </Button>
+                        <Button
+                          variant="text"
+                          size="large"
+                          fullWidth
+                          sx={{
+                            bgcolor: "transparent",
+                            borderRadius: "1.5rem",
+                            color: "dark.main",
+                            textTransform: "capitalize",
+                          }}
+                          onClick={() => setUser({ name: "Solen" })}
+                        >
+                          Register
+                        </Button>
+                      </>
+                    ) : (
+                      <>
+                        <Grid
+                          width={1}
+                          container
+                          display={"flex"}
+                          alignItems={"center"}
+                          gap={1}
+                        >
+                          <Grid item display={"flex"}>
+                            <Avatar
+                              src={user?.img || "/assets/images/profile.webp"}
+                            />
+                          </Grid>
+                          <Grid item md={9} display={"flex"}>
+                            <Typography
+                              flex={1}
+                              fontWeight={400}
+                              fontSize={"0.9rem"}
+                            >
+                              Welcome back,{" "}
+                              <Box component={"span"} fontWeight={"bold"}>
+                                {user.name}
+                              </Box>
+                            </Typography>
+                          </Grid>
+                        </Grid>
+                        <Box
+                          width={1}
+                          container
+                          display={"flex"}
+                          alignItems={"center"}
+                          gap={1}
+                        >
+                          {/* <Avatar sx={{ width: 40, height: 40 }} /> */}
+                          <Button
+                            onClick={() => signOut()}
+                            variant="text"
+                            color="info"
+                            sx={{ ml: "48px", textTransform: "unset" }}
+                          >
+                            Sign Out
+                          </Button>
+                        </Box>
+                      </>
+                    )}
+                    <Divider flexItem />
+                    <SmallDeviceButton
+                      startImage={<LuClipboardList fontSize={"inherit"} />}
+                      title={"My Orders"}
+                    />
+                    <SmallDeviceButton
+                      startImage={<RiCopperCoinLine fontSize={"inherit"} />}
+                      title={"My Coins"}
+                    />
+                    <SmallDeviceButton
+                      startImage={<AiOutlineMessage fontSize={"inherit"} />}
+                      title={"Message Center"}
+                    />
+                    <SmallDeviceButton
+                      startImage={<CreditCard fontSize={"inherit"} />}
+                      title={"Payments"}
+                    />
+                    <SmallDeviceButton
+                      startImage={
+                        <FavoriteBorderOutlined fontSize={"inherit"} />
+                      }
+                      title={"Wish List"}
+                    />
+                    <SmallDeviceButton
+                      startImage={
+                        <ConfirmationNumberOutlined fontSize={"inherit"} />
+                      }
+                      title={"My Coupons"}
+                    />
+                    <Divider flexItem />
+                    <SmallDeviceButton title={"DC Center"} />
+                    <SmallDeviceButton title={"Buyer Protection"} />
+                    <SmallDeviceButton title={"Help Center"} />
+                    <SmallDeviceButton title={"Disputes & Reports"} />
+                    <SmallDeviceButton title={"Accessility"} />
+                  </Box>
+                  <Box
+                    // id={"after-container"}
+                    sx={{
+                      position: "absolute",
+                      width: "12px",
+                      height: "12px",
+                      transform: "rotate(45deg)",
+                      left: "50%",
+                      bottom: -6,
+                      background: "rgba(240, 240, 240, 1)",
+                    }}
+                  />
+                </>
+              )}
             </Grid>
             <Grid item>
               <Box

@@ -5,22 +5,23 @@ function SelectBotton({ icon, name, subList }) {
   const [openList, setOpenList] = useState(false);
   return (
     <Box
-      width={1}
+      width={"inherit"}
+      minWidth={1}
       position={"relative"}
+      // borderRadius={"1.5rem"}
       onMouseOver={() => setOpenList(true)}
       onMouseLeave={() => setOpenList(false)}
     >
       <Button
         fullWidth
         color="dark"
-        startIcon={icon || "icon here"}
+        startIcon={icon}
         sx={{
           display: "flex",
           alignItems: "center",
           textTransform: "capitalize",
           p: "0.5rem 1.5rem",
           justifyContent: "flex-start",
-          borderRadius: "1.5rem",
           textAlign: "left",
         }}
       >

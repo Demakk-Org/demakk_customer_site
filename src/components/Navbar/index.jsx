@@ -19,25 +19,55 @@ import {
 } from "@mui/material";
 import AllCategories from "./allCategories";
 import { useState } from "react";
+import SelectBotton from "./selectBotton";
+import NavbarButton from "./navbarButton";
+import SlidingMenu from "./slidingMenu";
 
 function index() {
-  const [allPropOpen, setAllPropOpen] = useState(true);
+  const [allPropOpen, setAllPropOpen] = useState(false);
+  const [openMore, setOpenMore] = useState(false);
+  const [open, setOpen] = useState(false);
+
+  const handleOpen = () => setOpen(true);
+
+  const handleClose = () => setOpen(false);
+
+  const handleOnMouseOver = () => {
+    let container = document.getElementById("more-product-container");
+    let body = document.querySelector("body");
+    let after = document.getElementById("after-container");
+
+    if (container && body) {
+      let containerLeft = container.getBoundingClientRect().left;
+      let containerWidth = container.getBoundingClientRect().width;
+      let bodyWidth = body.clientWidth;
+
+      if (bodyWidth - (containerWidth + containerLeft) < 0) {
+        container.style.left =
+          "" + bodyWidth - (containerWidth + containerLeft + 30) + "px";
+        after.style.left =
+          "" + (after.clientLeft + bodyWidth - containerLeft - 30) + "px";
+      }
+    }
+  };
+
   return (
     <Box
       sx={{
         position: "fixed",
         p: {
-          xs: "0.5rem 1rem 0.5rem 1rem",
-          sm: "0.75rem 2rem 0.75rem 4rem",
-          md: "0.5rem 4rem 0.5rem 9rem",
+          xs: "0.5rem 0.75rem 0.5rem 1rem",
+          sm: "0.75rem 2rem 0.75rem 2.5rem",
+          md: "0.5rem 2rem 0.5rem 4rem",
+          xl: "0.5rem 4rem 0.5rem 9rem",
         },
         bgcolor: {
           xs: "white",
-          sm: "dark.main",
+          md: "dark.main",
         },
         color: {
           xs: "black",
-          sm: "white",
+          md: "white",
         },
       }}
       top={0}
@@ -45,24 +75,24 @@ function index() {
       width={1}
     >
       <Grid container alignItems={"center"} width={"100%"}>
-        <Grid item sx={{ display: { sm: "none" } }}>
-          <IconButton>
-            <Menu />
+        <Grid item sx={{ display: { md: "none" } }}>
+          <IconButton onClick={handleOpen}>
+            <Menu sx={{ fontSize: { xs: 25, sm: 37.5 } }} />
           </IconButton>
         </Grid>
         <Grid item>
           <Typography
             fontWeight={"bold"}
-            pr={"2rem"}
+            pr={"1rem"}
             sx={{
               fontSize: {
                 xs: "1.2rem",
-                sm: "1.5rem",
+                sm: "1.7rem",
                 md: "2rem",
               },
               color: {
                 xs: "primary.main",
-                sm: "primaryLight.main",
+                md: "primaryLight.main",
               },
             }}
           >
@@ -99,7 +129,7 @@ function index() {
                 bgcolor: "white.main",
                 color: {
                   xs: "white",
-                  sm: "black",
+                  md: "black",
                 },
               }}
               endAdornment={
@@ -107,7 +137,7 @@ function index() {
                   <IconButton
                     aria-label="search"
                     size="small"
-                    // onClick={handleClickShowPassword}
+                    // onClick={handleSearch}
                     edge="end"
                     color="black"
                     sx={{
@@ -117,7 +147,7 @@ function index() {
                       bgcolor: "dark.main",
                       color: {
                         xs: "dark.main",
-                        sm: "white.main",
+                        md: "white.main",
                       },
                       p: "0.25rem 1rem",
                       "&:hover": {
@@ -133,17 +163,17 @@ function index() {
           </FormControl>
         </Grid>
         <Grid item display={"flex"} ml={"auto"}>
-          <Grid container alignItems={"center"} spacing={{ xs: 0, sm: 2 }}>
+          <Grid container alignItems={"center"} spacing={{ xs: 0, md: 2 }}>
             <Grid item>
               <Box
                 display={"flex"}
                 alignItems={"center"}
-                sx={{ display: { xs: "none", sm: "flex" } }}
+                sx={{ display: { xs: "none", md: "flex" } }}
                 color={"white.main"}
               >
                 <IconButton
                   sx={{
-                    fontSize: { xs: "small" },
+                    fontSize: { xs: "small", sm: "medium" },
                     color: {
                       xs: "dark.main",
                       sm: "white.main",
@@ -168,18 +198,27 @@ function index() {
               </Box>
             </Grid>
             <Grid item>
-              <Box display={"flex"} alignItems={"center"} color={"white.main"}>
+              <Box
+                display={"flex"}
+                alignItems={"center"}
+                sx={{
+                  color: {
+                    xs: "dark.main",
+                    md: "white.main",
+                  },
+                }}
+              >
                 <IconButton
                   size="medium"
                   sx={{
                     color: {
                       xs: "dark.main",
-                      sm: "white.main",
+                      md: "white.main",
                     },
                   }}
                 >
                   <PersonOutlineOutlined
-                    sx={{ fontSize: { xs: 25, sm: 40 } }}
+                    sx={{ fontSize: { xs: 25, sm: 37.5, md: 40 } }}
                   />
                 </IconButton>
                 <Box
@@ -211,18 +250,25 @@ function index() {
                 display={"flex"}
                 gap={"0.25rem"}
                 alignItems={"center"}
-                color={"white.main"}
+                sx={{
+                  color: {
+                    xs: "dark.main",
+                    md: "white.main",
+                  },
+                }}
               >
                 <IconButton
                   size="medium"
                   sx={{
                     color: {
                       xs: "dark.main",
-                      sm: "white.main",
+                      md: "white.main",
                     },
                   }}
                 >
-                  <ShoppingCart sx={{ fontSize: { xs: 25, sm: 40 } }} />
+                  <ShoppingCart
+                    sx={{ fontSize: { xs: 25, sm: 37.5, md: 40 } }}
+                  />
                 </IconButton>
                 <Box
                   display={"flex"}
@@ -235,8 +281,8 @@ function index() {
                     fontSize={"0.6rem"}
                     fontWeight={"bold"}
                     sx={{
-                      bgcolor: { xs: "dark.main", sm: "white.main" },
-                      color: { xs: "white", sm: "black" },
+                      bgcolor: { xs: "dark.main", md: "white.main" },
+                      color: { xs: "white.main", md: "dark.main" },
                       borderRadius: "1rem",
                       textAlign: "center",
                     }}
@@ -255,7 +301,7 @@ function index() {
         </Grid>
         <Grid
           item
-          sm={12}
+          xs={12}
           flex={1}
           sx={{
             display: {
@@ -263,7 +309,8 @@ function index() {
               md: "none",
             },
             mt: {
-              sm: "0.5rem",
+              xs: "0.5rem",
+              sm: "1rem",
             },
           }}
         >
@@ -281,6 +328,9 @@ function index() {
                 letterSpacing: "0.4px",
                 bgcolor: "rgba(10,10,10,0.09)",
                 color: "black",
+                p: {
+                  sm: "0.25rem 1.5rem",
+                },
               }}
               color="primary"
               endAdornment={
@@ -288,7 +338,7 @@ function index() {
                   <IconButton
                     aria-label="search"
                     edge="end"
-                    // onClick={handleClickShowPassword}
+                    // onClick={handleSearch}
                   >
                     <Search />
                   </IconButton>
@@ -304,10 +354,9 @@ function index() {
         sx={{
           display: {
             xs: "none",
-            sm: "flex",
+            md: "flex",
           },
           justifyContent: "center",
-          // gap: "1rem",
         }}
       >
         <Box
@@ -315,6 +364,7 @@ function index() {
           onMouseOver={() => setAllPropOpen(true)}
           onMouseLeave={() => setAllPropOpen(false)}
           bgcolor={allPropOpen && "rgba(240, 240, 240, 1)"}
+          mr={"1rem"}
           sx={{
             borderRadius: allPropOpen ? "1.5rem 1.5rem 0 0" : "1.5rem",
             "&:hover button": { borderColor: "transparent" },
@@ -330,7 +380,6 @@ function index() {
               p: "0.5rem 1.5rem",
               display: "flex",
               alignItems: "center",
-              // border: "transparent",
               "&:hover": {
                 borderColor: "transparent",
               },
@@ -343,78 +392,36 @@ function index() {
           <Box
             position={"absolute"}
             width={1}
+            maxHeight={"70vh"}
             top={"100%"}
             borderRadius={"0 0 1.5rem 1.5rem"}
             left={0}
             bgcolor={"rgba(240, 240, 240, 1)"}
+            // sx={{ overflowY: "hidden" }}
           >
             {allPropOpen && <AllCategories />}
           </Box>
         </Box>
-        <Button
-          variant="contained"
-          sx={{
-            bgcolor: "transparent",
-            "&:hover": { bgcolor: "rgba(255, 255, 255, 0.2)" },
-            borderRadius: "1.5rem",
-            fontSize: "1rem",
+        <NavbarButton name={"NN"} />
+        <NavbarButton name={" Best Sellers"} />
+        <NavbarButton name={"Top Brands"} />
+        <NavbarButton name={"Consumer Electronics"} />
+        <NavbarButton name={"Home Improvement & Lighting"} />
+        <Box
+          position={"relative"}
+          onMouseEnter={() => {
+            setOpenMore(true);
+          }}
+          onMouseOver={() => {
+            handleOnMouseOver();
+          }}
+          onMouseLeave={() => {
+            setOpenMore(false);
           }}
         >
-          NN
-        </Button>
-        <Button
-          variant="contained"
-          sx={{
-            bgcolor: "transparent",
-            "&:hover": { bgcolor: "rgba(255, 255, 255, 0.2)" },
-            borderRadius: "1.5rem",
-            textTransform: "capitalize",
-            fontSize: "1rem",
-          }}
-        >
-          Best Sellers
-        </Button>
-        <Button
-          variant="contained"
-          sx={{
-            bgcolor: "transparent",
-            "&:hover": { bgcolor: "rgba(255, 255, 255, 0.2)" },
-            borderRadius: "1.5rem",
-            textTransform: "capitalize",
-            fontSize: "1rem",
-          }}
-        >
-          Top Brands
-        </Button>
-        <Button
-          variant="contained"
-          sx={{
-            bgcolor: "transparent",
-            "&:hover": { bgcolor: "rgba(255, 255, 255, 0.2)" },
-            borderRadius: "1.5rem",
-            textTransform: "capitalize",
-            fontSize: "1rem",
-          }}
-        >
-          Consumer Electronics
-        </Button>
-        <Button
-          variant="contained"
-          sx={{
-            bgcolor: "transparent",
-            "&:hover": { bgcolor: "rgba(255, 255, 255, 0.2)" },
-            borderRadius: "1.5rem",
-            textTransform: "capitalize",
-            fontSize: "1rem",
-          }}
-        >
-          Home Improvement & Lighting
-        </Button>
-        <Box>
           <Button
-            // color="dark"
             variant="contained"
-            endIcon={<ExpandMore />}
+            endIcon={openMore ? <ExpandLess /> : <ExpandMore />}
             sx={{
               borderRadius: "1.5rem",
               fontSize: "1rem",
@@ -426,8 +433,50 @@ function index() {
           >
             <Typography textTransform={"capitalize"}>More</Typography>
           </Button>
+          {openMore && (
+            <Box
+              id="more-product-container"
+              position={"absolute"}
+              width={"auto"}
+              minWidth={200}
+              top={"100%"}
+              left={0}
+              pt={"0.5rem"}
+            >
+              <Box
+                // left={"50px"}
+                display={"flex"}
+                flexDirection={"column"}
+                bgcolor={"rgba(240, 240, 240, 1)"}
+                width={"max-content"}
+                borderRadius={"1.5rem"}
+                overflow={"hidden"}
+              >
+                <SelectBotton name={"Home Improvement & Lighting"} />
+                <SelectBotton name={"Men's Clothing"} />
+                <SelectBotton name={"Furniture"} />
+                <SelectBotton name={"Accessories"} />
+                <SelectBotton name={"Hair Extainsions and Wigs"} />
+                <SelectBotton name={"Automotive and Motorcycles"} />
+              </Box>
+              <Box
+                id={"after-container"}
+                sx={{
+                  position: "absolute",
+                  width: "12px",
+                  height: "12px",
+                  transform: "rotate(45deg)",
+                  left: "25%",
+                  top: 2,
+                  background: "rgba(240, 240, 240, 1)",
+                }}
+              />
+            </Box>
+          )}
         </Box>
       </Box>
+
+      <SlidingMenu open={open} handleClose={handleClose} />
     </Box>
   );
 }

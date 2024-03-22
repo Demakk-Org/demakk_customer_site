@@ -1,10 +1,6 @@
 import {
-  ConfirmationNumberOutlined,
-  CreditCard,
   ExpandLess,
   ExpandMore,
-  FavoriteBorderOutlined,
-  FavoriteOutlined,
   Language,
   Menu,
   PersonOutlineOutlined,
@@ -12,10 +8,8 @@ import {
   ShoppingCart,
 } from "@mui/icons-material";
 import {
-  Avatar,
   Box,
   Button,
-  Divider,
   FormControl,
   Grid,
   IconButton,
@@ -28,17 +22,16 @@ import { useState } from "react";
 import SelectBotton from "./selectBotton";
 import NavbarButton from "./navbarButton";
 import SlidingMenu from "./slidingMenu";
-import SmallDeviceButton from "./smallDeviceButton";
-import { LuClipboardList } from "react-icons/lu";
-import { RiCopperCoinLine } from "react-icons/ri";
-import { AiOutlineMessage } from "react-icons/ai";
 import useUserStore from "@/store/user";
+import UserInfoDropdown from "./userInfoDropdown";
+import LanguageDropdown from "./languageDropdown";
 
-function index() {
-  const { user, setUser, signOut } = useUserStore();
+function Navbar() {
+  const { user } = useUserStore();
 
   const [allPropOpen, setAllPropOpen] = useState(false);
   const [openMore, setOpenMore] = useState(false);
+  const [openLanguage, setOpenLanguage] = useState(false);
   const [openUserInfo, setOpenUserInfo] = useState(false);
   const [open, setOpen] = useState(false);
 
@@ -114,6 +107,7 @@ function index() {
           </Typography>
         </Grid>
         <Grid
+          className="search--container"
           item
           md
           sx={{
@@ -176,14 +170,15 @@ function index() {
             />
           </FormControl>
         </Grid>
-        <Grid item display={"flex"} ml={"auto"}>
+        <Grid className="language--container" item display={"flex"} ml={"auto"}>
           <Grid container alignItems={"center"} spacing={{ xs: 0, md: 2 }}>
-            <Grid item>
+            <Grid item position={"relative"}>
               <Box
                 display={"flex"}
                 alignItems={"center"}
-                sx={{ display: { xs: "none", md: "flex" } }}
+                sx={{ display: { xs: "none", md: "flex" }, cursor: "pointer" }}
                 color={"white.main"}
+                onClick={() => setOpenLanguage((p) => !p)}
               >
                 <IconButton
                   sx={{
@@ -210,8 +205,12 @@ function index() {
                   </Box>
                 </Box>
               </Box>
+              {openLanguage && (
+                <LanguageDropdown setOpenLanguage={setOpenLanguage} />
+              )}
             </Grid>
             <Grid
+              className="userInfo--container"
               item
               position={"relative"}
               onMouseOver={() => setOpenUserInfo(true)}
@@ -237,7 +236,13 @@ function index() {
                   }}
                 >
                   <PersonOutlineOutlined
-                    sx={{ fontSize: { xs: 25, sm: 37.5, md: 40 } }}
+                    sx={{
+                      fontSize: {
+                        xs: 25,
+                        sm: 37.5,
+                        md: 40,
+                      },
+                    }}
                   />
                 </Box>
                 <Box
@@ -271,160 +276,9 @@ function index() {
                   </Box>
                 </Box>
               </Box>
-              {openUserInfo && (
-                <>
-                  <Box
-                    position={"absolute"}
-                    top={"100%"}
-                    right={0}
-                    minWidth={300}
-                    bgcolor={"Background"}
-                    border={"1px solid lightgray"}
-                    p={"1.5rem"}
-                    borderRadius={"1rem"}
-                    flexDirection={"column"}
-                    gap={"0.25rem"}
-                    overflow={"auto"}
-                    sx={{
-                      display: { xs: "none", md: "flex" },
-                      zIndex: 1000,
-                    }}
-                  >
-                    {" "}
-                    {!user?.name ? (
-                      <>
-                        <Button
-                          variant="contained"
-                          size="large"
-                          color="dark"
-                          fullWidth
-                          sx={{
-                            borderRadius: "1.5rem",
-                            color: "white.main",
-                            textTransform: "capitalize",
-                          }}
-                          onClick={() =>
-                            setUser({
-                              name: "Emily",
-                              img: "/assets/images/emily.png",
-                            })
-                          }
-                        >
-                          Sign Up
-                        </Button>
-                        <Button
-                          variant="text"
-                          size="large"
-                          fullWidth
-                          sx={{
-                            bgcolor: "transparent",
-                            borderRadius: "1.5rem",
-                            color: "dark.main",
-                            textTransform: "capitalize",
-                          }}
-                          onClick={() => setUser({ name: "Solen" })}
-                        >
-                          Register
-                        </Button>
-                      </>
-                    ) : (
-                      <>
-                        <Grid
-                          width={1}
-                          container
-                          display={"flex"}
-                          alignItems={"center"}
-                          gap={1}
-                        >
-                          <Grid item display={"flex"}>
-                            <Avatar
-                              src={user?.img || "/assets/images/profile.webp"}
-                            />
-                          </Grid>
-                          <Grid item md={9} display={"flex"}>
-                            <Typography
-                              flex={1}
-                              fontWeight={400}
-                              fontSize={"0.9rem"}
-                            >
-                              Welcome back,{" "}
-                              <Box component={"span"} fontWeight={"bold"}>
-                                {user.name}
-                              </Box>
-                            </Typography>
-                          </Grid>
-                        </Grid>
-                        <Box
-                          width={1}
-                          container
-                          display={"flex"}
-                          alignItems={"center"}
-                          gap={1}
-                        >
-                          {/* <Avatar sx={{ width: 40, height: 40 }} /> */}
-                          <Button
-                            onClick={() => signOut()}
-                            variant="text"
-                            color="info"
-                            sx={{ ml: "48px", textTransform: "unset" }}
-                          >
-                            Sign Out
-                          </Button>
-                        </Box>
-                      </>
-                    )}
-                    <Divider flexItem />
-                    <SmallDeviceButton
-                      startImage={<LuClipboardList fontSize={"inherit"} />}
-                      title={"My Orders"}
-                    />
-                    <SmallDeviceButton
-                      startImage={<RiCopperCoinLine fontSize={"inherit"} />}
-                      title={"My Coins"}
-                    />
-                    <SmallDeviceButton
-                      startImage={<AiOutlineMessage fontSize={"inherit"} />}
-                      title={"Message Center"}
-                    />
-                    <SmallDeviceButton
-                      startImage={<CreditCard fontSize={"inherit"} />}
-                      title={"Payments"}
-                    />
-                    <SmallDeviceButton
-                      startImage={
-                        <FavoriteBorderOutlined fontSize={"inherit"} />
-                      }
-                      title={"Wish List"}
-                    />
-                    <SmallDeviceButton
-                      startImage={
-                        <ConfirmationNumberOutlined fontSize={"inherit"} />
-                      }
-                      title={"My Coupons"}
-                    />
-                    <Divider flexItem />
-                    <SmallDeviceButton title={"DC Center"} />
-                    <SmallDeviceButton title={"Buyer Protection"} />
-                    <SmallDeviceButton title={"Help Center"} />
-                    <SmallDeviceButton title={"Disputes & Reports"} />
-                    <SmallDeviceButton title={"Accessility"} />
-                  </Box>
-                  <Box
-                    // id={"after-container"}
-                    sx={{
-                      position: "absolute",
-                      width: "12px",
-                      height: "12px",
-                      transform: "rotate(45deg)",
-                      left: "50%",
-                      bottom: -6,
-                      background: "rgba(240, 240, 240, 1)",
-                    }}
-                  />
-                </>
-              )}
+              {openUserInfo && <UserInfoDropdown />}
             </Grid>
-            <Grid item>
+            <Grid item className="cart--container">
               <Box
                 display={"flex"}
                 gap={"0.25rem"}
@@ -478,7 +332,9 @@ function index() {
             </Grid>
           </Grid>
         </Grid>
+
         <Grid
+          className="search--container"
           item
           xs={12}
           flex={1}
@@ -527,6 +383,7 @@ function index() {
           </FormControl>
         </Grid>
       </Grid>
+
       <Box
         mt={"1rem"}
         width={1}
@@ -623,7 +480,6 @@ function index() {
               pt={"0.5rem"}
             >
               <Box
-                // left={"50px"}
                 display={"flex"}
                 flexDirection={"column"}
                 bgcolor={"rgba(240, 240, 240, 1)"}
@@ -660,4 +516,4 @@ function index() {
   );
 }
 
-export default index;
+export default Navbar;

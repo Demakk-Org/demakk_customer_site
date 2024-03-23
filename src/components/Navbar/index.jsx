@@ -8,6 +8,7 @@ import {
   ShoppingCart,
 } from "@mui/icons-material";
 import {
+  Avatar,
   Box,
   Button,
   FormControl,
@@ -25,14 +26,18 @@ import SlidingMenu from "./slidingMenu";
 import useUserStore from "@/store/user";
 import UserInfoDropdown from "./userInfoDropdown";
 import LanguageDropdown from "./languageDropdown";
+import data from "@/data/library";
+import LoginModal from "../Login/loginModal";
 
 function Navbar() {
-  const { user } = useUserStore();
+  const { user, lang, address } = useUserStore();
+  console.log(address);
 
   const [allPropOpen, setAllPropOpen] = useState(false);
   const [openMore, setOpenMore] = useState(false);
   const [openLanguage, setOpenLanguage] = useState(false);
   const [openUserInfo, setOpenUserInfo] = useState(false);
+  const [openLogin, setOpenLogin] = useState(false);
   const [open, setOpen] = useState(false);
 
   const handleOpen = () => setOpen(true);
@@ -170,38 +175,58 @@ function Navbar() {
             />
           </FormControl>
         </Grid>
-        <Grid className="language--container" item display={"flex"} ml={"auto"}>
+        <Grid item display={"flex"} ml={"auto"}>
           <Grid container alignItems={"center"} spacing={{ xs: 0, md: 2 }}>
-            <Grid item position={"relative"}>
+            <Grid className="language--container" item position={"relative"}>
               <Box
                 display={"flex"}
                 alignItems={"center"}
                 sx={{ display: { xs: "none", md: "flex" }, cursor: "pointer" }}
                 color={"white.main"}
+                gap={"0.25rem"}
                 onClick={() => setOpenLanguage((p) => !p)}
               >
-                <IconButton
-                  sx={{
-                    fontSize: { xs: "small", sm: "medium" },
-                    color: {
-                      xs: "dark.main",
-                      sm: "white.main",
-                    },
-                  }}
-                >
-                  <Language fontSize="large" />
-                </IconButton>
+                {!address ? (
+                  <IconButton
+                    sx={{
+                      fontSize: { xs: "small", sm: "medium" },
+                      color: {
+                        xs: "dark.main",
+                        sm: "white.main",
+                      },
+                    }}
+                  >
+                    <Language fontSize="large" />
+                  </IconButton>
+                ) : (
+                  <Avatar
+                    sx={{
+                      width: 25,
+                      height: 20,
+                      // p: "0.25rem",
+                      border: "1px solid lightgray",
+                    }}
+                    variant="square"
+                    src={data.flags[address]}
+                  />
+                )}
                 <Box
                   display={"flex"}
                   flexDirection={"column"}
                   fontSize={"0.5rem"}
                 >
-                  <Typography fontSize={"0.8rem"}>EN/</Typography>
+                  <Typography fontSize={"0.8rem"}>
+                    {data.langs[lang]}/
+                  </Typography>
                   <Box display={"flex"} alignItems={"center"}>
                     <Typography fontSize={"0.8rem"} fontWeight={"bold"}>
-                      USD
+                      BIRR
                     </Typography>
-                    <ExpandMore fontSize="small" color="dark" />
+                    {!openLanguage ? (
+                      <ExpandMore fontSize="small" color="white" />
+                    ) : (
+                      <ExpandLess fontSize="small" color="white" />
+                    )}
                   </Box>
                 </Box>
               </Box>
@@ -251,7 +276,7 @@ function Navbar() {
                   fontSize={"0.5rem"}
                 >
                   <Typography
-                    fontSize={"0.8rem"}
+                    fontSize={"0.75rem"}
                     sx={{ display: { xs: "none", xl: "flex" } }}
                   >
                     {user?.name ? `Hi, ${user.name}` : "Welcome"}
@@ -262,7 +287,7 @@ function Navbar() {
                     sx={{ display: { xs: "none", sm: "flex" } }}
                   >
                     <Typography
-                      fontSize={"0.8rem"}
+                      fontSize={"0.75rem"}
                       fontWeight={"bold"}
                       sx={{ display: { xs: "none", xl: "inline" } }}
                     >
@@ -276,7 +301,9 @@ function Navbar() {
                   </Box>
                 </Box>
               </Box>
-              {openUserInfo && <UserInfoDropdown />}
+              {openUserInfo && (
+                <UserInfoDropdown openLogin={() => setOpenLogin(true)} />
+              )}
             </Grid>
             <Grid item className="cart--container">
               <Box
@@ -510,6 +537,10 @@ function Navbar() {
           )}
         </Box>
       </Box>
+
+      {openLogin && (
+        <LoginModal open={openLogin} handleClose={() => setOpenLogin(false)} />
+      )}
 
       <SlidingMenu open={open} handleClose={handleClose} />
     </Box>

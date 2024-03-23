@@ -10,7 +10,7 @@ import {
   FavoriteBorderOutlined,
 } from "@mui/icons-material";
 
-function UserInfoDropdown() {
+function UserInfoDropdown({ openLogin }) {
   const { user, setUser, signOut } = useUserStore();
 
   return (
@@ -44,12 +44,7 @@ function UserInfoDropdown() {
                 color: "white.main",
                 textTransform: "capitalize",
               }}
-              onClick={() =>
-                setUser({
-                  name: "Emily",
-                  img: "/assets/images/emily.png",
-                })
-              }
+              onClick={() => openLogin()}
             >
               Sign Up
             </Button>

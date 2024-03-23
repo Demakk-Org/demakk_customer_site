@@ -1,8 +1,8 @@
 import { create } from "zustand";
 
 const useUserStore = create((set) => ({
-  lang: "",
-  address: "",
+  lang: "en",
+  address: "addis-ababa",
   setAddress: (address) => set({ address }),
   user: {},
   setUser: (user) => set({ user }),

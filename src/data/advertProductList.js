@@ -45,7 +45,7 @@ const advertProductList = [
     ],
   },
   {
-    title: "Cunsumer Electronics",
+    title: "Consumer Electronics",
     list: [
       {
         image: "/assets/images/product1.webp",

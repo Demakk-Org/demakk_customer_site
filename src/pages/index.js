@@ -3,6 +3,7 @@ import { Inter } from "next/font/google";
 import styles from "@/styles/Home.module.css";
 import Navbar from "@/components/Navbar";
 import DiscountSale from "@/components/DiscountSale";
+import PinLocation from "@/components/Home/PinLocation";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -24,6 +25,7 @@ export default function Home() {
       </Head>
       <main className={`${styles.main} ${inter.className}`}>
         <Navbar />
+        <PinLocation />
         <DiscountSale />
       </main>
     </>

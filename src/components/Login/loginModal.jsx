@@ -36,6 +36,7 @@ const style = {
   bgcolor: "background.paper",
   borderRadius: "1rem",
   p: "0 4rem 4rem 4rem",
+  zIndex: 10000,
 };
 
 const font = Montserrat({ subsets: ["cyrillic"] });

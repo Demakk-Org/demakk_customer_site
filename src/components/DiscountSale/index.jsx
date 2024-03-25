@@ -1,28 +1,28 @@
-import { ArrowForward, Whatshot } from "@mui/icons-material";
-import {
-  Avatar,
-  Box,
-  Button,
-  Grid,
-  IconButton,
-  Paper,
-  Typography,
-} from "@mui/material";
-import { RiCoupon2Fill } from "react-icons/ri";
-import Carousel from "react-material-ui-carousel";
-import { FcLeftDown2 } from "react-icons/fc";
+import { ArrowForward } from "@mui/icons-material";
+import { Avatar, Box, Grid, IconButton, Typography } from "@mui/material";
+import LargeDeviceAdvertProduct from "./components/largeDeviceAdvertProduct";
+import Carousel from "react-multi-carousel";
+import "react-multi-carousel/lib/styles.css";
+import carouselBreakPoints from "@/data/carouselBreakPoints";
+import advertProductList from "@/data/advertProductList";
 
 function DiscountSale() {
   return (
     <Box
       display={"flex"}
-      p={"3rem 12rem"}
+      p={{ md: "3rem 6rem", xl: "3rem 12rem" }}
       sx={{ backgroundImage: "url(/assets/images/background.webp)" }}
       width={1}
     >
       <Grid container spacing={2}>
         <Grid item md={6}>
-          <Box display={"flex"} flexDirection={"column"} gap={6}>
+          <Box
+            display={"flex"}
+            flexDirection={"column"}
+            gap={2}
+            justifyContent={"space-between"}
+            height={1}
+          >
             <Typography fontSize={"1.5rem"} color={"white.main"}>
               Sale ends: Mar 28, 09:59 (GMT+3)
             </Typography>
@@ -116,284 +116,33 @@ function DiscountSale() {
             />
             <Box mt={20} className="advert-carousel-preview" flex={1}>
               <Carousel
-                className="SecondExample"
-                animation="slide"
-                indicators={false}
-                height={"auto"}
-                sx={{ height: "100%" }}
-                duration={600}
-                interval={4000}
+                swipeable={false}
+                draggable={true}
+                showDots={false}
+                responsive={carouselBreakPoints}
+                ssr={true}
+                infinite={true}
+                autoPlay={true}
+                autoPlaySpeed={3000}
+                customTransition="all 0.5s"
+                transitionDuration={500}
+                containerClass="carousel-container"
+                removeArrowOnDeviceType={["tablet", "mobile"]}
+                dotListClass="custom-dot-list-style"
+                itemClass="carousel-item-padding-40-px"
+                // customRightArrow={<RightArrow />}
               >
-                {Array(3)
-                  .fill(1)
-                  .map((item, index) => {
-                    return (
-                      <Box key={index} height={1} width={1} elevation={10}>
-                        <Grid container spacing={2} height={1}>
-                          <Grid item md={6} height={1}>
-                            <Box
-                              display={"flex"}
-                              flexDirection={"column"}
-                              p={"1rem 0.75rem"}
-                              height={1}
-                              gap={2}
-                              borderRadius={"1rem"}
-                              bgcolor={"Background"}
-                            >
-                              <Box
-                                display={"flex"}
-                                alignItems={"center"}
-                                gap={2}
-                                color={"primary.main"}
-                              >
-                                <RiCoupon2Fill fontSize={"1.4rem"} />
-                                <Typography
-                                  fontSize={"1.4rem"}
-                                  fontWeight={"bold"}
-                                >
-                                  Big Saves
-                                </Typography>
-                              </Box>
-                              <Box
-                                display={"flex"}
-                                flexDirection={"column"}
-                                flex={1}
-                              >
-                                <Grid container>
-                                  <Grid item md={4}>
-                                    <Box
-                                      width={1}
-                                      component={"img"}
-                                      src="/assets/images/product2.webp"
-                                      sx={{ objectFit: "cover" }}
-                                    />
-                                  </Grid>
-                                  <Grid item md={8}>
-                                    <Box
-                                      display={"flex"}
-                                      alignItems={"center"}
-                                      justifyContent={"center"}
-                                      flexDirection="column"
-                                      height={1}
-                                    >
-                                      <Box
-                                        display={"flex"}
-                                        alignItems={"center"}
-                                        // justifyContent={"center"}
-                                      >
-                                        <Box fontSize={"1.2rem"}>
-                                          <FcLeftDown2
-                                            fontSize={"inherit"}
-                                            color="red"
-                                          />
-                                        </Box>
-                                        <Typography
-                                          fontSize={"1.2rem"}
-                                          color={"primary"}
-                                          fontWeight={"bold"}
-                                        >
-                                          -79%
-                                        </Typography>
-                                      </Box>
-                                      <Typography
-                                        fontSize={"1.2rem"}
-                                        color={"primary"}
-                                        fontWeight={"bold"}
-                                      >
-                                        US $16.78
-                                      </Typography>
-                                    </Box>
-                                  </Grid>
-                                </Grid>
-                              </Box>
-                              <Box
-                                display={"flex"}
-                                flexDirection={"column"}
-                                flex={1}
-                              >
-                                <Grid container>
-                                  <Grid item md={4}>
-                                    <Box
-                                      width={1}
-                                      component={"img"}
-                                      src="/assets/images/product5.webp"
-                                      sx={{ objectFit: "cover" }}
-                                    />
-                                  </Grid>
-                                  <Grid item md={8}>
-                                    <Box
-                                      display={"flex"}
-                                      alignItems={"center"}
-                                      justifyContent={"center"}
-                                      flexDirection="column"
-                                      height={1}
-                                    >
-                                      <Box
-                                        display={"flex"}
-                                        alignItems={"center"}
-                                        // justifyContent={"center"}
-                                      >
-                                        <Box fontSize={"1.2rem"}>
-                                          <FcLeftDown2
-                                            fontSize={"inherit"}
-                                            color="red"
-                                          />
-                                        </Box>
-                                        <Typography
-                                          fontSize={"1.2rem"}
-                                          color={"primary"}
-                                          fontWeight={"bold"}
-                                        >
-                                          -79%
-                                        </Typography>
-                                      </Box>
-                                      <Typography
-                                        fontSize={"1.2rem"}
-                                        color={"primary"}
-                                        fontWeight={"bold"}
-                                      >
-                                        US $16.78
-                                      </Typography>
-                                    </Box>
-                                  </Grid>
-                                </Grid>
-                              </Box>
-                            </Box>
-                          </Grid>
-                          <Grid item md={6} height={1}>
-                            <Box
-                              display={"flex"}
-                              flexDirection={"column"}
-                              p={"1rem 0.75rem"}
-                              height={1}
-                              gap={2}
-                              borderRadius={"1rem"}
-                              bgcolor={"Background"}
-                            >
-                              <Box
-                                display={"flex"}
-                                alignItems={"center"}
-                                gap={2}
-                                color={"primary.main"}
-                              >
-                                <Whatshot sx={{ fontSize: "1.4rem" }} />
-                                <Typography
-                                  fontSize={"1.4rem"}
-                                  fontWeight={"bold"}
-                                >
-                                  Choice
-                                </Typography>
-                              </Box>
-                              <Box
-                                display={"flex"}
-                                flexDirection={"column"}
-                                flex={1}
-                              >
-                                <Grid container>
-                                  <Grid item md={4}>
-                                    <Box
-                                      width={1}
-                                      component={"img"}
-                                      src="/assets/images/product1.webp"
-                                      sx={{ objectFit: "cover" }}
-                                    />
-                                  </Grid>
-                                  <Grid item md={8}>
-                                    <Box
-                                      display={"flex"}
-                                      alignItems={"center"}
-                                      justifyContent={"center"}
-                                      flexDirection="column"
-                                      height={1}
-                                    >
-                                      <Box
-                                        display={"flex"}
-                                        alignItems={"center"}
-                                        // justifyContent={"center"}
-                                      >
-                                        <Box fontSize={"1.2rem"}>
-                                          <FcLeftDown2
-                                            fontSize={"inherit"}
-                                            color="red"
-                                          />
-                                        </Box>
-                                        <Typography
-                                          fontSize={"1.2rem"}
-                                          color={"primary"}
-                                          fontWeight={"bold"}
-                                        >
-                                          -79%
-                                        </Typography>
-                                      </Box>
-                                      <Typography
-                                        fontSize={"1.2rem"}
-                                        color={"primary"}
-                                        fontWeight={"bold"}
-                                      >
-                                        US $16.78
-                                      </Typography>
-                                    </Box>
-                                  </Grid>
-                                </Grid>
-                              </Box>
-                              <Box
-                                display={"flex"}
-                                flexDirection={"column"}
-                                flex={1}
-                              >
-                                <Grid container>
-                                  <Grid item md={4}>
-                                    <Box
-                                      width={1}
-                                      component={"img"}
-                                      src="/assets/images/product3.webp"
-                                      sx={{ objectFit: "cover" }}
-                                    />
-                                  </Grid>
-                                  <Grid item md={8}>
-                                    <Box
-                                      display={"flex"}
-                                      alignItems={"center"}
-                                      justifyContent={"center"}
-                                      flexDirection="column"
-                                      height={1}
-                                    >
-                                      <Box
-                                        display={"flex"}
-                                        alignItems={"center"}
-                                        // justifyContent={"center"}
-                                      >
-                                        <Box fontSize={"1.2rem"}>
-                                          <FcLeftDown2
-                                            fontSize={"inherit"}
-                                            color="red"
-                                          />
-                                        </Box>
-                                        <Typography
-                                          fontSize={"1.2rem"}
-                                          color={"primary"}
-                                          fontWeight={"bold"}
-                                        >
-                                          -54%
-                                        </Typography>
-                                      </Box>
-                                      <Typography
-                                        fontSize={"1.2rem"}
-                                        color={"primary"}
-                                        fontWeight={"bold"}
-                                      >
-                                        US $42.78
-                                      </Typography>
-                                    </Box>
-                                  </Grid>
-                                </Grid>
-                              </Box>
-                            </Box>
-                          </Grid>
-                        </Grid>
-                      </Box>
-                    );
-                  })}
+                {advertProductList.map((item, index) => {
+                  return (
+                    <Box key={index} m={"0 0.5rem"}>
+                      <LargeDeviceAdvertProduct
+                        title={item.title}
+                        first={item.list[0]}
+                        second={item.list[1]}
+                      />
+                    </Box>
+                  );
+                })}
               </Carousel>
             </Box>
           </Box>

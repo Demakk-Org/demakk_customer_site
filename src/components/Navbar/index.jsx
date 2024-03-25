@@ -87,6 +87,7 @@ function Navbar() {
       top={0}
       left={0}
       width={1}
+      zIndex={1000}
     >
       <Grid container alignItems={"center"} width={"100%"}>
         <Grid item sx={{ display: { md: "none" } }}>
@@ -504,6 +505,7 @@ function Navbar() {
               top={"100%"}
               left={0}
               pt={"0.5rem"}
+              zIndex={1000}
             >
               <Box
                 display={"flex"}

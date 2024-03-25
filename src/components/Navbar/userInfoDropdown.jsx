@@ -27,6 +27,7 @@ function UserInfoDropdown({ openLogin }) {
         flexDirection={"column"}
         gap={"0.25rem"}
         overflow={"auto"}
+        zIndex={2000}
         sx={{
           display: { xs: "none", md: "flex" },
           zIndex: 1000,

@@ -28,6 +28,8 @@ import UserInfoDropdown from "./userInfoDropdown";
 import LanguageDropdown from "./languageDropdown";
 import data from "@/data/library";
 import LoginModal from "../Login/loginModal";
+import { PiShoppingCartLight } from "react-icons/pi";
+import { SlUser } from "react-icons/sl";
 
 function Navbar() {
   const { user, lang, address } = useUserStore();
@@ -66,7 +68,7 @@ function Navbar() {
   return (
     <Box
       sx={{
-        position: "fixed",
+        position: "sticky",
         p: {
           xs: "0.5rem 0.75rem 0.5rem 1rem",
           sm: "0.75rem 2rem 0.75rem 2.5rem",
@@ -244,31 +246,29 @@ function Navbar() {
               <Box
                 display={"flex"}
                 alignItems={"center"}
+                gap={"0.5rem"}
                 sx={{
                   color: {
                     xs: "dark.main",
                     md: "white.main",
+                    cursor: "pointer",
                   },
                 }}
               >
                 <Box
-                  size="medium"
                   sx={{
                     color: {
                       xs: "dark.main",
                       md: "white.main",
                     },
+                    fontSize: {
+                      xs: 20,
+                      sm: 27.5,
+                      md: 32.5,
+                    },
                   }}
                 >
-                  <PersonOutlineOutlined
-                    sx={{
-                      fontSize: {
-                        xs: 25,
-                        sm: 37.5,
-                        md: 40,
-                      },
-                    }}
-                  />
+                  <SlUser style={{ fontSize: "inherit" }} />
                 </Box>
                 <Box
                   display={"flex"}
@@ -308,7 +308,6 @@ function Navbar() {
             <Grid item className="cart--container">
               <Box
                 display={"flex"}
-                gap={"0.25rem"}
                 alignItems={"center"}
                 sx={{
                   color: {
@@ -326,9 +325,9 @@ function Navbar() {
                     },
                   }}
                 >
-                  <ShoppingCart
-                    sx={{ fontSize: { xs: 25, sm: 37.5, md: 40 } }}
-                  />
+                  <Box sx={{ fontSize: { xs: 20, sm: 32.5, md: 37.5 } }}>
+                    <PiShoppingCartLight style={{ fontSize: "inherit" }} />
+                  </Box>
                 </IconButton>
                 <Box
                   display={"flex"}

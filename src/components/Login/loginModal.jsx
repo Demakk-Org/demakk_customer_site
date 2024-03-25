@@ -1,5 +1,5 @@
 import useUserStore from "@/store/user";
-import { emailValidator } from "@/utils/emailValidator";
+import { textValidator } from "@/utils/emailValidator";
 import {
   Apple,
   Cancel,
@@ -16,21 +16,21 @@ import {
   Box,
   Button,
   Divider,
+  Grow,
   IconButton,
   InputAdornment,
   Modal,
   OutlinedInput,
-  TextField,
   Typography,
 } from "@mui/material";
 import { Montserrat } from "next/font/google";
 import { useState } from "react";
 
 const style = {
-  position: "absolute",
-  top: "50%",
-  left: "50%",
-  transform: "translate(-50%, -50%)",
+  // position: "absolute",
+  // top: "50%",
+  // left: "50%",
+  // transform: "translate(-50%, -50%)",
   minWidth: 375,
   maxWidth: 500,
   bgcolor: "background.paper",
@@ -49,7 +49,7 @@ function LoginModal({ open, handleClose }) {
   const [userExists, setUserExists] = useState(false);
 
   const handleEmailChange = (value) => {
-    const buttonState = emailValidator(value);
+    const buttonState = textValidator(value, "email");
 
     if (buttonState !== continueButton) setContinueButton((prev) => !prev);
     if (!buttonState && continueStage) {
@@ -89,224 +89,235 @@ function LoginModal({ open, handleClose }) {
       aria-labelledby="modal-modal-title"
       aria-describedby="modal-modal-description"
     >
-      <Box sx={style}>
-        <Typography
-          className={font.className}
-          textAlign={"center"}
-          fontSize={"1.25rem"}
-          fontWeight={"600"}
-          pt={"1rem"}
-          pb={"2rem"}
-        >
-          Register/Sign in
-        </Typography>
-        <Box
-          overflow={"auto"}
-          maxHeight="60vh"
-          sx={{
-            "&::-webkit-scrollbar": {
-              display: "none",
-            },
-          }}
-        >
-          <Box
-            position={"relative"}
-            display={"flex"}
-            alignItems={"baseline"}
-            gap={"0.25rem"}
+      <Grow
+        style={{
+          position: "absolute",
+          top: "50%",
+          left: "50%",
+          transform: "translate(-50%, -50%)",
+        }}
+        in={open}
+        timeout={500}
+      >
+        <Box sx={style}>
+          <Typography
+            className={font.className}
+            textAlign={"center"}
+            fontSize={"1.25rem"}
+            fontWeight={"600"}
+            pt={"1rem"}
+            pb={"2rem"}
           >
-            <Typography fontSize={"0.8rem"}>Location: </Typography>
+            Register/Sign in
+          </Typography>
+          <Box
+            overflow={"auto"}
+            maxHeight="60vh"
+            sx={{
+              "&::-webkit-scrollbar": {
+                display: "none",
+              },
+            }}
+          >
             <Box
+              position={"relative"}
               display={"flex"}
-              alignItems={"center"}
-              sx={{ cursor: "pointer" }}
+              alignItems={"baseline"}
+              gap={"0.25rem"}
             >
-              <Typography fontSize={"0.9rem"} fontWeight={"bold"}>
-                Ethiopia
-              </Typography>
-              <ExpandMore fontSize="medium" color="dark" />
+              <Typography fontSize={"0.8rem"}>Location: </Typography>
+              <Box
+                display={"flex"}
+                alignItems={"center"}
+                sx={{ cursor: "pointer" }}
+              >
+                <Typography fontSize={"0.9rem"} fontWeight={"bold"}>
+                  Ethiopia
+                </Typography>
+                <ExpandMore fontSize="medium" color="dark" />
+              </Box>
             </Box>
-          </Box>
-          <OutlinedInput
-            id="login--email"
-            onChange={({ target }) => handleEmailChange(target.value)}
-            size="small"
-            fullWidth
-            sx={{ m: "0.5rem 0" }}
-            placeholder="Email"
-            endAdornment={
-              <InputAdornment position="end">
-                <IconButton
-                  aria-label="toggle password visibility"
-                  edge="end"
-                  onClick={() => handleClearEmailInput()}
-                >
-                  <Cancel fontSize="small" />
-                </IconButton>
-              </InputAdornment>
-            }
-          />
-          {continueStage && (
             <OutlinedInput
-              id="login--password"
+              id="login--email"
+              onChange={({ target }) => handleEmailChange(target.value)}
               size="small"
               fullWidth
-              type={showPass ? "text" : "password"}
-              placeholder="Password"
+              sx={{ m: "0.5rem 0" }}
+              placeholder="Email"
               endAdornment={
                 <InputAdornment position="end">
                   <IconButton
                     aria-label="toggle password visibility"
                     edge="end"
-                    onClick={() => setShowPass((p) => !p)}
+                    onClick={() => handleClearEmailInput()}
                   >
-                    {showPass ? <VisibilityOff /> : <Visibility />}
+                    <Cancel fontSize="small" />
                   </IconButton>
                 </InputAdornment>
               }
             />
-          )}
-          {continueStage && !userExists && (
+            {continueStage && (
+              <OutlinedInput
+                id="login--password"
+                size="small"
+                fullWidth
+                type={showPass ? "text" : "password"}
+                placeholder="Password"
+                endAdornment={
+                  <InputAdornment position="end">
+                    <IconButton
+                      aria-label="toggle password visibility"
+                      edge="end"
+                      onClick={() => setShowPass((p) => !p)}
+                    >
+                      {showPass ? <VisibilityOff /> : <Visibility />}
+                    </IconButton>
+                  </InputAdornment>
+                }
+              />
+            )}
+            {continueStage && !userExists && (
+              <Box
+                display={"flex"}
+                flexDirection={"column"}
+                p={"0.5rem 1rem"}
+                color={"gray"}
+              >
+                <Box display={"flex"} gap={"0.5rem"} alignItems={"center"}>
+                  <Circle sx={{ fontSize: "6px" }} />
+                  <Typography fontSize={"0.7rem"}>6-20 Characters</Typography>
+                </Box>
+                <Box display={"flex"} gap={"0.5rem"} alignItems={"center"}>
+                  <Circle sx={{ fontSize: "6px" }} />
+                  <Typography fontSize={"0.7rem"}>
+                    Contains numbers, letters or symbols
+                  </Typography>
+                </Box>
+              </Box>
+            )}
+            <Button
+              fullWidth
+              size="large"
+              variant={"contained"}
+              disabled={!continueButton}
+              sx={{
+                textTransform: "capitalize",
+                borderRadius: "2rem",
+                m: "0.5rem 0",
+                bgcolor: "primary.light",
+              }}
+              onClick={() => handleContinueButton()}
+            >
+              {!continueStage ? "Continue" : userExists ? "Log in" : "Register"}
+            </Button>
             <Box
-              display={"flex"}
-              flexDirection={"column"}
-              p={"0.5rem 1rem"}
-              color={"gray"}
-            >
-              <Box display={"flex"} gap={"0.5rem"} alignItems={"center"}>
-                <Circle sx={{ fontSize: "6px" }} />
-                <Typography fontSize={"0.7rem"}>6-20 Characters</Typography>
-              </Box>
-              <Box display={"flex"} gap={"0.5rem"} alignItems={"center"}>
-                <Circle sx={{ fontSize: "6px" }} />
-                <Typography fontSize={"0.7rem"}>
-                  Contains numbers, letters or symbols
-                </Typography>
-              </Box>
-            </Box>
-          )}
-          <Button
-            fullWidth
-            size="large"
-            variant={"contained"}
-            disabled={!continueButton}
-            sx={{
-              textTransform: "capitalize",
-              borderRadius: "2rem",
-              m: "0.5rem 0",
-              bgcolor: "primary.light",
-            }}
-            onClick={() => handleContinueButton()}
-          >
-            {!continueStage ? "Continue" : userExists ? "Log in" : "Register"}
-          </Button>
-          <Box
-            component={"a"}
-            href="#"
-            className={font.className}
-            fontSize={"0.75rem"}
-            sx={{ color: "gray" }}
-          >
-            Trouble Signing in?
-          </Box>
-          <Divider>
-            <Typography
-              p={"1rem 1rem"}
+              component={"a"}
+              href="#"
               className={font.className}
-              fontSize={"0.85rem"}
+              fontSize={"0.75rem"}
+              sx={{ color: "gray" }}
             >
-              Or continue with
+              Trouble Signing in?
+            </Box>
+            <Divider>
+              <Typography
+                p={"1rem 1rem"}
+                className={font.className}
+                fontSize={"0.85rem"}
+              >
+                Or continue with
+              </Typography>
+            </Divider>
+            <Button
+              fullWidth
+              color="success"
+              startIcon={<Facebook />}
+              endIcon={<Box width={20} />}
+              size="large"
+              variant={"outlined"}
+              sx={{
+                textTransform: "capitalize",
+                borderRadius: "2rem",
+                m: "0.5rem 0",
+              }}
+            >
+              <Typography flex={1} textTransform={"lowercase"}>
+                facebook
+              </Typography>
+            </Button>
+            <Button
+              color="success"
+              fullWidth
+              startIcon={<Google />}
+              endIcon={<Box width={20} />}
+              size="large"
+              variant={"outlined"}
+              sx={{
+                textTransform: "capitalize",
+                borderRadius: "2rem",
+                m: "0.5rem 0",
+              }}
+              onClick={() => {
+                setUser({
+                  name: "Emily",
+                  img: "/assets/images/emily.png",
+                });
+                handleClose();
+              }}
+            >
+              <Typography flex={1} textTransform={"lowercase"}>
+                google
+              </Typography>
+            </Button>
+            <Button
+              color="success"
+              fullWidth
+              startIcon={<Twitter />}
+              endIcon={<Box width={20} />}
+              size="large"
+              variant={"outlined"}
+              sx={{
+                textTransform: "capitalize",
+                borderRadius: "2rem",
+                m: "0.5rem 0",
+              }}
+            >
+              <Typography flex={1} textTransform={"lowercase"}>
+                tweeter
+              </Typography>
+            </Button>
+            <Button
+              color="success"
+              fullWidth
+              startIcon={<Apple />}
+              endIcon={<Box width={20} />}
+              size="large"
+              variant={"outlined"}
+              sx={{
+                textTransform: "capitalize",
+                borderRadius: "2rem",
+                m: "0.5rem 0",
+              }}
+            >
+              <Typography flex={1} textTransform={"lowercase"}>
+                apple
+              </Typography>
+            </Button>
+            <Typography fontSize={"0.7rem"} mt={"0.5rem"}>
+              By continuing, you confirm that you are an adult. By creating an
+              account, you agree to the AliExpress.com Free Membership Agreement
+              and Privacy Policy.
             </Typography>
-          </Divider>
-          <Button
-            fullWidth
-            color="success"
-            startIcon={<Facebook />}
-            endIcon={<Box width={20} />}
-            size="large"
-            variant={"outlined"}
-            sx={{
-              textTransform: "capitalize",
-              borderRadius: "2rem",
-              m: "0.5rem 0",
-            }}
+          </Box>
+          <IconButton
+            onClick={() => handleClose()}
+            size="small"
+            sx={{ position: "absolute", top: "1rem", right: "1rem" }}
           >
-            <Typography flex={1} textTransform={"lowercase"}>
-              facebook
-            </Typography>
-          </Button>
-          <Button
-            color="success"
-            fullWidth
-            startIcon={<Google />}
-            endIcon={<Box width={20} />}
-            size="large"
-            variant={"outlined"}
-            sx={{
-              textTransform: "capitalize",
-              borderRadius: "2rem",
-              m: "0.5rem 0",
-            }}
-            onClick={() => {
-              setUser({
-                name: "Emily",
-                img: "/assets/images/emily.png",
-              });
-              handleClose();
-            }}
-          >
-            <Typography flex={1} textTransform={"lowercase"}>
-              google
-            </Typography>
-          </Button>
-          <Button
-            color="success"
-            fullWidth
-            startIcon={<Twitter />}
-            endIcon={<Box width={20} />}
-            size="large"
-            variant={"outlined"}
-            sx={{
-              textTransform: "capitalize",
-              borderRadius: "2rem",
-              m: "0.5rem 0",
-            }}
-          >
-            <Typography flex={1} textTransform={"lowercase"}>
-              tweeter
-            </Typography>
-          </Button>
-          <Button
-            color="success"
-            fullWidth
-            startIcon={<Apple />}
-            endIcon={<Box width={20} />}
-            size="large"
-            variant={"outlined"}
-            sx={{
-              textTransform: "capitalize",
-              borderRadius: "2rem",
-              m: "0.5rem 0",
-            }}
-          >
-            <Typography flex={1} textTransform={"lowercase"}>
-              apple
-            </Typography>
-          </Button>
-          <Typography fontSize={"0.7rem"} mt={"0.5rem"}>
-            By continuing, you confirm that you are an adult. By creating an
-            account, you agree to the AliExpress.com Free Membership Agreement
-            and Privacy Policy.
-          </Typography>
+            <Close />
+          </IconButton>
         </Box>
-        <IconButton
-          onClick={() => handleClose()}
-          size="small"
-          sx={{ position: "absolute", top: "1rem", right: "1rem" }}
-        >
-          <Close />
-        </IconButton>
-      </Box>
+      </Grow>
     </Modal>
   );
 }

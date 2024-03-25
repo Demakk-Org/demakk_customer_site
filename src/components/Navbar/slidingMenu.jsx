@@ -15,6 +15,8 @@ import {
   Typography,
 } from "@mui/material";
 import SmallDeviceButton from "./smallDeviceButton";
+import useUserStore from "@/store/user";
+import data from "@/data/library";
 const style = {
   position: "absolute",
   top: "0%",
@@ -27,6 +29,7 @@ const style = {
 };
 
 function SlidingMenu({ open, handleClose }) {
+  const { address } = useUserStore();
   return (
     <Modal
       open={open}
@@ -199,7 +202,7 @@ function SlidingMenu({ open, handleClose }) {
                   sx={{ fontSize: { xs: "1.5rem", sm: "2.5rem" } }}
                 />
               }
-              endImage={"/assets/images/et-flag.png"}
+              endImage={data.flags[address] || "/assets/images/et-flag.png"}
             />
             <SmallDeviceButton
               startImage={

@@ -3,9 +3,7 @@ import {
   ExpandMore,
   Language,
   Menu,
-  PersonOutlineOutlined,
   Search,
-  ShoppingCart,
 } from "@mui/icons-material";
 import {
   Avatar,
@@ -18,14 +16,14 @@ import {
   OutlinedInput,
   Typography,
 } from "@mui/material";
-import AllCategories from "./allCategories";
+import AllCategories from "./components/allCategories";
 import { useState } from "react";
-import SelectBotton from "./selectBotton";
-import NavbarButton from "./navbarButton";
-import SlidingMenu from "./slidingMenu";
+import SelectBotton from "./components/selectBotton";
+import NavbarButton from "./components/navbarButton";
+import SlidingMenu from "./components/slidingMenu";
 import useUserStore from "@/store/user";
-import UserInfoDropdown from "./userInfoDropdown";
-import LanguageDropdown from "./languageDropdown";
+import UserInfoDropdown from "./components/userInfoDropdown";
+import LanguageDropdown from "./components/languageDropdown";
 import data from "@/data/library";
 import LoginModal from "../Login/loginModal";
 import { PiShoppingCartLight } from "react-icons/pi";
@@ -68,12 +66,11 @@ function Navbar() {
   return (
     <Box
       sx={{
-        position: "sticky",
         p: {
-          xs: "0.5rem 0.75rem 0.5rem 1rem",
-          sm: "0.75rem 2rem 0.75rem 2.5rem",
-          md: "0.5rem 2rem 0.5rem 4rem",
-          xl: "0.5rem 4rem 0.5rem 9rem",
+          xs: "0 0.75rem 0.5rem 1rem",
+          sm: "0 2rem 0.75rem 2.5rem",
+          md: "0 2rem 0.5rem 4rem",
+          xl: "0 4rem 0.5rem 9rem",
         },
         bgcolor: {
           xs: "white",
@@ -84,13 +81,22 @@ function Navbar() {
           md: "white",
         },
       }}
-      top={0}
-      left={0}
       width={1}
-      zIndex={1000}
     >
-      <Grid container alignItems={"center"} width={"100%"}>
-        <Grid item sx={{ display: { md: "none" } }}>
+      <Grid
+        zIndex={1000}
+        position={"sticky"}
+        top={0}
+        left={0}
+        container
+        alignItems={"center"}
+        width={"100%"}
+        pt={{ xs: "0.5rem", sm: "0.75rem", md: "0,5rem" }}
+      >
+        <Grid
+          item
+          sx={{ display: { md: "none" }, mr: { xs: "0.5rem", sm: "1rem" } }}
+        >
           <IconButton onClick={handleOpen}>
             <Menu sx={{ fontSize: { xs: 25, sm: 37.5 } }} />
           </IconButton>
@@ -102,8 +108,8 @@ function Navbar() {
             sx={{
               fontSize: {
                 xs: "1.2rem",
-                sm: "1.7rem",
-                md: "2rem",
+                sm: "2rem",
+                md: "2.2rem",
               },
               color: {
                 xs: "primary.main",
@@ -383,6 +389,7 @@ function Navbar() {
           >
             <OutlinedInput
               placeholder="Search for any product..."
+              notched={false}
               sx={{
                 borderRadius: "1.5rem",
                 width: "100%",
@@ -392,6 +399,9 @@ function Navbar() {
                 color: "black",
                 p: {
                   sm: "0.25rem 1.5rem",
+                },
+                "& .MuiOutlinedInput-notchedOutline": {
+                  borderWidth: 0,
                 },
               }}
               color="primary"
@@ -460,7 +470,6 @@ function Navbar() {
             borderRadius={"0 0 1.5rem 1.5rem"}
             left={0}
             bgcolor={"rgba(240, 240, 240, 1)"}
-            // sx={{ overflowY: "hidden" }}
           >
             {allPropOpen && <AllCategories />}
           </Box>

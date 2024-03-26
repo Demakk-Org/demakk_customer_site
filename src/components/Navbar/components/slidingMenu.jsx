@@ -60,8 +60,8 @@ function SlidingMenu({ open, handleClose }) {
               sx={{
                 fontSize: {
                   xs: "1.2rem",
-                  sm: "1.7rem",
-                  md: "2rem",
+                  sm: "2rem",
+                  md: "2.2rem",
                 },
                 color: {
                   xs: "primary.main",

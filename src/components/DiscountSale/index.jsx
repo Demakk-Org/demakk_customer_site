@@ -9,7 +9,6 @@ function DiscountSale() {
       p={{ md: "3rem 6rem", xl: "3rem 12rem" }}
       sx={{ backgroundImage: "url(/assets/images/background.webp)" }}
       width={1}
-      // mt={"1rem"}
     >
       <LargeDeviceAdvertContainer />
       <SmallDeviceAdvertContainer />

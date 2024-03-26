@@ -1,12 +1,11 @@
 import { Box, Typography } from "@mui/material";
-import React from "react";
 
 function SmallDeviceAdvertProduct({ title, first }) {
   return (
     <Box
       width={1}
       height={1}
-      p={"0.125rem"}
+      p={{ xs: "0.125rem", sm: "0.5rem" }}
       borderRadius={"0.5rem"}
       sx={{ bgcolor: "Background", userSelect: "none", cursor: "pointer" }}
       display={"flex"}
@@ -27,12 +26,12 @@ function SmallDeviceAdvertProduct({ title, first }) {
         }}
       >
         <Typography
-          p={"0 0.5rem"}
+          p={{ xs: "0 0.5rem", sm: "0.25rem 1rem" }}
           borderRadius={"1.5rem"}
           color={"white.main"}
           bgcolor={"red"}
-          fontSize={"0.8rem"}
-          mb={"0.25rem"}
+          fontSize={{ xs: "0.8rem", sm: "1.2rem" }}
+          mb={{ xs: "0.25rem", sm: "0.75rem" }}
           fontWeight={"bold"}
         >
           {first.discountValue}%
@@ -43,10 +42,10 @@ function SmallDeviceAdvertProduct({ title, first }) {
         flex={1}
         alignItems={"center"}
         justifyContent={"center"}
-        p={"0.25rem"}
+        p={{ xs: "0.25rem", sm: "0.75rem" }}
       >
         <Typography
-          fontSize={"0.7rem"}
+          fontSize={{ xs: "0.7rem", sm: "1.4rem" }}
           textAlign={"center"}
           fontWeight={"bold"}
         >

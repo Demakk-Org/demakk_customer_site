@@ -19,7 +19,6 @@ function SmallDeviceAdvertContainer() {
   return (
     <Box
       width={1}
-      pt={"1rem"}
       pb={"1rem"}
       display={"flex"}
       sx={{ display: { md: "none" } }}
@@ -29,7 +28,7 @@ function SmallDeviceAdvertContainer() {
         display={"flex"}
         flexDirection={"column"}
         justifyContent={"center"}
-        p={"0.5rem 1rem 2rem 1rem"}
+        p={{ xs: "0.5rem 1rem 1rem 1rem", sm: "1rem 2rem 2rem 2rem" }}
         sx={{
           backgroundSize: "cover",
           backgroundImage: "url(/assets/images/advert-image.webp)",
@@ -40,8 +39,9 @@ function SmallDeviceAdvertContainer() {
         <Box
           display={"flex"}
           alignItems={"center"}
-          fontSize={"1.2rem"}
+          fontSize={{ xs: "1.2rem", sm: "2rem" }}
           color={"secondaryLight.main"}
+          sx={{ cursor: "pointer" }}
         >
           <Typography
             color={"inherit"}
@@ -50,12 +50,12 @@ function SmallDeviceAdvertContainer() {
           >
             Anniversary Sale
           </Typography>
-          <ArrowForward />
+          <ArrowForward fontSize="inherit" />
         </Box>
         <Typography
           id="count-down"
           color={"white.main"}
-          fontSize={"0.9rem"}
+          fontSize={{ xs: "0.9rem", sm: "1.4rem" }}
           className={font.className}
         >
           Sale ends: 2d 12 : 30 : 06
@@ -77,9 +77,13 @@ function SmallDeviceAdvertContainer() {
           dotListClass="custom-dot-list-style"
           itemClass="carousel-item-padding-40-px"
         >
-          {[...advertProductList, ...advertProductList].map((item, index) => {
+          {[
+            ...advertProductList,
+            ...advertProductList,
+            ...advertProductList,
+          ].map((item, index) => {
             return (
-              <Box key={index} m={"0 0.25rem"} height={1}>
+              <Box key={index} m={{ xs: "0 0.25rem", sm: "0 1rem" }} height={1}>
                 <SmallDeviceAdvertProduct
                   title={item.title}
                   first={item.list[0]}

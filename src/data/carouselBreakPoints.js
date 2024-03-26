@@ -1,6 +1,5 @@
 const carouselBreakPoints = {
   superLargeDesktop: {
-    // the naming can be any, depends on you.
     breakpoint: { max: 4000, min: 3000 },
     items: 3,
     slidesToSlide: 2,
@@ -11,8 +10,8 @@ const carouselBreakPoints = {
     slidesToSlide: 1,
   },
   tablet: {
-    breakpoint: { max: 1280, min: 600 },
-    items: 2,
+    breakpoint: { max: 1200, min: 600 },
+    items: 3.25,
     slidesToSlide: 1,
   },
   mobile: {

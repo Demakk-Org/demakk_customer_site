@@ -4,6 +4,8 @@ import styles from "@/styles/Home.module.css";
 import Navbar from "@/components/Navbar";
 import DiscountSale from "@/components/DiscountSale";
 import PinLocation from "@/components/Home/PinLocation";
+import Recommendation from "@/components/Recommendation";
+import Footer from "@/components/Footer";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -18,15 +20,13 @@ export default function Home() {
         />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
-        <link
-          rel="stylesheet"
-          href="https://fonts.googleapis.com/icon?family=Material+Icons"
-        />
       </Head>
       <main className={`${styles.main} ${inter.className}`}>
-        <Navbar />
-        <PinLocation />
-        <DiscountSale />
+        {/* <Navbar /> */}
+        {/* <PinLocation /> */}
+        {/* <Recommendation /> */}
+        {/* <DiscountSale /> */}
+        <Footer />
       </main>
     </>
   );

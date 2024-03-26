@@ -18,7 +18,7 @@ import {
 } from "@mui/material";
 import AllCategories from "./components/allCategories";
 import { useState } from "react";
-import SelectBotton from "./components/selectBotton";
+import SelectBotton from "./components/selectButton";
 import NavbarButton from "./components/navbarButton";
 import SlidingMenu from "./components/slidingMenu";
 import useUserStore from "@/store/user";
@@ -92,6 +92,12 @@ function Navbar() {
         alignItems={"center"}
         width={"100%"}
         pt={{ xs: "0.5rem", sm: "0.75rem", md: "0,5rem" }}
+        sx={{
+          bgcolor: {
+            xs: "white",
+            md: "dark.main",
+          },
+        }}
       >
         <Grid
           item

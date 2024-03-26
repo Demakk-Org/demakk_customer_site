@@ -21,9 +21,6 @@ const theme = createTheme({
     white: {
       main: "#fff",
     },
-    // transparent: {
-    //   main: "rgba(0,0,0,0)",
-    // },
   },
   components: {
     MuiOutlinedInput: {

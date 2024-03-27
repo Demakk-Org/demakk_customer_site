@@ -8,7 +8,7 @@ function FooterLinksTitle({ name }) {
       fontWeight={"bolder"}
       className={font.className}
       mb={"0.5rem"}
-      fontSize={"1rem"}
+      fontSize={{ xs: "0.8rem", sm: "1rem" }}
     >
       {name || "Customer Services"}
     </Typography>

@@ -28,6 +28,7 @@ import data from "@/data/library";
 import LoginModal from "../Login/loginModal";
 import { PiShoppingCartLight } from "react-icons/pi";
 import { SlUser } from "react-icons/sl";
+import { CiSearch } from "react-icons/ci";
 
 function Navbar() {
   const { user, lang, address } = useUserStore();
@@ -64,24 +65,25 @@ function Navbar() {
   };
 
   return (
-    <Box
-      sx={{
-        p: {
-          xs: "0 0.75rem 0.5rem 1rem",
-          sm: "0 2rem 0.75rem 2.5rem",
-          md: "0 2rem 0.5rem 4rem",
-          xl: "0 4rem 0.5rem 9rem",
-        },
-        bgcolor: {
-          xs: "white",
-          md: "dark.main",
-        },
-        color: {
-          xs: "black",
-          md: "white",
-        },
-      }}
-      width={1}
+    <
+      // Box
+      // sx={{
+      //   p: {
+      //     xs: "0 0.75rem 0.5rem 1rem",
+      //     sm: "0 2rem 0.75rem 2.5rem",
+      //     md: "0 2rem 0.5rem 4rem",
+      //     xl: "0 4rem 0.5rem 9rem",
+      //   },
+      //   bgcolor: {
+      //     xs: "white",
+      //     md: "dark.main",
+      //   },
+      //   color: {
+      //     xs: "black",
+      //     md: "white",
+      //   },
+      // }}
+      // width={1}
     >
       <Grid
         zIndex={1000}
@@ -91,7 +93,7 @@ function Navbar() {
         container
         alignItems={"center"}
         width={"100%"}
-        pt={{ xs: "0.5rem", sm: "0.75rem", md: "0,5rem" }}
+        p={{ xs: "0.5rem 1rem", sm: "0.75rem 2rem", md: "0.5rem 6rem" }}
         sx={{
           bgcolor: {
             xs: "white",
@@ -183,7 +185,8 @@ function Navbar() {
                       },
                     }}
                   >
-                    <Search color="white" />
+                    <CiSearch color="white" fontSize={"1.5rem"} />
+                    {/* <Search color="white" /> */}
                   </IconButton>
                 </InputAdornment>
               }
@@ -428,12 +431,17 @@ function Navbar() {
       </Grid>
 
       <Box
-        mt={"1rem"}
+        // mt={"1rem"}
         width={1}
+        p={"1rem 0"}
         sx={{
           display: {
             xs: "none",
             md: "flex",
+          },
+          bgcolor: {
+            xs: "white",
+            md: "dark.main",
           },
           justifyContent: "center",
         }}
@@ -559,7 +567,7 @@ function Navbar() {
       )}
 
       <SlidingMenu open={open} handleClose={handleClose} />
-    </Box>
+    </>
   );
 }
 

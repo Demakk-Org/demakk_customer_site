@@ -18,9 +18,10 @@ function Footer() {
       <Box
         display={"flex"}
         gap={{ xs: 2, sm: 4, md: 6 }}
-        p={{ sm: "1rem 0", sm: "1.5rem 0", lg: "3rem 0" }}
+        p={{ xs: "1rem 0", sm: "1.5rem 0", lg: "3rem 0" }}
         margin={"auto"}
-        width={{ xs: "90%", md: 580, lg: 1100, xl: 1200 }}
+        width={{ xs: "90%", md: 800, lg: 1100, xl: 1200 }}
+        flexDirection={{ xs: "column", sm: "row" }}
       >
         <Box flex={1} display={"flex"} gap={"1rem"} alignItems={"baseline"}>
           <Box flex={1} display={"flex"} flexDirection={"column"}>
@@ -95,7 +96,12 @@ function Footer() {
             </Box>
           </Box>
         </Box>
-        <Box display={"flex"} flex={1} gap={{ sm: "1rem", md: "2rem" }}>
+        <Box
+          display={"flex"}
+          flex={1}
+          gap={{ sm: "1rem", md: "2rem" }}
+          flexDirection={{ xs: "column", sm: "row" }}
+        >
           <Box
             flex={3}
             display={"flex"}
@@ -119,27 +125,27 @@ function Footer() {
           <Box flex={2} display={"flex"} flexDirection={"column"}>
             <FooterLinksTitle name={"Stay connected"} />
             <Grid container columnSpacing={2.5}>
-              <Grid item sm={4} lg={3} xl={2.4}>
+              <Grid item xs={1.5} sm={4} lg={3} xl={2.4}>
                 <Link href="#" color={"dark.main"}>
                   <Facebook sx={{ width: "100%", height: "100%" }} />
                 </Link>
               </Grid>
-              <Grid item sm={4} lg={3} xl={2.4}>
+              <Grid item xs={1.5} sm={4} lg={3} xl={2.4}>
                 <Link href="#" color={"dark.main"}>
                   <Google sx={{ width: "100%", height: "100%" }} />
                 </Link>
               </Grid>
-              <Grid item sm={4} lg={3} xl={2.4}>
+              <Grid item xs={1.5} sm={4} lg={3} xl={2.4}>
                 <Link href="#" color={"dark.main"}>
                   <Twitter sx={{ width: "100%", height: "100%" }} />
                 </Link>
               </Grid>
-              <Grid item sm={4} lg={3} xl={2.4}>
+              <Grid item xs={1.5} sm={4} lg={3} xl={2.4}>
                 <Link href="#" color={"dark.main"}>
                   <Instagram sx={{ width: "100%", height: "100%" }} />
                 </Link>
               </Grid>
-              <Grid item sm={4} lg={3} xl={2.4}>
+              <Grid item xs={1.5} sm={4} lg={3} xl={2.4}>
                 <Link href="#" color={"dark.main"}>
                   <WhatsApp sx={{ width: "100%", height: "100%" }} />
                 </Link>

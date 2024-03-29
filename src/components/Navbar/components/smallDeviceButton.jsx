@@ -4,13 +4,16 @@ function SmallDeviceButton({ title, startImage, endImage }) {
   return (
     <Button
       fullWidth
-      color={"dark"}
       sx={{
         display: "flex",
         alignItems: "center",
         justifyContent: "flex-start",
         gap: { xs: 1, sm: 2, md: 1 },
-        // mb: "0.5rem",
+        color: "dark.main",
+        // bgcolor: "dark.contrastText",
+        "&:hover": {
+          bgcolor: "contrastBg.main",
+        },
       }}
     >
       {startImage && (
@@ -35,7 +38,6 @@ function SmallDeviceButton({ title, startImage, endImage }) {
         </Avatar>
       )}
       <Typography
-        fontWeight={"light"}
         textTransform={"none"}
         sx={{ fontSize: { xs: "0.9rem", sm: "1.4rem", md: "1rem" } }}
       >

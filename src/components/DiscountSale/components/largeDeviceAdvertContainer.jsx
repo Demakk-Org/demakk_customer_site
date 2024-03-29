@@ -112,7 +112,7 @@ function LargeDeviceAdvertContainer() {
               swipeable={false}
               draggable={true}
               showDots={false}
-              responsive={carouselBreakPoints}
+              responsive={carouselBreakPoints.large}
               ssr={true}
               infinite={true}
               autoPlay={true}

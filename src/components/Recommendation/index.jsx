@@ -11,7 +11,7 @@ function Recommendation() {
     <Box
       className="recommendation--section"
       display={{ xs: "none", md: "flex" }}
-      p={{ md: "2rem 4rem 0.5rem 4rem", xl: "2rem 9rem 0.5rem 9rem" }}
+      p={{ md: "2rem 4rem 0.5rem 4rem", xl: "2rem 12rem 0.5rem 12rem" }}
       justifyContent={"space-between"}
       alignItems={"baseline"}
     >

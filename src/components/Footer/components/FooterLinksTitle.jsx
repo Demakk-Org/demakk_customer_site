@@ -10,7 +10,7 @@ function FooterLinksTitle({ name }) {
       mb={"0.5rem"}
       fontSize={{ xs: "0.8rem", sm: "1rem" }}
     >
-      {name || "Customer Services"}
+      {name || "Enter name here!"}
     </Typography>
   );
 }

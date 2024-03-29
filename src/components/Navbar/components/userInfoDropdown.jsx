@@ -12,37 +12,35 @@ import {
 
 function UserInfoDropdown({ openLogin }) {
   const { user, setUser, signOut } = useUserStore();
-
   return (
     <>
       <Box
         position={"absolute"}
-        top={"100%"}
+        top={0}
         right={0}
+        sx={{
+          display: { xs: "none", md: "flex" },
+        }}
+        flexDirection={"column"}
+        gap={"0.25rem"}
         minWidth={300}
-        bgcolor={"Background"}
+        bgcolor={"secondaryBg.main"}
         border={"1px solid lightgray"}
         p={"1.5rem"}
         borderRadius={"1rem"}
-        flexDirection={"column"}
-        gap={"0.25rem"}
         overflow={"auto"}
         zIndex={2000}
-        sx={{
-          display: { xs: "none", md: "flex" },
-          zIndex: 1000,
-        }}
       >
         {!user?.name ? (
           <>
             <Button
               variant="contained"
               size="large"
-              color="dark"
               fullWidth
               sx={{
                 borderRadius: "1.5rem",
-                color: "white.main",
+                color: "primaryBg.contrastText",
+                bgcolor: "primaryBg.main",
                 textTransform: "capitalize",
               }}
               onClick={() => openLogin()}
@@ -135,17 +133,6 @@ function UserInfoDropdown({ openLogin }) {
         <SmallDeviceButton title={"Disputes & Reports"} />
         <SmallDeviceButton title={"Accessility"} />
       </Box>
-      <Box
-        sx={{
-          position: "absolute",
-          width: "12px",
-          height: "12px",
-          transform: "rotate(45deg)",
-          left: "50%",
-          bottom: -6,
-          bgcolor: "Background",
-        }}
-      />
     </>
   );
 }

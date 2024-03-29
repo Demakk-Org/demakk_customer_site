@@ -67,7 +67,7 @@ function SmallDeviceAdvertContainer() {
           swipeable={true}
           draggable={true}
           showDots={false}
-          responsive={carouselBreakPoints}
+          responsive={carouselBreakPoints.small}
           ssr={true}
           infinite={false}
           customTransition="all 0.5s"

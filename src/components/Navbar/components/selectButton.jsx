@@ -8,7 +8,6 @@ function SelectBotton({ icon, name, subList }) {
       width={"inherit"}
       minWidth={1}
       position={"relative"}
-      // borderRadius={"1.5rem"}
       onMouseOver={() => setOpenList(true)}
       onMouseLeave={() => setOpenList(false)}
     >
@@ -23,6 +22,9 @@ function SelectBotton({ icon, name, subList }) {
           p: "0.5rem 1.5rem",
           justifyContent: "flex-start",
           textAlign: "left",
+          "&:hover": {
+            bgcolor: "contrastBg.main",
+          },
         }}
       >
         {name || "name here!"}
@@ -32,12 +34,14 @@ function SelectBotton({ icon, name, subList }) {
           position={"absolute"}
           left={"100%"}
           top={0}
-          bgcolor={"rgba(240,240,240,1)"}
+          bgcolor={"secondaryBg.main"}
           minWidth={250}
-          p={"1rem"}
+          p={"1rem 0"}
           borderRadius={"0 1.5rem 1.5rem 1.5rem"}
         >
-          <Typography fontWeight={"bold"}>{subList?.title}</Typography>
+          <Typography pl={"1rem"} fontWeight={"bold"}>
+            {subList?.title}
+          </Typography>
           {subList.list.map((list) => (
             <Button
               key={list}
@@ -48,7 +52,10 @@ function SelectBotton({ icon, name, subList }) {
                 display: "flex",
                 textAlign: "left",
                 justifyContent: "flex-start",
-                pl: "1rem",
+                p: "0.5rem 1rem",
+                "&:hover": {
+                  bgcolor: "contrastBg.main",
+                },
               }}
             >
               {list}

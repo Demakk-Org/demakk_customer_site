@@ -6,7 +6,10 @@ function NavbarButton({ name }) {
       variant="contained"
       sx={{
         bgcolor: "transparent",
-        "&:hover": { bgcolor: "rgba(255, 255, 255, 0.2)" },
+        "&:hover": {
+          bgcolor: "secondaryBg.main",
+          color: "dark.main",
+        },
         borderRadius: "1.5rem",
         textTransform: "capitalize",
         fontSize: "1rem",

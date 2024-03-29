@@ -5,11 +5,12 @@ function FooterLink({ name, url }) {
     <Link
       href={url || "#"}
       underline="none"
-      sx={{ color: "gray" }}
+      sx={{ color: "dark.main" }}
       fontSize={{ xs: "0.7rem", sm: "0.9rem" }}
       lineHeight={2}
+      // color={"dark"}
     >
-      {name || "Help Center"}
+      {name || "Enter link here!"}
     </Link>
   );
 }

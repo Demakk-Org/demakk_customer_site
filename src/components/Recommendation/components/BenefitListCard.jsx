@@ -8,7 +8,7 @@ function BenefitListCard({ icon, title, desc }) {
       display={"flex"}
       flexDirection={"column"}
       alignItems={"center"}
-      width={{ md: 150, xl: 175 }}
+      width={{ md: 150 }}
     >
       <Box display={"flex"} fontSize={"2rem"} pb={"0.5rem"}>
         {icon || <RiMoneyDollarCircleLine fontSize={"inherit"} />}

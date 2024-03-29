@@ -1,4 +1,5 @@
 import {
+  DarkMode,
   ExpandLess,
   ExpandMore,
   Language,
@@ -8,7 +9,6 @@ import {
 import {
   Avatar,
   Box,
-  Button,
   FormControl,
   Grid,
   IconButton,
@@ -16,26 +16,22 @@ import {
   OutlinedInput,
   Typography,
 } from "@mui/material";
-import AllCategories from "./components/allCategories";
 import { useState } from "react";
-import SelectBotton from "./components/selectButton";
-import NavbarButton from "./components/navbarButton";
-import SlidingMenu from "./components/slidingMenu";
 import useUserStore from "@/store/user";
-import UserInfoDropdown from "./components/userInfoDropdown";
-import LanguageDropdown from "./components/languageDropdown";
+import useThemeProvider from "@/store/theme";
 import data from "@/data/library";
+
+import SlidingMenu from "./components/slidingMenu";
 import LoginModal from "../Login/loginModal";
 import { PiShoppingCartLight } from "react-icons/pi";
 import { SlUser } from "react-icons/sl";
 import { CiSearch } from "react-icons/ci";
+import UserInfoDropdown from "./components/userInfoDropdown";
 
 function Navbar() {
+  const { darkMode, switchTheme } = useThemeProvider();
   const { user, lang, address } = useUserStore();
-  console.log(address);
 
-  const [allPropOpen, setAllPropOpen] = useState(false);
-  const [openMore, setOpenMore] = useState(false);
   const [openLanguage, setOpenLanguage] = useState(false);
   const [openUserInfo, setOpenUserInfo] = useState(false);
   const [openLogin, setOpenLogin] = useState(false);
@@ -45,46 +41,8 @@ function Navbar() {
 
   const handleClose = () => setOpen(false);
 
-  const handleOnMouseOver = () => {
-    let container = document.getElementById("more-product-container");
-    let body = document.querySelector("body");
-    let after = document.getElementById("after-container");
-
-    if (container && body) {
-      let containerLeft = container.getBoundingClientRect().left;
-      let containerWidth = container.getBoundingClientRect().width;
-      let bodyWidth = body.clientWidth;
-
-      if (bodyWidth - (containerWidth + containerLeft) < 0) {
-        container.style.left = "unset";
-        container.style.right = 0;
-        after.style.left = "unset";
-        after.style.right = "20%";
-      }
-    }
-  };
-
   return (
-    <
-      // Box
-      // sx={{
-      //   p: {
-      //     xs: "0 0.75rem 0.5rem 1rem",
-      //     sm: "0 2rem 0.75rem 2.5rem",
-      //     md: "0 2rem 0.5rem 4rem",
-      //     xl: "0 4rem 0.5rem 9rem",
-      //   },
-      //   bgcolor: {
-      //     xs: "white",
-      //     md: "dark.main",
-      //   },
-      //   color: {
-      //     xs: "black",
-      //     md: "white",
-      //   },
-      // }}
-      // width={1}
-    >
+    <>
       <Grid
         zIndex={1000}
         position={"sticky"}
@@ -96,8 +54,8 @@ function Navbar() {
         p={{ xs: "0.5rem 1rem", sm: "0.75rem 2rem", md: "0.5rem 6rem" }}
         sx={{
           bgcolor: {
-            xs: "white",
-            md: "dark.main",
+            xs: "primaryBg.main",
+            // md: "primaryBg.main",
           },
         }}
       >
@@ -105,7 +63,7 @@ function Navbar() {
           item
           sx={{ display: { md: "none" }, mr: { xs: "0.5rem", sm: "1rem" } }}
         >
-          <IconButton onClick={handleOpen}>
+          <IconButton onClick={handleOpen} color="primaryLight">
             <Menu sx={{ fontSize: { xs: 25, sm: 37.5 } }} />
           </IconButton>
         </Grid>
@@ -120,8 +78,8 @@ function Navbar() {
                 md: "2.2rem",
               },
               color: {
-                xs: "primary.main",
-                md: "primaryLight.main",
+                xs: "primaryLight.main",
+                // md: "primary.main",
               },
             }}
           >
@@ -156,10 +114,10 @@ function Navbar() {
                 width: "100%",
                 pl: "1rem",
                 pr: "0.25rem",
-                bgcolor: "white.main",
+                bgcolor: "secondaryBg.main",
                 color: {
-                  xs: "white",
-                  md: "black",
+                  xs: "dark.main",
+                  // md: "primaryBg.main",
                 },
               }}
               endAdornment={
@@ -169,24 +127,24 @@ function Navbar() {
                     size="small"
                     // onClick={handleSearch}
                     edge="end"
-                    color="black"
                     sx={{
                       m: "0",
                       aspectRatio: "initial",
                       borderRadius: "1.5rem",
-                      bgcolor: "dark.main",
+                      bgcolor: "primaryBg.main",
                       color: {
-                        xs: "dark.main",
-                        md: "white.main",
+                        xs: "contrastBg.main",
+                        // md: "secondaryBg.main",
                       },
                       p: "0.25rem 1rem",
                       "&:hover": {
-                        bgcolor: "dark.main",
+                        bgcolor: "primaryBg.main",
                       },
                     }}
                   >
-                    <CiSearch color="white" fontSize={"1.5rem"} />
-                    {/* <Search color="white" /> */}
+                    <Box display={"flex"} color={"primaryBg"}>
+                      <CiSearch color="inherit" fontSize={"1.5rem"} />
+                    </Box>
                   </IconButton>
                 </InputAdornment>
               }
@@ -200,7 +158,7 @@ function Navbar() {
                 display={"flex"}
                 alignItems={"center"}
                 sx={{ display: { xs: "none", md: "flex" }, cursor: "pointer" }}
-                color={"white.main"}
+                color={"bright.main"}
                 gap={"0.25rem"}
                 onClick={() => setOpenLanguage((p) => !p)}
               >
@@ -209,8 +167,8 @@ function Navbar() {
                     sx={{
                       fontSize: { xs: "small", sm: "medium" },
                       color: {
-                        xs: "dark.main",
-                        sm: "white.main",
+                        xs: "contrastBg.main",
+                        // sm: "bright.main",
                       },
                     }}
                   >
@@ -221,8 +179,8 @@ function Navbar() {
                     sx={{
                       width: 25,
                       height: 20,
-                      // p: "0.25rem",
-                      border: "1px solid lightgray",
+                      border: "1px solid",
+                      borderColor: "secondaryBg.main",
                     }}
                     variant="square"
                     src={data.flags[address]}
@@ -241,17 +199,19 @@ function Navbar() {
                       BIRR
                     </Typography>
                     {!openLanguage ? (
-                      <ExpandMore fontSize="small" color="white" />
+                      <ExpandMore fontSize="small" color="bright" />
                     ) : (
-                      <ExpandLess fontSize="small" color="white" />
+                      <ExpandLess fontSize="small" color="bright" />
                     )}
                   </Box>
                 </Box>
               </Box>
-              {openLanguage && (
+
+              {/* {openLanguage && (
                 <LanguageDropdown setOpenLanguage={setOpenLanguage} />
-              )}
+              )} */}
             </Grid>
+
             <Grid
               className="userInfo--container"
               item
@@ -265,18 +225,13 @@ function Navbar() {
                 gap={"0.5rem"}
                 sx={{
                   color: {
-                    xs: "dark.main",
-                    md: "white.main",
-                    cursor: "pointer",
+                    xs: "bright.main",
                   },
+                  cursor: "pointer",
                 }}
               >
                 <Box
                   sx={{
-                    color: {
-                      xs: "dark.main",
-                      md: "white.main",
-                    },
                     fontSize: {
                       xs: 20,
                       sm: 27.5,
@@ -307,12 +262,12 @@ function Navbar() {
                       fontWeight={"bold"}
                       sx={{ display: { xs: "none", xl: "inline" } }}
                     >
-                      {user?.name ? `Account` : "Sign in/Register"}
+                      {user?.name ? "Account" : "Sign in/Register"}
                     </Typography>
                     {!openUserInfo ? (
-                      <ExpandMore fontSize="small" color="white" />
+                      <ExpandMore fontSize="small" />
                     ) : (
-                      <ExpandLess fontSize="small" color="white" />
+                      <ExpandLess fontSize="small" />
                     )}
                   </Box>
                 </Box>
@@ -327,8 +282,7 @@ function Navbar() {
                 alignItems={"center"}
                 sx={{
                   color: {
-                    xs: "dark.main",
-                    md: "white.main",
+                    xs: "bright.main",
                   },
                 }}
               >
@@ -336,12 +290,11 @@ function Navbar() {
                   size="medium"
                   sx={{
                     color: {
-                      xs: "dark.main",
-                      md: "white.main",
+                      xs: "bright.main",
                     },
                   }}
                 >
-                  <Box sx={{ fontSize: { xs: 20, sm: 32.5, md: 37.5 } }}>
+                  <Box sx={{ fontSize: { xs: 25, sm: 32.5, md: 37.5 } }}>
                     <PiShoppingCartLight style={{ fontSize: "inherit" }} />
                   </Box>
                 </IconButton>
@@ -356,8 +309,10 @@ function Navbar() {
                     fontSize={"0.6rem"}
                     fontWeight={"bold"}
                     sx={{
-                      bgcolor: { xs: "dark.main", md: "white.main" },
-                      color: { xs: "white.main", md: "dark.main" },
+                      bgcolor: {
+                        xs: "contrastBg.main",
+                      },
+                      color: { xs: "dark.main" },
                       borderRadius: "1rem",
                       textAlign: "center",
                     }}
@@ -428,139 +383,22 @@ function Navbar() {
             />
           </FormControl>
         </Grid>
-      </Grid>
 
-      <Box
-        // mt={"1rem"}
-        width={1}
-        p={"1rem 0"}
-        sx={{
-          display: {
-            xs: "none",
-            md: "flex",
-          },
-          bgcolor: {
-            xs: "white",
-            md: "dark.main",
-          },
-          justifyContent: "center",
-        }}
-      >
-        <Box
-          position={"relative"}
-          onMouseOver={() => setAllPropOpen(true)}
-          onMouseLeave={() => setAllPropOpen(false)}
-          bgcolor={allPropOpen && "rgba(240, 240, 240, 1)"}
-          mr={"1rem"}
+        <IconButton
           sx={{
-            borderRadius: allPropOpen ? "1.5rem 1.5rem 0 0" : "1.5rem",
-            "&:hover button": { borderColor: "transparent" },
+            position: "absolute",
+            border: "1px solid white",
+            top: "5rem",
+            left: "1rem",
+            zIndex: 10000,
+            bgcolor: "primary.main",
+            color: "primary.contrastText",
           }}
+          onClick={() => switchTheme()}
         >
-          <Button
-            color={allPropOpen ? "dark" : "white"}
-            variant="outlined"
-            startIcon={<Menu />}
-            endIcon={allPropOpen ? <ExpandLess /> : <ExpandMore />}
-            sx={{
-              borderRadius: allPropOpen ? "1.5rem 1.5rem 0 0" : "1.5rem",
-              p: "0.5rem 1.5rem",
-              display: "flex",
-              alignItems: "center",
-              "&:hover": {
-                borderColor: "transparent",
-              },
-            }}
-          >
-            <Typography textTransform={"capitalize"} mr={6}>
-              All Categories
-            </Typography>
-          </Button>
-          <Box
-            position={"absolute"}
-            width={1}
-            maxHeight={"70vh"}
-            top={"100%"}
-            borderRadius={"0 0 1.5rem 1.5rem"}
-            left={0}
-            bgcolor={"rgba(240, 240, 240, 1)"}
-          >
-            {allPropOpen && <AllCategories />}
-          </Box>
-        </Box>
-        <NavbarButton name={"NN"} />
-        <NavbarButton name={" Best Sellers"} />
-        <NavbarButton name={"Top Brands"} />
-        <NavbarButton name={"Consumer Electronics"} />
-        <NavbarButton name={"Home Improvement & Lighting"} />
-        <Box
-          position={"relative"}
-          onMouseEnter={() => {
-            setOpenMore(true);
-          }}
-          onMouseOver={() => {
-            handleOnMouseOver();
-          }}
-          onMouseLeave={() => {
-            setOpenMore(false);
-          }}
-        >
-          <Button
-            variant="contained"
-            endIcon={openMore ? <ExpandLess /> : <ExpandMore />}
-            sx={{
-              borderRadius: "1.5rem",
-              fontSize: "1rem",
-
-              p: "0.5rem 1.5rem",
-              bgcolor: "transparent",
-              "&:hover": { bgcolor: "rgba(255, 255, 255, 0.2)" },
-            }}
-          >
-            <Typography textTransform={"capitalize"}>More</Typography>
-          </Button>
-          {openMore && (
-            <Box
-              id="more-product-container"
-              position={"absolute"}
-              width={"auto"}
-              minWidth={200}
-              top={"100%"}
-              left={0}
-              pt={"0.5rem"}
-              zIndex={1000}
-            >
-              <Box
-                display={"flex"}
-                flexDirection={"column"}
-                bgcolor={"rgba(240, 240, 240, 1)"}
-                width={"max-content"}
-                borderRadius={"1.5rem"}
-                overflow={"hidden"}
-              >
-                <SelectBotton name={"Home Improvement & Lighting"} />
-                <SelectBotton name={"Men's Clothing"} />
-                <SelectBotton name={"Furniture"} />
-                <SelectBotton name={"Accessories"} />
-                <SelectBotton name={"Hair Extainsions and Wigs"} />
-                <SelectBotton name={"Automotive and Motorcycles"} />
-              </Box>
-              <Box
-                id={"after-container"}
-                sx={{
-                  position: "absolute",
-                  width: "12px",
-                  height: "12px",
-                  transform: "rotate(45deg)",
-                  left: "25%",
-                  top: 2,
-                  background: "rgba(240, 240, 240, 1)",
-                }}
-              />
-            </Box>
-          )}
-        </Box>
-      </Box>
+          <DarkMode color={darkMode ? "dark" : "white"} />
+        </IconButton>
+      </Grid>
 
       {openLogin && (
         <LoginModal open={openLogin} handleClose={() => setOpenLogin(false)} />

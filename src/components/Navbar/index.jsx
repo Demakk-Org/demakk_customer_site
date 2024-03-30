@@ -27,6 +27,7 @@ import { PiShoppingCartLight } from "react-icons/pi";
 import { SlUser } from "react-icons/sl";
 import { CiSearch } from "react-icons/ci";
 import UserInfoDropdown from "./components/userInfoDropdown";
+import LanguageDropdown from "./components/languageDropdown";
 
 function Navbar() {
   const { darkMode, switchTheme } = useThemeProvider();
@@ -54,8 +55,7 @@ function Navbar() {
         p={{ xs: "0.5rem 1rem", sm: "0.75rem 2rem", md: "0.5rem 6rem" }}
         sx={{
           bgcolor: {
-            xs: "primaryBg.main",
-            // md: "primaryBg.main",
+            xs: "primaryBg.dark",
           },
         }}
       >
@@ -79,7 +79,6 @@ function Navbar() {
               },
               color: {
                 xs: "primaryLight.main",
-                // md: "primary.main",
               },
             }}
           >
@@ -114,11 +113,8 @@ function Navbar() {
                 width: "100%",
                 pl: "1rem",
                 pr: "0.25rem",
-                bgcolor: "secondaryBg.main",
-                color: {
-                  xs: "dark.main",
-                  // md: "primaryBg.main",
-                },
+                bgcolor: "primaryBg.light",
+                color: "primaryBg.contrastText",
               }}
               endAdornment={
                 <InputAdornment position="end">
@@ -131,10 +127,9 @@ function Navbar() {
                       m: "0",
                       aspectRatio: "initial",
                       borderRadius: "1.5rem",
-                      bgcolor: "primaryBg.main",
+                      bgcolor: "primaryBg.dark",
                       color: {
-                        xs: "contrastBg.main",
-                        // md: "secondaryBg.main",
+                        xs: "primaryBg.contrastText",
                       },
                       p: "0.25rem 1rem",
                       "&:hover": {
@@ -168,7 +163,6 @@ function Navbar() {
                       fontSize: { xs: "small", sm: "medium" },
                       color: {
                         xs: "contrastBg.main",
-                        // sm: "bright.main",
                       },
                     }}
                   >
@@ -207,9 +201,9 @@ function Navbar() {
                 </Box>
               </Box>
 
-              {/* {openLanguage && (
+              {openLanguage && (
                 <LanguageDropdown setOpenLanguage={setOpenLanguage} />
-              )} */}
+              )}
             </Grid>
 
             <Grid
@@ -353,22 +347,17 @@ function Navbar() {
           >
             <OutlinedInput
               placeholder="Search for any product..."
-              notched={false}
               sx={{
                 borderRadius: "1.5rem",
                 width: "100%",
                 pl: "1rem",
                 letterSpacing: "0.4px",
-                bgcolor: "rgba(10,10,10,0.09)",
-                color: "black",
+                bgcolor: "secondaryBg.light",
+                color: "secondaryBg.contrastText",
                 p: {
                   sm: "0.25rem 1.5rem",
                 },
-                "& .MuiOutlinedInput-notchedOutline": {
-                  borderWidth: 0,
-                },
               }}
-              color="primary"
               endAdornment={
                 <InputAdornment position="end">
                   <IconButton
@@ -376,7 +365,7 @@ function Navbar() {
                     edge="end"
                     // onClick={handleSearch}
                   >
-                    <Search />
+                    <Search sx={{ color: "secondaryBg.contrastText" }} />
                   </IconButton>
                 </InputAdornment>
               }
@@ -388,7 +377,7 @@ function Navbar() {
           sx={{
             position: "absolute",
             border: "1px solid white",
-            top: "5rem",
+            top: "12rem",
             left: "1rem",
             zIndex: 10000,
             bgcolor: "primary.main",

@@ -42,12 +42,11 @@ function DealInFullHeight() {
             justifyContent={"flex-start"}
             alignItems={"flex-end"}
             gap={"0.5rem"}
-            // pl={"0.5rem"}
           >
             <Typography
               fontSize={"0.9rem"}
               fontWeight={"bold"}
-              color={"tertiary.main"}
+              color={"primary.main"}
               sx={{ textWrap: "nowrap" }}
             >
               US $
@@ -113,7 +112,7 @@ function DealInFullHeight() {
                 <Typography
                   fontSize={"0.8rem"}
                   fontWeight={"bold"}
-                  color={"tertiary.main"}
+                  color={"primary.main"}
                   sx={{ textWrap: "nowrap" }}
                 >
                   US $
@@ -153,7 +152,7 @@ function DealInFullHeight() {
                 <Typography
                   fontSize={"0.8rem"}
                   fontWeight={"bold"}
-                  color={"tertiary.main"}
+                  color={"primary.main"}
                   sx={{ textWrap: "nowrap" }}
                 >
                   US $

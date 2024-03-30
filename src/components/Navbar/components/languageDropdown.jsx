@@ -40,12 +40,12 @@ function LanguageDropdown({ setOpenLanguage }) {
         top={"110%"}
         right={0}
         minWidth={300}
-        bgcolor={"Background"}
+        bgcolor={"secondaryBg.light"}
         border={"1px solid lightgray"}
         p={"1.5rem"}
         borderRadius={"1rem"}
         overflow={"auto"}
-        color={"dark.main"}
+        color={"secondaryBg.contrastText"}
         sx={{
           display: { xs: "none", md: "flex" },
           zIndex: 1000,
@@ -69,17 +69,17 @@ function LanguageDropdown({ setOpenLanguage }) {
             <Typography fontSize={"1.3rem"} fontWeight={600}>
               Ship to
             </Typography>
-            <FormControl sx={{ minWidth: 120 }}>
+            <FormControl>
               <Select
                 name="address"
                 size="small"
-                color={"secondary"}
+                color={"bright"}
                 value={localAddress}
                 onChange={({ target }) => setLocalAddress(target.value)}
-                displayEmpty
-                inputProps={{ "aria-label": "Without label" }}
                 sx={{
                   borderRadius: "0.5rem",
+                  bgcolor: "bright.main",
+                  minWidth: 120,
                 }}
               >
                 <MenuItem value={"addis-ababa"}>
@@ -160,16 +160,17 @@ function LanguageDropdown({ setOpenLanguage }) {
             <Typography fontSize={"1.3rem"} fontWeight={600}>
               Language
             </Typography>
-            <FormControl sx={{ minWidth: 120 }}>
+            <FormControl sx={{}}>
               <Select
                 name="lang"
                 size="small"
+                color={"bright"}
                 value={localLang}
                 onChange={({ target }) => setLocalLang(target.value)}
-                displayEmpty
-                inputProps={{ "aria-label": "Without label" }}
                 sx={{
                   borderRadius: "0.5rem",
+                  minWidth: 120,
+                  bgcolor: "bright.main",
                 }}
               >
                 <MenuItem value={"en"}>
@@ -186,12 +187,13 @@ function LanguageDropdown({ setOpenLanguage }) {
           </Box>
           <Button
             type="submit"
-            color="white"
+            color="bright"
+            size="large"
             fullWidth
             sx={{
               textTransform: "capitalize",
               borderRadius: "1.5rem",
-              bgcolor: "black",
+              bgcolor: "secondaryBg.dark",
               "&:hover": {
                 bgcolor: "darkslategray",
               },

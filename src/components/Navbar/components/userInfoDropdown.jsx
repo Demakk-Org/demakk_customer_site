@@ -24,7 +24,7 @@ function UserInfoDropdown({ openLogin }) {
         flexDirection={"column"}
         gap={"0.25rem"}
         minWidth={300}
-        bgcolor={"secondaryBg.main"}
+        bgcolor={"secondaryBg.light"}
         border={"1px solid lightgray"}
         p={"1.5rem"}
         borderRadius={"1rem"}
@@ -37,10 +37,10 @@ function UserInfoDropdown({ openLogin }) {
               variant="contained"
               size="large"
               fullWidth
+              color="primaryBg"
               sx={{
                 borderRadius: "1.5rem",
                 color: "primaryBg.contrastText",
-                bgcolor: "primaryBg.main",
                 textTransform: "capitalize",
               }}
               onClick={() => openLogin()}
@@ -54,7 +54,7 @@ function UserInfoDropdown({ openLogin }) {
               sx={{
                 bgcolor: "transparent",
                 borderRadius: "1.5rem",
-                color: "dark.main",
+                color: "secondaryBg.contrastText",
                 textTransform: "capitalize",
               }}
               onClick={() => setUser({ name: "Solen" })}
@@ -75,7 +75,12 @@ function UserInfoDropdown({ openLogin }) {
                 <Avatar src={user?.img || "/assets/images/profile.webp"} />
               </Grid>
               <Grid item md={9} display={"flex"}>
-                <Typography flex={1} fontWeight={400} fontSize={"0.9rem"}>
+                <Typography
+                  color={"secondaryBg.contrastText"}
+                  flex={1}
+                  fontWeight={400}
+                  fontSize={"0.9rem"}
+                >
                   Welcome back,{" "}
                   <Box component={"span"} fontWeight={"bold"}>
                     {user.name}
@@ -93,7 +98,7 @@ function UserInfoDropdown({ openLogin }) {
               <Button
                 onClick={() => signOut()}
                 variant="text"
-                color="info"
+                color="bright"
                 sx={{ ml: "48px", textTransform: "unset" }}
               >
                 Sign Out
@@ -101,7 +106,7 @@ function UserInfoDropdown({ openLogin }) {
             </Box>
           </>
         )}
-        <Divider flexItem />
+        <Divider flexItem sx={{ borderColor: "bright.main" }} />
         <SmallDeviceButton
           startImage={<LuClipboardList fontSize={"inherit"} />}
           title={"My Orders"}

@@ -28,15 +28,15 @@ export default function Home() {
       </Head>
       <main
         className={`${styles.main} ${inter.className}`}
-        style={{ backgroundColor: !darkMode ? "#191919" : "#fff" }}
+        style={{ backgroundColor: darkMode ? "#191919" : "#fff" }}
       >
         <Navbar />
         <BottomNavbar />
         <PinLocation />
         <Recommendation />
-        <DiscountSale />
-        <DealsContainer />
-        <Footer />
+        {/* <DiscountSale /> */}
+        {/* <DealsContainer /> */}
+        {/* <Footer /> */}
       </main>
     </>
   );

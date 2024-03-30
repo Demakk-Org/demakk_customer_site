@@ -22,7 +22,7 @@ const style = {
   top: "0%",
   left: "0%",
   width: "80%",
-  bgcolor: "background.paper",
+  bgcolor: "secondaryBg.light",
   boxShadow: 24,
   height: 1,
   overflow: "scroll",

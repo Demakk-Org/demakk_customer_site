@@ -1,5 +1,6 @@
 import Carousel from "react-multi-carousel";
 import carouselBreakPoints from "@/data/carouselBreakPoints";
+import "react-multi-carousel/lib/styles.css";
 
 function CarouselContainer({ children, type, restprops }) {
   return (

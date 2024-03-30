@@ -38,7 +38,7 @@ function BottomNavbar() {
           md: "flex",
         },
         bgcolor: {
-          xs: "primaryBg.main",
+          xs: "primaryBg.dark",
         },
         justifyContent: "center",
       }}
@@ -53,8 +53,8 @@ function BottomNavbar() {
           borderRadius: allPropOpen ? "1.5rem 1.5rem 0 0" : "1.5rem",
           "&:hover>button": {
             borderColor: "transparent",
-            bgcolor: "secondaryBg.main",
-            color: "dark.main",
+            bgcolor: "secondaryBg.light",
+            color: "secondaryBg.contrastText",
           },
         }}
       >
@@ -84,7 +84,7 @@ function BottomNavbar() {
           top={"100%"}
           borderRadius={"0 0 1.5rem 1.5rem"}
           left={0}
-          bgcolor={"secondaryBg.main"}
+          bgcolor={"secondaryBg.light"}
         >
           {allPropOpen && <AllCategories />}
         </Box>
@@ -108,8 +108,8 @@ function BottomNavbar() {
         sx={{
           "&:hover>button": {
             borderColor: "transparent",
-            bgcolor: "secondaryBg.main",
-            color: "dark.main",
+            bgcolor: "secondaryBg.light",
+            color: "secondaryBg.contrastText",
           },
         }}
       >
@@ -122,7 +122,10 @@ function BottomNavbar() {
 
             p: "0.5rem 1.5rem",
             bgcolor: "transparent",
-            "&:hover": { bgcolor: "secondaryBg.main", color: "dark.main" },
+            "&:hover": {
+              bgcolor: "secondaryBg.light",
+              color: "secondaryBg.contrastText",
+            },
           }}
         >
           <Typography textTransform={"capitalize"}>More</Typography>

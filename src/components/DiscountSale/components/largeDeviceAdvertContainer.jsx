@@ -1,10 +1,9 @@
 import { ArrowForward } from "@mui/icons-material";
 import { Avatar, Box, Grid, IconButton, Typography } from "@mui/material";
-import Carousel from "react-multi-carousel";
 import LargeDeviceAdvertProduct from "./largeDeviceAdvertProduct";
 import advertProductList from "@/data/advertProductList";
-import "react-multi-carousel/lib/styles.css";
 import carouselBreakPoints from "@/data/carouselBreakPoints";
+import CarouselContainer from "@/Component/Carousel";
 
 function LargeDeviceAdvertContainer() {
   return (
@@ -108,22 +107,7 @@ function LargeDeviceAdvertContainer() {
             alt="advert-animated-image"
           />
           <Box mt={20} className="advert-carousel-preview" flex={1}>
-            <Carousel
-              swipeable={false}
-              draggable={true}
-              showDots={false}
-              responsive={carouselBreakPoints.large}
-              ssr={true}
-              infinite={true}
-              autoPlay={true}
-              autoPlaySpeed={3000}
-              customTransition="all 0.5s"
-              transitionDuration={500}
-              containerClass="carousel-container"
-              removeArrowOnDeviceType={["tablet", "mobile"]}
-              dotListClass="custom-dot-list-style"
-              itemClass="carousel-item-padding-40-px"
-            >
+            <CarouselContainer type={"large"}>
               {advertProductList.map((item, index) => {
                 return (
                   <Box key={index} m={"0 0.5rem"}>
@@ -135,7 +119,7 @@ function LargeDeviceAdvertContainer() {
                   </Box>
                 );
               })}
-            </Carousel>
+            </CarouselContainer>
           </Box>
         </Box>
       </Grid>

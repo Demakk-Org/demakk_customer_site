@@ -7,8 +7,8 @@ function NavbarButton({ name }) {
       sx={{
         bgcolor: "transparent",
         "&:hover": {
-          bgcolor: "secondaryBg.main",
-          color: "dark.main",
+          bgcolor: "secondaryBg.light",
+          color: "secondaryBg.contrastText",
         },
         borderRadius: "1.5rem",
         textTransform: "capitalize",

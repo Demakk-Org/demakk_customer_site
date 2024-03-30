@@ -1,12 +1,11 @@
 import { ArrowForward } from "@mui/icons-material";
 import { Box, Typography } from "@mui/material";
 import React, { useEffect } from "react";
-import Carousel from "react-multi-carousel";
 import SmallDeviceAdvertProduct from "./smallDeviceAdvertProduct";
-import carouselBreakPoints from "@/data/carouselBreakPoints";
 import advertProductList from "@/data/advertProductList";
 import { countDown } from "@/utils/countDown";
 import { Montserrat } from "next/font/google";
+import CarouselContainer from "@/Component/Carousel";
 
 const font = Montserrat({ subsets: ["cyrillic"] });
 
@@ -54,7 +53,7 @@ function SmallDeviceAdvertContainer() {
         </Box>
         <Typography
           id="count-down"
-          color={"white.main"}
+          color={"bright.main"}
           fontSize={{ xs: "0.9rem", sm: "1.4rem" }}
           className={font.className}
         >
@@ -63,20 +62,7 @@ function SmallDeviceAdvertContainer() {
       </Box>
 
       <Box minHeight={100} p={"0 0.75rem"} bgcolor={"#FF2251"}>
-        <Carousel
-          swipeable={true}
-          draggable={true}
-          showDots={false}
-          responsive={carouselBreakPoints.small}
-          ssr={true}
-          infinite={false}
-          customTransition="all 0.5s"
-          transitionDuration={500}
-          containerClass="carousel-container"
-          removeArrowOnDeviceType={["tablet", "mobile"]}
-          dotListClass="custom-dot-list-style"
-          itemClass="carousel-item-padding-40-px"
-        >
+        <CarouselContainer type={"large"}>
           {[
             ...advertProductList,
             ...advertProductList,
@@ -91,7 +77,7 @@ function SmallDeviceAdvertContainer() {
               </Box>
             );
           })}
-        </Carousel>
+        </CarouselContainer>
       </Box>
     </Box>
   );

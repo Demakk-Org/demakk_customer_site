@@ -1,6 +1,5 @@
 import useThemeProvider from "@/store/theme";
 import "@/styles/globals.css";
-// import { ThemeProvider, createTheme } from "@mui/material";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { outlinedInputClasses } from "@mui/material/OutlinedInput";
 import { useEffect } from "react";
@@ -10,7 +9,7 @@ const theme = createTheme({
     MuiOutlinedInput: {
       styleOverrides: {
         notchedOutline: {
-          borderColor: "#191919",
+          borderColor: "darkgray",
           letterSpacing: "0.2px",
         },
         root: {
@@ -162,13 +161,13 @@ const lightTheme = createTheme(theme, {
     }),
     primaryBg: theme.palette.augmentColor({
       color: {
-        main: "#5c5c5c",
+        main: "#a9a9a9",
       },
       name: "primaryBg",
     }),
     secondaryBg: theme.palette.augmentColor({
       color: {
-        main: "#b8b8b8",
+        main: "#5c5c5c",
       },
       name: "secondaryBg",
     }),

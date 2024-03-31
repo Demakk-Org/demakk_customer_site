@@ -30,7 +30,7 @@ export function countDown(component, time) {
 
     if (distance < 0) {
       clearInterval(x);
-      document.getElementById("demo").innerHTML = "EXPIRED";
+      document.getElementById("count-down").innerHTML = "EXPIRED";
     }
   }, 1000);
 }

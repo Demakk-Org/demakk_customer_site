@@ -1,11 +1,15 @@
 import Head from "next/head";
-import { Inter } from "next/font/google";
 import styles from "@/styles/Home.module.css";
-import Navbar from "@/components/Navbar";
-import DiscountSale from "@/components/DiscountSale";
-import PinLocation from "@/components/Home/PinLocation";
 
-const inter = Inter({ subsets: ["latin"] });
+import Navbar from "@/features/Navbar";
+import BottomNavbar from "@/features/Navbar/components/bottomNavbar";
+import DiscountSale from "@/features/DiscountSale";
+import PinLocation from "@/features/Home/PinLocation";
+import Recommendation from "@/features/Recommendation";
+import Footer from "@/features/Footer";
+import DealsContainer from "@/features/DealsContainer";
+
+import { Box } from "@mui/material";
 
 export default function Home() {
   return (
@@ -18,15 +22,17 @@ export default function Home() {
         />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
-        <link
-          rel="stylesheet"
-          href="https://fonts.googleapis.com/icon?family=Material+Icons"
-        />
       </Head>
-      <main className={`${styles.main} ${inter.className}`}>
-        <Navbar />
-        <PinLocation />
-        <DiscountSale />
+      <main className={`${styles.main}`}>
+        <Box width={"100%"} minHeight={"100vh"} bgcolor={"background.paper"}>
+          {/* <Navbar /> */}
+          {/* <BottomNavbar /> */}
+          <PinLocation />
+          <Recommendation />
+          <DiscountSale />
+          {/* <DealsContainer /> */}
+          <Footer />
+        </Box>
       </main>
     </>
   );

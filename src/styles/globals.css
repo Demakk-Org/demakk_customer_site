@@ -5,3 +5,7 @@
 body {
   margin: 0;
 }
+
+.dark-mode {
+  background-color: #191919;
+}

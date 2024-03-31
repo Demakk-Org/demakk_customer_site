@@ -13,14 +13,14 @@ function BenefitListCard({ icon, title, desc }) {
         display={"flex"}
         fontSize={"2rem"}
         pb={"0.5rem"}
-        color={"primaryBg.contrastText"}
+        color={"text.primary"}
       >
         {icon || (
           <RiMoneyDollarCircleLine color="inherit" fontSize={"inherit"} />
         )}
       </Box>
       <Typography
-        color={"primaryBg.contrastText"}
+        color={"text.primary"}
         fontSize={"0.7rem"}
         fontWeight={"bold"}
       >
@@ -28,7 +28,7 @@ function BenefitListCard({ icon, title, desc }) {
       </Typography>
       <Typography
         fontSize={"0.6rem"}
-        color={"primaryBg.contrastText"}
+        color={"text.secondary"}
         textAlign={"center"}
       >
         {desc || "We offer competitive prices on millions of items"}

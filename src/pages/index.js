@@ -9,6 +9,7 @@ import Recommendation from "@/components/Recommendation";
 import Footer from "@/components/Footer";
 import DealsContainer from "@/components/DealsContainer";
 import useThemeProvider from "@/store/theme";
+import { Box } from "@mui/material";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -26,17 +27,16 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main
-        className={`${styles.main} ${inter.className}`}
-        style={{ backgroundColor: darkMode ? "#191919" : "#fff" }}
-      >
-        <Navbar />
-        <BottomNavbar />
-        <PinLocation />
-        <Recommendation />
-        {/* <DiscountSale /> */}
-        {/* <DealsContainer /> */}
-        {/* <Footer /> */}
+      <main className={`${styles.main} ${inter.className}`}>
+        <Box width={"100vw"} minHeight={"100vh"} bgcolor={"background.paper"}>
+          {/* <Navbar /> */}
+          {/* <BottomNavbar /> */}
+          <PinLocation />
+          <Recommendation />
+          {/* <DiscountSale /> */}
+          {/* <DealsContainer /> */}
+          <Footer />
+        </Box>
       </main>
     </>
   );

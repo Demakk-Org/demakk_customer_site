@@ -14,7 +14,7 @@ function Recommendation() {
       p={{ md: "2rem 4rem 0.5rem 4rem", xl: "2rem 12rem 0.5rem 12rem" }}
       justifyContent={"space-between"}
       alignItems={"baseline"}
-      bgcolor={"primaryBg.light"}
+      bgcolor={"background.default"}
     >
       <Typography
         fontSize={"1.5rem "}
@@ -22,7 +22,7 @@ function Recommendation() {
         fontWeight={"bolder"}
         maxWidth={"250px"}
         className={font.className}
-        color={"primaryBg.contrastText"}
+        color={"text.primary"}
       >
         Better Choice&apos;s, better prices
       </Typography>

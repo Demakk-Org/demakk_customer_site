@@ -9,6 +9,7 @@ function FooterLinksTitle({ name }) {
       className={font.className}
       mb={"0.5rem"}
       fontSize={{ xs: "0.8rem", sm: "1rem" }}
+      color={"text.primary"}
     >
       {name || "Enter name here!"}
     </Typography>

@@ -1,6 +1,6 @@
 import { Box, Grid, Link, List, ListItem, Typography } from "@mui/material";
 import { Montserrat } from "next/font/google";
-import FooterLink from "./components/links";
+import FooterLink from "./components/FooterLinks";
 import FooterLinksTitle from "./components/FooterLinksTitle";
 import PaymentCard from "./components/PaymentCard";
 import {
@@ -10,11 +10,11 @@ import {
   Twitter,
   WhatsApp,
 } from "@mui/icons-material";
+import FooterSocialLinks from "./components/FooterSocialLinks";
 
-const font = Montserrat({ subsets: ["cyrillic"] });
 function Footer() {
   return (
-    <Box width={1} bgcolor={"ButtonFace"}>
+    <Box width={1} bgcolor={"background.lighter"}>
       <Box
         display={"flex"}
         gap={{ xs: 2, sm: 4, md: 6 }}
@@ -125,31 +125,11 @@ function Footer() {
           <Box flex={2} display={"flex"} flexDirection={"column"}>
             <FooterLinksTitle name={"Stay connected"} />
             <Grid container columnSpacing={2.5}>
-              <Grid item xs={1.5} sm={4} lg={3} xl={2.4}>
-                <Link href="#" color={"dark.main"}>
-                  <Facebook sx={{ width: "100%", height: "100%" }} />
-                </Link>
-              </Grid>
-              <Grid item xs={1.5} sm={4} lg={3} xl={2.4}>
-                <Link href="#" color={"dark.main"}>
-                  <Google sx={{ width: "100%", height: "100%" }} />
-                </Link>
-              </Grid>
-              <Grid item xs={1.5} sm={4} lg={3} xl={2.4}>
-                <Link href="#" color={"dark.main"}>
-                  <Twitter sx={{ width: "100%", height: "100%" }} />
-                </Link>
-              </Grid>
-              <Grid item xs={1.5} sm={4} lg={3} xl={2.4}>
-                <Link href="#" color={"dark.main"}>
-                  <Instagram sx={{ width: "100%", height: "100%" }} />
-                </Link>
-              </Grid>
-              <Grid item xs={1.5} sm={4} lg={3} xl={2.4}>
-                <Link href="#" color={"dark.main"}>
-                  <WhatsApp sx={{ width: "100%", height: "100%" }} />
-                </Link>
-              </Grid>
+              <FooterSocialLinks icon={<Facebook />} url={"#facebook"} />
+              <FooterSocialLinks icon={<Google />} url={"#google"} />
+              <FooterSocialLinks icon={<Twitter />} url={"#twitter"} />
+              <FooterSocialLinks icon={<Instagram />} url={"#instagram"} />
+              <FooterSocialLinks icon={<WhatsApp />} url={"#whatsup"} />
             </Grid>
           </Box>
         </Box>

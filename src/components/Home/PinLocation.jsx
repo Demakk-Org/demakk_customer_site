@@ -11,6 +11,8 @@ function PinLocation() {
       gap={"0.75rem"}
       p={{ xs: "0.75rem 1rem", sm: "1rem 1.5rem" }}
       alignItems={"center"}
+      // sx={{ bgcolor: "primaryBg.light" }}
+      bgcolor={"background.paperBackground"}
     >
       <Box
         fontSize={{ xs: "1rem", sm: "2rem" }}
@@ -19,7 +21,12 @@ function PinLocation() {
       >
         <LuMapPin fontSize={"inherit"} />
       </Box>
-      <Typography fontWeight={"bold"} fontSize={{ xs: "0.9rem", sm: "1.5rem" }}>
+      <Typography
+        // sx={{ color: "primaryBg.contrastText" }}
+        color={"text.primary"}
+        fontWeight={"bold"}
+        fontSize={{ xs: "0.9rem", sm: "1.5rem" }}
+      >
         Deliver to {data.region[address].name}
       </Typography>
     </Box>

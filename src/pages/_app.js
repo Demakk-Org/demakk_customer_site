@@ -3,6 +3,7 @@ import "@/styles/globals.css";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { outlinedInputClasses } from "@mui/material/OutlinedInput";
 import { useEffect } from "react";
+import CssBaseline from "@mui/material/CssBaseline";
 
 const theme = createTheme({
   components: {
@@ -38,180 +39,62 @@ const theme = createTheme({
   },
 });
 
-const darkTheme = createTheme(theme, {
+const dTheme = createTheme({
   palette: {
-    primary: theme.palette.augmentColor({
+    mode: "dark",
+  },
+});
+
+const lTheme = createTheme({
+  palette: {
+    mode: "light",
+  },
+});
+
+const darkTheme = createTheme(dTheme, {
+  palette: {
+    text: {
+      teritiary: "#575757",
+      links: "#ffffffcc",
+    },
+    background: {
+      lighter: "#63636399",
+    },
+    demakkPrimary: theme.palette.augmentColor({
       color: {
-        main: "#fc4d21",
+        main: "#ee461c",
       },
-      name: "primary",
+      name: "demakkPrimary",
     }),
-    primaryLight: theme.palette.augmentColor({
+    demakkSecondary: theme.palette.augmentColor({
       color: {
-        main: "#fce8e6",
+        main: "#fcbe19",
       },
-      name: "primaryLight",
-    }),
-    secondary: theme.palette.augmentColor({
-      color: {
-        main: "#fff595",
-      },
-      name: "secondary",
-    }),
-    secondaryLight: theme.palette.augmentColor({
-      color: {
-        main: "#fffde5",
-      },
-      name: "secondaryLight",
-    }),
-    tertiary: theme.palette.augmentColor({
-      color: {
-        main: "#A0153E",
-      },
-      name: "tertiary",
-    }),
-    dark: theme.palette.augmentColor({
-      color: {
-        main: "#191919",
-      },
-      name: "dark",
-    }),
-    bright: theme.palette.augmentColor({
-      color: {
-        main: "#fff",
-      },
-      name: "bright",
-    }),
-    primaryBg: theme.palette.augmentColor({
-      color: {
-        main: "#00224D",
-      },
-      name: "primaryBg",
-    }),
-    secondaryBg: theme.palette.augmentColor({
-      color: {
-        main: "#bcc6d8",
-      },
-      name: "secondaryBg",
-    }),
-    contrastBg: theme.palette.augmentColor({
-      color: {
-        main: "#e5e8ef",
-      },
-      name: "contrastBg",
-    }),
-    contrastText: theme.palette.augmentColor({
-      color: {
-        main: "#fff",
-      },
-      name: "contrastText",
-    }),
-    text: theme.palette.augmentColor({
-      color: {
-        main: "#191919",
-      },
-      name: "text",
+      name: "demakkSecondary",
     }),
   },
 });
 
-const lightTheme = createTheme(theme, {
+const lightTheme = createTheme(lTheme, {
   palette: {
-    primary: theme.palette.augmentColor({
+    text: {
+      teritiary: "#e7e7e7",
+      links: "#191919cc",
+    },
+    background: {
+      lighter: "#d0d0d099",
+    },
+    demakkPrimary: theme.palette.augmentColor({
       color: {
-        main: "#bc2c0b",
+        main: "#ffab92",
       },
-      name: "primary",
+      name: "demakkPrimary",
     }),
-    primaryLight: theme.palette.augmentColor({
+    demakkSecondary: theme.palette.augmentColor({
       color: {
-        main: "#fc4d21",
+        main: "#fef06b",
       },
-      name: "primaryLight",
-    }),
-    secondary: theme.palette.augmentColor({
-      color: {
-        main: "#ffd901",
-      },
-      name: "secondary",
-    }),
-    secondaryLight: theme.palette.augmentColor({
-      color: {
-        main: "#fff595",
-      },
-      name: "secondaryLight",
-    }),
-    tertiary: theme.palette.augmentColor({
-      color: {
-        main: "#063164",
-      },
-      name: "tertiary",
-    }),
-    dark: theme.palette.augmentColor({
-      color: {
-        main: "#191919",
-      },
-      name: "dark",
-    }),
-    bright: theme.palette.augmentColor({
-      color: {
-        main: "#fff",
-      },
-      name: "bright",
-    }),
-    primaryBg: theme.palette.augmentColor({
-      color: {
-        main: "#a9a9a9",
-      },
-      name: "primaryBg",
-    }),
-    secondaryBg: theme.palette.augmentColor({
-      color: {
-        main: "#5c5c5c",
-      },
-      name: "secondaryBg",
-    }),
-    contrastBg: theme.palette.augmentColor({
-      color: {
-        main: "#bcc6d9",
-      },
-      name: "contrastBg",
-    }),
-    contrastText: theme.palette.augmentColor({
-      color: {
-        main: "#191919",
-      },
-      name: "contrastText",
-    }),
-    text: theme.palette.augmentColor({
-      color: {
-        main: "#fff",
-      },
-      name: "text",
-    }),
-    demakk: theme.palette.augmentColor({
-      color: {
-        main: "#FFC94A",
-      },
-      name: "demakk",
-    }),
-    demakkLight: theme.palette.augmentColor({
-      color: {
-        main: "#C08B5C",
-      },
-      name: "demakkLight",
-    }),
-    demakkDark: theme.palette.augmentColor({
-      color: {
-        main: "#795458",
-      },
-      name: "demakkDark",
-    }),
-    demakkContrast: theme.palette.augmentColor({
-      color: {
-        main: "#453F78",
-      },
-      name: "demakkContrast",
+      name: "demakkSecondary",
     }),
   },
 });
@@ -222,19 +105,27 @@ export default function App({ Component, pageProps }) {
   useEffect(() => {
     if (window) {
       let deviceDarkMode = window.matchMedia("(prefers-color-scheme:dark)");
+      if (deviceDarkMode.matches) {
+        setTheme(true);
+      } else {
+        setTheme(false);
+      }
       window
         .matchMedia("(prefers-color-scheme: dark)")
         .addEventListener("change", (e) => {
+          console.log(e.matches);
+          console.log("theme", e.matches ? darkTheme : lightTheme);
           setTheme(e.matches);
         });
-      setTheme(deviceDarkMode);
     }
-    console.log(darkTheme);
   }, []);
 
   return (
-    <ThemeProvider theme={darkMode ? darkTheme : lightTheme}>
-      <Component {...pageProps} />
+    <ThemeProvider theme={theme}>
+      <ThemeProvider theme={darkMode ? darkTheme : lightTheme}>
+        <CssBaseline />
+        <Component {...pageProps} />
+      </ThemeProvider>
     </ThemeProvider>
   );
 }

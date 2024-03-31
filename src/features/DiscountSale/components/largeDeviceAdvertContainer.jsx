@@ -1,9 +1,11 @@
 import { ArrowForward } from "@mui/icons-material";
 import { Avatar, Box, Grid, IconButton, Typography } from "@mui/material";
+
+import CarouselContainer from "@/component/Carousel";
+
 import LargeDeviceAdvertProduct from "./largeDeviceAdvertProduct";
+
 import advertProductList from "@/data/advertProductList";
-import carouselBreakPoints from "@/data/carouselBreakPoints";
-import CarouselContainer from "@/Component/Carousel";
 
 function LargeDeviceAdvertContainer() {
   return (

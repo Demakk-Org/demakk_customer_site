@@ -1,13 +1,12 @@
 import { ArrowForward } from "@mui/icons-material";
 import { Box, Typography } from "@mui/material";
-import React, { useEffect } from "react";
-import SmallDeviceAdvertProduct from "./smallDeviceAdvertProduct";
+
+import { useEffect } from "react";
+
 import advertProductList from "@/data/advertProductList";
 import { countDown } from "@/utils/countDown";
-import { Montserrat } from "next/font/google";
-import CarouselContainer from "@/Component/Carousel";
-
-const font = Montserrat({ subsets: ["cyrillic"] });
+import CarouselContainer from "@/component/Carousel";
+import SmallDeviceAdvertProduct from "./smallDeviceAdvertProduct";
 
 function SmallDeviceAdvertContainer() {
   useEffect(() => {
@@ -15,6 +14,7 @@ function SmallDeviceAdvertContainer() {
       countDown();
     }
   });
+
   return (
     <Box
       width={1}
@@ -39,7 +39,6 @@ function SmallDeviceAdvertContainer() {
           display={"flex"}
           alignItems={"center"}
           fontSize={{ xs: "1.2rem", sm: "2rem" }}
-          color={"secondaryLight.main"}
           sx={{ cursor: "pointer" }}
         >
           <Typography
@@ -55,13 +54,12 @@ function SmallDeviceAdvertContainer() {
           id="count-down"
           color={"bright.main"}
           fontSize={{ xs: "0.9rem", sm: "1.4rem" }}
-          className={font.className}
         >
           Sale ends: 2d 12 : 30 : 06
         </Typography>
       </Box>
 
-      <Box minHeight={100} p={"0 0.75rem"} bgcolor={"#FF2251"}>
+      <Box minHeight={100} p={"0 0.75rem"}>
         <CarouselContainer type={"large"}>
           {[
             ...advertProductList,

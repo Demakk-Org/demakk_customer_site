@@ -7,7 +7,12 @@ function SmallDeviceAdvertProduct({ title, first }) {
       height={1}
       p={{ xs: "0.125rem", sm: "0.5rem" }}
       borderRadius={"0.5rem"}
-      sx={{ bgcolor: "Background", userSelect: "none", cursor: "pointer" }}
+      sx={{
+        bgcolor: "background.lighter",
+        color: "text.primary",
+        userSelect: "none",
+        cursor: "pointer",
+      }}
       display={"flex"}
       flexDirection={"column"}
     >
@@ -28,8 +33,8 @@ function SmallDeviceAdvertProduct({ title, first }) {
         <Typography
           p={{ xs: "0 0.5rem", sm: "0.25rem 1rem" }}
           borderRadius={"1.5rem"}
-          color={"white.main"}
-          bgcolor={"red"}
+          color={"demakkPrimary.contrastText"}
+          bgcolor={"demakkPrimary.main"}
           fontSize={{ xs: "0.8rem", sm: "1.2rem" }}
           mb={{ xs: "0.25rem", sm: "0.75rem" }}
           fontWeight={"bold"}

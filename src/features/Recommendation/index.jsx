@@ -1,9 +1,10 @@
 import { Box, Typography } from "@mui/material";
 import { Montserrat } from "next/font/google";
-import BenefitListCard from "@/components/Recommendation/components/BenefitListCard";
 import { CiCreditCard1, CiDeliveryTruck } from "react-icons/ci";
 import { GoShieldCheck } from "react-icons/go";
 import { PiUsers } from "react-icons/pi";
+
+import BenefitListCard from "./components/BenefitListCard";
 
 const font = Montserrat({ subsets: ["cyrillic"] });
 function Recommendation() {

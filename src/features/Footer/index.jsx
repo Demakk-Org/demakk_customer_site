@@ -1,5 +1,4 @@
-import { Box, Grid, Link, List, ListItem, Typography } from "@mui/material";
-import { Montserrat } from "next/font/google";
+import { Box, Grid, List, ListItem } from "@mui/material";
 import FooterLink from "./components/FooterLinks";
 import FooterLinksTitle from "./components/FooterLinksTitle";
 import PaymentCard from "./components/PaymentCard";
@@ -105,11 +104,16 @@ function Footer() {
           <Box
             flex={3}
             display={"flex"}
-            alignItems={"baseline"}
+            alignItems={{ xs: "center", sm: "baseline" }}
             flexDirection={"column"}
+            justifyContent={{ xs: "center", sm: "unset" }}
           >
             <FooterLinksTitle name={"Pay with"} />
-            <Grid container spacing={0.5}>
+            <Grid
+              container
+              spacing={0.5}
+              justifyContent={{ xs: "center", sm: "unset" }}
+            >
               <PaymentCard url={"/assets/images/pay.png"} />
               <PaymentCard url={"/assets/images/pay3.webp"} />
               <PaymentCard url={"/assets/images/pay2.webp"} />
@@ -122,9 +126,18 @@ function Footer() {
               <PaymentCard url={"/assets/images/pay10.webp"} />
             </Grid>
           </Box>
-          <Box flex={2} display={"flex"} flexDirection={"column"}>
+          <Box
+            flex={2}
+            display={"flex"}
+            flexDirection={"column"}
+            alignItems={{ xs: "center", sm: "unset" }}
+          >
             <FooterLinksTitle name={"Stay connected"} />
-            <Grid container columnSpacing={2.5}>
+            <Grid
+              container
+              columnSpacing={2.5}
+              justifyContent={{ xs: "center", sm: "unset" }}
+            >
               <FooterSocialLinks icon={<Facebook />} url={"#facebook"} />
               <FooterSocialLinks icon={<Google />} url={"#google"} />
               <FooterSocialLinks icon={<Twitter />} url={"#twitter"} />

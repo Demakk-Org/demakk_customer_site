@@ -1,27 +1,31 @@
-import { Box, Button, Typography } from "@mui/material";
+import { Box, Button, Divider, Typography } from "@mui/material";
 import { useState } from "react";
 
 function SelectBotton({ icon, name, subList }) {
   const [openList, setOpenList] = useState(false);
   return (
     <Box
-      width={1}
+      width={"inherit"}
+      minWidth={1}
       position={"relative"}
       onMouseOver={() => setOpenList(true)}
       onMouseLeave={() => setOpenList(false)}
     >
       <Button
         fullWidth
-        color="dark"
-        startIcon={icon || "icon here"}
+        startIcon={icon}
         sx={{
+          color: "secondaryBg.contrastText",
           display: "flex",
           alignItems: "center",
           textTransform: "capitalize",
           p: "0.5rem 1.5rem",
           justifyContent: "flex-start",
-          borderRadius: "1.5rem",
           textAlign: "left",
+          "&:hover": {
+            bgcolor: "contrastBg.main",
+            color: "contrastBg.contrastText",
+          },
         }}
       >
         {name || "name here!"}
@@ -31,23 +35,37 @@ function SelectBotton({ icon, name, subList }) {
           position={"absolute"}
           left={"100%"}
           top={0}
-          bgcolor={"rgba(240,240,240,1)"}
+          bgcolor={"secondaryBg.light"}
           minWidth={250}
-          p={"1rem"}
+          p={"1rem 0"}
           borderRadius={"0 1.5rem 1.5rem 1.5rem"}
         >
-          <Typography fontWeight={"bold"}>{subList?.title}</Typography>
+          <Typography
+            pl={"1rem"}
+            fontSize={"1.1rem"}
+            fontWeight={"bold"}
+            color={"secondaryBg.contrastText"}
+          >
+            {subList?.title}
+          </Typography>
+          <Divider
+            flexItem
+            sx={{ m: "0.5rem 0", borderColor: "bright.main" }}
+          />
           {subList.list.map((list) => (
             <Button
               key={list}
               fullWidth
-              color={"dark"}
               sx={{
                 textTransform: "capitalize",
                 display: "flex",
                 textAlign: "left",
                 justifyContent: "flex-start",
-                pl: "1rem",
+                color: "secondaryBg.contrastText",
+                p: "0.5rem 1rem",
+                "&:hover": {
+                  bgcolor: "contrastBg.main",
+                },
               }}
             >
               {list}

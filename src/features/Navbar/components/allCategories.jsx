@@ -1,11 +1,9 @@
 import {
-  Camera,
   CameraAltOutlined,
   HomeOutlined,
   SportsEsportsOutlined,
 } from "@mui/icons-material";
-// import { Box } from "@mui/material";
-import SelectBotton from "./selectBotton";
+import SelectBotton from "./selectButton";
 import { IoBasketballOutline, IoShirtOutline } from "react-icons/io5";
 import { LuSofa, LuWatch } from "react-icons/lu";
 import { MdPhoneIphone } from "react-icons/md";

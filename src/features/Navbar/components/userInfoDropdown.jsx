@@ -1,6 +1,4 @@
-import useUserStore from "@/store/user";
 import { Avatar, Box, Button, Divider, Grid, Typography } from "@mui/material";
-import SmallDeviceButton from "./smallDeviceButton";
 import { LuClipboardList } from "react-icons/lu";
 import { RiCopperCoinLine } from "react-icons/ri";
 import { AiOutlineMessage } from "react-icons/ai";
@@ -9,6 +7,10 @@ import {
   CreditCard,
   FavoriteBorderOutlined,
 } from "@mui/icons-material";
+
+import useUserStore from "@/store/user";
+
+import SmallDeviceButton from "./smallDeviceButton";
 
 function UserInfoDropdown({ openLogin }) {
   const { user, setUser, signOut } = useUserStore();

@@ -1,9 +1,11 @@
 import { ExpandLess, ExpandMore, Menu } from "@mui/icons-material";
 import { Box, Button, Typography } from "@mui/material";
-import AllCategories from "./allCategories";
-import NavbarButton from "./navbarButton";
-import MoreCategories from "./moreCategories";
+
 import { useState } from "react";
+
+import AllCategories from "../components/allCategories";
+import NavbarButton from "../components/navbarButton";
+import MoreCategories from "../components/moreCategories";
 
 function BottomNavbar() {
   const [allPropOpen, setAllPropOpen] = useState(false);

@@ -72,6 +72,8 @@ const darkTheme = createTheme(dTheme, {
       },
       name: "demakkSecondary",
     }),
+    dark: "#262626",
+    bright: "#e9e9e9",
   },
 });
 
@@ -96,6 +98,8 @@ const lightTheme = createTheme(lTheme, {
       },
       name: "demakkSecondary",
     }),
+    dark: "#606060",
+    bright: "#fafafa",
   },
 });
 

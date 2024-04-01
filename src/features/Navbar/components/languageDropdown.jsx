@@ -1,4 +1,3 @@
-import useUserStore from "@/store/user";
 import {
   Avatar,
   Box,
@@ -8,6 +7,8 @@ import {
   Select,
   Typography,
 } from "@mui/material";
+
+import useUserStore from "@/store/user";
 import { useState } from "react";
 
 function LanguageDropdown({ setOpenLanguage }) {

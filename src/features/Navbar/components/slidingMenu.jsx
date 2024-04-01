@@ -14,9 +14,12 @@ import {
   Slide,
   Typography,
 } from "@mui/material";
+
+import data from "@/data/library";
+
 import SmallDeviceButton from "./smallDeviceButton";
 import useUserStore from "@/store/user";
-import data from "@/data/library";
+
 const style = {
   position: "absolute",
   top: "0%",

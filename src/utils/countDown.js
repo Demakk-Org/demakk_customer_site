@@ -7,6 +7,9 @@ const formatSingleDigitTime = (time) => {
 export function countDown(time) {
   if (!time) var countDownDate = new Date("Mar 28, 2024 15:37:25").getTime();
   else var countDownDate = new Date(time).getTime();
+  console.log(Array.from(document.getElementsByClassName("count-down")));
+
+  let message = "";
 
   var x = setInterval(function () {
     var now = new Date().getTime();
@@ -21,11 +24,17 @@ export function countDown(time) {
       let hr = new Date(time).getHours();
       let min = new Date(time).getMinutes();
 
-      document.getElementById("count-down").innerHTML = `Sales ends: ${
+      message = `Sales ends: ${
         calendar.months[mon]
       } ${day}, ${formatSingleDigitTime(hr)}:${formatSingleDigitTime(
         min
       )} (GMT+3)`;
+
+      Array.from(document.getElementsByClassName("count-down")).foreach(
+        (element) => {
+          element.innerHTML = message;
+        }
+      );
       return;
     }
 
@@ -36,7 +45,7 @@ export function countDown(time) {
     var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
     var seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
-    document.getElementById("count-down").innerHTML =
+    message =
       "Sales ends in: " +
       days +
       " d " +
@@ -46,9 +55,15 @@ export function countDown(time) {
       " : " +
       formatSingleDigitTime(seconds);
 
+    Array.from(document.getElementsByClassName("count-down")).forEach(
+      (item) => (item.innerHTML = message)
+    );
+
     if (distance < 0) {
       clearInterval(x);
-      document.getElementById("count-down").innerHTML = "EXPIRED";
+      document
+        .getElementsByClassName("count-down")
+        .forEach((item) => (item.innerHTML = "EXPIRED"));
     }
   }, 1000);
 }

@@ -56,9 +56,11 @@ const darkTheme = createTheme(dTheme, {
     text: {
       teritiary: "#575757",
       links: "#ffffffcc",
+      price: "#ff0000",
     },
     background: {
       lighter: "#63636399",
+      reddish: "#ff795b99",
     },
     demakkPrimary: theme.palette.augmentColor({
       color: {
@@ -82,9 +84,11 @@ const lightTheme = createTheme(lTheme, {
     text: {
       teritiary: "#e7e7e7",
       links: "#191919cc",
+      price: "#ff0000",
     },
     background: {
       lighter: "#d0d0d099",
+      reddish: "#ffc7b899",
     },
     demakkPrimary: theme.palette.augmentColor({
       color: {

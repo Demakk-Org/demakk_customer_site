@@ -16,7 +16,11 @@ function LargeDeviceAdvertContainer() {
           justifyContent={"space-between"}
           height={1}
         >
-          <Typography id="count-down" fontSize={"1.5rem"} color={"bright"}>
+          <Typography
+            className="count-down"
+            fontSize={"1.5rem"}
+            color={"bright"}
+          >
             Sale ends: Mar 28, 09:59 (GMT+3)
           </Typography>
 
@@ -76,6 +80,12 @@ function LargeDeviceAdvertContainer() {
               display={"flex"}
               alignItems={"center"}
               justifyContent={"space-around"}
+              borderRadius={"5rem"}
+              sx={{
+                "&:hover": {
+                  bgcolor: "action.hover",
+                },
+              }}
             >
               <Typography
                 fontSize={"2rem"}

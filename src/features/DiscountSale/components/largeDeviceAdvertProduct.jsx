@@ -14,7 +14,10 @@ function LargeDeviceAdvertProduct({ title, icon, data, first, second }) {
       gap={2}
       borderRadius={"1rem"}
       bgcolor={"background.lighter"}
-      sx={{ cursor: "pointer", userSelect: "none" }}
+      sx={{
+        cursor: "pointer",
+        userSelect: "none",
+      }}
     >
       <Box display={"flex"} alignItems={"center"} gap={2} color={"bright"}>
         <Box fontSize={"1.4rem"} display={"flex"} alignItems={"center"}>
@@ -29,9 +32,20 @@ function LargeDeviceAdvertProduct({ title, icon, data, first, second }) {
           {title || "Big Saves"}
         </Typography>
       </Box>
-      <Box display={"flex"} flexDirection={"column"} flex={1}>
+      <Box
+        display={"flex"}
+        flexDirection={"column"}
+        flex={1}
+        sx={{
+          "&:hover": { bgcolor: "action.hover" },
+          "&:hover img": {
+            transform: "scale(1.05)",
+            transition: "transform ease-in-out 0.3s",
+          },
+        }}
+      >
         <Grid container>
-          <Grid item md={4}>
+          <Grid item md={4} sx={{ overflow: "hidden" }}>
             <Box
               width={1}
               height={1}
@@ -73,9 +87,20 @@ function LargeDeviceAdvertProduct({ title, icon, data, first, second }) {
           </Grid>
         </Grid>
       </Box>
-      <Box display={"flex"} flexDirection={"column"} flex={1}>
+      <Box
+        display={"flex"}
+        flexDirection={"column"}
+        flex={1}
+        sx={{
+          "&:hover": { bgcolor: "action.hover" },
+          "&:hover img": {
+            transform: "scale(1.05)",
+            transition: "transform ease-in-out 0.3s",
+          },
+        }}
+      >
         <Grid container>
-          <Grid item md={4}>
+          <Grid item md={4} sx={{ overflow: "hidden" }}>
             <Box
               width={1}
               height={1}

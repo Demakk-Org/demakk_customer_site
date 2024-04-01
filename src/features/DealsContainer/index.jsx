@@ -1,4 +1,5 @@
 import { Box, Grid } from "@mui/material";
+
 import SocialContainer from "./components/SocialContainer";
 import DealsInCarousel from "./components/DealsInCarousel";
 import DealInFullHeight from "./components/DealInFullHeight";
@@ -6,7 +7,12 @@ import ThreeInOneDeal from "./components/ThreeInOneDeal";
 
 function DealsContainer() {
   return (
-    <Box display={"flex"} p={{ md: "3rem 6rem", xl: "3rem 12rem" }} width={1}>
+    <Box
+      display={"flex"}
+      p={{ md: "3rem 6rem", xl: "3rem 12rem" }}
+      width={1}
+      bgcolor={"background.paper"}
+    >
       <Grid width={1} container spacing={2}>
         <Grid item xs={3}>
           <Box display={"flex"} flexDirection={"column"} gap={2} height={1}>

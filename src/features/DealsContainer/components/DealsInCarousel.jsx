@@ -8,7 +8,7 @@ function DealsInCarousel() {
       display={"flex"}
       flexDirection={"column"}
       p={"1.5rem"}
-      bgcolor={"primaryLight.light"}
+      bgcolor={"background.lighter"}
       borderRadius={"1rem"}
       height={1}
     >
@@ -48,13 +48,13 @@ function DealsInCarousel() {
                 <Typography
                   fontSize={"1.1rem"}
                   fontWeight={"bold"}
-                  color={"tertiary.main"}
+                  color={"text.price"}
                 >
                   US ${item.list[0].price}
                 </Typography>
                 <Typography
                   fontSize={"0.95rem"}
-                  color={"text.light"}
+                  color={"text.secondary"}
                   sx={{ textDecoration: "line-through" }}
                 >
                   US ${item.list[0].discountValue}

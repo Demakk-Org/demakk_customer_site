@@ -1,20 +1,11 @@
 import { ArrowForward } from "@mui/icons-material";
 import { Box, Typography } from "@mui/material";
 
-import { useEffect } from "react";
-
 import advertProductList from "@/data/advertProductList";
-import { countDown } from "@/utils/countDown";
-import CarouselContainer from "@/component/Carousel";
+import CarouselContainer from "@/component/CarouselContainer";
 import SmallDeviceAdvertProduct from "./smallDeviceAdvertProduct";
 
 function SmallDeviceAdvertContainer() {
-  useEffect(() => {
-    if (document) {
-      countDown();
-    }
-  });
-
   return (
     <Box
       width={1}

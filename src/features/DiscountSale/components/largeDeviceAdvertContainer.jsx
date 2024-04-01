@@ -1,10 +1,8 @@
 import { ArrowForward } from "@mui/icons-material";
 import { Avatar, Box, Grid, IconButton, Typography } from "@mui/material";
 
-import CarouselContainer from "@/component/Carousel";
-
+import CarouselContainer from "@/component/CarouselContainer";
 import LargeDeviceAdvertProduct from "./largeDeviceAdvertProduct";
-
 import advertProductList from "@/data/advertProductList";
 
 function LargeDeviceAdvertContainer() {
@@ -18,7 +16,7 @@ function LargeDeviceAdvertContainer() {
           justifyContent={"space-between"}
           height={1}
         >
-          <Typography fontSize={"1.5rem"} color={"white.main"}>
+          <Typography id="count-down" fontSize={"1.5rem"} color={"bright"}>
             Sale ends: Mar 28, 09:59 (GMT+3)
           </Typography>
 
@@ -26,7 +24,7 @@ function LargeDeviceAdvertContainer() {
             <Typography
               fontSize={"5rem"}
               fontWeight={"bold"}
-              sx={{ color: "secondaryLight.main" }}
+              color={"bright"}
               width={1}
               lineHeight={1.2}
             >
@@ -35,7 +33,7 @@ function LargeDeviceAdvertContainer() {
             <Typography
               fontSize={"2.3rem"}
               fontWeight={"bold"}
-              color={"white.main"}
+              color={"bright"}
               width={1}
             >
               Explore your fave deals now
@@ -45,7 +43,7 @@ function LargeDeviceAdvertContainer() {
           <Box
             display="flex"
             sx={{
-              bgcolor: "secondaryLight.main",
+              bgcolor: "background.lighter",
               borderRadius: "10rem",
               cursor: "pointer",
             }}
@@ -82,11 +80,11 @@ function LargeDeviceAdvertContainer() {
               <Typography
                 fontSize={"2rem"}
                 fontWeight={"bold"}
-                color={"primary"}
+                color={"demakkSecondary.light"}
               >
                 Shop now
               </Typography>
-              <ArrowForward color="primary" sx={{ fontSize: "5rem" }} />
+              <ArrowForward color="demakkSecondary" sx={{ fontSize: "5rem" }} />
             </Box>
           </Box>
         </Box>

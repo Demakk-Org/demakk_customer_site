@@ -1,6 +1,6 @@
 import { Box, Typography } from "@mui/material";
 import advertProductList from "@/data/advertProductList";
-import CarouselContainer from "@/Component/Carousel";
+import CarouselContainer from "@/component/CarouselContainer";
 
 function DealsInCarousel() {
   return (

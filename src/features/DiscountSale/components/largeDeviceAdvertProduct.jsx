@@ -1,6 +1,7 @@
 import { Box, Grid, Icon, Typography } from "@mui/material";
 import React from "react";
 import { FcLeftDown2 } from "react-icons/fc";
+import { LuCornerLeftDown } from "react-icons/lu";
 import { RiCoupon2Fill } from "react-icons/ri";
 
 function LargeDeviceAdvertProduct({ title, icon, data, first, second }) {
@@ -12,16 +13,11 @@ function LargeDeviceAdvertProduct({ title, icon, data, first, second }) {
       height={1}
       gap={2}
       borderRadius={"1rem"}
-      bgcolor={"rgb(240,240,240)"}
+      bgcolor={"background.lighter"}
       sx={{ cursor: "pointer", userSelect: "none" }}
     >
-      <Box
-        display={"flex"}
-        alignItems={"center"}
-        gap={2}
-        color={"primary.main"}
-      >
-        <Box fontSize={"1.4rem"}>
+      <Box display={"flex"} alignItems={"center"} gap={2} color={"bright"}>
+        <Box fontSize={"1.4rem"} display={"flex"} alignItems={"center"}>
           {icon || <RiCoupon2Fill fontSize={"inherit"} />}
         </Box>
         <Typography
@@ -54,25 +50,23 @@ function LargeDeviceAdvertProduct({ title, icon, data, first, second }) {
               justifyContent={"center"}
               flexDirection="column"
               height={1}
-              bgcolor={"Background"}
+              bgcolor={"background.lighter"}
+              color={"text.primary"}
             >
               <Box display={"flex"} alignItems={"center"}>
-                <Box fontSize={"1.2rem"}>
-                  <FcLeftDown2 fontSize={"inherit"} color="red" />
-                </Box>
-                <Typography
+                <Box
                   fontSize={"1.2rem"}
-                  color={"primary"}
-                  fontWeight={"bold"}
+                  display={"flex"}
+                  alignItems={"center"}
+                  color="error.main"
                 >
+                  <LuCornerLeftDown fontSize={"inherit"} color="inherit" />
+                </Box>
+                <Typography fontSize={"1.2rem"} fontWeight={"bold"}>
                   -{first.discountValue || "50"}%
                 </Typography>
               </Box>
-              <Typography
-                fontSize={"1.2rem"}
-                color={"primary"}
-                fontWeight={"bold"}
-              >
+              <Typography fontSize={"1.2rem"} fontWeight={"bold"}>
                 US $1{first.price || "35.25"}
               </Typography>
             </Box>
@@ -101,25 +95,23 @@ function LargeDeviceAdvertProduct({ title, icon, data, first, second }) {
               justifyContent={"center"}
               flexDirection="column"
               height={1}
-              bgcolor={"Background"}
+              bgcolor={"background.lighter"}
+              color={"text.primary"}
             >
               <Box display={"flex"} alignItems={"center"}>
-                <Box fontSize={"1.2rem"}>
-                  <FcLeftDown2 fontSize={"inherit"} color="red" />
-                </Box>
-                <Typography
+                <Box
                   fontSize={"1.2rem"}
-                  color={"primary"}
-                  fontWeight={"bold"}
+                  display={"flex"}
+                  alignItems={"center"}
+                  color="error.main"
                 >
+                  <LuCornerLeftDown fontSize={"inherit"} color="inherit" />
+                </Box>
+                <Typography fontSize={"1.2rem"} fontWeight={"bold"}>
                   -{second.discountValue || "50"}%
                 </Typography>
               </Box>
-              <Typography
-                fontSize={"1.2rem"}
-                color={"primary"}
-                fontWeight={"bold"}
-              >
+              <Typography fontSize={"1.2rem"} fontWeight={"bold"}>
                 US ${second.price || "30.35"}
               </Typography>
             </Box>

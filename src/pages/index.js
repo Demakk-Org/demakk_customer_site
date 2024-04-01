@@ -2,7 +2,6 @@ import Head from "next/head";
 import styles from "@/styles/Home.module.css";
 
 import Navbar from "@/features/Navbar";
-import BottomNavbar from "@/features/Navbar/components/bottomNavbar";
 import DiscountSale from "@/features/DiscountSale";
 import PinLocation from "@/features/Home/PinLocation";
 import Recommendation from "@/features/Recommendation";
@@ -26,7 +25,6 @@ export default function Home() {
       <main className={`${styles.main}`}>
         <Box width={"100%"} minHeight={"100vh"} bgcolor={"background.paper"}>
           {/* <Navbar /> */}
-          {/* <BottomNavbar /> */}
           <PinLocation />
           <Recommendation />
           <DiscountSale />

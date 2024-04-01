@@ -1,5 +1,3 @@
-import useUserStore from "@/store/user";
-import { textValidator } from "@/utils/emailValidator";
 import {
   Apple,
   Cancel,
@@ -23,14 +21,12 @@ import {
   OutlinedInput,
   Typography,
 } from "@mui/material";
-import { Montserrat } from "next/font/google";
+
 import { useState } from "react";
+import useUserStore from "@/store/user";
+import { textValidator } from "@/utils/emailValidator";
 
 const style = {
-  // position: "absolute",
-  // top: "50%",
-  // left: "50%",
-  // transform: "translate(-50%, -50%)",
   minWidth: 375,
   maxWidth: 500,
   bgcolor: "background.paper",
@@ -38,8 +34,6 @@ const style = {
   p: "0 4rem 4rem 4rem",
   zIndex: 10000,
 };
-
-const font = Montserrat({ subsets: ["cyrillic"] });
 
 function LoginModal({ open, handleClose }) {
   const { setUser } = useUserStore();
@@ -102,7 +96,6 @@ function LoginModal({ open, handleClose }) {
       >
         <Box sx={style}>
           <Typography
-            className={font.className}
             textAlign={"center"}
             fontSize={"1.25rem"}
             fontWeight={"600"}
@@ -214,18 +207,13 @@ function LoginModal({ open, handleClose }) {
             <Box
               component={"a"}
               href="#"
-              className={font.className}
               fontSize={"0.75rem"}
               sx={{ color: "gray" }}
             >
               Trouble Signing in?
             </Box>
             <Divider>
-              <Typography
-                p={"1rem 1rem"}
-                className={font.className}
-                fontSize={"0.85rem"}
-              >
+              <Typography p={"1rem 1rem"} fontSize={"0.85rem"}>
                 Or continue with
               </Typography>
             </Divider>

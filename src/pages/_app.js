@@ -89,6 +89,18 @@ const darkTheme = createTheme(dTheme, {
       },
       name: "brighten",
     }),
+    primaryButton: theme.palette.augmentColor({
+      color: {
+        main: "#e9e9e9",
+      },
+      name: "primaryButton",
+    }),
+    secondaryButton: theme.palette.augmentColor({
+      color: {
+        main: "#e9e9e90c",
+      },
+      name: "secondaryButton",
+    }),
   },
 });
 
@@ -117,7 +129,31 @@ const lightTheme = createTheme(lTheme, {
       name: "demakkSecondary",
     }),
     dark: "#606060",
+    darken: theme.palette.augmentColor({
+      color: {
+        main: "#262626",
+      },
+      name: "darken",
+    }),
     bright: "#fafafa",
+    brighten: theme.palette.augmentColor({
+      color: {
+        main: "#e9e9e9",
+      },
+      name: "brighten",
+    }),
+    primaryButton: theme.palette.augmentColor({
+      color: {
+        main: "#262626",
+      },
+      name: "primaryButton",
+    }),
+    secondaryButton: theme.palette.augmentColor({
+      color: {
+        main: "#2626261c",
+      },
+      name: "secondaryButton",
+    }),
   },
 });
 

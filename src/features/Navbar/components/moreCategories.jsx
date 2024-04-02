@@ -16,7 +16,7 @@ function MoreCategories() {
       <Box
         display={"flex"}
         flexDirection={"column"}
-        bgcolor={"secondaryBg.light"}
+        bgcolor={"background.lightOpaque"}
         width={"max-content"}
         borderRadius={"1.5rem"}
         overflow={"hidden"}

@@ -34,13 +34,14 @@ function BottomNavbar() {
     <Box
       width={1}
       p={"1rem 0"}
+      gap={1}
       sx={{
         display: {
           xs: "none",
           md: "flex",
         },
         bgcolor: {
-          xs: "primaryBg.dark",
+          xs: "background.lightOpaque",
         },
         justifyContent: "center",
       }}
@@ -49,29 +50,26 @@ function BottomNavbar() {
         position={"relative"}
         onMouseOver={() => setAllPropOpen(true)}
         onMouseLeave={() => setAllPropOpen(false)}
-        bgcolor={allPropOpen && "primaryBg"}
-        mr={"1rem"}
+        bgcolor={allPropOpen && "background.lightOpaque"}
         sx={{
           borderRadius: allPropOpen ? "1.5rem 1.5rem 0 0" : "1.5rem",
           "&:hover>button": {
             borderColor: "transparent",
-            bgcolor: "secondaryBg.light",
-            color: "secondaryBg.contrastText",
+            bgcolor: "action.hover",
+            color: "text.primary",
           },
         }}
       >
         <Button
           variant="outlined"
           startIcon={<Menu />}
+          color="primaryButton"
           endIcon={allPropOpen ? <ExpandLess /> : <ExpandMore />}
           sx={{
             display: "flex",
             alignItems: "center",
             p: "0.5rem 1.5rem",
-            bgcolor: "primaryBg.main",
-            border: "1px solid",
-            borderColor: "primaryBg.contrastText",
-            color: allPropOpen ? "primaryBg.main" : "bright.main",
+            color: allPropOpen ? "text.primary" : "text.secondary",
             borderRadius: allPropOpen ? "1.5rem 1.5rem 0 0" : "1.5rem",
           }}
         >
@@ -86,7 +84,8 @@ function BottomNavbar() {
           top={"100%"}
           borderRadius={"0 0 1.5rem 1.5rem"}
           left={0}
-          bgcolor={"secondaryBg.light"}
+          bgcolor={"background.lightOpaque"}
+          zIndex={100}
         >
           {allPropOpen && <AllCategories />}
         </Box>
@@ -111,7 +110,6 @@ function BottomNavbar() {
           "&:hover>button": {
             borderColor: "transparent",
             bgcolor: "secondaryBg.light",
-            color: "secondaryBg.contrastText",
           },
         }}
       >
@@ -121,12 +119,11 @@ function BottomNavbar() {
           sx={{
             borderRadius: "1.5rem",
             fontSize: "1rem",
-
+            color: "text.primary",
             p: "0.5rem 1.5rem",
             bgcolor: "transparent",
             "&:hover": {
-              bgcolor: "secondaryBg.light",
-              color: "secondaryBg.contrastText",
+              bgcolor: "action.hover",
             },
           }}
         >

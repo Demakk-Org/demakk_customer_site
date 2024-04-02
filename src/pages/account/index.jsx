@@ -4,7 +4,7 @@ import styles from "@/styles/Home.module.css";
 import { useEffect, useState } from "react";
 import useUserStore from "@/store/user";
 import { Typography } from "@mui/material";
-import SmallDeviceLogin from "@/components/Login/smallDeviceLogin";
+import SmallDeviceLogin from "@/features/Login/smallDeviceLogin";
 
 const inter = Inter({ subsets: ["latin"] });
 

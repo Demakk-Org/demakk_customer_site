@@ -23,7 +23,7 @@ function DealsInCarousel() {
         Your exclusive price
       </Typography>
       <Box width={1} className="carousel--container" mt={"auto"}>
-        <CarouselContainer type={"small"}>
+        <CarouselContainer type={"small"} infinite={true} animate={true}>
           {advertProductList.map((item, index) => (
             <Box
               key={index}

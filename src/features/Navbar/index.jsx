@@ -5,7 +5,7 @@ function NavBar() {
   return (
     <>
       <TopNavbar />
-      <BottomNavbar />
+      {/* <BottomNavbar /> */}
     </>
   );
 }

@@ -9,9 +9,9 @@ function SmallDeviceButton({ title, startImage, endImage }) {
         alignItems: "center",
         justifyContent: "flex-start",
         gap: { xs: 1, sm: 2, md: 1 },
-        color: "secondaryBg.contrastText",
+        color: "text.primary",
         "&:hover": {
-          bgcolor: "contrastBg.main",
+          bgcolor: "action.hover",
         },
       }}
     >
@@ -23,7 +23,7 @@ function SmallDeviceButton({ title, startImage, endImage }) {
           sx={{
             width: { xs: 30, sm: 60, md: 30 },
             height: { xs: 30, sm: 60, md: 30 },
-            color: "secondaryBg.contrastText",
+            color: "text.primary",
             bgcolor: "transparent",
             fontsize: "1.5rem !important",
           }}

@@ -3,7 +3,7 @@ const { Box, Typography, Grid } = require("@mui/material");
 function DealInFullHeight() {
   return (
     <Box
-      display={"flex"}
+      display={{ xs: "none", sm: "flex" }}
       flexDirection={"column"}
       height={1}
       p={"1.5rem"}

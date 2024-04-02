@@ -26,7 +26,7 @@ function UserInfoDropdown({ openLogin }) {
         flexDirection={"column"}
         gap={"0.25rem"}
         minWidth={300}
-        bgcolor={"secondaryBg.light"}
+        bgcolor={"background.paper"}
         border={"1px solid lightgray"}
         p={"1.5rem"}
         borderRadius={"1rem"}
@@ -39,10 +39,10 @@ function UserInfoDropdown({ openLogin }) {
               variant="contained"
               size="large"
               fullWidth
-              color="primaryBg"
+              color="demakkPrimary"
               sx={{
                 borderRadius: "1.5rem",
-                color: "primaryBg.contrastText",
+                // color: "primaryBg.contrastText",
                 textTransform: "capitalize",
               }}
               onClick={() => openLogin()}
@@ -56,7 +56,7 @@ function UserInfoDropdown({ openLogin }) {
               sx={{
                 bgcolor: "transparent",
                 borderRadius: "1.5rem",
-                color: "secondaryBg.contrastText",
+                color: "demakkPrimary.contrastText",
                 textTransform: "capitalize",
               }}
               onClick={() => setUser({ name: "Solen" })}
@@ -78,7 +78,7 @@ function UserInfoDropdown({ openLogin }) {
               </Grid>
               <Grid item md={9} display={"flex"}>
                 <Typography
-                  color={"secondaryBg.contrastText"}
+                  color={"text"}
                   flex={1}
                   fontWeight={400}
                   fontSize={"0.9rem"}
@@ -100,15 +100,20 @@ function UserInfoDropdown({ openLogin }) {
               <Button
                 onClick={() => signOut()}
                 variant="text"
-                color="bright"
-                sx={{ ml: "48px", textTransform: "unset" }}
+                sx={{
+                  ml: "48px",
+                  textTransform: "unset",
+                  color: "text.primary",
+                }}
               >
                 Sign Out
               </Button>
             </Box>
           </>
         )}
-        <Divider flexItem sx={{ borderColor: "bright.main" }} />
+
+        <Divider flexItem sx={{ borderColor: "bright" }} />
+
         <SmallDeviceButton
           startImage={<LuClipboardList fontSize={"inherit"} />}
           title={"My Orders"}

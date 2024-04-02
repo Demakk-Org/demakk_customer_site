@@ -7,7 +7,6 @@ const formatSingleDigitTime = (time) => {
 export function countDown(time) {
   if (!time) var countDownDate = new Date("Mar 28, 2024 15:37:25").getTime();
   else var countDownDate = new Date(time).getTime();
-  console.log(Array.from(document.getElementsByClassName("count-down")));
 
   let message = "";
 

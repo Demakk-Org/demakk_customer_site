@@ -41,12 +41,12 @@ function LanguageDropdown({ setOpenLanguage }) {
         top={"110%"}
         right={0}
         minWidth={300}
-        bgcolor={"secondaryBg.light"}
+        bgcolor={"background.paper"}
         border={"1px solid lightgray"}
         p={"1.5rem"}
         borderRadius={"1rem"}
         overflow={"auto"}
-        color={"secondaryBg.contrastText"}
+        color={"text"}
         sx={{
           display: { xs: "none", md: "flex" },
           zIndex: 1000,
@@ -74,12 +74,12 @@ function LanguageDropdown({ setOpenLanguage }) {
               <Select
                 name="address"
                 size="small"
-                color={"bright"}
+                color={"text"}
                 value={localAddress}
                 onChange={({ target }) => setLocalAddress(target.value)}
                 sx={{
                   borderRadius: "0.5rem",
-                  bgcolor: "bright.main",
+                  bgcolor: "background.lighter",
                   minWidth: 120,
                 }}
               >
@@ -165,13 +165,13 @@ function LanguageDropdown({ setOpenLanguage }) {
               <Select
                 name="lang"
                 size="small"
-                color={"bright"}
+                color={"text"}
                 value={localLang}
                 onChange={({ target }) => setLocalLang(target.value)}
                 sx={{
                   borderRadius: "0.5rem",
                   minWidth: 120,
-                  bgcolor: "bright.main",
+                  bgcolor: "background.lighter",
                 }}
               >
                 <MenuItem value={"en"}>
@@ -188,16 +188,13 @@ function LanguageDropdown({ setOpenLanguage }) {
           </Box>
           <Button
             type="submit"
-            color="bright"
             size="large"
             fullWidth
             sx={{
               textTransform: "capitalize",
               borderRadius: "1.5rem",
-              bgcolor: "secondaryBg.dark",
-              "&:hover": {
-                bgcolor: "darkslategray",
-              },
+              bgcolor: "dark",
+              color: "bright",
             }}
           >
             Save
@@ -212,7 +209,7 @@ function LanguageDropdown({ setOpenLanguage }) {
           transform: "rotate(45deg)",
           left: "50%",
           bottom: -12,
-          bgcolor: "Background",
+          bgcolor: "background.paper",
         }}
       />
     </>

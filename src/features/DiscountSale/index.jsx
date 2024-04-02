@@ -18,8 +18,8 @@ function DiscountSale() {
       sx={{ backgroundImage: "url(/assets/images/background.webp)" }}
       width={1}
     >
-      <LargeDeviceAdvertContainer />
       <SmallDeviceAdvertContainer />
+      <LargeDeviceAdvertContainer />
     </Box>
   );
 }

@@ -128,7 +128,7 @@ function LoginModal({ open, handleClose }) {
                 <Typography fontSize={"0.9rem"} fontWeight={"bold"}>
                   Ethiopia
                 </Typography>
-                <ExpandMore fontSize="medium" color="dark" />
+                <ExpandMore fontSize="medium" color="text.primary" />
               </Box>
             </Box>
             <OutlinedInput
@@ -175,7 +175,7 @@ function LoginModal({ open, handleClose }) {
                 display={"flex"}
                 flexDirection={"column"}
                 p={"0.5rem 1rem"}
-                color={"gray"}
+                color={"text.secondary"}
               >
                 <Box display={"flex"} gap={"0.5rem"} alignItems={"center"}>
                   <Circle sx={{ fontSize: "6px" }} />
@@ -192,13 +192,14 @@ function LoginModal({ open, handleClose }) {
             <Button
               fullWidth
               size="large"
+              color="demakkPrimary"
               variant={"contained"}
               disabled={!continueButton}
               sx={{
                 textTransform: "capitalize",
                 borderRadius: "2rem",
                 m: "0.5rem 0",
-                bgcolor: "primary.light",
+                color: "text.primary",
               }}
               onClick={() => handleContinueButton()}
             >

@@ -9,6 +9,7 @@ import {
 import {
   Box,
   Button,
+  Divider,
   IconButton,
   Modal,
   Slide,
@@ -25,7 +26,7 @@ const style = {
   top: "0%",
   left: "0%",
   width: "80%",
-  bgcolor: "secondaryBg.light",
+  bgcolor: "background.lightOpaque",
   boxShadow: 24,
   height: 1,
   overflow: "scroll",
@@ -55,7 +56,6 @@ function SlidingMenu({ open, handleClose }) {
           >
             <IconButton onClick={handleClose}>
               <Close sx={{ fontSize: { xs: 25, sm: 37.5, md: 40 } }} />
-              {/* <GoHome/> */}
             </IconButton>
             <Typography
               fontWeight={"bold"}
@@ -67,14 +67,15 @@ function SlidingMenu({ open, handleClose }) {
                   md: "2.2rem",
                 },
                 color: {
-                  xs: "primary.main",
-                  md: "primaryLight.main",
+                  xs: "text.primary",
+                  // md: "primaryLight.main",
                 },
               }}
             >
               Demakk
             </Typography>
           </Box>
+          <Divider flexItem sx={{ borderColor: "background.paper" }} />
           <Box
             id="category-container"
             p={{
@@ -84,7 +85,6 @@ function SlidingMenu({ open, handleClose }) {
           >
             <Button
               id="category-title"
-              color={"dark"}
               fullWidth
               endIcon={<ArrowForwardIos />}
               sx={{
@@ -92,6 +92,8 @@ function SlidingMenu({ open, handleClose }) {
                 justifyContent: "space-between",
                 alignItems: "center",
                 mb: "0.5rem",
+                bgcolor: "transparent",
+                color: "text.primary",
               }}
             >
               <Typography
@@ -140,7 +142,6 @@ function SlidingMenu({ open, handleClose }) {
           >
             <Button
               id="category-title"
-              color={"dark"}
               fullWidth
               endIcon={<ArrowForwardIos />}
               sx={{
@@ -148,6 +149,8 @@ function SlidingMenu({ open, handleClose }) {
                 justifyContent: "space-between",
                 alignItems: "center",
                 mb: "0.5rem",
+                bgcolor: "transparent",
+                color: "text.primary",
               }}
             >
               <Typography
@@ -180,7 +183,6 @@ function SlidingMenu({ open, handleClose }) {
           >
             <Button
               id="category-title"
-              color={"dark"}
               fullWidth
               endIcon={<ArrowForwardIos />}
               sx={{
@@ -188,6 +190,8 @@ function SlidingMenu({ open, handleClose }) {
                 justifyContent: "space-between",
                 alignItems: "center",
                 mb: "0.5rem",
+                bgcolor: "transparent",
+                color: "text.primary",
               }}
             >
               <Typography

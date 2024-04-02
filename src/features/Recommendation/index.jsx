@@ -15,7 +15,7 @@ function Recommendation() {
       p={{ md: "2rem 4rem 0.5rem 4rem", xl: "2rem 12rem 0.5rem 12rem" }}
       justifyContent={"space-between"}
       alignItems={"baseline"}
-      bgcolor={"background.lighter"}
+      bgcolor={"background.paper"}
     >
       <Typography
         fontSize={"1.5rem "}

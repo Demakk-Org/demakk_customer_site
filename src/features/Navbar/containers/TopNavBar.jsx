@@ -4,21 +4,16 @@ import {
   ExpandMore,
   Language,
   Menu,
-  Search,
 } from "@mui/icons-material";
 import {
   Avatar,
   Box,
-  FormControl,
   Grid,
   IconButton,
-  InputAdornment,
-  OutlinedInput,
   Typography,
 } from "@mui/material";
 
 import { PiShoppingCartLight } from "react-icons/pi";
-import { CiSearch } from "react-icons/ci";
 import { SlUser } from "react-icons/sl";
 
 import { useState } from "react";
@@ -58,7 +53,7 @@ function TopNavbar() {
         p={{ xs: "0.5rem 1rem", sm: "0.75rem 2rem", md: "0.5rem 6rem" }}
         sx={{
           bgcolor: {
-            xs: "background.paper",
+            xs: "background.lightOpaque",
           },
         }}
       >
@@ -318,6 +313,7 @@ function TopNavbar() {
             left: "1rem",
             zIndex: 10000,
             bgcolor: "background.paper",
+            borderColor: "text.primary",
             color: "text.primary",
           }}
           onClick={() => switchTheme()}

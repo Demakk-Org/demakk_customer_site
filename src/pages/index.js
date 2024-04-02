@@ -27,8 +27,8 @@ export default function Home() {
           <Navbar />
           <PinLocation />
           <Recommendation />
-          <DiscountSale />
           <DealsContainer />
+          <DiscountSale />
           <Footer />
         </Box>
       </main>

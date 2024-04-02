@@ -59,6 +59,7 @@ const darkTheme = createTheme(dTheme, {
       price: "#ff0000",
     },
     background: {
+      lightOpaque: "#414141",
       lighter: "#63636399",
       reddish: "#ff795b99",
     },
@@ -75,7 +76,19 @@ const darkTheme = createTheme(dTheme, {
       name: "demakkSecondary",
     }),
     dark: "#262626",
+    darken: theme.palette.augmentColor({
+      color: {
+        main: "#262626",
+      },
+      name: "darken",
+    }),
     bright: "#e9e9e9",
+    brighten: theme.palette.augmentColor({
+      color: {
+        main: "#e9e9e9",
+      },
+      name: "brighten",
+    }),
   },
 });
 
@@ -87,6 +100,7 @@ const lightTheme = createTheme(lTheme, {
       price: "#ff0000",
     },
     background: {
+      lightOpaque: "#d0d0d0",
       lighter: "#d0d0d099",
       reddish: "#ffc7b899",
     },

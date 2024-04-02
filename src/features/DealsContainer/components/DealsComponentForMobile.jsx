@@ -34,7 +34,10 @@ function DealsComponentForMobile({
           sx={{ textWrap: "nowrap" }}
         >
           US $
-          <Typography component={"span"} fontSize={"1.8rem"}>
+          <Typography
+            component={"span"}
+            fontSize={{ xs: "1.2rem", sm: "1.8rem" }}
+          >
             {price || "18"}
           </Typography>
           .55

@@ -5,13 +5,7 @@ import {
   Language,
   Menu,
 } from "@mui/icons-material";
-import {
-  Avatar,
-  Box,
-  Grid,
-  IconButton,
-  Typography,
-} from "@mui/material";
+import { Avatar, Box, Grid, IconButton, Typography } from "@mui/material";
 
 import { PiShoppingCartLight } from "react-icons/pi";
 import { SlUser } from "react-icons/sl";
@@ -26,6 +20,7 @@ import UserInfoDropdown from "../components/userInfoDropdown";
 import LanguageDropdown from "../components/languageDropdown";
 import LoginModal from "@/features/Login/loginModal";
 import SearchBar from "../components/SearchBar";
+import language from "@/data/dictionary";
 
 function TopNavbar() {
   const { darkMode, switchTheme } = useThemeProvider();
@@ -81,7 +76,7 @@ function TopNavbar() {
               },
             }}
           >
-            Demakk
+            {language.en.demakk}
           </Typography>
         </Grid>
 
@@ -145,7 +140,7 @@ function TopNavbar() {
                   </Typography>
                   <Box display={"flex"} alignItems={"center"}>
                     <Typography fontSize={"0.8rem"} fontWeight={"bold"}>
-                      BIRR
+                      {language.en.birr}
                     </Typography>
                     {!openLanguage ? (
                       <ExpandMore fontSize="small" color="text.primary" />
@@ -200,7 +195,9 @@ function TopNavbar() {
                     fontSize={"0.75rem"}
                     sx={{ display: { xs: "none", xl: "flex" } }}
                   >
-                    {user?.name ? `Hi, ${user.name}` : "Welcome"}
+                    {user?.name
+                      ? `${language.en.hi}, ${user.name}`
+                      : language.en.welcome}
                   </Typography>
                   <Box
                     display={"flex"}
@@ -212,7 +209,9 @@ function TopNavbar() {
                       fontWeight={"bold"}
                       sx={{ display: { xs: "none", xl: "inline" } }}
                     >
-                      {user?.name ? "Account" : "Sign in/Register"}
+                      {user?.name
+                        ? language.en.account
+                        : `${language.en.signIn}/${language.en.register}`}
                     </Typography>
                     {!openUserInfo ? (
                       <ExpandMore
@@ -277,7 +276,7 @@ function TopNavbar() {
                   </Typography>
                   <Box display={"flex"} alignItems={"center"}>
                     <Typography fontSize={"0.8rem"} fontWeight={"bold"}>
-                      Cart
+                      {language.en.cart}
                     </Typography>
                   </Box>
                 </Box>

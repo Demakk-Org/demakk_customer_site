@@ -1,3 +1,4 @@
+import language from "@/data/dictionary";
 import { Box, Typography } from "@mui/material";
 
 function DealsComponentForMobile({
@@ -53,7 +54,7 @@ function DealsComponentForMobile({
           fontSize={{ xs: "0.8rem", sm: "1.2rem" }}
           color={"text.primary"}
         >
-          {ordersNumber || "596"} orders
+          {ordersNumber || "596"} {language.en.orders}
         </Typography>
       </Box>
     </Box>

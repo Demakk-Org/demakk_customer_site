@@ -3,6 +3,7 @@ import { LuMapPin } from "react-icons/lu";
 
 import data from "@/data/library";
 import useUserStore from "@/store/user";
+import language from "@/data/dictionary";
 
 function PinLocation() {
   const { address } = useUserStore();
@@ -26,7 +27,7 @@ function PinLocation() {
         fontWeight={"bold"}
         fontSize={{ xs: "0.9rem", sm: "1.5rem" }}
       >
-        Deliver to {data.region[address].name}
+        {language.en.deliverTo} {data.region[address].name}
       </Typography>
     </Box>
   );

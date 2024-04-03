@@ -1,3 +1,5 @@
+import language from "@/data/dictionary";
+
 const { Box, Typography, Grid } = require("@mui/material");
 
 function DealInFullHeight() {
@@ -15,10 +17,10 @@ function DealInFullHeight() {
         fontWeight={"bold"}
         color={"primary.main"}
       >
-        Welcome Deal
+        {language.en.welcomeDeal}
       </Typography>
       <Typography fontSize={"1.1rem"} mb={3}>
-        Your exclusive price
+        {language.en.yourExclusivePrice}
       </Typography>
       <Box
         flex={1}

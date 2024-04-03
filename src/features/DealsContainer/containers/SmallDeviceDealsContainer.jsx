@@ -3,6 +3,7 @@ import { Box, Button, Typography } from "@mui/material";
 import CarouselContainer from "@/component/CarouselContainer";
 import DealsComponentForMobile from "../components/DealsComponentForMobile";
 import { ArrowForwardIos } from "@mui/icons-material";
+import language from "@/data/dictionary";
 
 function SmallDeviceDealsContainer() {
   return (
@@ -17,14 +18,14 @@ function SmallDeviceDealsContainer() {
         fontWeight={"bold"}
         color={"text.primary"}
       >
-        Welcome Deal
+        {language.en.welcomeDeal}
       </Typography>
       <Typography
         pl={{ sm: "1rem" }}
         fontSize={{ xs: "0.9rem", sm: "1.4rem" }}
         fontWeight={400}
       >
-        Your exclusive price
+        {language.en.yourExclusivePrice}
       </Typography>
       <Box width={1} mt={1}>
         <CarouselContainer type={"smallOther"} infinite={false} animate={false}>
@@ -58,7 +59,7 @@ function SmallDeviceDealsContainer() {
               endIcon={<ArrowForwardIos />}
               sx={{ color: "text.primary" }}
             >
-              More
+              {language.en.more}
             </Button>
           </Box>
         </CarouselContainer>

@@ -1,6 +1,4 @@
-import { Box, Grid, Icon, Typography } from "@mui/material";
-import React from "react";
-import { FcLeftDown2 } from "react-icons/fc";
+import { Box, Grid, Typography } from "@mui/material";
 import { LuCornerLeftDown } from "react-icons/lu";
 import { RiCoupon2Fill } from "react-icons/ri";
 

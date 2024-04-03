@@ -6,6 +6,7 @@ import { useState } from "react";
 import AllCategories from "../components/allCategories";
 import NavbarButton from "../components/navbarButton";
 import MoreCategories from "../components/moreCategories";
+import language from "@/data/dictionary";
 
 function BottomNavbar() {
   const [allPropOpen, setAllPropOpen] = useState(false);
@@ -74,7 +75,7 @@ function BottomNavbar() {
           }}
         >
           <Typography fontWeight={"bold"} textTransform={"capitalize"} mr={6}>
-            All Categories
+            {language.en.allCategories}
           </Typography>
         </Button>
         <Box
@@ -90,11 +91,11 @@ function BottomNavbar() {
           {allPropOpen && <AllCategories />}
         </Box>
       </Box>
-      <NavbarButton name={"NN"} />
-      <NavbarButton name={" Best Sellers"} />
-      <NavbarButton name={"Top Brands"} />
-      <NavbarButton name={"Consumer Electronics"} />
-      <NavbarButton name={"Home Improvement & Lighting"} />
+      <NavbarButton name={language.en.nn} />
+      <NavbarButton name={language.en.bestSellers} />
+      <NavbarButton name={language.en.topBrands} />
+      <NavbarButton name={language.en.consumerElectronics} />
+      <NavbarButton name={language.en.homeImprovementAndLighting} />
       <Box
         position={"relative"}
         onMouseEnter={() => {
@@ -127,7 +128,7 @@ function BottomNavbar() {
             },
           }}
         >
-          <Typography textTransform={"capitalize"}>More</Typography>
+          <Typography textTransform={"capitalize"}>{language.en.more}</Typography>
         </Button>
         {openMore && <MoreCategories />}
       </Box>

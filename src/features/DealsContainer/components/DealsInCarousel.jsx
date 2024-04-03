@@ -1,6 +1,7 @@
 import { Box, Typography } from "@mui/material";
 import advertProductList from "@/data/advertProductList";
 import CarouselContainer from "@/component/CarouselContainer";
+import language from "@/data/dictionary";
 
 function DealsInCarousel() {
   return (
@@ -17,10 +18,10 @@ function DealsInCarousel() {
         fontWeight={"bold"}
         color={"primary.main"}
       >
-        Welcome Deal
+        {language.en.welcomeDeal}
       </Typography>
       <Typography fontSize={"1.1rem"} mb={3}>
-        Your exclusive price
+        {language.en.yourExclusivePrice}
       </Typography>
       <Box width={1} className="carousel--container" mt={"auto"}>
         <CarouselContainer type={"small"} infinite={true} animate={true}>

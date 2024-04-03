@@ -1,5 +1,6 @@
 import { Box } from "@mui/material";
 import SelectBotton from "./selectButton";
+import language from "@/data/dictionary";
 
 function MoreCategories() {
   return (
@@ -21,12 +22,12 @@ function MoreCategories() {
         borderRadius={"1.5rem"}
         overflow={"hidden"}
       >
-        <SelectBotton name={"Home Improvement & Lighting"} />
-        <SelectBotton name={"Men's Clothing"} />
-        <SelectBotton name={"Furniture"} />
-        <SelectBotton name={"Accessories"} />
-        <SelectBotton name={"Hair Extainsions and Wigs"} />
-        <SelectBotton name={"Automotive and Motorcycles"} />
+        <SelectBotton name={language.en.homeImprovementAndLighting} />
+        <SelectBotton name={language.en.mensClothes} />
+        <SelectBotton name={language.en.furniture} />
+        <SelectBotton name={language.en.accessories} />
+        <SelectBotton name={language.en.hairExtainsionsAndWigs} />
+        <SelectBotton name={language.en.automotiveAndMotorcycles} />
       </Box>
       <Box
         id={"after-container"}

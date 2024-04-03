@@ -4,6 +4,7 @@ import { Avatar, Box, Grid, IconButton, Typography } from "@mui/material";
 import CarouselContainer from "@/component/CarouselContainer";
 import LargeDeviceAdvertProduct from "./largeDeviceAdvertProduct";
 import advertProductList from "@/data/advertProductList";
+import language from "@/data/dictionary";
 
 function LargeDeviceAdvertContainer() {
   return (
@@ -21,7 +22,7 @@ function LargeDeviceAdvertContainer() {
             fontSize={"1.5rem"}
             color={"bright"}
           >
-            Sale ends: Mar 28, 09:59 (GMT+3)
+            {language.en.saleEnds}: Mar 28, 09:59 (GMT+3)
           </Typography>
 
           <Box width={1} p={"1rem 0"}>
@@ -32,7 +33,7 @@ function LargeDeviceAdvertContainer() {
               width={1}
               lineHeight={1.2}
             >
-              Up to 70% off
+              {language.en.upto} 70% {language.en.off}
             </Typography>
             <Typography
               fontSize={"2.3rem"}
@@ -40,7 +41,7 @@ function LargeDeviceAdvertContainer() {
               color={"bright"}
               width={1}
             >
-              Explore your fave deals now
+              {language.en.exploreYourFaveDealsNow}
             </Typography>
           </Box>
 
@@ -92,7 +93,7 @@ function LargeDeviceAdvertContainer() {
                 fontWeight={"bold"}
                 color={"demakkSecondary.light"}
               >
-                Shop now
+                {language.en.shopNow}
               </Typography>
               <ArrowForward color="demakkSecondary" sx={{ fontSize: "5rem" }} />
             </Box>

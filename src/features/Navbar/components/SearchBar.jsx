@@ -1,3 +1,4 @@
+import language from "@/data/dictionary";
 import {
   Box,
   FormControl,
@@ -15,7 +16,7 @@ function SearchBar() {
       size={"small"}
     >
       <OutlinedInput
-        placeholder="Search for any product..."
+        placeholder={language.en.searchPlaceholder}
         sx={{
           borderRadius: "3rem",
           width: "100%",

@@ -25,6 +25,7 @@ import {
 import { useState } from "react";
 import useUserStore from "@/store/user";
 import { textValidator } from "@/utils/emailValidator";
+import language from "@/data/dictionary";
 
 const style = {
   minWidth: 375,
@@ -102,7 +103,7 @@ function LoginModal({ open, handleClose }) {
             pt={"1rem"}
             pb={"2rem"}
           >
-            Register/Sign in
+            {language.en.register}/{language.en.signIn}
           </Typography>
           <Box
             overflow={"auto"}
@@ -119,14 +120,16 @@ function LoginModal({ open, handleClose }) {
               alignItems={"baseline"}
               gap={"0.25rem"}
             >
-              <Typography fontSize={"0.8rem"}>Location: </Typography>
+              <Typography fontSize={"0.8rem"}>
+                {language.en.location}:{" "}
+              </Typography>
               <Box
                 display={"flex"}
                 alignItems={"center"}
                 sx={{ cursor: "pointer" }}
               >
                 <Typography fontSize={"0.9rem"} fontWeight={"bold"}>
-                  Ethiopia
+                  {language.en.ethiopia}
                 </Typography>
                 <ExpandMore fontSize="medium" color="text.primary" />
               </Box>
@@ -179,12 +182,14 @@ function LoginModal({ open, handleClose }) {
               >
                 <Box display={"flex"} gap={"0.5rem"} alignItems={"center"}>
                   <Circle sx={{ fontSize: "6px" }} />
-                  <Typography fontSize={"0.7rem"}>6-20 Characters</Typography>
+                  <Typography fontSize={"0.7rem"}>
+                    6-20 {language.en.characters}
+                  </Typography>
                 </Box>
                 <Box display={"flex"} gap={"0.5rem"} alignItems={"center"}>
                   <Circle sx={{ fontSize: "6px" }} />
                   <Typography fontSize={"0.7rem"}>
-                    Contains numbers, letters or symbols
+                    {language.en.containsNumberLetterOrSymbol}
                   </Typography>
                 </Box>
               </Box>
@@ -203,7 +208,11 @@ function LoginModal({ open, handleClose }) {
               }}
               onClick={() => handleContinueButton()}
             >
-              {!continueStage ? "Continue" : userExists ? "Log in" : "Register"}
+              {!continueStage
+                ? language.en.continue
+                : userExists
+                ? language.en.signIn
+                : language.en.register}
             </Button>
             <Box
               component={"a"}
@@ -211,11 +220,11 @@ function LoginModal({ open, handleClose }) {
               fontSize={"0.75rem"}
               sx={{ color: "gray" }}
             >
-              Trouble Signing in?
+              {language.en.troubleSigningIn}
             </Box>
             <Divider>
               <Typography p={"1rem 1rem"} fontSize={"0.85rem"}>
-                Or continue with
+                {language.en.orContinueWith}
               </Typography>
             </Divider>
             <Button
@@ -232,7 +241,7 @@ function LoginModal({ open, handleClose }) {
               }}
             >
               <Typography flex={1} textTransform={"lowercase"}>
-                facebook
+                {language.en.facebook}
               </Typography>
             </Button>
             <Button
@@ -256,7 +265,7 @@ function LoginModal({ open, handleClose }) {
               }}
             >
               <Typography flex={1} textTransform={"lowercase"}>
-                google
+                {language.en.google}
               </Typography>
             </Button>
             <Button
@@ -273,7 +282,7 @@ function LoginModal({ open, handleClose }) {
               }}
             >
               <Typography flex={1} textTransform={"lowercase"}>
-                tweeter
+                {language.en.tweeter}
               </Typography>
             </Button>
             <Button
@@ -290,13 +299,11 @@ function LoginModal({ open, handleClose }) {
               }}
             >
               <Typography flex={1} textTransform={"lowercase"}>
-                apple
+                {language.en.apple}
               </Typography>
             </Button>
             <Typography fontSize={"0.7rem"} mt={"0.5rem"}>
-              By continuing, you confirm that you are an adult. By creating an
-              account, you agree to the AliExpress.com Free Membership Agreement
-              and Privacy Policy.
+              {language.en.registerPolicy}
             </Typography>
           </Box>
           <IconButton

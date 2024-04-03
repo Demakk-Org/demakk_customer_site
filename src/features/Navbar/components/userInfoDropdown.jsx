@@ -11,6 +11,7 @@ import {
 import useUserStore from "@/store/user";
 
 import SmallDeviceButton from "./smallDeviceButton";
+import language from "@/data/dictionary";
 
 function UserInfoDropdown({ openLogin }) {
   const { user, setUser, signOut } = useUserStore();
@@ -42,12 +43,11 @@ function UserInfoDropdown({ openLogin }) {
               color="demakkPrimary"
               sx={{
                 borderRadius: "1.5rem",
-                // color: "primaryBg.contrastText",
                 textTransform: "capitalize",
               }}
               onClick={() => openLogin()}
             >
-              Sign Up
+              {language.en.signUp}
             </Button>
             <Button
               variant="text"
@@ -61,7 +61,7 @@ function UserInfoDropdown({ openLogin }) {
               }}
               onClick={() => setUser({ name: "Solen" })}
             >
-              Register
+              {language.en.register}
             </Button>
           </>
         ) : (
@@ -83,7 +83,7 @@ function UserInfoDropdown({ openLogin }) {
                   fontWeight={400}
                   fontSize={"0.9rem"}
                 >
-                  Welcome back,{" "}
+                  {language.en.welcomeBack},{" "}
                   <Box component={"span"} fontWeight={"bold"}>
                     {user.name}
                   </Box>
@@ -106,7 +106,7 @@ function UserInfoDropdown({ openLogin }) {
                   color: "text.primary",
                 }}
               >
-                Sign Out
+                {language.en.signOut}
               </Button>
             </Box>
           </>
@@ -116,34 +116,34 @@ function UserInfoDropdown({ openLogin }) {
 
         <SmallDeviceButton
           startImage={<LuClipboardList fontSize={"inherit"} />}
-          title={"My Orders"}
+          title={language.en.myOrders}
         />
         <SmallDeviceButton
           startImage={<RiCopperCoinLine fontSize={"inherit"} />}
-          title={"My Coins"}
+          title={language.en.myCoins}
         />
         <SmallDeviceButton
           startImage={<AiOutlineMessage fontSize={"inherit"} />}
-          title={"Message Center"}
+          title={language.en.messageCenter}
         />
         <SmallDeviceButton
           startImage={<CreditCard fontSize={"inherit"} />}
-          title={"Payments"}
+          title={language.en.payments}
         />
         <SmallDeviceButton
           startImage={<FavoriteBorderOutlined fontSize={"inherit"} />}
-          title={"Wish List"}
+          title={language.en.wishList}
         />
         <SmallDeviceButton
           startImage={<ConfirmationNumberOutlined fontSize={"inherit"} />}
-          title={"My Coupons"}
+          title={language.en.myCoupons}
         />
         <Divider flexItem />
-        <SmallDeviceButton title={"DC Center"} />
-        <SmallDeviceButton title={"Buyer Protection"} />
-        <SmallDeviceButton title={"Help Center"} />
-        <SmallDeviceButton title={"Disputes & Reports"} />
-        <SmallDeviceButton title={"Accessility"} />
+        <SmallDeviceButton title={language.en.dsCenter} />
+        <SmallDeviceButton title={language.en.buyerProtection} />
+        <SmallDeviceButton title={language.en.helpCenter} />
+        <SmallDeviceButton title={language.en.disputeAndReports} />
+        <SmallDeviceButton title={language.en.accessibility} />
       </Box>
     </>
   );

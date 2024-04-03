@@ -60,9 +60,9 @@ export function countDown(time) {
 
     if (distance < 0) {
       clearInterval(x);
-      document
-        .getElementsByClassName("count-down")
-        .forEach((item) => (item.innerHTML = "EXPIRED"));
+      Array.from(document.getElementsByClassName("count-down")).forEach(
+        (item) => (item.innerHTML = "EXPIRED")
+      );
     }
   }, 1000);
 }

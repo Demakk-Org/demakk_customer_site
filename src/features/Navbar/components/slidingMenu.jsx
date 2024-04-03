@@ -20,6 +20,7 @@ import data from "@/data/library";
 
 import SmallDeviceButton from "./smallDeviceButton";
 import useUserStore from "@/store/user";
+import language from "@/data/dictionary";
 
 const style = {
   position: "absolute",
@@ -68,11 +69,10 @@ function SlidingMenu({ open, handleClose }) {
                 },
                 color: {
                   xs: "text.primary",
-                  // md: "primaryLight.main",
                 },
               }}
             >
-              Demakk
+              {language.en.demakk}
             </Typography>
           </Box>
           <Divider flexItem sx={{ borderColor: "background.paper" }} />
@@ -101,36 +101,32 @@ function SlidingMenu({ open, handleClose }) {
                 fontWeight={"bold"}
                 sx={{ fontSize: { sm: "1.7rem" } }}
               >
-                Popular Category
+                {language.en.popularCategory}
               </Typography>
             </Button>
             <SmallDeviceButton
               startImage={"/assets/images/product.webp"}
-              title={"Women's Clothes"}
+              title={language.en.womensClothes}
             />
             <SmallDeviceButton
               startImage={"/assets/images/product3.webp"}
-              title={"Watches"}
+              title={language.en.watches}
             />
             <SmallDeviceButton
               startImage={"/assets/images/product2.webp"}
-              title={"Bags"}
+              title={language.en.bags}
             />
             <SmallDeviceButton
               startImage={"/assets/images/product6.webp"}
-              title={"Men's Clothes"}
+              title={language.en.mensClothes}
             />
             <SmallDeviceButton
               startImage={"/assets/images/product1.webp"}
-              title={"Education & Office supplies"}
-            />
-            <SmallDeviceButton
-              startImage={"/assets/images/product6.webp"}
-              title={"Men's Clothes"}
+              title={language.en.educationAndOfficeSupplies}
             />
             <SmallDeviceButton
               startImage={"/assets/images/product5.webp"}
-              title={"Sports & Outdoor"}
+              title={language.en.sportsAndOutdoor}
             />
           </Box>
           <Box
@@ -158,20 +154,20 @@ function SlidingMenu({ open, handleClose }) {
                 fontWeight={"bold"}
                 sx={{ fontSize: { sm: "1.7rem" } }}
               >
-                Shopping inspirations
+                {language.en.shoppingInspiration}
               </Typography>
             </Button>
             <SmallDeviceButton
               startImage={"/assets/images/shop.webp"}
-              title={"Summer OOTD ideas"}
+              title={language.en.summerOOTDIdeas}
             />
             <SmallDeviceButton
               startImage={"/assets/images/shop2.webp"}
-              title={"Cool home gadgets"}
+              title={language.en.coolHomeGadgets}
             />
             <SmallDeviceButton
               startImage={"/assets/images/shop1.webp"}
-              title={"Beauty hacks"}
+              title={language.en.beautyHacks}
             />
           </Box>
           <Box
@@ -199,11 +195,11 @@ function SlidingMenu({ open, handleClose }) {
                 fontWeight={"bold"}
                 sx={{ fontSize: { sm: "1.7rem" } }}
               >
-                Settings
+                {language.en.settings}
               </Typography>
             </Button>
             <SmallDeviceButton
-              title={"Ship to"}
+              title={language.en.shipTo}
               startImage={
                 <PinDropOutlined
                   sx={{ fontSize: { xs: "1.5rem", sm: "2.5rem" } }}
@@ -217,7 +213,7 @@ function SlidingMenu({ open, handleClose }) {
                   sx={{ fontSize: { xs: "1.5rem", sm: "2.5rem" } }}
                 />
               }
-              title={"Currency"}
+              title={language.en.currency}
             />
             <SmallDeviceButton
               startImage={
@@ -225,7 +221,7 @@ function SlidingMenu({ open, handleClose }) {
                   sx={{ fontSize: { xs: "1.5rem", sm: "2.5rem" } }}
                 />
               }
-              title={"Languages"}
+              title={language.en.language}
             />
             <SmallDeviceButton
               startImage={
@@ -233,7 +229,7 @@ function SlidingMenu({ open, handleClose }) {
                   sx={{ fontSize: { xs: "1.5rem", sm: "2.5rem" } }}
                 />
               }
-              title={"Help Center"}
+              title={language.en.helpCenter}
             />
           </Box>
         </Box>

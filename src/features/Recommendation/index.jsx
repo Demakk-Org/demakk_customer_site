@@ -5,6 +5,7 @@ import { GoShieldCheck } from "react-icons/go";
 import { PiUsers } from "react-icons/pi";
 
 import BenefitListCard from "./components/BenefitListCard";
+import language from "@/data/dictionary";
 
 const font = Montserrat({ subsets: ["cyrillic"] });
 function Recommendation() {
@@ -25,30 +26,28 @@ function Recommendation() {
         className={font.className}
         color={"text.primary"}
       >
-        Better Choice&apos;s, better prices
+        {language.en.betterChoicesBetterPrices}
       </Typography>
       <Box display={"flex"} gap={"1rem"}>
         <BenefitListCard />
         <BenefitListCard
-          title={"Shoppers worldwide"}
-          desc="More than 300 millions shoppers from 200+ countries & regions"
+          title={language.en.shoppersWorldwide}
+          desc={language.en.shoppersWorldwideDescription}
           icon={<PiUsers />}
         />
         <BenefitListCard
-          title={"Fast delivery"}
-          desc={
-            "Faster delivery on selected items thanks to our improved logistics"
-          }
+          title={language.en.fastDelivery}
+          desc={language.en.fastDeliveryDescription}
           icon={<CiDeliveryTruck />}
         />
         <BenefitListCard
-          title={"Safe payments"}
-          desc={"Safe payment methods preferred by international shoppers"}
+          title={language.en.safePayments}
+          desc={language.en.safePaymentsDescription}
           icon={<CiCreditCard1 />}
         />
         <BenefitListCard
-          title={"Buyer protection"}
-          desc={"Get a refund if items arrive late or not as described"}
+          title={language.en.buyerProtection}
+          desc={language.en.buyerProtectionDescription}
           icon={<GoShieldCheck />}
         />
       </Box>

@@ -1,3 +1,4 @@
+import language from "@/data/dictionary";
 import FooterSocialLinks from "@/features/Footer/components/FooterSocialLinks";
 import { Apple, Facebook, Google, Twitter } from "@mui/icons-material";
 import { Box, Button, Typography } from "@mui/material";
@@ -24,7 +25,7 @@ function SocialContainer() {
               textTransform: "capitalize",
             }}
           >
-            Register
+            {language.en.register}
           </Button>
         </Box>
         <Box flex={1}>
@@ -39,12 +40,12 @@ function SocialContainer() {
               borderColor: "text.primary",
             }}
           >
-            Sign in
+            {language.en.signIn}
           </Button>
         </Box>
       </Box>
       <Typography fontSize={"small"} textAlign={"center"} mt={"0.5rem"}>
-        Or continue with
+        {language.en.orContinueWith}
       </Typography>
       <Box
         display={"flex"}

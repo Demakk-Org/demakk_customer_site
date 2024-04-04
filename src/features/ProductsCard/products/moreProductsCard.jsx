@@ -16,7 +16,11 @@ import data from '../../../../utils/data';
 export default function MoreProductsCard() {
   const [hovered, setHovered] = useState(false);
   return (
-    <Container>
+    <Container
+      display={'flex'}
+      flexDirection={'column'}
+      sx={{ marginTop: '32px' }}
+    >
       <Box display={'flex'} marginBottom={'8px'}>
         <Typography>more to love</Typography>
       </Box>
@@ -28,16 +32,27 @@ export default function MoreProductsCard() {
               maxWidth="230px"
               paddingRight={'8px'}
               paddingLeft={'8px'}
+              marginBottom={'24px'}
               onMouseEnter={() => setHovered(product)}
               onMouseLeave={() => setHovered(false)}
+              sx={{
+                position: 'relative',
+                '&:hover': {
+                  transition: '0.1s', // Add smooth transition effect
+                  transform: 'scale(1.01)',
+                  zIndex: 5,
+                },
+              }}
             >
               <Card
                 width={1}
                 display={'flex'}
+                position={'relative'}
                 flexDirection={'column'}
                 // sx={{ borderRadius: '8px' }}
                 sx={{
                   boxShadow: 'none',
+                  borderRadius: '8px',
                 }}
               >
                 <Box width={1} position={'relative'}>
@@ -77,24 +92,34 @@ export default function MoreProductsCard() {
                   >
                     {product.description}
                   </Typography>
-                  <Box display={'flex'} alignItems={'center'} gap={'.5rem'}>
-                    <Rating
-                      name="half-rating"
-                      defaultValue={3.5}
-                      precision={0.5}
-                      // size="small"
-                      sx={{ fontSize: '.8rem' }}
-                    />
-                    <Typography fontSize={'.7rem'}>
-                      {product.numOfSold}
-                    </Typography>
-                  </Box>
+                  {product.numOfReviews > product.numReviewsThreshold && (
+                    <Box
+                      display={'flex'}
+                      alignItems={'center'}
+                      gap={'.5rem'}
+                      position={'absolute'}
+                    >
+                      <Rating
+                        name="half-rating"
+                        value={product.productRating}
+                        precision={0.5}
+                        readOnly
+                        // size="small"
+                        sx={{ fontSize: '.8rem' }}
+                      />
+
+                      <Typography fontSize={'.7rem'}>
+                        {product.numOfReviews} sold
+                      </Typography>
+                    </Box>
+                  )}
 
                   <Box
                     width={1}
                     display={'flex'}
                     flexDirection={'row'}
                     alignItems={'center'}
+                    sx={{ marginTop: '14px' }}
                     // gap={1}
                   >
                     <Typography fontSize={'.6rem'} fontWeight={'bold'}>
@@ -130,10 +155,12 @@ export default function MoreProductsCard() {
                     alignItems={'center'}
                   >
                     <Typography
-                      fontSize={'.6rem'}
+                      fontSize={'.55rem'}
                       backgroundColor={'orange'}
                       fontWeight={'bold'}
                       borderRadius={1}
+                      color={'main.black'}
+                      sx={{ display: 'inline' }}
                     >
                       {product.discountType}
                     </Typography>
@@ -143,40 +170,46 @@ export default function MoreProductsCard() {
                       backgroundColor={'red'}
                       fontWeight={'bold'}
                       borderRadius={1}
+                      sx={{ display: 'inline' }}
                     >
                       Welcome deal
                     </Typography>
-                    <Typography>56%</Typography>
+                    <Typography fontSize={'12px'}>56%</Typography>
                   </Box>
-                  <Box width={1}>
-                    <Typography noWrap fontSize={12} marginTop={2}>
+                  <Box width={1} mt={'1px'}>
+                    <Typography noWrap fontSize={12} marginTop={'4px'}>
                       Freeshipping over ETB4,633.63
                     </Typography>
                   </Box>
                 </Box>
                 {hovered == product && (
                   <Box
+                    width={1}
                     display={'flex'}
-                    justifyContent="center"
+                    justifyContent="flex-start"
+                    gap={8}
                     mt={'8px'}
-                    gap={4.5}
+                    style={{
+                      position: 'absolute',
+                      background: '#fff',
+                    }}
                   >
                     <Button
                       sx={{
-                        fontSize: '.6rem',
+                        fontSize: '.5rem',
                         fontWeight: 'bold',
                         borderRadius: '14px',
-                        backgroundColor: '#f5f5dc',
+                        backgroundColor: 'black',
                       }}
                     >
                       See preview
                     </Button>
                     <Button
                       sx={{
-                        fontSize: '.6rem',
+                        fontSize: '.5rem',
                         fontWeight: 'bold',
                         borderRadius: '14px',
-                        backgroundColor: '#f5f5dc',
+                        backgroundColor: 'black',
                       }}
                     >
                       Similar items

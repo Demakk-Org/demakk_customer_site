@@ -110,7 +110,7 @@ export default function App({ Component, pageProps }) {
     if (window) {
       let deviceDarkMode = window.matchMedia('(prefers-color-scheme:dark)');
       if (deviceDarkMode.matches) {
-        // setTheme(true);
+        setTheme(true);
       } else {
         setTheme(false);
       }
@@ -122,7 +122,7 @@ export default function App({ Component, pageProps }) {
           setTheme(e.matches);
         });
     }
-  });
+  }, []);
 
   return (
     <ThemeProvider theme={theme}>

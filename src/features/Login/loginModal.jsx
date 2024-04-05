@@ -26,6 +26,7 @@ import { useState } from "react";
 import useUserStore from "@/store/user";
 import { textValidator } from "@/utils/emailValidator";
 import language from "@/data/dictionary";
+import getLanguage from "@/utils/getLanguage";
 
 const style = {
   minWidth: 375,
@@ -37,7 +38,7 @@ const style = {
 };
 
 function LoginModal({ open, handleClose }) {
-  const { setUser } = useUserStore();
+  const { setUser, lang } = useUserStore();
 
   const [continueButton, setContinueButton] = useState(false);
   const [showPass, setShowPass] = useState(false);
@@ -103,7 +104,7 @@ function LoginModal({ open, handleClose }) {
             pt={"1rem"}
             pb={"2rem"}
           >
-            {language.en.register}/{language.en.signIn}
+            {getLanguage("register", lang)}/{getLanguage("signIn", lang)}
           </Typography>
           <Box
             overflow={"auto"}
@@ -121,7 +122,7 @@ function LoginModal({ open, handleClose }) {
               gap={"0.25rem"}
             >
               <Typography fontSize={"0.8rem"}>
-                {language.en.location}:{" "}
+                {getLanguage("location", lang)}:{" "}
               </Typography>
               <Box
                 display={"flex"}
@@ -129,7 +130,7 @@ function LoginModal({ open, handleClose }) {
                 sx={{ cursor: "pointer" }}
               >
                 <Typography fontSize={"0.9rem"} fontWeight={"bold"}>
-                  {language.en.ethiopia}
+                  {getLanguage("ethiopia", lang)}
                 </Typography>
                 <ExpandMore fontSize="medium" color="text.primary" />
               </Box>
@@ -183,13 +184,13 @@ function LoginModal({ open, handleClose }) {
                 <Box display={"flex"} gap={"0.5rem"} alignItems={"center"}>
                   <Circle sx={{ fontSize: "6px" }} />
                   <Typography fontSize={"0.7rem"}>
-                    6-20 {language.en.characters}
+                    6-20 {getLanguage("characters", lang)}
                   </Typography>
                 </Box>
                 <Box display={"flex"} gap={"0.5rem"} alignItems={"center"}>
                   <Circle sx={{ fontSize: "6px" }} />
                   <Typography fontSize={"0.7rem"}>
-                    {language.en.containsNumberLetterOrSymbol}
+                    {getLanguage("containsNumberLetterOrSymbol", lang)}
                   </Typography>
                 </Box>
               </Box>
@@ -209,10 +210,10 @@ function LoginModal({ open, handleClose }) {
               onClick={() => handleContinueButton()}
             >
               {!continueStage
-                ? language.en.continue
+                ? getLanguage("continue", lang)
                 : userExists
-                ? language.en.signIn
-                : language.en.register}
+                ? getLanguage("signIn", lang)
+                : getLanguage("register", lang)}
             </Button>
             <Box
               component={"a"}
@@ -220,11 +221,11 @@ function LoginModal({ open, handleClose }) {
               fontSize={"0.75rem"}
               sx={{ color: "gray" }}
             >
-              {language.en.troubleSigningIn}
+              {getLanguage("troubleSigningIn", lang)}
             </Box>
             <Divider>
               <Typography p={"1rem 1rem"} fontSize={"0.85rem"}>
-                {language.en.orContinueWith}
+                {getLanguage("orContinueWith", lang)}
               </Typography>
             </Divider>
             <Button
@@ -241,7 +242,7 @@ function LoginModal({ open, handleClose }) {
               }}
             >
               <Typography flex={1} textTransform={"lowercase"}>
-                {language.en.facebook}
+                {getLanguage("facebook", lang)}
               </Typography>
             </Button>
             <Button
@@ -265,7 +266,7 @@ function LoginModal({ open, handleClose }) {
               }}
             >
               <Typography flex={1} textTransform={"lowercase"}>
-                {language.en.google}
+                {getLanguage("google", lang)}
               </Typography>
             </Button>
             <Button
@@ -282,7 +283,7 @@ function LoginModal({ open, handleClose }) {
               }}
             >
               <Typography flex={1} textTransform={"lowercase"}>
-                {language.en.tweeter}
+                {getLanguage("tweeter", lang)}
               </Typography>
             </Button>
             <Button
@@ -299,11 +300,11 @@ function LoginModal({ open, handleClose }) {
               }}
             >
               <Typography flex={1} textTransform={"lowercase"}>
-                {language.en.apple}
+                {getLanguage("apple", lang)}
               </Typography>
             </Button>
             <Typography fontSize={"0.7rem"} mt={"0.5rem"}>
-              {language.en.registerPolicy}
+              {getLanguage("registerPolicy", lang)}
             </Typography>
           </Box>
           <IconButton

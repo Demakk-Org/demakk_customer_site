@@ -1,4 +1,6 @@
 import language from "@/data/dictionary";
+import useUserStore from "@/store/user";
+import getLanguage from "@/utils/getLanguage";
 import {
   Box,
   FormControl,
@@ -9,6 +11,7 @@ import {
 import { CiSearch } from "react-icons/ci";
 
 function SearchBar() {
+  const { lang } = useUserStore();
   return (
     <FormControl
       sx={{ minWidth: "25ch", flex: "1", display: "flex" }}
@@ -16,7 +19,7 @@ function SearchBar() {
       size={"small"}
     >
       <OutlinedInput
-        placeholder={language.en.searchPlaceholder}
+        placeholder={getLanguage("searchPlaceholder", lang)}
         sx={{
           borderRadius: "3rem",
           width: "100%",

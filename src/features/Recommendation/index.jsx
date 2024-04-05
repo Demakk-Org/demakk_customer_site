@@ -5,10 +5,12 @@ import { GoShieldCheck } from "react-icons/go";
 import { PiUsers } from "react-icons/pi";
 
 import BenefitListCard from "./components/BenefitListCard";
-import language from "@/data/dictionary";
+import getLanguage from "@/utils/getLanguage";
+import useUserStore from "@/store/user";
 
 const font = Montserrat({ subsets: ["cyrillic"] });
 function Recommendation() {
+  const { lang } = useUserStore();
   return (
     <Box
       className="recommendation--section"
@@ -26,28 +28,28 @@ function Recommendation() {
         className={font.className}
         color={"text.primary"}
       >
-        {language.en.betterChoicesBetterPrices}
+        {getLanguage("betterChoicesBetterPrices", lang)}
       </Typography>
       <Box display={"flex"} gap={"1rem"}>
         <BenefitListCard />
         <BenefitListCard
-          title={language.en.shoppersWorldwide}
-          desc={language.en.shoppersWorldwideDescription}
+          title={getLanguage("shoppersWorldwide", lang)}
+          desc={getLanguage("shoppersWorldwideDescription", lang)}
           icon={<PiUsers />}
         />
         <BenefitListCard
-          title={language.en.fastDelivery}
-          desc={language.en.fastDeliveryDescription}
+          title={getLanguage("fastDelivery", lang)}
+          desc={getLanguage("fastDeliveryDescription", lang)}
           icon={<CiDeliveryTruck />}
         />
         <BenefitListCard
-          title={language.en.safePayments}
-          desc={language.en.safePaymentsDescription}
+          title={getLanguage("safePayments", lang)}
+          desc={getLanguage("safePaymentsDescription", lang)}
           icon={<CiCreditCard1 />}
         />
         <BenefitListCard
-          title={language.en.buyerProtection}
-          desc={language.en.buyerProtectionDescription}
+          title={getLanguage("buyerProtection", lang)}
+          desc={getLanguage("buyerProtectionDescription", lang)}
           icon={<GoShieldCheck />}
         />
       </Box>

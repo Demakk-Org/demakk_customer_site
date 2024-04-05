@@ -43,11 +43,73 @@ const dTheme = createTheme({
   palette: {
     mode: "dark",
   },
+  components: {
+    MuiOutlinedInput: {
+      styleOverrides: {
+        notchedOutline: {
+          borderColor: "darkgray",
+          letterSpacing: "0.2px",
+        },
+        root: {
+          [`&:hover .${outlinedInputClasses.notchedOutline}`]: {
+            borderColor: "#2c43a2",
+          },
+          [`&.Mui-focused .${outlinedInputClasses.notchedOutline}`]: {
+            borderColor: "#ffa889",
+          },
+        },
+      },
+    },
+  },
+  typography: {
+    fontFamily: [
+      "Montserrat",
+      "Poppins",
+      "-apple-system",
+      "BlinkMacSystemFont",
+      '"Segoe UI"',
+      "Roboto",
+    ].join(","),
+    button: {
+      textTransform: "capitalize",
+    },
+  },
 });
 
 const lTheme = createTheme({
   palette: {
     mode: "light",
+  },
+  components: {
+    MuiOutlinedInput: {
+      styleOverrides: {
+        notchedOutline: {
+          borderColor: "darkgray",
+          letterSpacing: "0.2px",
+        },
+        root: {
+          [`&:hover .${outlinedInputClasses.notchedOutline}`]: {
+            borderColor: "#2c43a2",
+          },
+          [`&.Mui-focused .${outlinedInputClasses.notchedOutline}`]: {
+            borderColor: "#ffa889",
+          },
+        },
+      },
+    },
+  },
+  typography: {
+    fontFamily: [
+      "Montserrat",
+      "Poppins",
+      "-apple-system",
+      "BlinkMacSystemFont",
+      '"Segoe UI"',
+      "Roboto",
+    ].join(","),
+    button: {
+      textTransform: "capitalize",
+    },
   },
 });
 

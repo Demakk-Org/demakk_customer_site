@@ -1,6 +1,7 @@
 import language from "@/data/dictionary";
 import useUserStore from "@/store/user";
 import { textValidator } from "@/utils/emailValidator";
+import getLanguage from "@/utils/getLanguage";
 import {
   Apple,
   Cancel,
@@ -49,7 +50,7 @@ const style = {
 const font = Montserrat({ subsets: ["cyrillic"] });
 
 function SmallDeviceLogin({ open, handleClose, localAddress }) {
-  const { address, setAddress } = useUserStore();
+  const { lang, address, setAddress } = useUserStore();
 
   const [showPass, setShowPass] = useState(false);
   const [continueStage, setContinueStage] = useState(false);
@@ -106,7 +107,7 @@ function SmallDeviceLogin({ open, handleClose, localAddress }) {
           color={"demakkPrimary.main"}
           display={{ sm: "none" }}
         >
-          {language.en.demakk}
+          {getLanguage("demakk", lang)}
         </Typography>
         <Box
           display={"flex"}
@@ -133,7 +134,7 @@ function SmallDeviceLogin({ open, handleClose, localAddress }) {
               textTransform={"capitalize"}
               fontWeight={type == "register" && "bold"}
             >
-              {language.en.register}
+              {getLanguage("register", lang)}
             </Typography>
             <Grow in={type == "register"} timeout={500}>
               <Box
@@ -162,7 +163,7 @@ function SmallDeviceLogin({ open, handleClose, localAddress }) {
               textTransform={"capitalize"}
               fontWeight={type == "log-in" && "bolder"}
             >
-              {language.en.logIn}
+              {getLanguage("logIn", lang)}
             </Typography>
             <Grow in={type == "log-in"} timeout={500}>
               <Box
@@ -208,7 +209,7 @@ function SmallDeviceLogin({ open, handleClose, localAddress }) {
                       variant={"standard"}
                       id="demo-simple-select-label"
                     >
-                      {language.en.yourLocation}:
+                      {getLanguage("yourLocation", lang)}:
                     </InputLabel>
                     <Select
                       name="address"
@@ -245,7 +246,7 @@ function SmallDeviceLogin({ open, handleClose, localAddress }) {
                             }}
                           />
                           <Typography fontSize={"0.8rem"}>
-                            {language.en.addisAbaba}
+                            {getLanguage("addisAbaba", lang)}
                           </Typography>
                         </Box>
                       </MenuItem>
@@ -261,7 +262,9 @@ function SmallDeviceLogin({ open, handleClose, localAddress }) {
                               borderColor: "text.primary",
                             }}
                           />
-                          <Typography fontSize={"0.8rem"}>Afar</Typography>
+                          <Typography fontSize={"0.8rem"}>
+                            {getLanguage("afar", lang)}
+                          </Typography>
                         </Box>
                       </MenuItem>
                       <MenuItem value={"gumuz"}>
@@ -282,7 +285,7 @@ function SmallDeviceLogin({ open, handleClose, localAddress }) {
                             }}
                           />
                           <Typography fontSize={"0.8rem"}>
-                            {language.en.benshangulGumuz}
+                            {getLanguage("benshangulGumuz", lang)}
                           </Typography>
                         </Box>
                       </MenuItem>
@@ -304,7 +307,7 @@ function SmallDeviceLogin({ open, handleClose, localAddress }) {
                             }}
                           />
                           <Typography fontSize={"0.8rem"}>
-                            {language.en.amhara}
+                            {getLanguage("amhara", lang)}
                           </Typography>
                         </Box>
                       </MenuItem>
@@ -326,7 +329,7 @@ function SmallDeviceLogin({ open, handleClose, localAddress }) {
                             }}
                           />
                           <Typography fontSize={"0.8rem"}>
-                            {language.en.harari}
+                            {getLanguage("harari", lang)}
                           </Typography>
                         </Box>
                       </MenuItem>
@@ -348,7 +351,7 @@ function SmallDeviceLogin({ open, handleClose, localAddress }) {
                             }}
                           />
                           <Typography fontSize={"0.8rem"}>
-                            {language.en.oromia}
+                            {getLanguage("oromia", lang)}
                           </Typography>
                         </Box>
                       </MenuItem>
@@ -361,7 +364,7 @@ function SmallDeviceLogin({ open, handleClose, localAddress }) {
                   size="small"
                   fullWidth
                   sx={{ m: "0.5rem 0", bgcolor: "background.paper" }}
-                  placeholder="Email"
+                  placeholder={getLanguage("email", lang)}
                   endAdornment={
                     <InputAdornment position="end">
                       <IconButton
@@ -385,7 +388,7 @@ function SmallDeviceLogin({ open, handleClose, localAddress }) {
                     size="small"
                     fullWidth
                     type={showPass ? "text" : "password"}
-                    placeholder="Password"
+                    placeholder={getLanguage("password", lang)}
                     sx={{ bgcolor: "background.paper" }}
                     endAdornment={
                       <InputAdornment position="end">
@@ -408,13 +411,13 @@ function SmallDeviceLogin({ open, handleClose, localAddress }) {
                     <Box display={"flex"} gap={"0.5rem"} alignItems={"center"}>
                       <Circle sx={{ fontSize: "6px" }} />
                       <Typography fontSize={"0.7rem"}>
-                        6-20 {language.en.characters}
+                        6-20 {getLanguage("characters", lang)}
                       </Typography>
                     </Box>
                     <Box display={"flex"} gap={"0.5rem"} alignItems={"center"}>
                       <Circle sx={{ fontSize: "6px" }} />
                       <Typography fontSize={"0.7rem"}>
-                        {language.en.containsNumberLetterOrSymbol}
+                        {getLanguage("containsNumberLetterOrSymbol", lang)}
                       </Typography>
                     </Box>
                   </Box>
@@ -435,7 +438,7 @@ function SmallDeviceLogin({ open, handleClose, localAddress }) {
                     }}
                     // onClick={() => handleContinueButton()}
                   >
-                    {language.en.createAccount}
+                    {getLanguage("createAccount", lang)}
                   </Button>
                 </span>
                 <Box
@@ -445,7 +448,7 @@ function SmallDeviceLogin({ open, handleClose, localAddress }) {
                   fontSize={"0.75rem"}
                   sx={{ color: "text.secondary" }}
                 >
-                  {language.en.troubleSigningIn}
+                  {getLanguage("troubleSigningIn", lang)}
                 </Box>
               </Box>
             </Slide>
@@ -460,7 +463,7 @@ function SmallDeviceLogin({ open, handleClose, localAddress }) {
                   }
                   size={"small"}
                   fullWidth
-                  placeholder="Email"
+                  placeholder={getLanguage("email", lang)}
                   sx={{ bgcolor: "background.paper" }}
                   endAdornment={
                     <InputAdornment position="end">
@@ -482,7 +485,7 @@ function SmallDeviceLogin({ open, handleClose, localAddress }) {
                     handlePasswordChange(target.value, "log-in")
                   }
                   type={showPass ? "text" : "password"}
-                  placeholder="Password"
+                  placeholder={getLanguage("password", lang)}
                   sx={{ bgcolor: "background.paper" }}
                   endAdornment={
                     <InputAdornment position="end">
@@ -503,7 +506,7 @@ function SmallDeviceLogin({ open, handleClose, localAddress }) {
                   fontSize={"0.75rem"}
                   sx={{ color: "primary.main" }}
                 >
-                  {language.en.forgotPassword}
+                  {getLanguage("forgotPassword", lang)}
                 </Box>
                 <span
                   style={{ cursor: !continueStage ? "not-allowed" : "pointer" }}
@@ -521,7 +524,7 @@ function SmallDeviceLogin({ open, handleClose, localAddress }) {
                     }}
                     // onClick={() => handleContinueButton()}
                   >
-                    {language.en.signIn}
+                    {getLanguage("signIn", lang)}
                   </Button>
                 </span>
               </Box>
@@ -534,7 +537,7 @@ function SmallDeviceLogin({ open, handleClose, localAddress }) {
               className={font.className}
               fontSize={"0.85rem"}
             >
-              {language.en.orContinueWith}
+              {getLanguage("orContinueWith", lang)}
             </Typography>
           </Divider>
           <Box
@@ -593,7 +596,7 @@ function SmallDeviceLogin({ open, handleClose, localAddress }) {
           </Box>
           {type == "register" && (
             <Typography fontSize={"0.7rem"} mt={{ xs: "0.5rem", sm: "1.5rem" }}>
-              {language.en.registerPolicy}
+              {getLanguage("registerPolicy", lang)}
             </Typography>
           )}
         </Box>

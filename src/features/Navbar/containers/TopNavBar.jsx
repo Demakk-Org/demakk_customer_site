@@ -20,7 +20,7 @@ import UserInfoDropdown from "../components/userInfoDropdown";
 import LanguageDropdown from "../components/languageDropdown";
 import LoginModal from "@/features/Login/loginModal";
 import SearchBar from "../components/SearchBar";
-import language from "@/data/dictionary";
+import getLanguage from "@/utils/getLanguage";
 
 function TopNavbar() {
   const { darkMode, switchTheme } = useThemeProvider();
@@ -76,7 +76,7 @@ function TopNavbar() {
               },
             }}
           >
-            {language.en.demakk}
+            {getLanguage("demakk", lang)}
           </Typography>
         </Grid>
 
@@ -140,7 +140,7 @@ function TopNavbar() {
                   </Typography>
                   <Box display={"flex"} alignItems={"center"}>
                     <Typography fontSize={"0.8rem"} fontWeight={"bold"}>
-                      {language.en.birr}
+                      {getLanguage("birr", lang)}
                     </Typography>
                     {!openLanguage ? (
                       <ExpandMore fontSize="small" color="text.primary" />
@@ -196,8 +196,8 @@ function TopNavbar() {
                     sx={{ display: { xs: "none", xl: "flex" } }}
                   >
                     {user?.name
-                      ? `${language.en.hi}, ${user.name}`
-                      : language.en.welcome}
+                      ? `${getLanguage("hi", lang)}, ${user.name}`
+                      : getLanguage("welcome", lang)}
                   </Typography>
                   <Box
                     display={"flex"}
@@ -210,8 +210,11 @@ function TopNavbar() {
                       sx={{ display: { xs: "none", xl: "inline" } }}
                     >
                       {user?.name
-                        ? language.en.account
-                        : `${language.en.signIn}/${language.en.register}`}
+                        ? getLanguage("account", lang)
+                        : `${getLanguage("signIn", lang)}/${getLanguage(
+                            "register",
+                            lang
+                          )}`}
                     </Typography>
                     {!openUserInfo ? (
                       <ExpandMore
@@ -276,7 +279,7 @@ function TopNavbar() {
                   </Typography>
                   <Box display={"flex"} alignItems={"center"}>
                     <Typography fontSize={"0.8rem"} fontWeight={"bold"}>
-                      {language.en.cart}
+                      {getLanguage("cart", lang)}
                     </Typography>
                   </Box>
                 </Box>

@@ -1,10 +1,11 @@
 import calendar from "@/data/calendar";
+import getLanguage from "./getLanguage";
 
 const formatSingleDigitTime = (time) => {
   return time < 10 ? "0" + time : time.toString();
 };
 
-export function countDown(time) {
+export function countDown(time, lang) {
   if (!time) var countDownDate = new Date("Mar 28, 2024 15:37:25").getTime();
   else var countDownDate = new Date(time).getTime();
 
@@ -45,7 +46,7 @@ export function countDown(time) {
     var seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
     message =
-      "Sales ends in: " +
+      getLanguage("saleEnds", lang) +
       days +
       " d " +
       formatSingleDigitTime(hours) +

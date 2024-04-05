@@ -4,9 +4,11 @@ import { Box, Typography } from "@mui/material";
 import advertProductList from "@/data/advertProductList";
 import CarouselContainer from "@/component/CarouselContainer";
 import SmallDeviceAdvertProduct from "./smallDeviceAdvertProduct";
-import language from "@/data/dictionary";
+import getLanguage from "@/utils/getLanguage";
+import useUserStore from "@/store/user";
 
 function SmallDeviceAdvertContainer() {
+  const { lang } = useUserStore();
   return (
     <Box
       width={1}
@@ -35,7 +37,7 @@ function SmallDeviceAdvertContainer() {
           sx={{ cursor: "pointer" }}
         >
           <Typography fontSize={"inherit"} fontWeight={"bold"}>
-            {language.en.anniversarySale}
+            {getLanguage("anniversarySale", lang)}
           </Typography>
           <ArrowForward fontSize="inherit" />
         </Box>
@@ -43,7 +45,7 @@ function SmallDeviceAdvertContainer() {
           className="count-down"
           fontSize={{ xs: "0.9rem", sm: "1.4rem" }}
         >
-          {language.en.saleEnds}: 2d 12 : 30 : 06
+          {getLanguage("saleEnds", lang)}: 2d 12 : 30 : 06
         </Typography>
       </Box>
 

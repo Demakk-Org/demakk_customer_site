@@ -9,8 +9,9 @@ import Footer from "@/features/Footer";
 import DealsContainer from "@/features/DealsContainer";
 
 import { Box } from "@mui/material";
+import { ReactElement } from "react";
 
-export default function Home() {
+export default function Home(): ReactElement {
   return (
     <>
       <Head>

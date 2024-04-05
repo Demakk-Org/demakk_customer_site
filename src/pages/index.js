@@ -24,11 +24,11 @@ export default function Home() {
       </Head>
       <main className={`${styles.main}`}>
         <Box width={"100%"} minHeight={"100vh"} bgcolor={"background.paper"}>
-          {/* <Navbar /> */}
+          <Navbar />
           <PinLocation />
           <Recommendation />
+          <DealsContainer />
           <DiscountSale />
-          {/* <DealsContainer /> */}
           <Footer />
         </Box>
       </main>

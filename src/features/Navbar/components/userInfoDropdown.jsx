@@ -11,9 +11,10 @@ import {
 import useUserStore from "@/store/user";
 
 import SmallDeviceButton from "./smallDeviceButton";
+import getLanguage from "@/utils/getLanguage";
 
 function UserInfoDropdown({ openLogin }) {
-  const { user, setUser, signOut } = useUserStore();
+  const { user, setUser, signOut, lang } = useUserStore();
   return (
     <>
       <Box
@@ -26,7 +27,7 @@ function UserInfoDropdown({ openLogin }) {
         flexDirection={"column"}
         gap={"0.25rem"}
         minWidth={300}
-        bgcolor={"secondaryBg.light"}
+        bgcolor={"background.paper"}
         border={"1px solid lightgray"}
         p={"1.5rem"}
         borderRadius={"1rem"}
@@ -39,15 +40,14 @@ function UserInfoDropdown({ openLogin }) {
               variant="contained"
               size="large"
               fullWidth
-              color="primaryBg"
+              color="demakkPrimary"
               sx={{
                 borderRadius: "1.5rem",
-                color: "primaryBg.contrastText",
                 textTransform: "capitalize",
               }}
               onClick={() => openLogin()}
             >
-              Sign Up
+              {getLanguage("logIn", lang)}
             </Button>
             <Button
               variant="text"
@@ -56,12 +56,12 @@ function UserInfoDropdown({ openLogin }) {
               sx={{
                 bgcolor: "transparent",
                 borderRadius: "1.5rem",
-                color: "secondaryBg.contrastText",
+                color: "demakkPrimary.contrastText",
                 textTransform: "capitalize",
               }}
               onClick={() => setUser({ name: "Solen" })}
             >
-              Register
+              {getLanguage("register", lang)}
             </Button>
           </>
         ) : (
@@ -78,12 +78,12 @@ function UserInfoDropdown({ openLogin }) {
               </Grid>
               <Grid item md={9} display={"flex"}>
                 <Typography
-                  color={"secondaryBg.contrastText"}
+                  color={"text"}
                   flex={1}
                   fontWeight={400}
                   fontSize={"0.9rem"}
                 >
-                  Welcome back,{" "}
+                  {getLanguage("welcomeBack", lang)},{" "}
                   <Box component={"span"} fontWeight={"bold"}>
                     {user.name}
                   </Box>
@@ -100,45 +100,50 @@ function UserInfoDropdown({ openLogin }) {
               <Button
                 onClick={() => signOut()}
                 variant="text"
-                color="bright"
-                sx={{ ml: "48px", textTransform: "unset" }}
+                sx={{
+                  ml: "48px",
+                  textTransform: "unset",
+                  color: "text.primary",
+                }}
               >
-                Sign Out
+                {getLanguage("signOut", lang)}
               </Button>
             </Box>
           </>
         )}
-        <Divider flexItem sx={{ borderColor: "bright.main" }} />
+
+        <Divider flexItem sx={{ borderColor: "bright" }} />
+
         <SmallDeviceButton
           startImage={<LuClipboardList fontSize={"inherit"} />}
-          title={"My Orders"}
+          title={getLanguage("myOrders", lang)}
         />
         <SmallDeviceButton
           startImage={<RiCopperCoinLine fontSize={"inherit"} />}
-          title={"My Coins"}
+          title={getLanguage("myCoins", lang)}
         />
         <SmallDeviceButton
           startImage={<AiOutlineMessage fontSize={"inherit"} />}
-          title={"Message Center"}
+          title={getLanguage("messageCenter", lang)}
         />
         <SmallDeviceButton
           startImage={<CreditCard fontSize={"inherit"} />}
-          title={"Payments"}
+          title={getLanguage("payments", lang)}
         />
         <SmallDeviceButton
           startImage={<FavoriteBorderOutlined fontSize={"inherit"} />}
-          title={"Wish List"}
+          title={getLanguage("wishList", lang)}
         />
         <SmallDeviceButton
           startImage={<ConfirmationNumberOutlined fontSize={"inherit"} />}
-          title={"My Coupons"}
+          title={getLanguage("myCoupons", lang)}
         />
         <Divider flexItem />
-        <SmallDeviceButton title={"DC Center"} />
-        <SmallDeviceButton title={"Buyer Protection"} />
-        <SmallDeviceButton title={"Help Center"} />
-        <SmallDeviceButton title={"Disputes & Reports"} />
-        <SmallDeviceButton title={"Accessility"} />
+        <SmallDeviceButton title={getLanguage("dsCenter", lang)} />
+        <SmallDeviceButton title={getLanguage("buyerProtection", lang)} />
+        <SmallDeviceButton title={getLanguage("helpCenter", lang)} />
+        <SmallDeviceButton title={getLanguage("disputeAndReports", lang)} />
+        <SmallDeviceButton title={getLanguage("accessibility", lang)} />
       </Box>
     </>
   );

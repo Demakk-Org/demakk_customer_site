@@ -1,5 +1,7 @@
+import language from "@/data/dictionary";
+import FooterSocialLinks from "@/features/Footer/components/FooterSocialLinks";
 import { Apple, Facebook, Google, Twitter } from "@mui/icons-material";
-import { Box, Button, Link, Typography } from "@mui/material";
+import { Box, Button, Typography } from "@mui/material";
 
 function SocialContainer() {
   return (
@@ -8,19 +10,22 @@ function SocialContainer() {
       flexDirection={"column"}
       gap={1}
       p={"1.5rem"}
-      bgcolor={"contrastBg.light"}
+      bgcolor={"background.reddish"}
       borderRadius={"1rem"}
     >
       <Box display={"flex"} gap={"1rem"}>
         <Box flex={1}>
           <Button
             size="large"
-            color="dark"
             fullWidth
+            color="demakkPrimary"
             variant="contained"
-            sx={{ borderRadius: "2rem", color: "dark.contrastText" }}
+            sx={{
+              borderRadius: "2rem",
+              textTransform: "capitalize",
+            }}
           >
-            Register
+            {language.en.register}
           </Button>
         </Box>
         <Box flex={1}>
@@ -28,29 +33,30 @@ function SocialContainer() {
             size="large"
             variant="outlined"
             fullWidth
-            sx={{ borderRadius: "2rem" }}
-            color="dark"
+            sx={{
+              borderRadius: "2rem",
+              textTransform: "capitalize",
+              color: "text.primary",
+              borderColor: "text.primary",
+            }}
           >
-            Sign in
+            {language.en.signIn}
           </Button>
         </Box>
       </Box>
       <Typography fontSize={"small"} textAlign={"center"} mt={"0.5rem"}>
-        Or continue with
+        {language.en.orContinueWith}
       </Typography>
-      <Box display={"flex"} gap={"0.5rem"} justifyContent={"space-between"}>
-        <Link href="#" flex={1} color={"dark.light"} textAlign={"center"}>
-          <Facebook fontSize="large" />
-        </Link>
-        <Link href="#" flex={1} color={"dark.light"} textAlign={"center"}>
-          <Google fontSize="large" />
-        </Link>
-        <Link href="#" flex={1} color={"dark.light"} textAlign={"center"}>
-          <Twitter fontSize="large" />
-        </Link>
-        <Link href="#" flex={1} color={"dark.light"} textAlign={"center"}>
-          <Apple fontSize="large" />
-        </Link>
+      <Box
+        display={"flex"}
+        gap={"1rem"}
+        justifyContent={"space-between"}
+        p={"0 1rem"}
+      >
+        <FooterSocialLinks icon={<Facebook />} />
+        <FooterSocialLinks icon={<Google />} />
+        <FooterSocialLinks icon={<Apple />} />
+        <FooterSocialLinks icon={<Twitter />} />
       </Box>
     </Box>
   );

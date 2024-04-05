@@ -10,6 +10,7 @@ import {
   WhatsApp,
 } from "@mui/icons-material";
 import FooterSocialLinks from "./components/FooterSocialLinks";
+import language from "@/data/dictionary";
 
 function Footer() {
   return (
@@ -24,29 +25,22 @@ function Footer() {
       >
         <Box flex={1} display={"flex"} gap={"1rem"} alignItems={"baseline"}>
           <Box flex={1} display={"flex"} flexDirection={"column"}>
-            <FooterLinksTitle name={"Customer Services"} />
+            <FooterLinksTitle name={language.en.customerServices} />
             <List disablePadding>
               <ListItem disablePadding disableGutters>
-                <FooterLink name={"Help Center"} url={"#"} />
+                <FooterLink name={language.en.helpCenter} url={"#"} />
               </ListItem>
               <ListItem disablePadding disableGutters>
                 <FooterLink
-                  name={
-                    "Transaction Services Agreement for non-EU/UK Consumers"
-                  }
+                  name={language.en.transactionServicesAgreement}
                   url={"#"}
                 />
               </ListItem>
               <ListItem disablePadding disableGutters>
-                <FooterLink
-                  name={
-                    "Terms and Conditions for EU/EEA/UK Consumers (Transactions)"
-                  }
-                  url={"#"}
-                />
+                <FooterLink name={language.en.tearmsAndConditions} url={"#"} />
               </ListItem>
               <ListItem disablePadding disableGutters>
-                <FooterLink url={"#"} name={"Help Center"} />
+                <FooterLink url={"#"} name={language.en.helpCenter} />
               </ListItem>
             </List>
           </Box>
@@ -57,37 +51,37 @@ function Footer() {
               flexDirection={"column"}
               mb={"0.5rem"}
             >
-              <FooterLinksTitle name={"Shopping with us"} />
+              <FooterLinksTitle name={language.en.shoppingWithUs} />
               <List disablePadding>
                 <ListItem disablePadding disableGutters>
-                  <FooterLink name={"Making payments"} url={"#"} />
+                  <FooterLink name={language.en.makingPayments} url={"#"} />
                 </ListItem>
                 <ListItem disablePadding disableGutters>
-                  <FooterLink name={"Delivery options"} url={"#"} />
+                  <FooterLink name={language.en.deliveryOptions} url={"#"} />
                 </ListItem>
                 <ListItem disablePadding disableGutters>
-                  <FooterLink name={"Buyer potection"} url={"#"} />
+                  <FooterLink name={language.en.buyerProtection} url={"#"} />
                 </ListItem>
               </List>
             </Box>
             <Box flex={1} display={"flex"} flexDirection={"column"}>
-              <FooterLinksTitle name={"Collaborate with us"} />
+              <FooterLinksTitle name={language.en.collaborateWithUs} />
               <List disablePadding>
                 <ListItem disablePadding disableGutters>
-                  <FooterLink name={"Partnerships"} url={"#"} />
+                  <FooterLink name={language.en.partnerships} url={"#"} />
                 </ListItem>
                 <ListItem disablePadding disableGutters>
-                  <FooterLink name={"Affiliate Programs"} url={"#"} />
+                  <FooterLink name={language.en.affiliatePrograms} url={"#"} />
                 </ListItem>
                 <ListItem disablePadding disableGutters>
-                  <FooterLink name={"DS Center"} url={"#"} />
+                  <FooterLink name={language.en.dsCenter} url={"#"} />
                 </ListItem>
                 <ListItem disablePadding disableGutters>
-                  <FooterLink name={"Seller Log in"} url={"#"} />
+                  <FooterLink name={language.en.sellerLogin} url={"#"} />
                 </ListItem>
                 <ListItem disablePadding disableGutters>
                   <FooterLink
-                    name={"Non-Chinese Seller Registration"}
+                    name={language.en.nonChineseSellerRegistration}
                     url={"#"}
                   />
                 </ListItem>
@@ -108,7 +102,7 @@ function Footer() {
             flexDirection={"column"}
             justifyContent={{ xs: "center", sm: "unset" }}
           >
-            <FooterLinksTitle name={"Pay with"} />
+            <FooterLinksTitle name={language.en.payWith} />
             <Grid
               container
               spacing={0.5}
@@ -132,7 +126,7 @@ function Footer() {
             flexDirection={"column"}
             alignItems={{ xs: "center", sm: "unset" }}
           >
-            <FooterLinksTitle name={"Stay connected"} />
+            <FooterLinksTitle name={language.en.stayConnected} />
             <Grid
               container
               columnSpacing={2.5}

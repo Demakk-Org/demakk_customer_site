@@ -4,8 +4,11 @@ import { Box, Typography } from "@mui/material";
 import advertProductList from "@/data/advertProductList";
 import CarouselContainer from "@/component/CarouselContainer";
 import SmallDeviceAdvertProduct from "./smallDeviceAdvertProduct";
+import getLanguage from "@/utils/getLanguage";
+import useUserStore from "@/store/user";
 
 function SmallDeviceAdvertContainer() {
+  const { lang } = useUserStore();
   return (
     <Box
       width={1}
@@ -19,6 +22,7 @@ function SmallDeviceAdvertContainer() {
         flexDirection={"column"}
         justifyContent={"center"}
         p={{ xs: "0.5rem 1rem 1rem 1rem", sm: "1rem 2rem 2rem 2rem" }}
+        color={"bright"}
         sx={{
           backgroundSize: "cover",
           backgroundImage: "url(/assets/images/advert-image.webp)",
@@ -32,21 +36,16 @@ function SmallDeviceAdvertContainer() {
           fontSize={{ xs: "1.2rem", sm: "2rem" }}
           sx={{ cursor: "pointer" }}
         >
-          <Typography
-            color={"inherit"}
-            fontSize={"inherit"}
-            fontWeight={"bold"}
-          >
-            Anniversary Sale
+          <Typography fontSize={"inherit"} fontWeight={"bold"}>
+            {getLanguage("anniversarySale", lang)}
           </Typography>
           <ArrowForward fontSize="inherit" />
         </Box>
         <Typography
-          id="count-down"
-          color={"bright.main"}
+          className="count-down"
           fontSize={{ xs: "0.9rem", sm: "1.4rem" }}
         >
-          Sale ends: 2d 12 : 30 : 06
+          {getLanguage("saleEnds", lang)}: 2d 12 : 30 : 06
         </Typography>
       </Box>
 

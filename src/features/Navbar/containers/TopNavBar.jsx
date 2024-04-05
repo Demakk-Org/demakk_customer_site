@@ -4,21 +4,10 @@ import {
   ExpandMore,
   Language,
   Menu,
-  Search,
 } from "@mui/icons-material";
-import {
-  Avatar,
-  Box,
-  FormControl,
-  Grid,
-  IconButton,
-  InputAdornment,
-  OutlinedInput,
-  Typography,
-} from "@mui/material";
+import { Avatar, Box, Grid, IconButton, Typography } from "@mui/material";
 
 import { PiShoppingCartLight } from "react-icons/pi";
-import { CiSearch } from "react-icons/ci";
 import { SlUser } from "react-icons/sl";
 
 import { useState } from "react";
@@ -30,6 +19,8 @@ import SlidingMenu from "../components/slidingMenu";
 import UserInfoDropdown from "../components/userInfoDropdown";
 import LanguageDropdown from "../components/languageDropdown";
 import LoginModal from "@/features/Login/loginModal";
+import SearchBar from "../components/SearchBar";
+import getLanguage from "@/utils/getLanguage";
 
 function TopNavbar() {
   const { darkMode, switchTheme } = useThemeProvider();
@@ -57,7 +48,7 @@ function TopNavbar() {
         p={{ xs: "0.5rem 1rem", sm: "0.75rem 2rem", md: "0.5rem 6rem" }}
         sx={{
           bgcolor: {
-            xs: "primaryBg.dark",
+            xs: "background.lightOpaque",
           },
         }}
       >
@@ -65,10 +56,11 @@ function TopNavbar() {
           item
           sx={{ display: { md: "none" }, mr: { xs: "0.5rem", sm: "1rem" } }}
         >
-          <IconButton onClick={handleOpen} color="primaryLight">
+          <IconButton onClick={handleOpen} color="text.primary">
             <Menu sx={{ fontSize: { xs: 25, sm: 37.5 } }} />
           </IconButton>
         </Grid>
+
         <Grid item>
           <Typography
             fontWeight={"bold"}
@@ -80,13 +72,14 @@ function TopNavbar() {
                 md: "2.2rem",
               },
               color: {
-                xs: "primaryLight.main",
+                xs: "text.primary",
               },
             }}
           >
-            Demakk
+            {getLanguage("demakk", lang)}
           </Typography>
         </Grid>
+
         <Grid
           className="search--container"
           item
@@ -99,55 +92,9 @@ function TopNavbar() {
             },
           }}
         >
-          <FormControl
-            sx={{
-              minWidth: "25ch",
-              flex: "1",
-              display: "flex",
-            }}
-            variant="outlined"
-            size="small"
-          >
-            <OutlinedInput
-              placeholder="Search for any product..."
-              sx={{
-                borderRadius: "1.5rem",
-                width: "100%",
-                pl: "1rem",
-                pr: "0.25rem",
-                bgcolor: "primaryBg.light",
-                color: "primaryBg.contrastText",
-              }}
-              endAdornment={
-                <InputAdornment position="end">
-                  <IconButton
-                    aria-label="search"
-                    size="small"
-                    // onClick={handleSearch}
-                    edge="end"
-                    sx={{
-                      m: "0",
-                      aspectRatio: "initial",
-                      borderRadius: "1.5rem",
-                      bgcolor: "primaryBg.dark",
-                      color: {
-                        xs: "primaryBg.contrastText",
-                      },
-                      p: "0.25rem 1rem",
-                      "&:hover": {
-                        bgcolor: "primaryBg.main",
-                      },
-                    }}
-                  >
-                    <Box display={"flex"} color={"primaryBg"}>
-                      <CiSearch color="inherit" fontSize={"1.5rem"} />
-                    </Box>
-                  </IconButton>
-                </InputAdornment>
-              }
-            />
-          </FormControl>
+          <SearchBar />
         </Grid>
+
         <Grid item display={"flex"} ml={"auto"}>
           <Grid container alignItems={"center"} spacing={{ xs: 0, md: 2 }}>
             <Grid className="language--container" item position={"relative"}>
@@ -155,7 +102,7 @@ function TopNavbar() {
                 display={"flex"}
                 alignItems={"center"}
                 sx={{ display: { xs: "none", md: "flex" }, cursor: "pointer" }}
-                color={"bright.main"}
+                color={"text.primary"}
                 gap={"0.25rem"}
                 onClick={() => setOpenLanguage((p) => !p)}
               >
@@ -163,8 +110,9 @@ function TopNavbar() {
                   <IconButton
                     sx={{
                       fontSize: { xs: "small", sm: "medium" },
+                      bgcolor: "background.lighter",
                       color: {
-                        xs: "contrastBg.main",
+                        xs: "text.primary",
                       },
                     }}
                   >
@@ -176,7 +124,7 @@ function TopNavbar() {
                       width: 25,
                       height: 20,
                       border: "1px solid",
-                      borderColor: "secondaryBg.main",
+                      borderColor: "text.primary",
                     }}
                     variant="square"
                     src={data.flags[address]}
@@ -187,17 +135,17 @@ function TopNavbar() {
                   flexDirection={"column"}
                   fontSize={"0.5rem"}
                 >
-                  <Typography fontSize={"0.8rem"}>
+                  <Typography fontSize={"0.8rem"} color={"text.primary"}>
                     {data.langs[lang]}/
                   </Typography>
                   <Box display={"flex"} alignItems={"center"}>
                     <Typography fontSize={"0.8rem"} fontWeight={"bold"}>
-                      BIRR
+                      {getLanguage("birr", lang)}
                     </Typography>
                     {!openLanguage ? (
-                      <ExpandMore fontSize="small" color="bright" />
+                      <ExpandMore fontSize="small" color="text.primary" />
                     ) : (
-                      <ExpandLess fontSize="small" color="bright" />
+                      <ExpandLess fontSize="small" color="text.primary" />
                     )}
                   </Box>
                 </Box>
@@ -221,12 +169,13 @@ function TopNavbar() {
                 gap={"0.5rem"}
                 sx={{
                   color: {
-                    xs: "bright.main",
+                    xs: "text.primary",
                   },
                   cursor: "pointer",
                 }}
               >
                 <Box
+                  display={"flex"}
                   sx={{
                     fontSize: {
                       xs: 20,
@@ -246,7 +195,9 @@ function TopNavbar() {
                     fontSize={"0.75rem"}
                     sx={{ display: { xs: "none", xl: "flex" } }}
                   >
-                    {user?.name ? `Hi, ${user.name}` : "Welcome"}
+                    {user?.name
+                      ? `${getLanguage("hi", lang)}, ${user.name}`
+                      : getLanguage("welcome", lang)}
                   </Typography>
                   <Box
                     display={"flex"}
@@ -258,12 +209,23 @@ function TopNavbar() {
                       fontWeight={"bold"}
                       sx={{ display: { xs: "none", xl: "inline" } }}
                     >
-                      {user?.name ? "Account" : "Sign in/Register"}
+                      {user?.name
+                        ? getLanguage("account", lang)
+                        : `${getLanguage("signIn", lang)}/${getLanguage(
+                            "register",
+                            lang
+                          )}`}
                     </Typography>
                     {!openUserInfo ? (
-                      <ExpandMore fontSize="small" />
+                      <ExpandMore
+                        fontSize="small"
+                        sx={{ display: { xs: "none", xl: "inline" } }}
+                      />
                     ) : (
-                      <ExpandLess fontSize="small" />
+                      <ExpandLess
+                        fontSize="small"
+                        sx={{ display: { xs: "none", xl: "inline" } }}
+                      />
                     )}
                   </Box>
                 </Box>
@@ -272,25 +234,25 @@ function TopNavbar() {
                 <UserInfoDropdown openLogin={() => setOpenLogin(true)} />
               )}
             </Grid>
+
             <Grid item className="cart--container">
               <Box
                 display={"flex"}
                 alignItems={"center"}
                 sx={{
                   color: {
-                    xs: "bright.main",
+                    xs: "text.primary",
                   },
                 }}
               >
-                <IconButton
-                  size="medium"
-                  sx={{
-                    color: {
-                      xs: "bright.main",
-                    },
-                  }}
-                >
-                  <Box sx={{ fontSize: { xs: 25, sm: 32.5, md: 37.5 } }}>
+                <IconButton size="medium" sx={{ aspectRatio: 1 }}>
+                  <Box
+                    display={"flex"}
+                    sx={{
+                      fontSize: { xs: 25, sm: 32.5, md: 37.5 },
+                      color: "text.primary",
+                    }}
+                  >
                     <PiShoppingCartLight style={{ fontSize: "inherit" }} />
                   </Box>
                 </IconButton>
@@ -306,9 +268,9 @@ function TopNavbar() {
                     fontWeight={"bold"}
                     sx={{
                       bgcolor: {
-                        xs: "contrastBg.main",
+                        xs: "text.primary",
                       },
-                      color: { xs: "dark.main" },
+                      color: { xs: "background.paper" },
                       borderRadius: "1rem",
                       textAlign: "center",
                     }}
@@ -317,7 +279,7 @@ function TopNavbar() {
                   </Typography>
                   <Box display={"flex"} alignItems={"center"}>
                     <Typography fontSize={"0.8rem"} fontWeight={"bold"}>
-                      Cart
+                      {getLanguage("cart", lang)}
                     </Typography>
                   </Box>
                 </Box>
@@ -342,37 +304,7 @@ function TopNavbar() {
             },
           }}
         >
-          <FormControl
-            sx={{ minWidth: "25ch", flex: "1", display: "flex" }}
-            variant="outlined"
-            size="small"
-          >
-            <OutlinedInput
-              placeholder="Search for any product..."
-              sx={{
-                borderRadius: "1.5rem",
-                width: "100%",
-                pl: "1rem",
-                letterSpacing: "0.4px",
-                bgcolor: "secondaryBg.light",
-                color: "secondaryBg.contrastText",
-                p: {
-                  sm: "0.25rem 1.5rem",
-                },
-              }}
-              endAdornment={
-                <InputAdornment position="end">
-                  <IconButton
-                    aria-label="search"
-                    edge="end"
-                    // onClick={handleSearch}
-                  >
-                    <Search sx={{ color: "secondaryBg.contrastText" }} />
-                  </IconButton>
-                </InputAdornment>
-              }
-            />
-          </FormControl>
+          <SearchBar />
         </Grid>
 
         <IconButton
@@ -382,12 +314,13 @@ function TopNavbar() {
             top: "12rem",
             left: "1rem",
             zIndex: 10000,
-            bgcolor: "primary.main",
-            color: "primary.contrastText",
+            bgcolor: "background.paper",
+            borderColor: "text.primary",
+            color: "text.primary",
           }}
           onClick={() => switchTheme()}
         >
-          <DarkMode color={darkMode ? "dark" : "white"} />
+          <DarkMode color={darkMode ? "dark" : "bright"} />
         </IconButton>
       </Grid>
 

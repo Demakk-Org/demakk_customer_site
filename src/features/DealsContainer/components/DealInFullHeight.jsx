@@ -1,13 +1,15 @@
+import language from "@/data/dictionary";
+
 const { Box, Typography, Grid } = require("@mui/material");
 
 function DealInFullHeight() {
   return (
     <Box
-      display={"flex"}
+      display={{ xs: "none", sm: "flex" }}
       flexDirection={"column"}
       height={1}
       p={"1.5rem"}
-      bgcolor={"contrastBg.light"}
+      bgcolor={"background.lighter"}
       borderRadius={"1rem"}
     >
       <Typography
@@ -15,10 +17,10 @@ function DealInFullHeight() {
         fontWeight={"bold"}
         color={"primary.main"}
       >
-        Welcome Deal
+        {language.en.welcomeDeal}
       </Typography>
       <Typography fontSize={"1.1rem"} mb={3}>
-        Your exclusive price
+        {language.en.yourExclusivePrice}
       </Typography>
       <Box
         flex={1}
@@ -34,7 +36,7 @@ function DealInFullHeight() {
             width={1}
             component={"img"}
             src="/assets/images/product12.webp"
-            sx={{ aspectRatio: 1 }}
+            sx={{ aspectRatio: 1, borderRadius: "1rem" }}
           />
           <Box
             width={0.65}
@@ -44,9 +46,9 @@ function DealInFullHeight() {
             gap={"0.5rem"}
           >
             <Typography
-              fontSize={"0.9rem"}
+              fontSize={"0.8rem"}
               fontWeight={"bold"}
-              color={"primary.main"}
+              color={"text.price"}
               sx={{ textWrap: "nowrap" }}
             >
               US $
@@ -59,7 +61,7 @@ function DealInFullHeight() {
               noWrap
               textOverflow={"ellipsis"}
               fontSize={"0.9rem"}
-              color={"text.light"}
+              color={"text.secondary"}
               sx={{ textDecoration: "line-through" }}
             >
               US $34.56
@@ -84,9 +86,9 @@ function DealInFullHeight() {
           >
             <Typography
               fontSize={"2.5rem"}
-              pr={"1rem"}
+              pr={"0.9rem"}
               pb={"0.5rem"}
-              color={"dark.contrastText"}
+              color={"bright"}
             >
               11
             </Typography>
@@ -112,7 +114,7 @@ function DealInFullHeight() {
                 <Typography
                   fontSize={"0.8rem"}
                   fontWeight={"bold"}
-                  color={"primary.main"}
+                  color={"text.price"}
                   sx={{ textWrap: "nowrap" }}
                 >
                   US $
@@ -124,8 +126,8 @@ function DealInFullHeight() {
                 <Typography
                   noWrap
                   textOverflow={"ellipsis"}
-                  fontSize={"1rem"}
-                  color={"text.light"}
+                  fontSize={"0.9rem"}
+                  color={"text.secondary"}
                   sx={{ textDecoration: "line-through" }}
                 >
                   US $34.56
@@ -152,7 +154,7 @@ function DealInFullHeight() {
                 <Typography
                   fontSize={"0.8rem"}
                   fontWeight={"bold"}
-                  color={"primary.main"}
+                  color={"text.price"}
                   sx={{ textWrap: "nowrap" }}
                 >
                   US $
@@ -164,8 +166,8 @@ function DealInFullHeight() {
                 <Typography
                   noWrap
                   textOverflow={"ellipsis"}
-                  fontSize={"1rem"}
-                  color={"text.light"}
+                  fontSize={"0.9rem"}
+                  color={"text.secondary"}
                   sx={{ textDecoration: "line-through" }}
                 >
                   US $34.56

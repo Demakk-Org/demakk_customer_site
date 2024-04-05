@@ -8,12 +8,12 @@ function ThreeInOneDeal({ top, title, subtitle, first }) {
           height={1}
           p={"1.5rem"}
           borderRadius={"1rem"}
-          bgcolor={"contrastBg.light"}
+          bgcolor={"background.lighter"}
         >
           <Typography
             fontSize={"1.5rem"}
             fontWeight={"bold"}
-            color={first ? "primary.main" : "dark.main"}
+            color={first ? "primary.main" : "text.primary"}
           >
             {title || "Welcome Deal"}
           </Typography>
@@ -49,9 +49,9 @@ function ThreeInOneDeal({ top, title, subtitle, first }) {
                     pt={"0.5rem"}
                   >
                     <Typography
-                      fontSize={"0.9rem"}
+                      fontSize={"0.8rem"}
                       fontWeight={"bold"}
-                      color={"primary.main"}
+                      color={"text.price"}
                       sx={{ textWrap: "nowrap" }}
                     >
                       US $
@@ -63,8 +63,8 @@ function ThreeInOneDeal({ top, title, subtitle, first }) {
                     <Typography
                       fontSize={"0.8rem"}
                       p={"0rem 0.5rem"}
-                      color={"primary.contrastText"}
-                      bgcolor={"primary.main"}
+                      color={"text.secondary"}
+                      bgcolor={"background.lighter"}
                       borderRadius={"0.5rem"}
                     >
                       54%

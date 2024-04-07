@@ -1,12 +1,19 @@
 import language from "@/data/dictionary";
 import { Box, Typography } from "@mui/material";
 
+interface DealsComponentForMobileProps {
+  imgUrl: string;
+  price: number;
+  discountPrice: number;
+  ordersNumber: number;
+}
+
 function DealsComponentForMobile({
   imgUrl,
   price,
   discountPrice,
   ordersNumber,
-}) {
+}: DealsComponentForMobileProps) {
   return (
     <Box
       width={1}

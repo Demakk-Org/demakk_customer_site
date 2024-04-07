@@ -1,6 +1,18 @@
 import { Box, Grid, Typography } from "@mui/material";
 
-function ThreeInOneDeal({ top, title, subtitle, first }) {
+interface ThreeInOneDealerProps {
+  title: string;
+  subtitle: string;
+  top?: boolean;
+  first?: boolean;
+}
+
+function ThreeInOneDeal({
+  top,
+  title,
+  subtitle,
+  first,
+}: ThreeInOneDealerProps) {
   return (
     <Grid item width={1} height={"50%"}>
       <Box height={1} p={!top ? "0.5rem 0 0 0" : "0 0 0.5rem 0"}>

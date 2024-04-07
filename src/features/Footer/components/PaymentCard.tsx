@@ -1,6 +1,10 @@
 import { Box, Grid } from "@mui/material";
 
-function PaymentCard({ url }) {
+interface PaymentCardInterface {
+  url: string;
+}
+
+function PaymentCard({ url }: PaymentCardInterface) {
   return (
     <Grid item xs={1.5} sm={3} lg={2}>
       <Box

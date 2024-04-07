@@ -1,31 +1,17 @@
 const data = {
   users: ["melka@gmail.com", "demakk@gmail.com"],
-  region: {
-    "addis-ababa": {
+  region: [
+    {
+      code: "addis-ababa",
       name: "Addis Ababa",
       flag: "/assets/images/addis-ababa-flag.png",
     },
-    afar: {
-      name: "Afar",
-      flag: "/assets/images/afar-flag.png",
-    },
-    amhara: {
-      name: "Amhara",
-      flag: "/assets/images/amhara-flag.png",
-    },
-    harari: {
-      name: "Harari",
-      flag: "/assets/images/harari-flag.png",
-    },
-    gumuz: {
-      name: "Gumuz",
-      flag: "/assets/images/gumuz-flag.png",
-    },
-    oromia: {
-      name: "Oromia",
-      flag: "/assets/images/oromia-flag.png",
-    },
-  },
+    { code: "afar", name: "Afar", flag: "/assets/images/afar-flag.png" },
+    { code: "amhara", name: "Amhara", flag: "/assets/images/amhara-flag.png" },
+    { code: "harari", name: "Harari", flag: "/assets/images/harari-flag.png" },
+    { code: "gumuz", name: "Gumuz", flag: "/assets/images/gumuz-flag.png" },
+    { code: "oromia", name: "Oromia", flag: "/assets/images/oromia-flag.png" },
+  ],
   flags: {
     afar: "/assets/images/afar-flag.png",
     amhara: "/assets/images/amhara-flag.png",

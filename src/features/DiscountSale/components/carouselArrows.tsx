@@ -1,6 +1,10 @@
 import "react-multi-carousel/lib/styles.css";
+interface RightArrowProps {
+  onClick: () => void;
+  rest: any;
+}
 
-const RightArrow = ({ onClick, ...rest }) => {
+const RightArrow = ({ onClick, rest }: RightArrowProps) => {
   const {
     onMove,
     carouselState: { currentSlide, deviceType },

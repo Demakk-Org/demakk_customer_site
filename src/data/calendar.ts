@@ -1,3 +1,9 @@
+interface Months {}
+
+interface Calendar {
+  // months:
+}
+
 const calendar = {
   months: {
     en: [

@@ -1,8 +1,21 @@
 import { Box, Grid, Typography } from "@mui/material";
+import React from "react";
 import { LuCornerLeftDown } from "react-icons/lu";
 import { RiCoupon2Fill } from "react-icons/ri";
 
-function LargeDeviceAdvertProduct({ title, icon, data, first, second }) {
+interface LargeDeviceAdvertProductProps {
+  title: string;
+  icon?: JSX.Element;
+  first: any;
+  second: any;
+}
+
+function LargeDeviceAdvertProduct({
+  title,
+  icon,
+  first,
+  second,
+}: LargeDeviceAdvertProductProps) {
   return (
     <Box
       display={"flex"}

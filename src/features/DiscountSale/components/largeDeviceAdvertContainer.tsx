@@ -4,9 +4,12 @@ import { Avatar, Box, Grid, IconButton, Typography } from "@mui/material";
 import CarouselContainer from "@/component/CarouselContainer";
 import LargeDeviceAdvertProduct from "./largeDeviceAdvertProduct";
 import advertProductList from "@/data/advertProductList";
-import language from "@/data/dictionary";
+import { Breakpoints } from "@/data/carouselBreakPoints";
+import getLanguage from "@/utils/getLanguage";
+import useUserStore from "@/store/user";
 
 function LargeDeviceAdvertContainer() {
+  const { lang } = useUserStore();
   return (
     <Grid container spacing={2} sx={{ display: { xs: "none", md: "flex" } }}>
       <Grid item md={6}>
@@ -22,7 +25,7 @@ function LargeDeviceAdvertContainer() {
             fontSize={"1.5rem"}
             color={"bright"}
           >
-            {language.en.saleEnds}: Mar 28, 09:59 (GMT+3)
+            {getLanguage("saleEnds", lang)}: Mar 28, 09:59 (GMT+3)
           </Typography>
 
           <Box width={1} p={"1rem 0"}>
@@ -33,7 +36,7 @@ function LargeDeviceAdvertContainer() {
               width={1}
               lineHeight={1.2}
             >
-              {language.en.upto} 70% {language.en.off}
+              {getLanguage("upto", lang)} 70% {getLanguage("off", lang)}
             </Typography>
             <Typography
               fontSize={"2.3rem"}
@@ -41,7 +44,7 @@ function LargeDeviceAdvertContainer() {
               color={"bright"}
               width={1}
             >
-              {language.en.exploreYourFaveDealsNow}
+              {getLanguage("exploreYourFaveDealsNow", lang)}
             </Typography>
           </Box>
 
@@ -93,9 +96,11 @@ function LargeDeviceAdvertContainer() {
                 fontWeight={"bold"}
                 color={"demakkSecondary.light"}
               >
-                {language.en.shopNow}
+                {getLanguage("shopNow", lang)}
               </Typography>
-              <ArrowForward color="demakkSecondary" sx={{ fontSize: "5rem" }} />
+              <ArrowForward
+                sx={{ fontSize: "5rem", color: "demakkSecondary" }}
+              />
             </Box>
           </Box>
         </Box>
@@ -118,7 +123,7 @@ function LargeDeviceAdvertContainer() {
             alt="advert-animated-image"
           />
           <Box mt={20} className="advert-carousel-preview" flex={1}>
-            <CarouselContainer type={"large"}>
+            <CarouselContainer type={Breakpoints.large}>
               {advertProductList.map((item, index) => {
                 return (
                   <Box key={index} m={"0 0.5rem"}>

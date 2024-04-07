@@ -1,8 +1,12 @@
 import { Typography } from "@mui/material";
 import { Montserrat } from "next/font/google";
 
+interface FooterLinksTitleInterface {
+  name: string;
+}
+
 const font = Montserrat({ subsets: ["cyrillic"] });
-function FooterLinksTitle({ name }) {
+function FooterLinksTitle({ name }: FooterLinksTitleInterface) {
   return (
     <Typography
       fontWeight={"bolder"}

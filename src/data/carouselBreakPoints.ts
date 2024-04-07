@@ -1,3 +1,9 @@
+export enum Breakpoints {
+  small = "small",
+  large = "large",
+  smallOther = "smallOther",
+}
+
 const carouselBreakPoints = {
   large: {
     superLargeDesktop: {
@@ -58,3 +64,14 @@ const carouselBreakPoints = {
 };
 
 export default carouselBreakPoints;
+
+export function getBreakpoint(type: Breakpoints): any {
+  switch (type) {
+    case Breakpoints.small:
+      return carouselBreakPoints.small;
+    case Breakpoints.large:
+      return carouselBreakPoints.large;
+    case Breakpoints.smallOther:
+      return carouselBreakPoints.smallOther;
+  }
+}

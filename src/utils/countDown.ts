@@ -1,11 +1,12 @@
 import calendar from "@/data/calendar";
 import getLanguage from "./getLanguage";
+import { LANG } from "@/store/user";
 
-const formatSingleDigitTime = (time) => {
+const formatSingleDigitTime = (time: number): String => {
   return time < 10 ? "0" + time : time.toString();
 };
 
-export function countDown(time, lang) {
+export function countDown(time: string, lang: LANG): void {
   if (!time) var countDownDate = new Date("Mar 28, 2024 15:37:25").getTime();
   else var countDownDate = new Date(time).getTime();
 
@@ -24,13 +25,11 @@ export function countDown(time, lang) {
       let hr = new Date(time).getHours();
       let min = new Date(time).getMinutes();
 
-      message = `Sales ends: ${
-        calendar.months[mon]
-      } ${day}, ${formatSingleDigitTime(hr)}:${formatSingleDigitTime(
-        min
-      )} (GMT+3)`;
+      message = `Sales ends: ${calendar.months} ${day}, ${formatSingleDigitTime(
+        hr
+      )}:${formatSingleDigitTime(min)} (GMT+3)`;
 
-      Array.from(document.getElementsByClassName("count-down")).foreach(
+      Array.from(document.getElementsByClassName("count-down")).forEach(
         (element) => {
           element.innerHTML = message;
         }

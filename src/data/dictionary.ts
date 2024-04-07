@@ -1,5 +1,4 @@
 const language = {
-  //ማንኛውንም ምርት ይፈልጉ
   en: {
     demakk: "Demakk",
     hi: "Hi",
@@ -10,9 +9,9 @@ const language = {
     location: "Location",
     yourLocation: "Your location",
     ethiopia: "Ethiopia",
-    addisAbaba: "Addis Ababa",
+    "addis-ababa": "Addis Ababa",
     afar: "Afar",
-    benshangulGumuz: "Benshangul-Gumuz",
+    gumuz: "Benshangul-Gumuz",
     amhara: "Amhara",
     harari: "Harari",
     oromia: "Oromia",
@@ -68,6 +67,9 @@ const language = {
       "Safe payment methods preferred by international shoppers",
     buyerProtectionDescription:
       "Get a refund if items arrive late or not as described",
+    valueForMoney: "Value-for-Money",
+    weOfferCompetitivePrices:
+      "We offer competitive prices on millions of items",
     facebook: "facebook",
     apple: "apple",
     google: "google",
@@ -129,9 +131,9 @@ const language = {
     location: "Location",
     yourLocation: "የእርስዎ አካባቢ",
     ethiopia: "ኢትዮጵያ",
-    addisAbaba: "አዲስ አበባ",
+    "addis-ababa": "አዲስ አበባ",
     afar: "Afar",
-    benshangulGumuz: "Benshangul-Gumuz",
+    gumuz: "Benshangul-Gumuz",
     amhara: "Amhara",
     harari: "Harari",
     oromia: "Oromia",
@@ -157,7 +159,7 @@ const language = {
     shopNow: "Shop now",
     anniversarySale: "ዓመታዊ ሽያጭ",
     customerServices: "Customer Services",
-    helpCenter: "Help Center",
+    helpCenter: "እርዳታ",
     transactionServicesAgreement:
       "Transaction Services Agreement for non-EU/UK Consumers",
     tearmsAndConditions:
@@ -176,6 +178,9 @@ const language = {
     stayConnected: "Stay connected",
     deliverTo: "ማድረስ ወደ",
     betterChoicesBetterPrices: "የተሻለ ምርጫ ፣ የተሻሉ ዋጋዎች",
+    valueForMoney: "Value-for-Money",
+    weOfferCompetitivePrices:
+      "We offer competitive prices on millions of items",
     shoppersWorldwide: "Shorters Worldwide",
     shoppersWorldwideDescription:
       "More than 300 millions shoppers from 200+ countries & regions",

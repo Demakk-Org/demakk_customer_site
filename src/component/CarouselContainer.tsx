@@ -1,14 +1,30 @@
 import Carousel from "react-multi-carousel";
-import carouselBreakPoints from "@/data/carouselBreakPoints";
+import carouselBreakPoints, {
+  Breakpoints,
+  getBreakpoint,
+} from "@/data/carouselBreakPoints";
 import "react-multi-carousel/lib/styles.css";
+import React, { ReactNode } from "react";
 
-function CarouselContainer({ children, type, animate, infinite }) {
+interface CarouselContainerProps {
+  children: ReactNode;
+  type: Breakpoints;
+  animate?: boolean;
+  infinite?: boolean;
+}
+
+function CarouselContainer({
+  children,
+  type,
+  animate,
+  infinite,
+}: CarouselContainerProps) {
   return (
     <Carousel
       swipeable={false}
       draggable={true}
       showDots={false}
-      responsive={carouselBreakPoints[type]}
+      responsive={getBreakpoint(type)}
       ssr={true}
       infinite={infinite}
       autoPlay={animate}

@@ -1,47 +1,51 @@
 import useThemeProvider from "@/store/theme";
 import "@/styles/globals.css";
-import { createTheme, ThemeProvider } from "@mui/material/styles";
+import { ThemeProvider, createTheme } from "@mui/material/styles";
 import { outlinedInputClasses } from "@mui/material/OutlinedInput";
 import { useEffect } from "react";
-import CssBaseline from "@mui/material/CssBaseline";
 
-const theme = createTheme({
-  components: {
-    MuiOutlinedInput: {
-      styleOverrides: {
-        notchedOutline: {
-          borderColor: "darkgray",
-          letterSpacing: "0.2px",
-        },
-        root: {
-          [`&:hover .${outlinedInputClasses.notchedOutline}`]: {
-            borderColor: "#2c43a2",
-          },
-          [`&.Mui-focused .${outlinedInputClasses.notchedOutline}`]: {
-            borderColor: "#ffa889",
-          },
-        },
-      },
-    },
-  },
-  typography: {
-    fontFamily: [
-      "Montserrat",
-      "Poppins",
-      "-apple-system",
-      "BlinkMacSystemFont",
-      '"Segoe UI"',
-      "Roboto",
-    ].join(","),
-    button: {
-      textTransform: "capitalize",
-    },
-  },
-});
+declare module "@mui/material/styles" {
+  interface Palette {
+    dark: Palette["primary"];
+    darken: Palette["secondary"];
+    bright: Palette["primary"];
+    brighten: Palette["secondary"];
+    demakkPrimary: Palette["primary"];
+    demakkSecondary: Palette["primary"];
+    primaryButton: Palette["primary"];
+    secondaryButton: Palette["primary"];
+  }
+
+  interface PaletteOptions {
+    dark?: PaletteOptions["primary"];
+    darken?: PaletteOptions["primary"];
+    bright?: PaletteOptions["primary"];
+    brighten?: PaletteOptions["primary"];
+    demakkPrimary?: PaletteOptions["primary"];
+    demakkSecondary?: PaletteOptions["primary"];
+    primaryButton?: PaletteOptions["primary"];
+    secondaryButton?: PaletteOptions["primary"];
+  }
+}
+
+declare module "@mui/material/Button" {
+  interface ButtonPropsColorOverrides {
+    dark: true;
+    darken: true;
+    bright: true;
+    brighten: true;
+    demakkPrimary: true;
+    demakkSecondary: true;
+    primaryButton: true;
+    secondaryButton: true;
+  }
+}
 
 const dTheme = createTheme({
   palette: {
     mode: "dark",
+    dark: { main: "#262626" },
+    bright: { main: "#e9e9e9" },
   },
   components: {
     MuiOutlinedInput: {
@@ -79,6 +83,8 @@ const dTheme = createTheme({
 const lTheme = createTheme({
   palette: {
     mode: "light",
+    dark: { main: "#606060" },
+    bright: { main: "#fafafa" },
   },
   components: {
     MuiOutlinedInput: {
@@ -125,39 +131,38 @@ const darkTheme = createTheme(dTheme, {
       lighter: "#63636399",
       reddish: "#ff795b99",
     },
-    demakkPrimary: theme.palette.augmentColor({
+    demakkPrimary: dTheme.palette.augmentColor({
       color: {
         main: "#ee461c",
       },
       name: "demakkPrimary",
     }),
-    demakkSecondary: theme.palette.augmentColor({
+    bright: "#e9e9e9",
+    demakkSecondary: dTheme.palette.augmentColor({
       color: {
         main: "#fcbe19",
       },
       name: "demakkSecondary",
     }),
-    dark: "#262626",
-    darken: theme.palette.augmentColor({
+    darken: dTheme.palette.augmentColor({
       color: {
         main: "#262626",
       },
       name: "darken",
     }),
-    bright: "#e9e9e9",
-    brighten: theme.palette.augmentColor({
+    brighten: dTheme.palette.augmentColor({
       color: {
         main: "#e9e9e9",
       },
       name: "brighten",
     }),
-    primaryButton: theme.palette.augmentColor({
+    primaryButton: dTheme.palette.augmentColor({
       color: {
         main: "#e9e9e9",
       },
       name: "primaryButton",
     }),
-    secondaryButton: theme.palette.augmentColor({
+    secondaryButton: dTheme.palette.augmentColor({
       color: {
         main: "#e9e9e90c",
       },
@@ -167,6 +172,37 @@ const darkTheme = createTheme(dTheme, {
 });
 
 const lightTheme = createTheme(lTheme, {
+  components: {
+    MuiOutlinedInput: {
+      styleOverrides: {
+        notchedOutline: {
+          borderColor: "darkgray",
+          letterSpacing: "0.2px",
+        },
+        root: {
+          [`&:hover .${outlinedInputClasses.notchedOutline}`]: {
+            borderColor: "#2c43a2",
+          },
+          [`&.Mui-focused .${outlinedInputClasses.notchedOutline}`]: {
+            borderColor: "#ffa889",
+          },
+        },
+      },
+    },
+  },
+  typography: {
+    fontFamily: [
+      "Montserrat",
+      "Poppins",
+      "-apple-system",
+      "BlinkMacSystemFont",
+      '"Segoe UI"',
+      "Roboto",
+    ].join(","),
+    button: {
+      textTransform: "capitalize",
+    },
+  },
   palette: {
     text: {
       teritiary: "#e7e7e7",
@@ -178,39 +214,37 @@ const lightTheme = createTheme(lTheme, {
       lighter: "#d0d0d099",
       reddish: "#ffc7b899",
     },
-    demakkPrimary: theme.palette.augmentColor({
+    demakkPrimary: lTheme.palette.augmentColor({
       color: {
         main: "#ffab92",
       },
       name: "demakkPrimary",
     }),
-    demakkSecondary: theme.palette.augmentColor({
+    demakkSecondary: lTheme.palette.augmentColor({
       color: {
         main: "#fef06b",
       },
       name: "demakkSecondary",
     }),
-    dark: "#606060",
-    darken: theme.palette.augmentColor({
+    darken: lTheme.palette.augmentColor({
       color: {
         main: "#262626",
       },
       name: "darken",
     }),
-    bright: "#fafafa",
-    brighten: theme.palette.augmentColor({
+    brighten: lTheme.palette.augmentColor({
       color: {
         main: "#e9e9e9",
       },
       name: "brighten",
     }),
-    primaryButton: theme.palette.augmentColor({
+    primaryButton: lTheme.palette.augmentColor({
       color: {
         main: "#262626",
       },
       name: "primaryButton",
     }),
-    secondaryButton: theme.palette.augmentColor({
+    secondaryButton: lTheme.palette.augmentColor({
       color: {
         main: "#2626261c",
       },
@@ -219,7 +253,12 @@ const lightTheme = createTheme(lTheme, {
   },
 });
 
-export default function App({ Component, pageProps }) {
+interface AppInterface {
+  Component: React.FC;
+  pageProps: any;
+}
+
+export default function App({ Component, pageProps }: AppInterface) {
   const { darkMode, setTheme } = useThemeProvider();
 
   useEffect(() => {
@@ -234,18 +273,15 @@ export default function App({ Component, pageProps }) {
         .matchMedia("(prefers-color-scheme: dark)")
         .addEventListener("change", (e) => {
           console.log(e.matches);
-          console.log("theme", e.matches ? darkTheme : lightTheme);
+          console.log("theme", e.matches ? dTheme : lTheme);
           setTheme(e.matches);
         });
     }
   }, []);
 
   return (
-    <ThemeProvider theme={theme}>
-      <ThemeProvider theme={darkMode ? darkTheme : lightTheme}>
-        <CssBaseline />
-        <Component {...pageProps} />
-      </ThemeProvider>
+    <ThemeProvider theme={darkMode ? darkTheme : lightTheme}>
+      <Component {...pageProps} />
     </ThemeProvider>
   );
 }

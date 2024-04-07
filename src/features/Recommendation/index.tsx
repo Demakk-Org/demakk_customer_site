@@ -7,6 +7,7 @@ import { PiUsers } from "react-icons/pi";
 import BenefitListCard from "./components/BenefitListCard";
 import getLanguage from "@/utils/getLanguage";
 import useUserStore from "@/store/user";
+import { RiMoneyDollarCircleLine } from "react-icons/ri";
 
 const font = Montserrat({ subsets: ["cyrillic"] });
 function Recommendation() {
@@ -31,7 +32,11 @@ function Recommendation() {
         {getLanguage("betterChoicesBetterPrices", lang)}
       </Typography>
       <Box display={"flex"} gap={"1rem"}>
-        <BenefitListCard />
+        <BenefitListCard
+          icon={<RiMoneyDollarCircleLine />}
+          title={getLanguage("valueForMoney", lang)}
+          desc={getLanguage("weOfferCompetitivePrices", lang)}
+        />
         <BenefitListCard
           title={getLanguage("shoppersWorldwide", lang)}
           desc={getLanguage("shoppersWorldwideDescription", lang)}

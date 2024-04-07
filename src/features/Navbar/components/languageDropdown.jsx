@@ -8,7 +8,7 @@ import {
   Typography,
 } from "@mui/material";
 
-import useUserStore from "@/store/user";
+import useUserStore, { LANG } from "@/store/user";
 import { useState } from "react";
 import language from "@/data/dictionary";
 import getLanguage from "@/utils/getLanguage";
@@ -69,7 +69,11 @@ function LanguageDropdown({ setOpenLanguage }) {
             flexDirection={"column"}
             width={1}
           >
-            <Typography fontSize={"1.3rem"} fontWeight={600}>
+            <Typography
+              color={"text.primary"}
+              fontSize={"1.3rem"}
+              fontWeight={600}
+            >
               {getLanguage("shipTo", lang)}
             </Typography>
             <FormControl>
@@ -170,7 +174,11 @@ function LanguageDropdown({ setOpenLanguage }) {
             flexDirection={"column"}
             width={1}
           >
-            <Typography fontSize={"1.3rem"} fontWeight={600}>
+            <Typography
+              color={"text.primary"}
+              fontSize={"1.3rem"}
+              fontWeight={600}
+            >
               {getLanguage("language", lang)}
             </Typography>
             <FormControl sx={{}}>
@@ -186,17 +194,17 @@ function LanguageDropdown({ setOpenLanguage }) {
                   bgcolor: "background.lighter",
                 }}
               >
-                <MenuItem value={"en"}>
+                <MenuItem value={LANG.en}>
                   <Typography fontSize={"0.8rem"}>
                     {getLanguage("english", lang)}
                   </Typography>
                 </MenuItem>
-                <MenuItem value={"or"}>
+                <MenuItem value={LANG.or}>
                   <Typography fontSize={"0.8rem"}>
                     {getLanguage("afanOromo", lang)}
                   </Typography>
                 </MenuItem>
-                <MenuItem value={"am"}>
+                <MenuItem value={LANG.am}>
                   <Typography fontSize={"0.8rem"}>
                     {getLanguage("amharic", lang)}
                   </Typography>

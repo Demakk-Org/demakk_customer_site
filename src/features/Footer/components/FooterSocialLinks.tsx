@@ -1,7 +1,12 @@
 import { Twitter } from "@mui/icons-material";
 import { Box, Grid, Link } from "@mui/material";
 
-function FooterSocialLinks({ icon, url }) {
+interface FooterSocialLinksInterface {
+  icon: any;
+  url: string;
+}
+
+function FooterSocialLinks({ icon, url }: FooterSocialLinksInterface) {
   return (
     <Grid item xs={1.5} sm={4} lg={3} xl={2.4}>
       <Link href={url || "#"} color={"text.primary"}>

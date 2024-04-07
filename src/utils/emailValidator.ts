@@ -1,4 +1,4 @@
-export const textValidator = (value, type) => {
+export const textValidator = (value: string, type: string): boolean => {
   if (!value) return false;
 
   if (type == "email") {
@@ -12,4 +12,6 @@ export const textValidator = (value, type) => {
     const rgxPassword = /^(?=.*\d)(?=.*[a-zA-Z])(?=.*\W).+$/;
     return rgxPassword.test(value);
   }
+
+  return false;
 };

@@ -6,6 +6,7 @@ import CarouselContainer from "@/component/CarouselContainer";
 import SmallDeviceAdvertProduct from "./smallDeviceAdvertProduct";
 import getLanguage from "@/utils/getLanguage";
 import useUserStore from "@/store/user";
+import { Breakpoints } from "@/data/carouselBreakPoints";
 
 function SmallDeviceAdvertContainer() {
   const { lang } = useUserStore();
@@ -50,7 +51,7 @@ function SmallDeviceAdvertContainer() {
       </Box>
 
       <Box minHeight={100} p={"0 0.75rem"}>
-        <CarouselContainer type={"large"}>
+        <CarouselContainer type={Breakpoints.large}>
           {[
             ...advertProductList,
             ...advertProductList,

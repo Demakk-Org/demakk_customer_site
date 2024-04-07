@@ -1,4 +1,4 @@
-import { Box, Grid, List, ListItem } from "@mui/material";
+import { Box, Grid, List } from "@mui/material";
 import FooterLink from "./components/FooterLinks";
 import FooterLinksTitle from "./components/FooterLinksTitle";
 import PaymentCard from "./components/PaymentCard";
@@ -11,8 +11,12 @@ import {
 } from "@mui/icons-material";
 import FooterSocialLinks from "./components/FooterSocialLinks";
 import language from "@/data/dictionary";
+import getLanguage from "@/utils/getLanguage";
+import useUserStore from "@/store/user";
 
 function Footer() {
+  const { lang } = useUserStore();
+
   return (
     <Box width={1} bgcolor={"background.lighter"}>
       <Box
@@ -27,21 +31,13 @@ function Footer() {
           <Box flex={1} display={"flex"} flexDirection={"column"}>
             <FooterLinksTitle name={language.en.customerServices} />
             <List disablePadding>
-              <ListItem disablePadding disableGutters>
-                <FooterLink name={language.en.helpCenter} url={"#"} />
-              </ListItem>
-              <ListItem disablePadding disableGutters>
-                <FooterLink
-                  name={language.en.transactionServicesAgreement}
-                  url={"#"}
-                />
-              </ListItem>
-              <ListItem disablePadding disableGutters>
-                <FooterLink name={language.en.tearmsAndConditions} url={"#"} />
-              </ListItem>
-              <ListItem disablePadding disableGutters>
-                <FooterLink url={"#"} name={language.en.helpCenter} />
-              </ListItem>
+              <FooterLink name={getLanguage("helpCenter", lang)} url={"#"} />
+              <FooterLink
+                name={language.en.transactionServicesAgreement}
+                url={"#"}
+              />
+              <FooterLink name={language.en.tearmsAndConditions} url={"#"} />
+              <FooterLink url={"#"} name={language.en.helpCenter} />
             </List>
           </Box>
           <Box flex={1} display={"flex"} flexDirection={"column"}>
@@ -53,38 +49,22 @@ function Footer() {
             >
               <FooterLinksTitle name={language.en.shoppingWithUs} />
               <List disablePadding>
-                <ListItem disablePadding disableGutters>
-                  <FooterLink name={language.en.makingPayments} url={"#"} />
-                </ListItem>
-                <ListItem disablePadding disableGutters>
-                  <FooterLink name={language.en.deliveryOptions} url={"#"} />
-                </ListItem>
-                <ListItem disablePadding disableGutters>
-                  <FooterLink name={language.en.buyerProtection} url={"#"} />
-                </ListItem>
+                <FooterLink name={language.en.makingPayments} url={"#"} />
+                <FooterLink name={language.en.deliveryOptions} url={"#"} />
+                <FooterLink name={language.en.buyerProtection} url={"#"} />
               </List>
             </Box>
             <Box flex={1} display={"flex"} flexDirection={"column"}>
               <FooterLinksTitle name={language.en.collaborateWithUs} />
               <List disablePadding>
-                <ListItem disablePadding disableGutters>
-                  <FooterLink name={language.en.partnerships} url={"#"} />
-                </ListItem>
-                <ListItem disablePadding disableGutters>
-                  <FooterLink name={language.en.affiliatePrograms} url={"#"} />
-                </ListItem>
-                <ListItem disablePadding disableGutters>
-                  <FooterLink name={language.en.dsCenter} url={"#"} />
-                </ListItem>
-                <ListItem disablePadding disableGutters>
-                  <FooterLink name={language.en.sellerLogin} url={"#"} />
-                </ListItem>
-                <ListItem disablePadding disableGutters>
-                  <FooterLink
-                    name={language.en.nonChineseSellerRegistration}
-                    url={"#"}
-                  />
-                </ListItem>
+                <FooterLink name={language.en.partnerships} url={"#"} />
+                <FooterLink name={language.en.affiliatePrograms} url={"#"} />
+                <FooterLink name={language.en.dsCenter} url={"#"} />
+                <FooterLink name={language.en.sellerLogin} url={"#"} />
+                <FooterLink
+                  name={language.en.nonChineseSellerRegistration}
+                  url={"#"}
+                />
               </List>
             </Box>
           </Box>

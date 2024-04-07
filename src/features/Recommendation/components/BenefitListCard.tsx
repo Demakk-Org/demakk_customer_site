@@ -1,7 +1,12 @@
 import { Box, Typography } from "@mui/material";
-import { RiMoneyDollarCircleLine } from "react-icons/ri";
 
-function BenefitListCard({ icon, title, desc }) {
+interface BenefitListCardInterface {
+  icon: JSX.Element;
+  title: string;
+  desc: string;
+}
+
+function BenefitListCard({ icon, title, desc }: BenefitListCardInterface) {
   return (
     <Box
       display={"flex"}
@@ -15,23 +20,21 @@ function BenefitListCard({ icon, title, desc }) {
         pb={"0.5rem"}
         color={"text.primary"}
       >
-        {icon || (
-          <RiMoneyDollarCircleLine color="inherit" fontSize={"inherit"} />
-        )}
+        {icon}
       </Box>
       <Typography
         color={"text.primary"}
         fontSize={"0.7rem"}
         fontWeight={"bold"}
       >
-        {title || "Value-for-money"}
+        {title}
       </Typography>
       <Typography
         fontSize={"0.6rem"}
         color={"text.secondary"}
         textAlign={"center"}
       >
-        {desc || "We offer competitive prices on millions of items"}
+        {desc}
       </Typography>
     </Box>
   );

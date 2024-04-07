@@ -3,9 +3,12 @@ import { Box, Button, Typography } from "@mui/material";
 import CarouselContainer from "@/component/CarouselContainer";
 import DealsComponentForMobile from "../components/DealsComponentForMobile";
 import { ArrowForwardIos } from "@mui/icons-material";
-import language from "@/data/dictionary";
+import { Breakpoints } from "@/data/carouselBreakPoints";
+import getLanguage from "@/utils/getLanguage";
+import useUserStore from "@/store/user";
 
 function SmallDeviceDealsContainer() {
+  const { lang } = useUserStore();
   return (
     <Box
       width={1}
@@ -18,17 +21,21 @@ function SmallDeviceDealsContainer() {
         fontWeight={"bold"}
         color={"text.primary"}
       >
-        {language.en.welcomeDeal}
+        {getLanguage("welcomeDeal", lang)}
       </Typography>
       <Typography
         pl={{ sm: "1rem" }}
         fontSize={{ xs: "0.9rem", sm: "1.4rem" }}
         fontWeight={400}
       >
-        {language.en.yourExclusivePrice}
+        {getLanguage("yourExclusivePrice", lang)}
       </Typography>
       <Box width={1} mt={1}>
-        <CarouselContainer type={"smallOther"} infinite={false} animate={false}>
+        <CarouselContainer
+          type={Breakpoints.smallOther}
+          infinite={false}
+          animate={false}
+        >
           <DealsComponentForMobile
             imgUrl={"/assets/images/product2.webp"}
             price={17}
@@ -55,11 +62,10 @@ function SmallDeviceDealsContainer() {
           />
           <Box display={"flex"} height={1}>
             <Button
-              color="demakkSecondary"
               endIcon={<ArrowForwardIos />}
               sx={{ color: "text.primary" }}
             >
-              {language.en.more}
+              {getLanguage("more", lang)}
             </Button>
           </Box>
         </CarouselContainer>

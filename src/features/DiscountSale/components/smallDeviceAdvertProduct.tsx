@@ -1,6 +1,14 @@
 import { Box, Typography } from "@mui/material";
 
-function SmallDeviceAdvertProduct({ title, first }) {
+interface SmallDeviceAdvertProductProps {
+  title: string;
+  first: any;
+}
+
+function SmallDeviceAdvertProduct({
+  title,
+  first,
+}: SmallDeviceAdvertProductProps) {
   return (
     <Box
       width={1}

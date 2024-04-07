@@ -1,6 +1,6 @@
-import language from "@/data/dictionary";
+import { Box, Typography, Grid } from "@mui/material";
 
-const { Box, Typography, Grid } = require("@mui/material");
+import language from "@/data/dictionary";
 
 function DealInFullHeight() {
   return (

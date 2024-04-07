@@ -1,8 +1,8 @@
-import React from 'react';
-import ProductListing from './products/productListing';
-import MoreProductsCard from './products/moreProductsCard';
+import React from "react";
+import ProductListing from "./products/productListing";
+import MoreProductsCard from "./products/moreProductsCard";
 
-export default function ProductIndex() {
+export default function ProductCard() {
   return (
     <div>
       <MoreProductsCard />

@@ -5,9 +5,12 @@ import { GoShieldCheck } from "react-icons/go";
 import { PiUsers } from "react-icons/pi";
 
 import BenefitListCard from "./components/BenefitListCard";
+import getLanguage from "@/utils/getLanguage";
+import useUserStore from "@/store/user";
 
 const font = Montserrat({ subsets: ["cyrillic"] });
 function Recommendation() {
+  const { lang } = useUserStore();
   return (
     <Box
       className="recommendation--section"
@@ -15,7 +18,7 @@ function Recommendation() {
       p={{ md: "2rem 4rem 0.5rem 4rem", xl: "2rem 12rem 0.5rem 12rem" }}
       justifyContent={"space-between"}
       alignItems={"baseline"}
-      bgcolor={"background.lighter"}
+      bgcolor={"background.paper"}
     >
       <Typography
         fontSize={"1.5rem "}
@@ -25,30 +28,28 @@ function Recommendation() {
         className={font.className}
         color={"text.primary"}
       >
-        Better Choice&apos;s, better prices
+        {getLanguage("betterChoicesBetterPrices", lang)}
       </Typography>
       <Box display={"flex"} gap={"1rem"}>
         <BenefitListCard />
         <BenefitListCard
-          title={"Shoppers worldwide"}
-          desc="More than 300 millions shoppers from 200+ countries & regions"
+          title={getLanguage("shoppersWorldwide", lang)}
+          desc={getLanguage("shoppersWorldwideDescription", lang)}
           icon={<PiUsers />}
         />
         <BenefitListCard
-          title={"Fast delivery"}
-          desc={
-            "Faster delivery on selected items thanks to our improved logistics"
-          }
+          title={getLanguage("fastDelivery", lang)}
+          desc={getLanguage("fastDeliveryDescription", lang)}
           icon={<CiDeliveryTruck />}
         />
         <BenefitListCard
-          title={"Safe payments"}
-          desc={"Safe payment methods preferred by international shoppers"}
+          title={getLanguage("safePayments", lang)}
+          desc={getLanguage("safePaymentsDescription", lang)}
           icon={<CiCreditCard1 />}
         />
         <BenefitListCard
-          title={"Buyer protection"}
-          desc={"Get a refund if items arrive late or not as described"}
+          title={getLanguage("buyerProtection", lang)}
+          desc={getLanguage("buyerProtectionDescription", lang)}
           icon={<GoShieldCheck />}
         />
       </Box>

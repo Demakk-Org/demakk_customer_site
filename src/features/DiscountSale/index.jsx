@@ -3,11 +3,13 @@ import LargeDeviceAdvertContainer from "./components/largeDeviceAdvertContainer"
 import SmallDeviceAdvertContainer from "./components/smallDeviceAdvertContainer";
 import { useEffect } from "react";
 import { countDown } from "@/utils/countDown";
+import useUserStore from "@/store/user";
 
 function DiscountSale() {
+  const { lang } = useUserStore();
   useEffect(() => {
     if (document) {
-      countDown("Apr 3, 2024 12:00:00");
+      countDown("Apr 6, 2024 12:00:00", lang);
     }
   });
 
@@ -18,8 +20,8 @@ function DiscountSale() {
       sx={{ backgroundImage: "url(/assets/images/background.webp)" }}
       width={1}
     >
-      <LargeDeviceAdvertContainer />
       <SmallDeviceAdvertContainer />
+      <LargeDeviceAdvertContainer />
     </Box>
   );
 }

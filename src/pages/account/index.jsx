@@ -1,12 +1,9 @@
 import Head from "next/head";
-import { Inter } from "next/font/google";
 import styles from "@/styles/Home.module.css";
 import { useEffect, useState } from "react";
 import useUserStore from "@/store/user";
 import { Typography } from "@mui/material";
-import SmallDeviceLogin from "@/components/Login/smallDeviceLogin";
-
-const inter = Inter({ subsets: ["latin"] });
+import SmallDeviceLogin from "@/features/Login/smallDeviceLogin";
 
 function Account() {
   const { user } = useUserStore();
@@ -29,7 +26,7 @@ function Account() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main className={`${styles.main} ${inter.className}`}>
+      <main className={`${styles.main}`}>
         <Typography>Hi</Typography>
         {openAccountModal && (
           <SmallDeviceLogin

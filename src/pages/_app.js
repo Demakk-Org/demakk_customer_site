@@ -43,22 +43,155 @@ const dTheme = createTheme({
   palette: {
     mode: 'dark',
   },
+  components: {
+    MuiOutlinedInput: {
+      styleOverrides: {
+        notchedOutline: {
+          borderColor: "darkgray",
+          letterSpacing: "0.2px",
+        },
+        root: {
+          [`&:hover .${outlinedInputClasses.notchedOutline}`]: {
+            borderColor: "#2c43a2",
+          },
+          [`&.Mui-focused .${outlinedInputClasses.notchedOutline}`]: {
+            borderColor: "#ffa889",
+          },
+        },
+      },
+    },
+  },
+  typography: {
+    fontFamily: [
+      "Montserrat",
+      "Poppins",
+      "-apple-system",
+      "BlinkMacSystemFont",
+      '"Segoe UI"',
+      "Roboto",
+    ].join(","),
+    button: {
+      textTransform: "capitalize",
+    },
+  },
+});
+
+const dTheme = createTheme({
+  palette: {
+    mode: "dark",
+  },
+  components: {
+    MuiOutlinedInput: {
+      styleOverrides: {
+        notchedOutline: {
+          borderColor: "darkgray",
+          letterSpacing: "0.2px",
+        },
+        root: {
+          [`&:hover .${outlinedInputClasses.notchedOutline}`]: {
+            borderColor: "#2c43a2",
+          },
+          [`&.Mui-focused .${outlinedInputClasses.notchedOutline}`]: {
+            borderColor: "#ffa889",
+          },
+        },
+      },
+    },
+  },
+  typography: {
+    fontFamily: [
+      "Montserrat",
+      "Poppins",
+      "-apple-system",
+      "BlinkMacSystemFont",
+      '"Segoe UI"',
+      "Roboto",
+    ].join(","),
+    button: {
+      textTransform: "capitalize",
+    },
+  },
 });
 
 const lTheme = createTheme({
   palette: {
     mode: 'light',
   },
+  components: {
+    MuiOutlinedInput: {
+      styleOverrides: {
+        notchedOutline: {
+          borderColor: "darkgray",
+          letterSpacing: "0.2px",
+        },
+        root: {
+          [`&:hover .${outlinedInputClasses.notchedOutline}`]: {
+            borderColor: "#2c43a2",
+          },
+          [`&.Mui-focused .${outlinedInputClasses.notchedOutline}`]: {
+            borderColor: "#ffa889",
+          },
+        },
+      },
+    },
+  },
+  typography: {
+    fontFamily: [
+      "Montserrat",
+      "Poppins",
+      "-apple-system",
+      "BlinkMacSystemFont",
+      '"Segoe UI"',
+      "Roboto",
+    ].join(","),
+    button: {
+      textTransform: "capitalize",
+    },
+  },
+  components: {
+    MuiOutlinedInput: {
+      styleOverrides: {
+        notchedOutline: {
+          borderColor: "darkgray",
+          letterSpacing: "0.2px",
+        },
+        root: {
+          [`&:hover .${outlinedInputClasses.notchedOutline}`]: {
+            borderColor: "#2c43a2",
+          },
+          [`&.Mui-focused .${outlinedInputClasses.notchedOutline}`]: {
+            borderColor: "#ffa889",
+          },
+        },
+      },
+    },
+  },
+  typography: {
+    fontFamily: [
+      "Montserrat",
+      "Poppins",
+      "-apple-system",
+      "BlinkMacSystemFont",
+      '"Segoe UI"',
+      "Roboto",
+    ].join(","),
+    button: {
+      textTransform: "capitalize",
+    },
+  },
 });
 
 const darkTheme = createTheme(dTheme, {
   palette: {
     text: {
-      teritiary: '#575757',
-      links: '#ffffffcc',
+      teritiary: "#575757",
+      links: "#ffffffcc",
+      price: "#ff0000",
     },
     background: {
-      lighter: '#63636399',
+      lightOpaque: "#414141",
+      lighter: "#63636399",
+      reddish: "#ff795b99",
     },
     demakkPrimary: theme.palette.augmentColor({
       color: {
@@ -72,19 +205,43 @@ const darkTheme = createTheme(dTheme, {
       },
       name: 'demakkSecondary',
     }),
-    dark: '#262626',
-    bright: '#e9e9e9',
+    dark: "#262626",
+    darken: theme.palette.augmentColor({
+      color: {
+        main: "#262626",
+      },
+      name: "darken",
+    }),
+    bright: "#e9e9e9",
+    brighten: theme.palette.augmentColor({
+      color: {
+        main: "#e9e9e9",
+      },
+      name: "brighten",
+    }),
+    primaryButton: theme.palette.augmentColor({
+      color: {
+        main: "#e9e9e9",
+      },
+      name: "primaryButton",
+    }),
+    secondaryButton: theme.palette.augmentColor({
+      color: {
+        main: "#e9e9e90c",
+      },
+      name: "secondaryButton",
+    }),
   },
 });
 
 const lightTheme = createTheme(lTheme, {
   palette: {
     text: {
-      teritiary: '#e7e7e7',
-      links: '#191919cc',
+      teritiary: "#e7e7e7",
+      links: "#191919cc",
     },
     background: {
-      lighter: '#d0d0d099',
+      lighter: "#d0d0d099",
     },
     demakkPrimary: theme.palette.augmentColor({
       color: {
@@ -98,8 +255,8 @@ const lightTheme = createTheme(lTheme, {
       },
       name: 'demakkSecondary',
     }),
-    dark: '#606060',
-    bright: '#fafafa',
+    dark: "#606060",
+    bright: "#fafafa",
   },
 });
 

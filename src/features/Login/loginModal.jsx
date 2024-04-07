@@ -25,6 +25,8 @@ import {
 import { useState } from "react";
 import useUserStore from "@/store/user";
 import { textValidator } from "@/utils/emailValidator";
+import language from "@/data/dictionary";
+import getLanguage from "@/utils/getLanguage";
 
 const style = {
   minWidth: 375,
@@ -36,7 +38,7 @@ const style = {
 };
 
 function LoginModal({ open, handleClose }) {
-  const { setUser } = useUserStore();
+  const { setUser, lang } = useUserStore();
 
   const [continueButton, setContinueButton] = useState(false);
   const [showPass, setShowPass] = useState(false);
@@ -102,7 +104,7 @@ function LoginModal({ open, handleClose }) {
             pt={"1rem"}
             pb={"2rem"}
           >
-            Register/Sign in
+            {getLanguage("register", lang)}/{getLanguage("signIn", lang)}
           </Typography>
           <Box
             overflow={"auto"}
@@ -119,16 +121,18 @@ function LoginModal({ open, handleClose }) {
               alignItems={"baseline"}
               gap={"0.25rem"}
             >
-              <Typography fontSize={"0.8rem"}>Location: </Typography>
+              <Typography fontSize={"0.8rem"}>
+                {getLanguage("location", lang)}:{" "}
+              </Typography>
               <Box
                 display={"flex"}
                 alignItems={"center"}
                 sx={{ cursor: "pointer" }}
               >
                 <Typography fontSize={"0.9rem"} fontWeight={"bold"}>
-                  Ethiopia
+                  {getLanguage("ethiopia", lang)}
                 </Typography>
-                <ExpandMore fontSize="medium" color="dark" />
+                <ExpandMore fontSize="medium" color="text.primary" />
               </Box>
             </Box>
             <OutlinedInput
@@ -175,16 +179,18 @@ function LoginModal({ open, handleClose }) {
                 display={"flex"}
                 flexDirection={"column"}
                 p={"0.5rem 1rem"}
-                color={"gray"}
+                color={"text.secondary"}
               >
                 <Box display={"flex"} gap={"0.5rem"} alignItems={"center"}>
                   <Circle sx={{ fontSize: "6px" }} />
-                  <Typography fontSize={"0.7rem"}>6-20 Characters</Typography>
+                  <Typography fontSize={"0.7rem"}>
+                    6-20 {getLanguage("characters", lang)}
+                  </Typography>
                 </Box>
                 <Box display={"flex"} gap={"0.5rem"} alignItems={"center"}>
                   <Circle sx={{ fontSize: "6px" }} />
                   <Typography fontSize={"0.7rem"}>
-                    Contains numbers, letters or symbols
+                    {getLanguage("containsNumberLetterOrSymbol", lang)}
                   </Typography>
                 </Box>
               </Box>
@@ -192,17 +198,22 @@ function LoginModal({ open, handleClose }) {
             <Button
               fullWidth
               size="large"
+              color="demakkPrimary"
               variant={"contained"}
               disabled={!continueButton}
               sx={{
                 textTransform: "capitalize",
                 borderRadius: "2rem",
                 m: "0.5rem 0",
-                bgcolor: "primary.light",
+                color: "text.primary",
               }}
               onClick={() => handleContinueButton()}
             >
-              {!continueStage ? "Continue" : userExists ? "Log in" : "Register"}
+              {!continueStage
+                ? getLanguage("continue", lang)
+                : userExists
+                ? getLanguage("signIn", lang)
+                : getLanguage("register", lang)}
             </Button>
             <Box
               component={"a"}
@@ -210,11 +221,11 @@ function LoginModal({ open, handleClose }) {
               fontSize={"0.75rem"}
               sx={{ color: "gray" }}
             >
-              Trouble Signing in?
+              {getLanguage("troubleSigningIn", lang)}
             </Box>
             <Divider>
               <Typography p={"1rem 1rem"} fontSize={"0.85rem"}>
-                Or continue with
+                {getLanguage("orContinueWith", lang)}
               </Typography>
             </Divider>
             <Button
@@ -231,7 +242,7 @@ function LoginModal({ open, handleClose }) {
               }}
             >
               <Typography flex={1} textTransform={"lowercase"}>
-                facebook
+                {getLanguage("facebook", lang)}
               </Typography>
             </Button>
             <Button
@@ -255,7 +266,7 @@ function LoginModal({ open, handleClose }) {
               }}
             >
               <Typography flex={1} textTransform={"lowercase"}>
-                google
+                {getLanguage("google", lang)}
               </Typography>
             </Button>
             <Button
@@ -272,7 +283,7 @@ function LoginModal({ open, handleClose }) {
               }}
             >
               <Typography flex={1} textTransform={"lowercase"}>
-                tweeter
+                {getLanguage("tweeter", lang)}
               </Typography>
             </Button>
             <Button
@@ -289,13 +300,11 @@ function LoginModal({ open, handleClose }) {
               }}
             >
               <Typography flex={1} textTransform={"lowercase"}>
-                apple
+                {getLanguage("apple", lang)}
               </Typography>
             </Button>
             <Typography fontSize={"0.7rem"} mt={"0.5rem"}>
-              By continuing, you confirm that you are an adult. By creating an
-              account, you agree to the AliExpress.com Free Membership Agreement
-              and Privacy Policy.
+              {getLanguage("registerPolicy", lang)}
             </Typography>
           </Box>
           <IconButton

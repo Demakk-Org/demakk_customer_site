@@ -43,6 +43,18 @@ const carouselBreakPoints = {
       slidesToSlide: 1,
     },
   },
+  smallOther: {
+    tablet: {
+      breakpoint: { max: 1200, min: 600 },
+      items: 3.5,
+      slidesToSlide: 1,
+    },
+    mobile: {
+      breakpoint: { max: 464, min: 0 },
+      items: 2.75,
+      slidesToSlide: 1,
+    },
+  },
 };
 
 export default carouselBreakPoints;

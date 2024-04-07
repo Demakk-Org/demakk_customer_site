@@ -7,12 +7,11 @@ import PinLocation from "@/features/Home/PinLocation";
 import Recommendation from "@/features/Recommendation";
 import Footer from "@/features/Footer";
 import DealsContainer from "@/features/DealsContainer";
-import MoreProductsCard from "@/features/ProductsCard/products/moreProductsCard";
 
 import { Box } from "@mui/material";
-import ProductCard from "@/features/ProductsCard";
+import { ReactElement } from "react";
 
-export default function Home() {
+export default function Home(): ReactElement {
   return (
     <>
       <Head>
@@ -27,11 +26,10 @@ export default function Home() {
       <main className={`${styles.main}`}>
         <Box width={"100%"} minHeight={"100vh"} bgcolor={"background.paper"}>
           <Navbar />
-          {/* <PinLocation /> */}
-          {/* <Recommendation /> */}
-          {/* <DiscountSale /> */}
-          <ProductCard />
-          {/* <DealsContainer /> */}
+          <PinLocation />
+          <Recommendation />
+          <DealsContainer />
+          <DiscountSale />
           <Footer />
         </Box>
       </main>

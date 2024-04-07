@@ -1,5 +1,7 @@
+import language from "@/data/dictionary";
 import useUserStore from "@/store/user";
 import { textValidator } from "@/utils/emailValidator";
+import getLanguage from "@/utils/getLanguage";
 import {
   Apple,
   Cancel,
@@ -40,7 +42,7 @@ const style = {
   width: 1,
   maxWidth: { xs: 1, sm: "600px" },
   height: { xs: 1, sm: "unset" },
-  bgcolor: "background.paper",
+  bgcolor: "background.lightOpaque",
   borderRadius: { sm: "0.5rem" },
   p: { xs: "1rem", sm: "1rem 8rem 4rem 8rem" },
 };
@@ -48,32 +50,32 @@ const style = {
 const font = Montserrat({ subsets: ["cyrillic"] });
 
 function SmallDeviceLogin({ open, handleClose, localAddress }) {
-  const { address, setAddress } = useUserStore();
+  const { lang, address, setAddress } = useUserStore();
 
   const [showPass, setShowPass] = useState(false);
   const [continueStage, setContinueStage] = useState(false);
   const [type, setType] = useState("log-in");
 
-  const handleEmailChange = (value) => {
+  const handleEmailChange = (value, type) => {
     const buttonState = textValidator(value, "email");
     const password = document.getElementById("login--password").value;
 
     const passwordState = textValidator(password, "password");
 
-    if (buttonState && passwordState) {
+    if (buttonState && (passwordState || type)) {
       setContinueStage(true);
     } else {
       setContinueStage(false);
     }
   };
 
-  const handlePasswordChange = (value) => {
+  const handlePasswordChange = (value, type) => {
     const buttonState = textValidator(value, "password");
     const email = document.getElementById("login--email").value;
 
     const emailState = textValidator(email, "email");
 
-    if (buttonState && emailState) {
+    if ((buttonState || type) && emailState) {
       setContinueStage(true);
     } else {
       setContinueStage(false);
@@ -102,10 +104,10 @@ function SmallDeviceLogin({ open, handleClose, localAddress }) {
           fontWeight={"600"}
           pt={{ sm: "1rem" }}
           pb={{ xs: "1rem", sm: "2rem" }}
-          color={"primary"}
+          color={"demakkPrimary.main"}
           display={{ sm: "none" }}
         >
-          Demakk
+          {getLanguage("demakk", lang)}
         </Typography>
         <Box
           display={"flex"}
@@ -128,14 +130,18 @@ function SmallDeviceLogin({ open, handleClose, localAddress }) {
             }}
           >
             <Typography
-              color={"dark.main"}
+              color={"text.primary"}
               textTransform={"capitalize"}
               fontWeight={type == "register" && "bold"}
             >
-              Register
+              {getLanguage("register", lang)}
             </Typography>
             <Grow in={type == "register"} timeout={500}>
-              <Box width={"60%"} borderBottom={"4px solid orange"} />
+              <Box
+                width={"60%"}
+                borderBottom={"4px solid"}
+                borderColor={"demakkPrimary.light"}
+              />
             </Grow>
           </Button>
           <Button
@@ -153,14 +159,18 @@ function SmallDeviceLogin({ open, handleClose, localAddress }) {
             }}
           >
             <Typography
-              color={"dark.main"}
+              color={"text.primary"}
               textTransform={"capitalize"}
               fontWeight={type == "log-in" && "bolder"}
             >
-              Log in
+              {getLanguage("logIn", lang)}
             </Typography>
             <Grow in={type == "log-in"} timeout={500}>
-              <Box width={"60%"} borderBottom={"4px solid orange"} />
+              <Box
+                width={"60%"}
+                borderBottom={"4px solid"}
+                borderColor={"demakkPrimary.light"}
+              />
             </Grow>
           </Button>
         </Box>
@@ -190,21 +200,24 @@ function SmallDeviceLogin({ open, handleClose, localAddress }) {
                     sx={{ minWidth: 120 }}
                   >
                     <InputLabel
-                      sx={{ p: "0.35rem 1rem", fontSize: "0.8rem" }}
+                      sx={{
+                        p: "0.35rem 1rem",
+                        fontSize: "0.8rem",
+                        color: "text.primary",
+                        zIndex: 1000,
+                      }}
                       variant={"standard"}
                       id="demo-simple-select-label"
-                      color="dark"
                     >
-                      Your Location:
+                      {getLanguage("yourLocation", lang)}:
                     </InputLabel>
                     <Select
                       name="address"
                       size="small"
-                      color={"secondary"}
+                      color={"darken"}
                       value={address}
                       onChange={({ target }) => setAddress(target.value)}
                       displayEmpty
-                      // inputProps={{ "aria-label": "Without label" }}
                       inputProps={{
                         name: "Your Location:",
                         id: "uncontrolled-native",
@@ -212,6 +225,7 @@ function SmallDeviceLogin({ open, handleClose, localAddress }) {
                       sx={{
                         borderRadius: "0.5rem",
                         pt: "0.75rem",
+                        bgcolor: "background.paper",
                       }}
                     >
                       <MenuItem value={"addis-ababa"}>
@@ -227,27 +241,30 @@ function SmallDeviceLogin({ open, handleClose, localAddress }) {
                             sx={{
                               width: 25,
                               height: 20,
-                              border: "1px solid lightgray",
+                              border: "1px solid",
+                              borderColor: "text.primary",
                             }}
                           />
                           <Typography fontSize={"0.8rem"}>
-                            Addis Ababa
+                            {getLanguage("addisAbaba", lang)}
                           </Typography>
                         </Box>
                       </MenuItem>
                       <MenuItem value={"afar"}>
-                        <Box
-                          display={"flex"}
-                          gap={1}
-                          width={1}
-                          alignItems={"center"}
-                        >
+                        <Box display={"flex"} gap={1} width={1}>
                           <Avatar
                             variant="square"
                             src="/assets/images/afar-flag.png"
-                            sx={{ width: 25, height: 20 }}
+                            sx={{
+                              width: 25,
+                              height: 20,
+                              border: "1px solid",
+                              borderColor: "text.primary",
+                            }}
                           />
-                          <Typography fontSize={"0.8rem"}>Afar</Typography>
+                          <Typography fontSize={"0.8rem"}>
+                            {getLanguage("afar", lang)}
+                          </Typography>
                         </Box>
                       </MenuItem>
                       <MenuItem value={"gumuz"}>
@@ -260,10 +277,15 @@ function SmallDeviceLogin({ open, handleClose, localAddress }) {
                           <Avatar
                             variant="square"
                             src="/assets/images/gumuz-flag.png"
-                            sx={{ width: 25, height: 20 }}
+                            sx={{
+                              width: 25,
+                              height: 20,
+                              border: "1px solid",
+                              borderColor: "text.primary",
+                            }}
                           />
                           <Typography fontSize={"0.8rem"}>
-                            Benshangul-Gumuz
+                            {getLanguage("benshangulGumuz", lang)}
                           </Typography>
                         </Box>
                       </MenuItem>
@@ -277,9 +299,16 @@ function SmallDeviceLogin({ open, handleClose, localAddress }) {
                           <Avatar
                             variant="square"
                             src="/assets/images/amhara-flag.png"
-                            sx={{ width: 25, height: 20 }}
+                            sx={{
+                              width: 25,
+                              height: 20,
+                              border: "1px solid",
+                              borderColor: "text.primary",
+                            }}
                           />
-                          <Typography fontSize={"0.8rem"}>Amhara</Typography>
+                          <Typography fontSize={"0.8rem"}>
+                            {getLanguage("amhara", lang)}
+                          </Typography>
                         </Box>
                       </MenuItem>
                       <MenuItem value={"harari"}>
@@ -292,9 +321,16 @@ function SmallDeviceLogin({ open, handleClose, localAddress }) {
                           <Avatar
                             variant="square"
                             src="/assets/images/harari-flag.png"
-                            sx={{ width: 25, height: 20 }}
+                            sx={{
+                              width: 25,
+                              height: 20,
+                              border: "1px solid",
+                              borderColor: "text.primary",
+                            }}
                           />
-                          <Typography fontSize={"0.8rem"}>Harari</Typography>
+                          <Typography fontSize={"0.8rem"}>
+                            {getLanguage("harari", lang)}
+                          </Typography>
                         </Box>
                       </MenuItem>
                       <MenuItem value={"oromia"}>
@@ -307,9 +343,16 @@ function SmallDeviceLogin({ open, handleClose, localAddress }) {
                           <Avatar
                             variant="square"
                             src="/assets/images/oromia-flag.png"
-                            sx={{ width: 25, height: 20 }}
+                            sx={{
+                              width: 25,
+                              height: 20,
+                              border: "1px solid",
+                              borderColor: "text.primary",
+                            }}
                           />
-                          <Typography fontSize={"0.8rem"}>Oromia</Typography>
+                          <Typography fontSize={"0.8rem"}>
+                            {getLanguage("oromia", lang)}
+                          </Typography>
                         </Box>
                       </MenuItem>
                     </Select>
@@ -320,8 +363,8 @@ function SmallDeviceLogin({ open, handleClose, localAddress }) {
                   onChange={({ target }) => handleEmailChange(target.value)}
                   size="small"
                   fullWidth
-                  sx={{ m: "0.5rem 0" }}
-                  placeholder="Email"
+                  sx={{ m: "0.5rem 0", bgcolor: "background.paper" }}
+                  placeholder={getLanguage("email", lang)}
                   endAdornment={
                     <InputAdornment position="end">
                       <IconButton
@@ -345,7 +388,8 @@ function SmallDeviceLogin({ open, handleClose, localAddress }) {
                     size="small"
                     fullWidth
                     type={showPass ? "text" : "password"}
-                    placeholder="Password"
+                    placeholder={getLanguage("password", lang)}
+                    sx={{ bgcolor: "background.paper" }}
                     endAdornment={
                       <InputAdornment position="end">
                         <IconButton
@@ -362,18 +406,18 @@ function SmallDeviceLogin({ open, handleClose, localAddress }) {
                     display={"flex"}
                     flexDirection={"column"}
                     p={"0.5rem 1rem"}
-                    color={"gray"}
+                    color={"text.secondary"}
                   >
                     <Box display={"flex"} gap={"0.5rem"} alignItems={"center"}>
                       <Circle sx={{ fontSize: "6px" }} />
                       <Typography fontSize={"0.7rem"}>
-                        6-20 Characters
+                        6-20 {getLanguage("characters", lang)}
                       </Typography>
                     </Box>
                     <Box display={"flex"} gap={"0.5rem"} alignItems={"center"}>
                       <Circle sx={{ fontSize: "6px" }} />
                       <Typography fontSize={"0.7rem"}>
-                        Contains numbers, letters or symbols
+                        {getLanguage("containsNumberLetterOrSymbol", lang)}
                       </Typography>
                     </Box>
                   </Box>
@@ -394,7 +438,7 @@ function SmallDeviceLogin({ open, handleClose, localAddress }) {
                     }}
                     // onClick={() => handleContinueButton()}
                   >
-                    Create account
+                    {getLanguage("createAccount", lang)}
                   </Button>
                 </span>
                 <Box
@@ -402,9 +446,9 @@ function SmallDeviceLogin({ open, handleClose, localAddress }) {
                   href="#"
                   className={font.className}
                   fontSize={"0.75rem"}
-                  sx={{ color: "gray" }}
+                  sx={{ color: "text.secondary" }}
                 >
-                  Trouble Signing in?
+                  {getLanguage("troubleSigningIn", lang)}
                 </Box>
               </Box>
             </Slide>
@@ -414,10 +458,13 @@ function SmallDeviceLogin({ open, handleClose, localAddress }) {
               <Box display={"flex"} flexDirection={"column"} gap={"1rem"}>
                 <OutlinedInput
                   id="login--email"
-                  onChange={({ target }) => handleEmailChange(target.value)}
+                  onChange={({ target }) =>
+                    handleEmailChange(target.value, "log-in")
+                  }
                   size={"small"}
                   fullWidth
-                  placeholder="Email"
+                  placeholder={getLanguage("email", lang)}
+                  sx={{ bgcolor: "background.paper" }}
                   endAdornment={
                     <InputAdornment position="end">
                       <IconButton
@@ -434,9 +481,12 @@ function SmallDeviceLogin({ open, handleClose, localAddress }) {
                   id="login--password"
                   size="small"
                   fullWidth
-                  onChange={({ target }) => handlePasswordChange(target.value)}
+                  onChange={({ target }) =>
+                    handlePasswordChange(target.value, "log-in")
+                  }
                   type={showPass ? "text" : "password"}
-                  placeholder="Password"
+                  placeholder={getLanguage("password", lang)}
+                  sx={{ bgcolor: "background.paper" }}
                   endAdornment={
                     <InputAdornment position="end">
                       <IconButton
@@ -454,9 +504,9 @@ function SmallDeviceLogin({ open, handleClose, localAddress }) {
                   href="#"
                   className={font.className}
                   fontSize={"0.75rem"}
-                  sx={{ color: "blue" }}
+                  sx={{ color: "primary.main" }}
                 >
-                  Forgot password?
+                  {getLanguage("forgotPassword", lang)}
                 </Box>
                 <span
                   style={{ cursor: !continueStage ? "not-allowed" : "pointer" }}
@@ -474,7 +524,7 @@ function SmallDeviceLogin({ open, handleClose, localAddress }) {
                     }}
                     // onClick={() => handleContinueButton()}
                   >
-                    Sign in
+                    {getLanguage("signIn", lang)}
                   </Button>
                 </span>
               </Box>
@@ -487,7 +537,7 @@ function SmallDeviceLogin({ open, handleClose, localAddress }) {
               className={font.className}
               fontSize={"0.85rem"}
             >
-              Or continue with
+              {getLanguage("orContinueWith", lang)}
             </Typography>
           </Divider>
           <Box
@@ -499,7 +549,8 @@ function SmallDeviceLogin({ open, handleClose, localAddress }) {
           >
             <Box
               display={"flex"}
-              border={"1px solid gray"}
+              border={"1px solid"}
+              borderColor={"text.secondary"}
               flexGrow={0}
               width={"fit-content"}
               borderRadius="50%"
@@ -521,12 +572,13 @@ function SmallDeviceLogin({ open, handleClose, localAddress }) {
             </Box>
             <Box
               display={"flex"}
-              border={"1px solid gray"}
+              border={"1px solid"}
+              borderColor={"text.secondary"}
               flexGrow={0}
               width={"fit-content"}
               borderRadius="50%"
             >
-              <IconButton color="dark">
+              <IconButton color="text.primary">
                 <Twitter sx={{ width: { sm: 35 }, height: { sm: 35 } }} />
               </IconButton>
             </Box>
@@ -537,16 +589,14 @@ function SmallDeviceLogin({ open, handleClose, localAddress }) {
               width={"fit-content"}
               borderRadius="50%"
             >
-              <IconButton>
+              <IconButton color="text.primary">
                 <Apple sx={{ width: { sm: 35 }, height: { sm: 35 } }} />
               </IconButton>
             </Box>
           </Box>
           {type == "register" && (
             <Typography fontSize={"0.7rem"} mt={{ xs: "0.5rem", sm: "1.5rem" }}>
-              By continuing, you confirm that you are an adult. By creating an
-              account, you agree to the AliExpress.com Free Membership Agreement
-              and Privacy Policy.
+              {getLanguage("registerPolicy", lang)}
             </Typography>
           )}
         </Box>

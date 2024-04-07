@@ -2,17 +2,16 @@ import Carousel from "react-multi-carousel";
 import carouselBreakPoints from "@/data/carouselBreakPoints";
 import "react-multi-carousel/lib/styles.css";
 
-function CarouselContainer({ children, type, restprops }) {
+function CarouselContainer({ children, type, animate, infinite }) {
   return (
     <Carousel
-      {...restprops}
       swipeable={false}
       draggable={true}
       showDots={false}
       responsive={carouselBreakPoints[type]}
       ssr={true}
-      infinite={true}
-      autoPlay={true}
+      infinite={infinite}
+      autoPlay={animate}
       autoPlaySpeed={3000}
       customTransition="all 0.5s"
       transitionDuration={500}

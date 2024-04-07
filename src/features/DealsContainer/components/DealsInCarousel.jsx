@@ -1,6 +1,7 @@
 import { Box, Typography } from "@mui/material";
 import advertProductList from "@/data/advertProductList";
 import CarouselContainer from "@/component/CarouselContainer";
+import language from "@/data/dictionary";
 
 function DealsInCarousel() {
   return (
@@ -8,7 +9,7 @@ function DealsInCarousel() {
       display={"flex"}
       flexDirection={"column"}
       p={"1.5rem"}
-      bgcolor={"primaryLight.light"}
+      bgcolor={"background.lighter"}
       borderRadius={"1rem"}
       height={1}
     >
@@ -17,13 +18,13 @@ function DealsInCarousel() {
         fontWeight={"bold"}
         color={"primary.main"}
       >
-        Welcome Deal
+        {language.en.welcomeDeal}
       </Typography>
       <Typography fontSize={"1.1rem"} mb={3}>
-        Your exclusive price
+        {language.en.yourExclusivePrice}
       </Typography>
       <Box width={1} className="carousel--container" mt={"auto"}>
-        <CarouselContainer type={"small"}>
+        <CarouselContainer type={"small"} infinite={true} animate={true}>
           {advertProductList.map((item, index) => (
             <Box
               key={index}
@@ -48,13 +49,13 @@ function DealsInCarousel() {
                 <Typography
                   fontSize={"1.1rem"}
                   fontWeight={"bold"}
-                  color={"tertiary.main"}
+                  color={"text.price"}
                 >
                   US ${item.list[0].price}
                 </Typography>
                 <Typography
                   fontSize={"0.95rem"}
-                  color={"text.light"}
+                  color={"text.secondary"}
                   sx={{ textDecoration: "line-through" }}
                 >
                   US ${item.list[0].discountValue}

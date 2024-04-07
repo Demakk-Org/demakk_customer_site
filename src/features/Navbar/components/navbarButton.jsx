@@ -4,11 +4,12 @@ function NavbarButton({ name }) {
   return (
     <Button
       variant="contained"
+      color="secondaryButton"
       sx={{
         bgcolor: "transparent",
+        color: "text.primary",
         "&:hover": {
-          bgcolor: "secondaryBg.light",
-          color: "secondaryBg.contrastText",
+          bgcolor: "action.hover",
         },
         borderRadius: "1.5rem",
         textTransform: "capitalize",

@@ -15,7 +15,7 @@ function SelectBotton({ icon, name, subList }) {
         fullWidth
         startIcon={icon}
         sx={{
-          color: "secondaryBg.contrastText",
+          color: "text.primary",
           display: "flex",
           alignItems: "center",
           textTransform: "capitalize",
@@ -23,8 +23,7 @@ function SelectBotton({ icon, name, subList }) {
           justifyContent: "flex-start",
           textAlign: "left",
           "&:hover": {
-            bgcolor: "contrastBg.main",
-            color: "contrastBg.contrastText",
+            bgcolor: "action.hover",
           },
         }}
       >
@@ -35,7 +34,7 @@ function SelectBotton({ icon, name, subList }) {
           position={"absolute"}
           left={"100%"}
           top={0}
-          bgcolor={"secondaryBg.light"}
+          bgcolor={"background.lightOpaque"}
           minWidth={250}
           p={"1rem 0"}
           borderRadius={"0 1.5rem 1.5rem 1.5rem"}
@@ -61,10 +60,10 @@ function SelectBotton({ icon, name, subList }) {
                 display: "flex",
                 textAlign: "left",
                 justifyContent: "flex-start",
-                color: "secondaryBg.contrastText",
+                color: "text.primary",
                 p: "0.5rem 1rem",
                 "&:hover": {
-                  bgcolor: "contrastBg.main",
+                  bgcolor: "action.hover",
                 },
               }}
             >

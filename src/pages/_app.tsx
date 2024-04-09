@@ -40,12 +40,38 @@ declare module "@mui/material/Button" {
     secondaryButton: true;
   }
 }
+declare module "@mui/material/IconButton" {
+  interface IconButtonPropsColorOverrides {
+    dark: true;
+    darken: true;
+    bright: true;
+    brighten: true;
+    demakkPrimary: true;
+    demakkSecondary: true;
+    primaryButton: true;
+    secondaryButton: true;
+  }
+}
+
+declare module "@mui/material/SvgIcon" {
+  interface SvgIconPropsColorOverrides {
+    dark: true;
+    darken: true;
+    bright: true;
+    brighten: true;
+    demakkPrimary: true;
+    demakkSecondary: true;
+    primaryButton: true;
+    secondaryButton: true;
+  }
+}
 
 const dTheme = createTheme({
   palette: {
     mode: "dark",
     dark: { main: "#262626" },
     bright: { main: "#e9e9e9" },
+    primary: { main: "#ffffff" },
   },
   components: {
     MuiOutlinedInput: {
@@ -85,6 +111,7 @@ const lTheme = createTheme({
     mode: "light",
     dark: { main: "#606060" },
     bright: { main: "#fafafa" },
+    primary: { main: "#000000" },
   },
   components: {
     MuiOutlinedInput: {
@@ -137,7 +164,6 @@ const darkTheme = createTheme(dTheme, {
       },
       name: "demakkPrimary",
     }),
-    bright: "#e9e9e9",
     demakkSecondary: dTheme.palette.augmentColor({
       color: {
         main: "#fcbe19",

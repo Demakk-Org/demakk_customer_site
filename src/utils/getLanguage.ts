@@ -12,6 +12,7 @@ const getLanguage = (type: string, lang: LANG): string => {
       break;
     case LANG.am:
       choosenLanguage = language.am;
+      if (!choosenLanguage[type]) choosenLanguage = language.en;
       break;
   }
 
@@ -19,5 +20,3 @@ const getLanguage = (type: string, lang: LANG): string => {
 };
 
 export default getLanguage;
-
-getLanguage("demakk", LANG.en);

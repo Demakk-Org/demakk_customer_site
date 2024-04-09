@@ -1,6 +1,16 @@
 import { Avatar, Box, Button, Typography } from "@mui/material";
 
-function SmallDeviceButton({ title, startImage, endImage }) {
+interface SmallDeviceButtonProps {
+  title: string;
+  startImage?: string | JSX.Element;
+  endImage?: string | JSX.Element;
+}
+
+function SmallDeviceButton({
+  title,
+  startImage,
+  endImage,
+}: SmallDeviceButtonProps) {
   return (
     <Button
       fullWidth
@@ -18,7 +28,7 @@ function SmallDeviceButton({ title, startImage, endImage }) {
       {startImage && (
         <Avatar
           alt="Name"
-          src={typeof startImage == "string" && startImage}
+          src={typeof startImage == "string" ? startImage : "unset"}
           variant={"rounded"}
           sx={{
             width: { xs: 30, sm: 60, md: 30 },
@@ -28,24 +38,28 @@ function SmallDeviceButton({ title, startImage, endImage }) {
             fontsize: "1.5rem !important",
           }}
         >
-          <Box
-            display={"flex"}
-            sx={{ fontSize: { xs: "1.5rem", sm: "2.5rem", md: "1.25rem" } }}
-          >
-            {typeof startImage != "string" && startImage}
-          </Box>
+          {typeof startImage != "string" ? (
+            <Box
+              display={"flex"}
+              sx={{ fontSize: { xs: "1.5rem", sm: "2.5rem", md: "1.25rem" } }}
+            >
+              {startImage}
+            </Box>
+          ) : (
+            <></>
+          )}
         </Avatar>
       )}
       <Typography
         textTransform={"none"}
         sx={{ fontSize: { xs: "0.9rem", sm: "1.4rem", md: "1rem" } }}
       >
-        {title || "The title here..."}
+        {title}
       </Typography>
       {endImage && (
         <Avatar
           alt="Name"
-          src={typeof endImage === "string" && endImage}
+          src={typeof endImage === "string" ? endImage : "unset"}
           variant={"rounded"}
           sx={{
             width: { xs: 30, sm: 60 },
@@ -55,12 +69,16 @@ function SmallDeviceButton({ title, startImage, endImage }) {
             ml: "auto",
           }}
         >
-          <Box
-            display={"flex"}
-            sx={{ fontSize: { xs: "1.5rem", sm: "2.5rem", md: "1.25rem" } }}
-          >
-            {typeof endImage !== "string" && endImage}
-          </Box>
+          {typeof endImage !== "string" ? (
+            <Box
+              display={"flex"}
+              sx={{ fontSize: { xs: "1.5rem", sm: "2.5rem", md: "1.25rem" } }}
+            >
+              {endImage}
+            </Box>
+          ) : (
+            <></>
+          )}
         </Avatar>
       )}
     </Button>

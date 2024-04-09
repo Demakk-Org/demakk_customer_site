@@ -27,6 +27,7 @@ function SmallDeviceDealsContainer() {
         pl={{ sm: "1rem" }}
         fontSize={{ xs: "0.9rem", sm: "1.4rem" }}
         fontWeight={400}
+        color={"text.primary"}
       >
         {getLanguage("yourExclusivePrice", lang)}
       </Typography>

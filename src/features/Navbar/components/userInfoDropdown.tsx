@@ -13,7 +13,11 @@ import useUserStore from "@/store/user";
 import SmallDeviceButton from "./smallDeviceButton";
 import getLanguage from "@/utils/getLanguage";
 
-function UserInfoDropdown({ openLogin }) {
+interface UserInfoDropdownProps {
+  openLogin: () => void;
+}
+
+function UserInfoDropdown({ openLogin }: UserInfoDropdownProps) {
   const { user, setUser, signOut, lang } = useUserStore();
   return (
     <>
@@ -34,7 +38,7 @@ function UserInfoDropdown({ openLogin }) {
         overflow={"auto"}
         zIndex={2000}
       >
-        {!user?.name ? (
+        {!user ? (
           <>
             <Button
               variant="contained"
@@ -78,7 +82,7 @@ function UserInfoDropdown({ openLogin }) {
               </Grid>
               <Grid item md={9} display={"flex"}>
                 <Typography
-                  color={"text"}
+                  color={"text.primary"}
                   flex={1}
                   fontWeight={400}
                   fontSize={"0.9rem"}
@@ -90,13 +94,7 @@ function UserInfoDropdown({ openLogin }) {
                 </Typography>
               </Grid>
             </Grid>
-            <Box
-              width={1}
-              container
-              display={"flex"}
-              alignItems={"center"}
-              gap={1}
-            >
+            <Box width={1} display={"flex"} alignItems={"center"} gap={1}>
               <Button
                 onClick={() => signOut()}
                 variant="text"

@@ -21,14 +21,11 @@ function LargeDeviceDealsContainer() {
         <Grid container height={1} width={1}>
           <ThreeInOneDeal
             top={true}
-            title={"Top Brands"}
-            subtitle={"Top price & quality picks"}
+            title={"topBrands"}
+            subtitle={"topPriceAndQualityPicks"}
             first={true}
           />
-          <ThreeInOneDeal
-            title={"Weekly deals"}
-            subtitle={"Low prices in the past 30 days"}
-          />
+          <ThreeInOneDeal title={"weeklyDeals"} subtitle={"lowPrices"} />
         </Grid>
       </Grid>
     </Grid>

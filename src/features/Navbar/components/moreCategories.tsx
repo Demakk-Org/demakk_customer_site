@@ -1,5 +1,5 @@
 import { Box } from "@mui/material";
-import SelectBotton from "./selectButton";
+import SelectBotton from "./SelectButton";
 import language from "@/data/dictionary";
 
 function MoreCategories() {

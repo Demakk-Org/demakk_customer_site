@@ -3,6 +3,7 @@ import advertProductList from "@/data/advertProductList";
 import CarouselContainer from "@/component/CarouselContainer";
 import useUserStore from "@/store/user";
 import getLanguage from "@/utils/getLanguage";
+import { Breakpoints } from "@/data/carouselBreakPoints";
 
 function DealsInCarousel() {
   const { lang } = useUserStore();
@@ -23,11 +24,15 @@ function DealsInCarousel() {
       >
         {getLanguage("welcomeDeal", lang)}
       </Typography>
-      <Typography fontSize={"1.1rem"} mb={3}>
+      <Typography fontSize={"1.1rem"} mb={3} color={"text.primary"}>
         {getLanguage("yourExclusivePrice", lang)}
       </Typography>
       <Box width={1} className="carousel--container" mt={"auto"}>
-        <CarouselContainer type={"small"} infinite={true} animate={true}>
+        <CarouselContainer
+          type={Breakpoints.small}
+          infinite={true}
+          animate={true}
+        >
           {advertProductList.map((item, index) => (
             <Box
               key={index}

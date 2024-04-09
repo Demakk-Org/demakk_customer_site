@@ -7,15 +7,21 @@ import AllCategories from "../components/allCategories";
 import NavbarButton from "../components/navbarButton";
 import MoreCategories from "../components/moreCategories";
 import language from "@/data/dictionary";
+import getLanguage from "@/utils/getLanguage";
+import useUserStore from "@/store/user";
 
 function BottomNavbar() {
+  const { lang } = useUserStore();
+
   const [allPropOpen, setAllPropOpen] = useState(false);
   const [openMore, setOpenMore] = useState(false);
 
   const handleOnMouseOver = () => {
-    let container = document.getElementById("more-product-container");
+    let container = document.getElementById(
+      "more-product-container"
+    ) as HTMLDivElement;
     let body = document.querySelector("body");
-    let after = document.getElementById("after-container");
+    let after = document.getElementById("after-container") as HTMLDivElement;
 
     if (container && body) {
       let containerLeft = container.getBoundingClientRect().left;
@@ -24,7 +30,7 @@ function BottomNavbar() {
 
       if (bodyWidth - (containerWidth + containerLeft) < 0) {
         container.style.left = "unset";
-        container.style.right = 0;
+        container.style.right = "0";
         after.style.left = "unset";
         after.style.right = "20%";
       }
@@ -51,7 +57,7 @@ function BottomNavbar() {
         position={"relative"}
         onMouseOver={() => setAllPropOpen(true)}
         onMouseLeave={() => setAllPropOpen(false)}
-        bgcolor={allPropOpen && "background.lightOpaque"}
+        bgcolor={allPropOpen ? "background.lightOpaque" : "unset"}
         sx={{
           borderRadius: allPropOpen ? "1.5rem 1.5rem 0 0" : "1.5rem",
           "&:hover>button": {
@@ -91,11 +97,11 @@ function BottomNavbar() {
           {allPropOpen && <AllCategories />}
         </Box>
       </Box>
-      <NavbarButton name={language.en.nn} />
-      <NavbarButton name={language.en.bestSellers} />
-      <NavbarButton name={language.en.topBrands} />
-      <NavbarButton name={language.en.consumerElectronics} />
-      <NavbarButton name={language.en.homeImprovementAndLighting} />
+      <NavbarButton name={getLanguage("nn", lang)} />
+      <NavbarButton name={getLanguage("bestSellers", lang)} />
+      <NavbarButton name={getLanguage("topBrands", lang)} />
+      <NavbarButton name={getLanguage("consumerElectronics", lang)} />
+      <NavbarButton name={getLanguage("homeImprovementAndLighting", lang)} />
       <Box
         position={"relative"}
         onMouseEnter={() => {
@@ -128,7 +134,9 @@ function BottomNavbar() {
             },
           }}
         >
-          <Typography textTransform={"capitalize"}>{language.en.more}</Typography>
+          <Typography textTransform={"capitalize"}>
+            {getLanguage("more", lang)}
+          </Typography>
         </Button>
         {openMore && <MoreCategories />}
       </Box>

@@ -1,7 +1,16 @@
 import { Box, Button, Divider, Typography } from "@mui/material";
 import { useState } from "react";
 
-function SelectBotton({ icon, name, subList }) {
+interface SelecButtonProps {
+  icon?: JSX.Element;
+  name: string;
+  subList?: {
+    title: string;
+    list: string[];
+  };
+}
+
+function SelectBotton({ icon, name, subList }: SelecButtonProps) {
   const [openList, setOpenList] = useState(false);
   return (
     <Box
@@ -27,7 +36,7 @@ function SelectBotton({ icon, name, subList }) {
           },
         }}
       >
-        {name || "name here!"}
+        {name}
       </Button>
       {subList && openList && (
         <Box
@@ -43,7 +52,7 @@ function SelectBotton({ icon, name, subList }) {
             pl={"1rem"}
             fontSize={"1.1rem"}
             fontWeight={"bold"}
-            color={"secondaryBg.contrastText"}
+            color={"text.primary"}
           >
             {subList?.title}
           </Typography>

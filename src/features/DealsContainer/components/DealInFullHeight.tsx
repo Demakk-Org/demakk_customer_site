@@ -1,8 +1,10 @@
 import { Box, Typography, Grid } from "@mui/material";
 
-import language from "@/data/dictionary";
+import getLanguage from "@/utils/getLanguage";
+import useUserStore from "@/store/user";
 
 function DealInFullHeight() {
+  const { lang } = useUserStore();
   return (
     <Box
       display={{ xs: "none", sm: "flex" }}
@@ -17,10 +19,10 @@ function DealInFullHeight() {
         fontWeight={"bold"}
         color={"primary.main"}
       >
-        {language.en.welcomeDeal}
+        {getLanguage("welcomeDeal", lang)}
       </Typography>
-      <Typography fontSize={"1.1rem"} mb={3}>
-        {language.en.yourExclusivePrice}
+      <Typography fontSize={"1.1rem"} mb={3} color={"text.primary"}>
+        {getLanguage("yourExclusivePrice", lang)}
       </Typography>
       <Box
         flex={1}
@@ -61,7 +63,7 @@ function DealInFullHeight() {
               noWrap
               textOverflow={"ellipsis"}
               fontSize={"0.9rem"}
-              color={"text.secondary"}
+              color={"text.teritiary"}
               sx={{ textDecoration: "line-through" }}
             >
               US $34.56
@@ -88,7 +90,7 @@ function DealInFullHeight() {
               fontSize={"2.5rem"}
               pr={"0.9rem"}
               pb={"0.5rem"}
-              color={"bright"}
+              color={"bright.main"}
             >
               11
             </Typography>
@@ -127,7 +129,7 @@ function DealInFullHeight() {
                   noWrap
                   textOverflow={"ellipsis"}
                   fontSize={"0.9rem"}
-                  color={"text.secondary"}
+                  color={"text.teritiary"}
                   sx={{ textDecoration: "line-through" }}
                 >
                   US $34.56
@@ -167,7 +169,7 @@ function DealInFullHeight() {
                   noWrap
                   textOverflow={"ellipsis"}
                   fontSize={"0.9rem"}
-                  color={"text.secondary"}
+                  color={"text.teritiary"}
                   sx={{ textDecoration: "line-through" }}
                 >
                   US $34.56

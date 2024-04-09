@@ -56,7 +56,7 @@ function TopNavbar() {
           item
           sx={{ display: { md: "none" }, mr: { xs: "0.5rem", sm: "1rem" } }}
         >
-          <IconButton onClick={handleOpen} color="text.primary">
+          <IconButton onClick={handleOpen} color={"primaryButton"}>
             <Menu sx={{ fontSize: { xs: 25, sm: 37.5 } }} />
           </IconButton>
         </Grid>
@@ -143,9 +143,9 @@ function TopNavbar() {
                       {getLanguage("birr", lang)}
                     </Typography>
                     {!openLanguage ? (
-                      <ExpandMore fontSize="small" color="text.primary" />
+                      <ExpandMore fontSize="small" color={"action"} />
                     ) : (
-                      <ExpandLess fontSize="small" color="text.primary" />
+                      <ExpandLess fontSize="small" color={"action"} />
                     )}
                   </Box>
                 </Box>
@@ -195,7 +195,7 @@ function TopNavbar() {
                     fontSize={"0.75rem"}
                     sx={{ display: { xs: "none", xl: "flex" } }}
                   >
-                    {user?.name
+                    {user
                       ? `${getLanguage("hi", lang)}, ${user.name}`
                       : getLanguage("welcome", lang)}
                   </Typography>
@@ -209,7 +209,7 @@ function TopNavbar() {
                       fontWeight={"bold"}
                       sx={{ display: { xs: "none", xl: "inline" } }}
                     >
-                      {user?.name
+                      {user
                         ? getLanguage("account", lang)
                         : `${getLanguage("signIn", lang)}/${getLanguage(
                             "register",
@@ -250,7 +250,7 @@ function TopNavbar() {
                     display={"flex"}
                     sx={{
                       fontSize: { xs: 25, sm: 32.5, md: 37.5 },
-                      color: "text.primary",
+                      color: ({ palette }) => palette.text.primary,
                     }}
                   >
                     <PiShoppingCartLight style={{ fontSize: "inherit" }} />

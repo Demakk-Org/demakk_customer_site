@@ -10,29 +10,34 @@ import {
 
 import useUserStore, { LANG } from "@/store/user";
 import { useState } from "react";
-import language from "@/data/dictionary";
 import getLanguage from "@/utils/getLanguage";
+import getLang from "@/utils/getLang";
+import getAddress from "@/utils/getAddress";
 
-function LanguageDropdown({ setOpenLanguage }) {
+interface LanguageDropdownProps {
+  setOpenLanguage: (value: boolean) => void;
+}
+
+function LanguageDropdown({ setOpenLanguage }: LanguageDropdownProps) {
   const { lang, setLang, address, setAddress } = useUserStore();
 
-  const [localLang, setLocalLang] = useState(lang);
-  const [localAddress, setLocalAddress] = useState(address);
+  const [localLang, setLocalLang] = useState<string>(lang);
+  const [localAddress, setLocalAddress] = useState<string>(address);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: React.SyntheticEvent) => {
     e.preventDefault();
-    console.log(
-      lang,
-      e.target.lang.value,
-      "address",
-      address,
-      e.target.address.value
-    );
-    const language = e.target.lang.value;
-    const location = e.target.address.value;
 
-    if (lang != language) setLang(language);
-    if (address != location) setAddress(location);
+    const target = e.target as typeof e.target & {
+      language: { value: string };
+      addresses: { value: string };
+    };
+
+    const language = target.language.value;
+    const location = target.addresses.value;
+
+    if (lang != language) setLang(getLang(language));
+    if (address != location) setAddress(getAddress(location));
+
     setOpenLanguage(false);
   };
 
@@ -78,9 +83,9 @@ function LanguageDropdown({ setOpenLanguage }) {
             </Typography>
             <FormControl>
               <Select
-                name="address"
+                name="addresses"
                 size="small"
-                color={"text"}
+                color={"primary"}
                 value={localAddress}
                 onChange={({ target }) => setLocalAddress(target.value)}
                 sx={{
@@ -101,7 +106,7 @@ function LanguageDropdown({ setOpenLanguage }) {
                       }}
                     />
                     <Typography fontSize={"0.8rem"}>
-                      {getLanguage("addisAbaba", lang)}
+                      {getLanguage("addis-ababa", lang)}
                     </Typography>
                   </Box>
                 </MenuItem>
@@ -125,7 +130,7 @@ function LanguageDropdown({ setOpenLanguage }) {
                       sx={{ width: 25, height: 20 }}
                     />
                     <Typography fontSize={"0.8rem"}>
-                      {getLanguage("benshangulGumuz", lang)}
+                      {getLanguage("gumuz", lang)}
                     </Typography>
                   </Box>
                 </MenuItem>
@@ -183,9 +188,9 @@ function LanguageDropdown({ setOpenLanguage }) {
             </Typography>
             <FormControl sx={{}}>
               <Select
-                name="lang"
+                name="language"
                 size="small"
-                color={"text"}
+                color={"primary"}
                 value={localLang}
                 onChange={({ target }) => setLocalLang(target.value)}
                 sx={{
@@ -219,8 +224,8 @@ function LanguageDropdown({ setOpenLanguage }) {
             sx={{
               textTransform: "capitalize",
               borderRadius: "1.5rem",
-              bgcolor: "dark",
-              color: "bright",
+              bgcolor: "background.lighter",
+              color: "text.primary",
             }}
           >
             {getLanguage("save", lang)}

@@ -1,3 +1,5 @@
+import useUserStore from "@/store/user";
+import getLanguage from "@/utils/getLanguage";
 import { Box, Grid, Typography } from "@mui/material";
 
 interface ThreeInOneDealerProps {
@@ -13,6 +15,7 @@ function ThreeInOneDeal({
   subtitle,
   first,
 }: ThreeInOneDealerProps) {
+  const { lang } = useUserStore();
   return (
     <Grid item width={1} height={"50%"}>
       <Box height={1} p={!top ? "0.5rem 0 0 0" : "0 0 0.5rem 0"}>
@@ -27,10 +30,10 @@ function ThreeInOneDeal({
             fontWeight={"bold"}
             color={first ? "primary.main" : "text.primary"}
           >
-            {title || "Welcome Deal"}
+            {getLanguage(title, lang)}
           </Typography>
-          <Typography fontSize={"1.1rem"} mb={3}>
-            {subtitle || "Your exclusive price"}
+          <Typography fontSize={"1.1rem"} mb={3} color={"text.primary"}>
+            {getLanguage(subtitle, lang)}
           </Typography>
           <Grid container spacing={2} width={1}>
             {Array(3)

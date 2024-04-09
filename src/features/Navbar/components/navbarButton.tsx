@@ -1,6 +1,10 @@
 import { Button } from "@mui/material";
 
-function NavbarButton({ name }) {
+interface NavbarButtonProps {
+  name: string;
+}
+
+function NavbarButton({ name }: NavbarButtonProps) {
   return (
     <Button
       variant="contained"
@@ -16,7 +20,7 @@ function NavbarButton({ name }) {
         fontSize: "1rem",
       }}
     >
-      {name || "name here!"}
+      {name}
     </Button>
   );
 }

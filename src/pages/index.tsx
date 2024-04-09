@@ -25,12 +25,12 @@ export default function Home(): ReactElement {
       </Head>
       <main className={`${styles.main}`}>
         <Box width={"100%"} minHeight={"100vh"} bgcolor={"background.paper"}>
-          {/* <Navbar /> */}
-          {/* <PinLocation /> */}
-          {/* <Recommendation /> */}
+          <Navbar />
+          <PinLocation />
+          <Recommendation />
           <DealsContainer />
-          {/* <DiscountSale /> */}
-          {/* <Footer /> */}
+          <DiscountSale />
+          <Footer />
         </Box>
       </main>
     </>

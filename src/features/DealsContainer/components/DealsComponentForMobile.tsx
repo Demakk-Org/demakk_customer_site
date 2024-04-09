@@ -1,4 +1,6 @@
 import language from "@/data/dictionary";
+import useUserStore from "@/store/user";
+import getLanguage from "@/utils/getLanguage";
 import { Box, Typography } from "@mui/material";
 
 interface DealsComponentForMobileProps {
@@ -14,6 +16,7 @@ function DealsComponentForMobile({
   discountPrice,
   ordersNumber,
 }: DealsComponentForMobileProps) {
+  const { lang } = useUserStore();
   return (
     <Box
       width={1}
@@ -61,7 +64,7 @@ function DealsComponentForMobile({
           fontSize={{ xs: "0.8rem", sm: "1.2rem" }}
           color={"text.primary"}
         >
-          {ordersNumber || "596"} {language.en.orders}
+          {ordersNumber || "596"} {getLanguage("orders", lang)}
         </Typography>
       </Box>
     </Box>

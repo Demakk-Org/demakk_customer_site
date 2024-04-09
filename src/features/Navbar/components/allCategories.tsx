@@ -3,24 +3,23 @@ import {
   HomeOutlined,
   SportsEsportsOutlined,
 } from "@mui/icons-material";
-import SelectBotton from "./selectButton";
+import SelectBotton from "./SelectButton";
 import { IoBasketballOutline, IoShirtOutline } from "react-icons/io5";
 import { LuSofa, LuWatch } from "react-icons/lu";
 import { MdPhoneIphone } from "react-icons/md";
-import language from "@/data/dictionary";
 
 function AllCategories() {
   return (
     <>
       <SelectBotton
         icon={<CameraAltOutlined />}
-        name={language.en.consumerElectronics}
+        name={"Consumer Electronics"}
       />
       <SelectBotton
         icon={<IoShirtOutline fontSize={"1rem"} />}
-        name={language.en.mensClothes}
+        name={"mensClothes"}
         subList={{
-          title: language.en.shirts,
+          title: "Shirts",
           list: [
             "Long Sleeve",
             "Sleevless",
@@ -34,7 +33,7 @@ function AllCategories() {
       <SelectBotton icon={<HomeOutlined />} name={"Home and Garden"} />
       <SelectBotton
         icon={<LuWatch />}
-        name={language.en.accessories}
+        name={"Accessories"}
         subList={{
           title: "Camera and Photo",
           list: [
@@ -45,14 +44,14 @@ function AllCategories() {
           ],
         }}
       />
-      <SelectBotton icon={<LuSofa />} name={language.en.furniture} />
+      <SelectBotton icon={<LuSofa />} name={"Furniture"} />
       <SelectBotton
         icon={<MdPhoneIphone />}
-        name={"Phones and Telecommunicationa"}
+        name={"Phones And Telecommunications"}
       />
       <SelectBotton
         icon={<IoBasketballOutline />}
-        name={"Sports and Entertainment"}
+        name={"Sports And Entertainment"}
       />
     </>
   );

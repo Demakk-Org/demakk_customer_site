@@ -16,6 +16,7 @@ function SmallDeviceAdvertContainer() {
       pb={"1rem"}
       display={"flex"}
       sx={{ display: { md: "none" } }}
+      color={"text.primary"}
     >
       <Box
         width={1}

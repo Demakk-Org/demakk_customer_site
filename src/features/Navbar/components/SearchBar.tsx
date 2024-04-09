@@ -1,4 +1,3 @@
-import language from "@/data/dictionary";
 import useUserStore from "@/store/user";
 import getLanguage from "@/utils/getLanguage";
 import {
@@ -27,6 +26,7 @@ function SearchBar() {
           pl: { xs: "1rem", sm: "2rem", md: "1rem" },
           pr: "0.25rem",
           fontSize: { xs: "1rem", sm: "1.5rem", md: "1.2rem" },
+          bgcolor: "background.paper",
         }}
         endAdornment={
           <InputAdornment position="end">

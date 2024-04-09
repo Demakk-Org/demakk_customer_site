@@ -2,6 +2,7 @@ import { create } from "zustand";
 
 interface User {
   name: string;
+  img?: string;
 }
 
 export enum LANG {
@@ -24,19 +25,22 @@ interface StoreInterface {
   address: Addresses;
   setLang: (lang: LANG) => void;
   setAddress: (address: Addresses) => void;
-  user: User | {};
+  user: User | null;
   setUser: (user: User) => void;
   signOut: () => void;
 }
 
 const useUserStore = create<StoreInterface>((set) => ({
   lang: LANG.en,
-  setLang: (lang) => set({ lang }),
+  setLang: (lang) => {
+    console.log(lang, "store");
+    set({ lang });
+  },
   address: Addresses["addis-ababa"],
-  setAddress: (address) => set({ address }),
-  user: {},
+  setAddress: (address) => set({ address: Addresses[address] }),
+  user: null,
   setUser: (user) => set({ user }),
-  signOut: () => set({ user: {} }),
+  signOut: () => set({ user: null }),
 }));
 
 export default useUserStore;

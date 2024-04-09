@@ -20,7 +20,7 @@ import data from "@/data/library";
 
 import SmallDeviceButton from "./smallDeviceButton";
 import useUserStore from "@/store/user";
-import language from "@/data/dictionary";
+import getLanguage from "@/utils/getLanguage";
 
 const style = {
   position: "absolute",
@@ -33,8 +33,13 @@ const style = {
   overflow: "scroll",
 };
 
-function SlidingMenu({ open, handleClose }) {
-  const { address } = useUserStore();
+interface SlidingMenuProps {
+  open: boolean;
+  handleClose: () => void;
+}
+
+function SlidingMenu({ open, handleClose }: SlidingMenuProps) {
+  const { lang, address } = useUserStore();
   return (
     <Modal
       open={open}
@@ -72,7 +77,7 @@ function SlidingMenu({ open, handleClose }) {
                 },
               }}
             >
-              {language.en.demakk}
+              {getLanguage("demakk", lang)}
             </Typography>
           </Box>
           <Divider flexItem sx={{ borderColor: "background.paper" }} />
@@ -101,32 +106,32 @@ function SlidingMenu({ open, handleClose }) {
                 fontWeight={"bold"}
                 sx={{ fontSize: { sm: "1.7rem" } }}
               >
-                {language.en.popularCategory}
+                {getLanguage("popularCategory", lang)}
               </Typography>
             </Button>
             <SmallDeviceButton
               startImage={"/assets/images/product.webp"}
-              title={language.en.womensClothes}
+              title={getLanguage("womensClothes", lang)}
             />
             <SmallDeviceButton
               startImage={"/assets/images/product3.webp"}
-              title={language.en.watches}
+              title={getLanguage("watches", lang)}
             />
             <SmallDeviceButton
               startImage={"/assets/images/product2.webp"}
-              title={language.en.bags}
+              title={getLanguage("bags", lang)}
             />
             <SmallDeviceButton
               startImage={"/assets/images/product6.webp"}
-              title={language.en.mensClothes}
+              title={getLanguage("mensClothes", lang)}
             />
             <SmallDeviceButton
               startImage={"/assets/images/product1.webp"}
-              title={language.en.educationAndOfficeSupplies}
+              title={getLanguage("educationAndOfficeSupplies", lang)}
             />
             <SmallDeviceButton
               startImage={"/assets/images/product5.webp"}
-              title={language.en.sportsAndOutdoor}
+              title={getLanguage("sportsAndOutdoor", lang)}
             />
           </Box>
           <Box
@@ -154,20 +159,20 @@ function SlidingMenu({ open, handleClose }) {
                 fontWeight={"bold"}
                 sx={{ fontSize: { sm: "1.7rem" } }}
               >
-                {language.en.shoppingInspiration}
+                {getLanguage("shoppingInspiration", lang)}
               </Typography>
             </Button>
             <SmallDeviceButton
               startImage={"/assets/images/shop.webp"}
-              title={language.en.summerOOTDIdeas}
+              title={getLanguage("summerOOTDIdeas", lang)}
             />
             <SmallDeviceButton
               startImage={"/assets/images/shop2.webp"}
-              title={language.en.coolHomeGadgets}
+              title={getLanguage("coolHomeGadgets", lang)}
             />
             <SmallDeviceButton
               startImage={"/assets/images/shop1.webp"}
-              title={language.en.beautyHacks}
+              title={getLanguage("beautyHacks", lang)}
             />
           </Box>
           <Box
@@ -195,11 +200,11 @@ function SlidingMenu({ open, handleClose }) {
                 fontWeight={"bold"}
                 sx={{ fontSize: { sm: "1.7rem" } }}
               >
-                {language.en.settings}
+                {getLanguage("settings", lang)}
               </Typography>
             </Button>
             <SmallDeviceButton
-              title={language.en.shipTo}
+              title={getLanguage("shipTo", lang)}
               startImage={
                 <PinDropOutlined
                   sx={{ fontSize: { xs: "1.5rem", sm: "2.5rem" } }}
@@ -213,7 +218,7 @@ function SlidingMenu({ open, handleClose }) {
                   sx={{ fontSize: { xs: "1.5rem", sm: "2.5rem" } }}
                 />
               }
-              title={language.en.currency}
+              title={getLanguage("currency", lang)}
             />
             <SmallDeviceButton
               startImage={
@@ -221,7 +226,7 @@ function SlidingMenu({ open, handleClose }) {
                   sx={{ fontSize: { xs: "1.5rem", sm: "2.5rem" } }}
                 />
               }
-              title={language.en.language}
+              title={getLanguage("language", lang)}
             />
             <SmallDeviceButton
               startImage={
@@ -229,7 +234,7 @@ function SlidingMenu({ open, handleClose }) {
                   sx={{ fontSize: { xs: "1.5rem", sm: "2.5rem" } }}
                 />
               }
-              title={language.en.helpCenter}
+              title={getLanguage("helpCenter", lang)}
             />
           </Box>
         </Box>

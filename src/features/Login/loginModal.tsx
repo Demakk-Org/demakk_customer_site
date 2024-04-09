@@ -25,7 +25,6 @@ import {
 import { useState } from "react";
 import useUserStore from "@/store/user";
 import { textValidator } from "@/utils/emailValidator";
-import language from "@/data/dictionary";
 import getLanguage from "@/utils/getLanguage";
 
 const style = {
@@ -35,9 +34,16 @@ const style = {
   borderRadius: "1rem",
   p: "0 4rem 4rem 4rem",
   zIndex: 10000,
+  color: "text.primary",
 };
 
-function LoginModal({ open, handleClose }) {
+function LoginModal({
+  open,
+  handleClose,
+}: {
+  open: boolean;
+  handleClose: () => void;
+}) {
   const { setUser, lang } = useUserStore();
 
   const [continueButton, setContinueButton] = useState(false);
@@ -45,7 +51,7 @@ function LoginModal({ open, handleClose }) {
   const [continueStage, setContinueStage] = useState(false);
   const [userExists, setUserExists] = useState(false);
 
-  const handleEmailChange = (value) => {
+  const handleEmailChange = (value: string) => {
     const buttonState = textValidator(value, "email");
 
     if (buttonState !== continueButton) setContinueButton((prev) => !prev);
@@ -56,14 +62,19 @@ function LoginModal({ open, handleClose }) {
   };
 
   const handleClearEmailInput = () => {
-    const component = document.getElementById("login--email");
+    const component = document.getElementById(
+      "login--email"
+    ) as HTMLInputElement;
 
     component.value = "";
     handleEmailChange("");
   };
 
   const handleContinueButton = () => {
-    const email = document.getElementById("login--email").value;
+    const emailComponent = document.getElementById(
+      "login--email"
+    ) as HTMLInputElement;
+    const email = emailComponent.value;
 
     if (!continueStage) {
       fetch("/api/user", { method: "post", body: JSON.stringify({ email }) })
@@ -132,7 +143,9 @@ function LoginModal({ open, handleClose }) {
                 <Typography fontSize={"0.9rem"} fontWeight={"bold"}>
                   {getLanguage("ethiopia", lang)}
                 </Typography>
-                <ExpandMore fontSize="medium" color="text.primary" />
+                <Box sx={{ color: ({ palette }) => palette.text.primary }}>
+                  <ExpandMore fontSize="medium" color="inherit" />
+                </Box>
               </Box>
             </Box>
             <OutlinedInput

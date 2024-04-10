@@ -130,6 +130,7 @@ const language = {
     camcorders: "Camcorders",
     digitalCameras: "Digital Cameras",
     sportsVideoCameras: "Sports Video Cameras",
+    expired: "Expired",
   },
   am: {
     afar: "Afar",
@@ -142,7 +143,7 @@ const language = {
     createAccount: "መለያ መፍጠር",
     demakk: "ደማቅ",
     ethiopia: "ኢትዮጵያ",
-    exploreYourFaveDealsNow: "Explore your fave deals now",
+    exploreYourFaveDealsNow: "የእርስዎን ተወዳጅ ቅናሾች አሁን ያስሱ",
     hi: "ሃይ",
     welcome: "እንኳን ደህና መጣህ",
     welcomeBack: "እንኳን ደህና መጣህ",
@@ -166,9 +167,9 @@ const language = {
     orders: "ትዕዛዞች",
     more: "ተጨማሪ",
     saleEnds: "ሽያጩ ያበቃል ከ ",
-    upto: "Up to",
-    off: "off",
-    shopNow: "Shop now",
+    upto: "እስክ",
+    off: "ቅናሽ",
+    shopNow: "አሁን ይሸምቱ",
     customerServices: "የደንበኛ አገልግሎቶች",
     helpCenter: "እርዳታ",
     transactionServicesAgreement:
@@ -255,6 +256,7 @@ const language = {
     topPriceAndQualityPicks: "Top price & quality picks",
     weeklyDeals: "Weakly Deals",
     lowPrices: "Low prices in the past 30 days",
+    expired: "ጊዜው አልፎበታል",
   },
 };
 

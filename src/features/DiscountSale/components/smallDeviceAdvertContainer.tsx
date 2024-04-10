@@ -43,12 +43,16 @@ function SmallDeviceAdvertContainer() {
           </Typography>
           <ArrowForward fontSize="inherit" />
         </Box>
-        <Typography
-          className="count-down"
-          fontSize={{ xs: "0.9rem", sm: "1.4rem" }}
-        >
-          {getLanguage("saleEnds", lang)}: 2d 12 : 30 : 06
-        </Typography>
+        <Box display={"flex"} gap={"0.5rem"}>
+          <Typography
+            className="count-down-container"
+            fontSize={{ xs: "0.9rem", sm: "1.4rem" }}
+          ></Typography>
+          <Typography
+            className="count-down"
+            fontSize={{ xs: "0.9rem", sm: "1.4rem" }}
+          ></Typography>
+        </Box>
       </Box>
 
       <Box minHeight={100} p={"0 0.75rem"}>

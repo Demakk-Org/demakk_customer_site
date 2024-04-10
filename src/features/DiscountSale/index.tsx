@@ -8,10 +8,11 @@ import useUserStore from "@/store/user";
 function DiscountSale() {
   const { lang } = useUserStore();
   useEffect(() => {
+    console.log("language changed", lang);
     if (document) {
-      countDown("Apr 6, 2024 12:00:00", lang);
+      countDown("Apr 10, 2024 15:55:00", lang);
     }
-  });
+  }, [lang]);
 
   return (
     <Box

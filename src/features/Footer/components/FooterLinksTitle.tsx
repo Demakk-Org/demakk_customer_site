@@ -15,7 +15,7 @@ function FooterLinksTitle({ name }: FooterLinksTitleInterface) {
       fontSize={{ xs: "0.8rem", sm: "1rem" }}
       color={"text.primary"}
     >
-      {name || "Enter name here!"}
+      {name}
     </Typography>
   );
 }

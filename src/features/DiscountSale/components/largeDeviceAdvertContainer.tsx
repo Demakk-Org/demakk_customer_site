@@ -20,19 +20,24 @@ function LargeDeviceAdvertContainer() {
           justifyContent={"space-between"}
           height={1}
         >
-          <Typography
-            className="count-down"
-            fontSize={"1.5rem"}
-            color={"bright"}
-          >
-            {getLanguage("saleEnds", lang)}: Mar 28, 09:59 (GMT+3)
-          </Typography>
+          <Box display={"flex"} gap={"0.5rem"}>
+            <Typography
+              className="count-down-container"
+              fontSize={"1.5rem"}
+              color={"text.primary"}
+            ></Typography>
+            <Typography
+              fontSize={"1.5rem"}
+              color={"text.primary"}
+              className="count-down"
+            ></Typography>
+          </Box>
 
           <Box width={1} p={"1rem 0"}>
             <Typography
               fontSize={"5rem"}
               fontWeight={"bold"}
-              color={"bright"}
+              color={"text.primary"}
               width={1}
               lineHeight={1.2}
             >
@@ -41,7 +46,7 @@ function LargeDeviceAdvertContainer() {
             <Typography
               fontSize={"2.3rem"}
               fontWeight={"bold"}
-              color={"bright"}
+              color={"text.primary"}
               width={1}
             >
               {getLanguage("exploreYourFaveDealsNow", lang)}
@@ -94,12 +99,12 @@ function LargeDeviceAdvertContainer() {
               <Typography
                 fontSize={"2rem"}
                 fontWeight={"bold"}
-                color={"demakkSecondary.light"}
+                color={"secondary.light"}
               >
                 {getLanguage("shopNow", lang)}
               </Typography>
               <ArrowForward
-                sx={{ fontSize: "5rem", color: "demakkSecondary" }}
+                sx={{ fontSize: "5rem", color: "secondary.light" }}
               />
             </Box>
           </Box>

@@ -3,6 +3,7 @@ import "@/styles/globals.css";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import { outlinedInputClasses } from "@mui/material/OutlinedInput";
 import { useEffect } from "react";
+import { AppProps } from "next/app";
 
 declare module "@mui/material/styles" {
   interface Palette {
@@ -40,6 +41,7 @@ declare module "@mui/material/Button" {
     secondaryButton: true;
   }
 }
+
 declare module "@mui/material/IconButton" {
   interface IconButtonPropsColorOverrides {
     dark: true;
@@ -71,7 +73,8 @@ const dTheme = createTheme({
     mode: "dark",
     dark: { main: "#262626" },
     bright: { main: "#e9e9e9" },
-    primary: { main: "#ffffff" },
+    primary: { main: "#ee461c" },
+    secondary: { main: "#fcbe19" },
   },
   components: {
     MuiOutlinedInput: {
@@ -111,7 +114,8 @@ const lTheme = createTheme({
     mode: "light",
     dark: { main: "#606060" },
     bright: { main: "#fafafa" },
-    primary: { main: "#000000" },
+    primary: { main: "#ffab92" },
+    secondary: { main: "#fef06b" },
   },
   components: {
     MuiOutlinedInput: {
@@ -279,12 +283,7 @@ const lightTheme = createTheme(lTheme, {
   },
 });
 
-interface AppInterface {
-  Component: React.FC;
-  pageProps: any;
-}
-
-export default function App({ Component, pageProps }: AppInterface) {
+export default function App({ Component, pageProps }: AppProps) {
   const { darkMode, setTheme } = useThemeProvider();
 
   useEffect(() => {

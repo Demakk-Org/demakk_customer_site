@@ -31,13 +31,19 @@ function LargeDeviceAdvertProduct({
       }}
     >
       <Box display={"flex"} alignItems={"center"} gap={2} color={"bright"}>
-        <Box fontSize={"1.4rem"} display={"flex"} alignItems={"center"}>
-          {icon || <RiCoupon2Fill fontSize={"inherit"} />}
+        <Box
+          fontSize={"1.4rem"}
+          display={"flex"}
+          alignItems={"center"}
+          color={"text.primary"}
+        >
+          {icon || <RiCoupon2Fill fontSize={"inherit"} color="inherit" />}
         </Box>
         <Typography
           textTransform={"capitalize"}
           fontSize={"1.4rem"}
           fontWeight={"bold"}
+          color={"text.primary"}
           noWrap
         >
           {title || "Big Saves"}

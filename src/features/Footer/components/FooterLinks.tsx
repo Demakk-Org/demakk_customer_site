@@ -16,12 +16,11 @@ function FooterLink({ name, url }: FooterLinkInterface) {
         sx={{
           color: "text.links",
           "&:hover": {
-            // bgcolor: "action.hover",
             color: "demakkPrimary.main",
           },
         }}
       >
-        {name || "Enter link here!"}
+        {name}
       </Link>
     </List>
   );

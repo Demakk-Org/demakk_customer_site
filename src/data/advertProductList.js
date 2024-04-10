@@ -5,7 +5,7 @@ const advertProductList = [
       {
         image: "/assets/images/shoes.webp",
         discountValue: "64",
-        price: "34.78",
+        price: 34.78,
       },
       {
         image: "/assets/images/shoes1.webp",
@@ -20,7 +20,7 @@ const advertProductList = [
       {
         image: "/assets/images/product7.webp",
         discountValue: "64",
-        price: "34.78",
+        price: "22.78",
       },
       {
         image: "/assets/images/product8.webp",
@@ -35,7 +35,7 @@ const advertProductList = [
       {
         image: "/assets/images/shop2.webp",
         discountValue: "55",
-        price: "34.78",
+        price: "71.78",
       },
       {
         image: "/assets/images/shop1.webp",

@@ -1,6 +1,5 @@
-import language from "@/data/dictionary";
 import useUserStore from "@/store/user";
-import { textValidator } from "@/utils/emailValidator";
+import getAddress from "@/utils/getAddress";
 import getLanguage from "@/utils/getLanguage";
 import {
   Apple,
@@ -33,6 +32,11 @@ import {
 } from "@mui/material";
 import { Montserrat } from "next/font/google";
 import { useState } from "react";
+import handlePasswordChange from "./libs/handlePasswordChange";
+import handleEmailChange from "./libs/handleEmailChange";
+import handleClearEmailInput from "./libs/handleClearEmailInput";
+import LoginMenuItems from "./components/LoginMenuItems";
+import data from "@/data/library";
 
 const style = {
   position: "absolute",
@@ -49,45 +53,22 @@ const style = {
 
 const font = Montserrat({ subsets: ["cyrillic"] });
 
-function SmallDeviceLogin({ open, handleClose, localAddress }) {
+interface SmallDeviceLoginProps {
+  open: boolean;
+  handleClose: () => void;
+  localAddress?: string;
+}
+
+function SmallDeviceLogin({
+  open,
+  handleClose,
+  localAddress,
+}: SmallDeviceLoginProps) {
   const { lang, address, setAddress } = useUserStore();
 
   const [showPass, setShowPass] = useState(false);
   const [continueStage, setContinueStage] = useState(false);
   const [type, setType] = useState("log-in");
-
-  const handleEmailChange = (value, type) => {
-    const buttonState = textValidator(value, "email");
-    const password = document.getElementById("login--password").value;
-
-    const passwordState = textValidator(password, "password");
-
-    if (buttonState && (passwordState || type)) {
-      setContinueStage(true);
-    } else {
-      setContinueStage(false);
-    }
-  };
-
-  const handlePasswordChange = (value, type) => {
-    const buttonState = textValidator(value, "password");
-    const email = document.getElementById("login--email").value;
-
-    const emailState = textValidator(email, "email");
-
-    if ((buttonState || type) && emailState) {
-      setContinueStage(true);
-    } else {
-      setContinueStage(false);
-    }
-  };
-
-  const handleClearEmailInput = () => {
-    const component = document.getElementById("login--email");
-
-    component.value = "";
-    handleEmailChange("");
-  };
 
   return (
     <Modal
@@ -130,9 +111,9 @@ function SmallDeviceLogin({ open, handleClose, localAddress }) {
             }}
           >
             <Typography
-              color={"text.primary"}
+              color={"primary"}
               textTransform={"capitalize"}
-              fontWeight={type == "register" && "bold"}
+              fontWeight={type == "register" ? "bold" : "initial"}
             >
               {getLanguage("register", lang)}
             </Typography>
@@ -159,9 +140,9 @@ function SmallDeviceLogin({ open, handleClose, localAddress }) {
             }}
           >
             <Typography
-              color={"text.primary"}
+              color={"primary"}
               textTransform={"capitalize"}
-              fontWeight={type == "log-in" && "bolder"}
+              fontWeight={type == "log-in" ? "bolder" : "initial"}
             >
               {getLanguage("logIn", lang)}
             </Typography>
@@ -214,9 +195,11 @@ function SmallDeviceLogin({ open, handleClose, localAddress }) {
                     <Select
                       name="address"
                       size="small"
-                      color={"darken"}
+                      color={"primary"}
                       value={address}
-                      onChange={({ target }) => setAddress(target.value)}
+                      onChange={({ target }) =>
+                        setAddress(getAddress(target.value))
+                      }
                       displayEmpty
                       inputProps={{
                         name: "Your Location:",
@@ -228,139 +211,30 @@ function SmallDeviceLogin({ open, handleClose, localAddress }) {
                         bgcolor: "background.paper",
                       }}
                     >
-                      <MenuItem value={"addis-ababa"}>
-                        <Box
-                          display={"flex"}
-                          gap={1}
-                          width={1}
-                          alignItems={"center"}
-                        >
-                          <Avatar
-                            variant="square"
-                            src="/assets/images/addis-ababa-flag.png"
-                            sx={{
-                              width: 25,
-                              height: 20,
-                              border: "1px solid",
-                              borderColor: "text.primary",
-                            }}
-                          />
-                          <Typography fontSize={"0.8rem"}>
-                            {getLanguage("addisAbaba", lang)}
-                          </Typography>
-                        </Box>
-                      </MenuItem>
-                      <MenuItem value={"afar"}>
-                        <Box display={"flex"} gap={1} width={1}>
-                          <Avatar
-                            variant="square"
-                            src="/assets/images/afar-flag.png"
-                            sx={{
-                              width: 25,
-                              height: 20,
-                              border: "1px solid",
-                              borderColor: "text.primary",
-                            }}
-                          />
-                          <Typography fontSize={"0.8rem"}>
-                            {getLanguage("afar", lang)}
-                          </Typography>
-                        </Box>
-                      </MenuItem>
-                      <MenuItem value={"gumuz"}>
-                        <Box
-                          display={"flex"}
-                          gap={1}
-                          width={1}
-                          alignItems={"center"}
-                        >
-                          <Avatar
-                            variant="square"
-                            src="/assets/images/gumuz-flag.png"
-                            sx={{
-                              width: 25,
-                              height: 20,
-                              border: "1px solid",
-                              borderColor: "text.primary",
-                            }}
-                          />
-                          <Typography fontSize={"0.8rem"}>
-                            {getLanguage("benshangulGumuz", lang)}
-                          </Typography>
-                        </Box>
-                      </MenuItem>
-                      <MenuItem value={"amhara"}>
-                        <Box
-                          display={"flex"}
-                          gap={1}
-                          width={1}
-                          alignItems={"center"}
-                        >
-                          <Avatar
-                            variant="square"
-                            src="/assets/images/amhara-flag.png"
-                            sx={{
-                              width: 25,
-                              height: 20,
-                              border: "1px solid",
-                              borderColor: "text.primary",
-                            }}
-                          />
-                          <Typography fontSize={"0.8rem"}>
-                            {getLanguage("amhara", lang)}
-                          </Typography>
-                        </Box>
-                      </MenuItem>
-                      <MenuItem value={"harari"}>
-                        <Box
-                          display={"flex"}
-                          gap={1}
-                          width={1}
-                          alignItems={"center"}
-                        >
-                          <Avatar
-                            variant="square"
-                            src="/assets/images/harari-flag.png"
-                            sx={{
-                              width: 25,
-                              height: 20,
-                              border: "1px solid",
-                              borderColor: "text.primary",
-                            }}
-                          />
-                          <Typography fontSize={"0.8rem"}>
-                            {getLanguage("harari", lang)}
-                          </Typography>
-                        </Box>
-                      </MenuItem>
-                      <MenuItem value={"oromia"}>
-                        <Box
-                          display={"flex"}
-                          gap={1}
-                          width={1}
-                          alignItems={"center"}
-                        >
-                          <Avatar
-                            variant="square"
-                            src="/assets/images/oromia-flag.png"
-                            sx={{
-                              width: 25,
-                              height: 20,
-                              border: "1px solid",
-                              borderColor: "text.primary",
-                            }}
-                          />
-                          <Typography fontSize={"0.8rem"}>
-                            {getLanguage("oromia", lang)}
-                          </Typography>
-                        </Box>
-                      </MenuItem>
+                      {data.region.map((address, index) => {
+                        console.log(address.code, "code");
+                        return (
+                          <MenuItem
+                            key={index}
+                            value={getAddress(address.code)}
+                          >
+                            <LoginMenuItems
+                              key={index}
+                              value={address.code}
+                              imgSrc={address.flag}
+                              lang={lang}
+                            />
+                          </MenuItem>
+                        );
+                      })}
                     </Select>
                   </FormControl>
                 </Box>
                 <OutlinedInput
                   id="login--email"
-                  onChange={({ target }) => handleEmailChange(target.value)}
+                  onChange={({ target }) =>
+                    handleEmailChange({ value: target.value, setContinueStage })
+                  }
                   size="small"
                   fullWidth
                   sx={{ m: "0.5rem 0", bgcolor: "background.paper" }}
@@ -370,7 +244,9 @@ function SmallDeviceLogin({ open, handleClose, localAddress }) {
                       <IconButton
                         aria-label="toggle password visibility"
                         edge="end"
-                        onClick={() => handleClearEmailInput()}
+                        onClick={() =>
+                          handleClearEmailInput({ setContinueStage })
+                        }
                       >
                         <Cancel fontSize="small" />
                       </IconButton>
@@ -381,7 +257,10 @@ function SmallDeviceLogin({ open, handleClose, localAddress }) {
                   <OutlinedInput
                     id="login--password"
                     onChange={({ target }) =>
-                      handlePasswordChange(target.value)
+                      handlePasswordChange({
+                        value: target.value,
+                        setContinueStage,
+                      })
                     }
                     name="new-password"
                     autoComplete={"new-password"}
@@ -459,7 +338,11 @@ function SmallDeviceLogin({ open, handleClose, localAddress }) {
                 <OutlinedInput
                   id="login--email"
                   onChange={({ target }) =>
-                    handleEmailChange(target.value, "log-in")
+                    handleEmailChange({
+                      value: target.value,
+                      type: "log-in",
+                      setContinueStage,
+                    })
                   }
                   size={"small"}
                   fullWidth
@@ -470,7 +353,9 @@ function SmallDeviceLogin({ open, handleClose, localAddress }) {
                       <IconButton
                         aria-label="toggle password visibility"
                         edge="end"
-                        onClick={() => handleClearEmailInput()}
+                        onClick={() =>
+                          handleClearEmailInput({ setContinueStage })
+                        }
                       >
                         <Cancel fontSize="small" />
                       </IconButton>
@@ -482,7 +367,11 @@ function SmallDeviceLogin({ open, handleClose, localAddress }) {
                   size="small"
                   fullWidth
                   onChange={({ target }) =>
-                    handlePasswordChange(target.value, "log-in")
+                    handlePasswordChange({
+                      value: target.value,
+                      type: "log-in",
+                      setContinueStage,
+                    })
                   }
                   type={showPass ? "text" : "password"}
                   placeholder={getLanguage("password", lang)}
@@ -536,6 +425,7 @@ function SmallDeviceLogin({ open, handleClose, localAddress }) {
               p={"1rem 1rem"}
               className={font.className}
               fontSize={"0.85rem"}
+              color={"text.primary"}
             >
               {getLanguage("orContinueWith", lang)}
             </Typography>
@@ -549,47 +439,45 @@ function SmallDeviceLogin({ open, handleClose, localAddress }) {
           >
             <Box
               display={"flex"}
-              border={"1px solid"}
-              borderColor={"text.secondary"}
+              bgcolor={"action.hover"}
               flexGrow={0}
               width={"fit-content"}
               borderRadius="50%"
             >
-              <IconButton color="info">
+              <IconButton color="primary">
                 <Facebook sx={{ width: { sm: 35 }, height: { sm: 35 } }} />
               </IconButton>
             </Box>
             <Box
               display={"flex"}
-              border={"1px solid gray"}
               flexGrow={0}
+              bgcolor={"action.hover"}
               width={"fit-content"}
               borderRadius="50%"
             >
-              <IconButton color="info">
+              <IconButton color="primary">
                 <Google sx={{ width: { sm: 35 }, height: { sm: 35 } }} />
               </IconButton>
             </Box>
             <Box
               display={"flex"}
-              border={"1px solid"}
-              borderColor={"text.secondary"}
+              bgcolor={"action.hover"}
               flexGrow={0}
               width={"fit-content"}
               borderRadius="50%"
             >
-              <IconButton color="text.primary">
+              <IconButton color="primary">
                 <Twitter sx={{ width: { sm: 35 }, height: { sm: 35 } }} />
               </IconButton>
             </Box>
             <Box
               display={"flex"}
-              border={"1px solid gray"}
+              bgcolor={"action.hover"}
               flexGrow={0}
               width={"fit-content"}
               borderRadius="50%"
             >
-              <IconButton color="text.primary">
+              <IconButton color="primary">
                 <Apple sx={{ width: { sm: 35 }, height: { sm: 35 } }} />
               </IconButton>
             </Box>

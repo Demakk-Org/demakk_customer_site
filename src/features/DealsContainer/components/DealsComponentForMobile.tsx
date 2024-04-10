@@ -1,6 +1,6 @@
-import language from "@/data/dictionary";
 import useUserStore from "@/store/user";
 import getLanguage from "@/utils/getLanguage";
+import getPrice from "@/utils/getPrice";
 import { Box, Typography } from "@mui/material";
 
 interface DealsComponentForMobileProps {
@@ -35,7 +35,7 @@ function DealsComponentForMobile({
           component={"img"}
           width={1}
           sx={{ aspectRatio: 1, borderRadius: "0.5rem" }}
-          src={imgUrl || "/assets/images/product5.webp"}
+          src={imgUrl}
         />
         <Typography
           fontSize={{ xs: "0.8rem", sm: "1.4rem" }}
@@ -49,22 +49,22 @@ function DealsComponentForMobile({
             component={"span"}
             fontSize={{ xs: "1.2rem", sm: "1.8rem" }}
           >
-            {price || "18"}
+            {getPrice(price).int}
           </Typography>
-          .55
+          .{getPrice(price).dec}
         </Typography>
         <Typography
           fontSize={{ xs: "0.8rem", sm: "1.2rem" }}
           color={"text.secondary"}
           sx={{ textDecoration: "line-through" }}
         >
-          US ${discountPrice || "36"}.56
+          US ${getPrice(discountPrice).int}.{getPrice(discountPrice).dec}
         </Typography>
         <Typography
           fontSize={{ xs: "0.8rem", sm: "1.2rem" }}
           color={"text.primary"}
         >
-          {ordersNumber || "596"} {getLanguage("orders", lang)}
+          {ordersNumber} {getLanguage("orders", lang)}
         </Typography>
       </Box>
     </Box>

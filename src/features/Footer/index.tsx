@@ -10,7 +10,6 @@ import {
   WhatsApp,
 } from "@mui/icons-material";
 import FooterSocialLinks from "./components/FooterSocialLinks";
-import language from "@/data/dictionary";
 import getLanguage from "@/utils/getLanguage";
 import useUserStore from "@/store/user";
 
@@ -29,15 +28,18 @@ function Footer() {
       >
         <Box flex={1} display={"flex"} gap={"1rem"} alignItems={"baseline"}>
           <Box flex={1} display={"flex"} flexDirection={"column"}>
-            <FooterLinksTitle name={language.en.customerServices} />
+            <FooterLinksTitle name={getLanguage("customerServices", lang)} />
             <List disablePadding>
               <FooterLink name={getLanguage("helpCenter", lang)} url={"#"} />
               <FooterLink
-                name={language.en.transactionServicesAgreement}
+                name={getLanguage("transactionServicesAgreement", lang)}
                 url={"#"}
               />
-              <FooterLink name={language.en.tearmsAndConditions} url={"#"} />
-              <FooterLink url={"#"} name={language.en.helpCenter} />
+              <FooterLink
+                name={getLanguage("tearmsAndConditions", lang)}
+                url={"#"}
+              />
+              <FooterLink url={"#"} name={getLanguage("helpCenter", lang)} />
             </List>
           </Box>
           <Box flex={1} display={"flex"} flexDirection={"column"}>
@@ -47,22 +49,37 @@ function Footer() {
               flexDirection={"column"}
               mb={"0.5rem"}
             >
-              <FooterLinksTitle name={language.en.shoppingWithUs} />
+              <FooterLinksTitle name={getLanguage("shoppingWithUs", lang)} />
               <List disablePadding>
-                <FooterLink name={language.en.makingPayments} url={"#"} />
-                <FooterLink name={language.en.deliveryOptions} url={"#"} />
-                <FooterLink name={language.en.buyerProtection} url={"#"} />
+                <FooterLink
+                  name={getLanguage("makingPayments", lang)}
+                  url={"#"}
+                />
+                <FooterLink
+                  name={getLanguage("deliveryOptions", lang)}
+                  url={"#"}
+                />
+                <FooterLink
+                  name={getLanguage("buyerProtection", lang)}
+                  url={"#"}
+                />
               </List>
             </Box>
             <Box flex={1} display={"flex"} flexDirection={"column"}>
-              <FooterLinksTitle name={language.en.collaborateWithUs} />
+              <FooterLinksTitle name={getLanguage("collaborateWithUs", lang)} />
               <List disablePadding>
-                <FooterLink name={language.en.partnerships} url={"#"} />
-                <FooterLink name={language.en.affiliatePrograms} url={"#"} />
-                <FooterLink name={language.en.dsCenter} url={"#"} />
-                <FooterLink name={language.en.sellerLogin} url={"#"} />
                 <FooterLink
-                  name={language.en.nonChineseSellerRegistration}
+                  name={getLanguage("partnerships", lang)}
+                  url={"#"}
+                />
+                <FooterLink
+                  name={getLanguage("affiliatePrograms", lang)}
+                  url={"#"}
+                />
+                <FooterLink name={getLanguage("dsCenter", lang)} url={"#"} />
+                <FooterLink name={getLanguage("sellerLogin", lang)} url={"#"} />
+                <FooterLink
+                  name={getLanguage("nonChineseSellerRegistration", lang)}
                   url={"#"}
                 />
               </List>
@@ -82,7 +99,7 @@ function Footer() {
             flexDirection={"column"}
             justifyContent={{ xs: "center", sm: "unset" }}
           >
-            <FooterLinksTitle name={language.en.payWith} />
+            <FooterLinksTitle name={getLanguage("payWith", lang)} />
             <Grid
               container
               spacing={0.5}
@@ -106,7 +123,7 @@ function Footer() {
             flexDirection={"column"}
             alignItems={{ xs: "center", sm: "unset" }}
           >
-            <FooterLinksTitle name={language.en.stayConnected} />
+            <FooterLinksTitle name={getLanguage("stayConnected", lang)} />
             <Grid
               container
               columnSpacing={2.5}

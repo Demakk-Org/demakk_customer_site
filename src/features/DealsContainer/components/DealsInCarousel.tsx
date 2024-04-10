@@ -4,6 +4,7 @@ import CarouselContainer from "@/component/CarouselContainer";
 import useUserStore from "@/store/user";
 import getLanguage from "@/utils/getLanguage";
 import { Breakpoints } from "@/data/carouselBreakPoints";
+import getPrice from "@/utils/getPrice";
 
 function DealsInCarousel() {
   const { lang } = useUserStore();
@@ -59,14 +60,16 @@ function DealsInCarousel() {
                   fontWeight={"bold"}
                   color={"text.price"}
                 >
-                  US ${item.list[0].price}
+                  US ${getPrice(item.list[0].price).int}.
+                  {getPrice(item.list[0].price).dec}
                 </Typography>
                 <Typography
                   fontSize={"0.95rem"}
                   color={"text.secondary"}
                   sx={{ textDecoration: "line-through" }}
                 >
-                  US ${item.list[0].discountValue}
+                  US ${getPrice(item.list[0].discountValue).int}.
+                  {getPrice(item.list[0].discountValue).dec}
                 </Typography>
               </Box>
             </Box>

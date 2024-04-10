@@ -39,25 +39,25 @@ function SmallDeviceDealsContainer() {
         >
           <DealsComponentForMobile
             imgUrl={"/assets/images/product2.webp"}
-            price={17}
-            discountPrice={32}
+            price={17.43}
+            discountPrice={32.88}
             ordersNumber={122}
           />
           <DealsComponentForMobile
             imgUrl={"/assets/images/product3.webp"}
-            price={37}
-            discountPrice={49}
+            price={37.15}
+            discountPrice={49.05}
             ordersNumber={271}
           />
           <DealsComponentForMobile
             imgUrl={"/assets/images/product4.webp"}
-            price={11}
-            discountPrice={18}
+            price={11.77}
+            discountPrice={18.11}
             ordersNumber={98}
           />
           <DealsComponentForMobile
             imgUrl={"/assets/images/product5.webp"}
-            price={7}
+            price={7.67}
             discountPrice={13}
             ordersNumber={950}
           />

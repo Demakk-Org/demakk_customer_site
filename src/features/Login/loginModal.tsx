@@ -37,21 +37,20 @@ const style = {
   color: "text.primary",
 };
 
-function LoginModal({
-  open,
-  handleClose,
-}: {
+interface LoginModalProps {
   open: boolean;
   handleClose: () => void;
-}) {
+}
+
+function LoginModal({ open, handleClose }: LoginModalProps) {
   const { setUser, lang } = useUserStore();
 
-  const [continueButton, setContinueButton] = useState(false);
-  const [showPass, setShowPass] = useState(false);
-  const [continueStage, setContinueStage] = useState(false);
-  const [userExists, setUserExists] = useState(false);
+  const [continueButton, setContinueButton] = useState<boolean>(false);
+  const [showPass, setShowPass] = useState<boolean>(false);
+  const [continueStage, setContinueStage] = useState<boolean>(false);
+  const [userExists, setUserExists] = useState<boolean>(false);
 
-  const handleEmailChange = (value: string) => {
+  const handleEmailChange = (value: string): void => {
     const buttonState = textValidator(value, "email");
 
     if (buttonState !== continueButton) setContinueButton((prev) => !prev);
@@ -61,7 +60,7 @@ function LoginModal({
     }
   };
 
-  const handleClearEmailInput = () => {
+  const handleClearEmailInput = (): void => {
     const component = document.getElementById(
       "login--email"
     ) as HTMLInputElement;
@@ -70,7 +69,7 @@ function LoginModal({
     handleEmailChange("");
   };
 
-  const handleContinueButton = () => {
+  const handleContinueButton = (): void => {
     const emailComponent = document.getElementById(
       "login--email"
     ) as HTMLInputElement;

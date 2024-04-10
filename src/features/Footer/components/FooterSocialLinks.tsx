@@ -1,8 +1,7 @@
-import { Twitter } from "@mui/icons-material";
 import { Box, Grid, Link } from "@mui/material";
 
 interface FooterSocialLinksInterface {
-  icon: any;
+  icon: JSX.Element;
   url: string;
 }
 
@@ -21,7 +20,7 @@ function FooterSocialLinks({ icon, url }: FooterSocialLinksInterface) {
             },
           }}
         >
-          {icon || <Twitter />}
+          {icon}
         </Box>
       </Link>
     </Grid>

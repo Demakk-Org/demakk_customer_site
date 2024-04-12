@@ -1,9 +1,9 @@
-const data = {
+const Pdata = {
   products: [
     {
       name: 'Free Shirt',
       catagory: 'Shirt',
-      image: '/images/shirt1.jpg',
+      image: '/assets/images/product.webp',
       price: 70,
       brand: 'Nike',
       productRating: 3.5,
@@ -16,7 +16,7 @@ const data = {
     {
       name: 'Short Shirt',
       catagory: 'Shirt',
-      image: '/images/shirt2.jpg',
+      image: '/assets/images/product1.webp',
       price: 70,
       brand: 'Nike',
       productRating: 4.5,
@@ -30,7 +30,7 @@ const data = {
     {
       name: 'L Shirt',
       catagory: 'Shirt',
-      image: '/images/shirt3.jpg',
+      image: '/assets/images/product2.webp',
       price: 70,
       brand: 'Nike',
       productRating: 4.5,
@@ -44,7 +44,7 @@ const data = {
     {
       name: 'Fat Shirt',
       catagory: 'Shirt',
-      image: '/images/pants1.jpg',
+      image: '/assets/images/product3.webp',
       price: 70,
       brand: 'Nike',
       productRating: 3.5,
@@ -58,7 +58,7 @@ const data = {
     {
       name: 'Fat Shirt',
       catagory: 'Shirt',
-      image: '/images/pants2.jpg',
+      image: '/assets/images/product4.webp',
       price: 70,
       brand: 'Nike',
       productRating: 5,
@@ -73,7 +73,7 @@ const data = {
     {
       name: 'Fat Shirt',
       catagory: 'Shirt',
-      image: '/images/pants2.jpg',
+      image: '/assets/images/product6.webp',
       price: 70,
       brand: 'Nike',
       productRating: 3.5,
@@ -87,7 +87,7 @@ const data = {
     {
       name: 'Fat Shirt',
       catagory: 'Shirt',
-      image: '/images/pants2.jpg',
+      image: '/assets/images/product6.webp',
       price: 70,
       brand: 'Nike',
       productRating: 3.5,
@@ -99,7 +99,21 @@ const data = {
       description: 'pant for our gentlemen and fashinists',
       alt: 'A popular pant',
     },
+    {
+      name: 'Fat Shirt',
+      catagory: 'Shirt',
+      image: '/assets/images/product7.webp',
+      price: 70,
+      brand: 'Nike',
+      productRating: 3.5,
+      numReviewsThreshold: 10,
+      numOfReviews: 50,
+      numOfSold: 150,
+      discount: 'ETB9,753.83',
+      description: 'pants for long living',
+      alt: 'A popular pant',
+    },
   ],
 };
 
-export default data;
+export default Pdata;

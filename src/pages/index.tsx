@@ -13,6 +13,7 @@ import { Box } from '@mui/material';
 import { ReactElement } from 'react';
 
 export default function Home(): ReactElement {
+  const price: number | string = 3452;
   return (
     <>
       <Head>
@@ -31,7 +32,7 @@ export default function Home(): ReactElement {
           <Recommendation />
           <DealsContainer />
           <DiscountSale />
-          <ProductsCard />
+          <ProductsCard price={price} />
           <Footer />
         </Box>
       </main>

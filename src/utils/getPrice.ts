@@ -20,7 +20,7 @@ const getPrice = (price: number | string): { int: string; dec: string } => {
     2
   ) as unknown as number;
 
-  console.log(decimal);
+  // console.log(decimal);
 
   return { int: integerPart.toString(), dec: singleToDouble(decimal) };
 };

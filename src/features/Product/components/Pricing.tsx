@@ -4,9 +4,10 @@ import getPrice from '@/utils/getPrice';
 
 interface priceProps {
   price: number | string;
+  oldPrice: number;
 }
 
-export default function Pricing({ price }: priceProps) {
+export default function Pricing({ price, oldPrice }: priceProps) {
   const { int, dec } = getPrice(price);
 
   return (
@@ -43,7 +44,7 @@ export default function Pricing({ price }: priceProps) {
           fontSize: '.75rem',
         }}
       >
-        ETB{int}.{dec}
+        ETB{oldPrice}
       </Typography>
     </>
   );

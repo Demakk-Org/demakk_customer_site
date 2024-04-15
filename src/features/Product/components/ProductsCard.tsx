@@ -98,16 +98,20 @@ export default function ProductsCard() {
                   >
                     {product.description}
                   </Typography>
-                  {product.numOfReviews > product.numReviewsThreshold && (
-                    <Stack direction={'row'} spacing={0.5}>
-                      <RatingAndTopSeling />
-                    </Stack>
-                  )}
+
+                  <Stack direction={'row'} spacing={0.5}>
+                    <RatingAndTopSeling numOfSold={product.numberOfSold} />
+                  </Stack>
+
                   <Stack direction={'row'} spacing={1} alignItems={'baseline'}>
-                    <Pricing price={product.price} />
+                    <Pricing price={product.price} oldPrice={product.oldPrice} />
                   </Stack>
                   <Stack direction={'row'} spacing={0.5} alignItems={'center'}>
-                    <AdvanceDeal />
+                    <AdvanceDeal
+                      deal={product.dealType}
+                      extraDiscount={product.extraDiscount}
+                      discountPercent={product.discountPercent}
+                    />
                   </Stack>
                   <Stack>
                     <ShippingChoice />

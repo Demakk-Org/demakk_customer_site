@@ -2,7 +2,11 @@ import { Rating, Stack, Typography } from '@mui/material';
 import React from 'react';
 import TopSellingCard from './TopSellingCard';
 
-export default function RatingAndTopSeling() {
+interface numberOfSoldProps {
+  numOfSold: number | undefined;
+}
+
+export default function RatingAndTopSeling({ numOfSold }: numberOfSoldProps) {
   return (
     <>
       <Rating
@@ -13,8 +17,9 @@ export default function RatingAndTopSeling() {
           fontSize: '.875rem',
         }}
       />
+
       <Typography minWidth={'max-content'} fontSize={'.75rem'}>
-        352 sold
+        {numOfSold} sold
       </Typography>
       <TopSellingCard days={'7days'} />
     </>

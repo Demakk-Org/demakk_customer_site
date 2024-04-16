@@ -20,9 +20,21 @@ const getPrice = (price: number | string): { int: string; dec: string } => {
     2
   ) as unknown as number;
 
-  // console.log(decimal);
+  let returnIntegerPart: string[] = [];
+  let integerPartStringList: string[] = integerPart.toString().split("");
 
-  return { int: integerPart.toString(), dec: singleToDouble(decimal) };
+  integerPartStringList.reverse().forEach((num, ind) => {
+    returnIntegerPart.push(num);
+
+    if ((ind + 1) % 3 == 0) {
+      returnIntegerPart.push(",");
+    }
+  });
+
+  return {
+    int: returnIntegerPart.reverse().join(""),
+    dec: singleToDouble(decimal),
+  };
 };
 
 export default getPrice;

@@ -61,7 +61,7 @@ declare module '@mui/material/SvgIcon' {
     darken: true;
     bright: true;
     brighten: true;
-    demakkPrimary: true;
+    demakkPrimary: true; 
     demakkSecondary: true;
     primaryButton: true;
     secondaryButton: true;

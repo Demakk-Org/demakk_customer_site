@@ -7,7 +7,7 @@ interface dealProps {
   discountPercent: number | undefined;
 }
 
-export default function AdvanceDeal({
+export default function DealsContainer({
   deal,
   extraDiscount,
   discountPercent,

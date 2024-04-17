@@ -11,7 +11,7 @@ function DealInFullHeight() {
       flexDirection={"column"}
       height={1}
       p={"1.5rem"}
-      bgcolor={"background.lighter"}
+      bgcolor={"action.hover"}
       borderRadius={"1rem"}
     >
       <Typography

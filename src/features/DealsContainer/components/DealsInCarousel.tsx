@@ -14,7 +14,7 @@ function DealsInCarousel() {
       display={"flex"}
       flexDirection={"column"}
       p={"1.5rem"}
-      bgcolor={"background.lighter"}
+      bgcolor={"action.hover"}
       borderRadius={"1rem"}
       height={1}
     >

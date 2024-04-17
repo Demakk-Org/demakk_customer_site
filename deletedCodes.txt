@@ -1,0 +1,263 @@
+  {/* {dealsContainerStructure.map((dealsContainer, ind) => {
+            return (
+              <Box key={ind} border={"1px solid lightgray"}>
+                {dealsContainer?.image && (
+                  <Box
+                    component={"img"}
+                    height={"80px"}
+                    src={dealsContainer.image}
+                    // alt={product.name}
+                  />
+                )}
+                <Typography component={"h4"} variant="h5">
+                  {dealsContainer.dealType}
+                </Typography>
+                <Typography component={"h6"} variant="h6">
+                  {dealsContainer.subtitle}
+                </Typography>
+                <Box display={"flex"} gap={"0.5rem"}>
+                  {dealsContainer.products
+                    .getListWithDiscountAmount()
+                    .map((product, index) => (
+                      <Box key={index}>
+                        <Box
+                          component={"img"}
+                          width={"80px"}
+                          height={"80px"}
+                          src={product.images?.urls[0]}
+                          alt={product.name}
+                        />
+                        <Box display={"flex"} gap="0.5rem">
+                          <Typography>
+                            {getPrice(product.discountedPrice).int}.
+                            {getPrice(product.discountedPrice).dec}
+                            {" Birr"}
+                          </Typography>
+                          <Typography sx={{ textDecoration: "line-through" }}>
+                            <Typography component={"span"}>
+                              {dealsContainer.products.discountType ==
+                              DiscountType.cashDiscount
+                                ? getPrice(product.price).int +
+                                  "." +
+                                  getPrice(product.price).dec
+                                : dealsContainer.products.discountType ==
+                                  DiscountType.percentageDiscount
+                                ? dealsContainer.products.discountAmount
+                                : ""}
+                              {}
+                            </Typography>
+                            <Typography component={"span"}>
+                              {dealsContainer.products.discountType ==
+                              DiscountType.cashDiscount
+                                ? " Birr"
+                                : " %"}
+                            </Typography>
+                          </Typography>
+                        </Box>
+                      </Box>
+                    ))}
+                </Box>
+              </Box>
+            );
+          })} */}
+
+api
+: 
+"mtop.relationrecommend.aliexpressrecommend.recommend"
+data
+: 
+{,…}
+isEnd
+: 
+false
+isSuccess
+: 
+true
+new_version
+: 
+"true"
+pvid
+: 
+"fa79864f-20c1-44fe-bc3a-1318ec6a3266"
+result
+: 
+[{pricePoints: [,…],…}, {pricePoints: [,…],…}, {,…}, {,…}, {,…}, {pricePoints: [,…],…}, {,…},…]
+0
+: 
+{pricePoints: [,…],…}
+DISCOUNT
+: 
+"-58%"
+adClickUrl
+: 
+"https://s.click.aliexpress.com/recom_item_click.htm?afTraceInfo=1005005032233649__pc__pcBestMore2Love__xxxxxx__1713039372"
+afTraceInfo
+: 
+"1005005032233649__pc__pcBestMore2Love__KWuZepM__1713039372937"
+averageStar
+: 
+"4.7"
+choice
+: 
+[{isWarmup: false, features: {}, atmosphereCode: "choice_atm",…}]
+currency
+: 
+"USD"
+detailUrl
+: 
+"https://www.aliexpress.com/item/1005005032233649.html"
+image
+: 
+{imgUrl: "https://ae01.alicdn.com/kf/H907235c700fb4b18bb602d890fced6c4D.jpg", imgWidth: 800,…}
+info
+: 
+{}
+initialRank
+: 
+0
+isP4pItem
+: 
+"0"
+itemId
+: 
+1005005032233649
+itemImage
+: 
+"https://ae01.alicdn.com/kf/H907235c700fb4b18bb602d890fced6c4D.jpg"
+maxPrice
+: 
+"US $57.43"
+maxPriceInfo
+: 
+"US $57.43|57|43"
+maxPriceLocalConfig
+: 
+"{\"from\":{\"currencySymbol\":\"US $\",\"currencySymbolPosition\":\"front\",\"decimalPointChar\":\".\",\"showDecimal\":true,\"thousandsChar\":\",\"},\"separatorStr\":\" - \",\"single\":{\"currencySymbol\":\"US $\",\"currencySymbolPosition\":\"front\",\"decimalPointChar\":\".\",\"showDecimal\":true,\"thousandsChar\":\",\"},\"to\":{\"currencySymbol\":\"$\",\"currencySymbolPosition\":\"front\",\"decimalPointChar\":\".\",\"showDecimal\":true,\"thousandsChar\":\",\"},\"useful\":true,\"version\":\"v1\"}"
+price
+: 
+"US $23.98"
+priceInfo
+: 
+"US $23.98|23|98"
+priceLocalConfig
+: 
+"{\"from\":{\"currencySymbol\":\"US $\",\"currencySymbolPosition\":\"front\",\"decimalPointChar\":\".\",\"showDecimal\":true,\"thousandsChar\":\",\"},\"separatorStr\":\" - \",\"single\":{\"currencySymbol\":\"US $\",\"currencySymbolPosition\":\"front\",\"decimalPointChar\":\".\",\"showDecimal\":true,\"thousandsChar\":\",\"},\"to\":{\"currencySymbol\":\"$\",\"currencySymbolPosition\":\"front\",\"decimalPointChar\":\".\",\"showDecimal\":true,\"thousandsChar\":\",\"},\"useful\":true,\"version\":\"v1\"}"
+pricePoints
+: 
+[,…]
+0
+: 
+{isWarmup: false, features: {umpPromotionId: [5000000085659068]}, atmosphereCode: "flexiCoin_new_atm",…}
+atmosphereCode
+: 
+"flexiCoin_new_atm"
+features
+: 
+{umpPromotionId: [5000000085659068]}
+id
+: 
+"685"
+isWarmup
+: 
+false
+materials
+: 
+[{materialCode: "search_item_text", fragments: {0052: "2"}, type: "TEXT",…}]
+0
+: 
+{materialCode: "search_item_text", fragments: {0052: "2"}, type: "TEXT",…}
+fragments
+: 
+{0052: "2"}
+materialCode
+: 
+"search_item_text"
+type
+: 
+"TEXT"
+value
+: 
+"Extra 2% off with coins"
+priority
+: 
+20
+rankScore
+: 
+0
+rt_maxPriceExchangeQuery
+: 
+"1"
+rt_priceExchangeQuery
+: 
+"0"
+sellingPoints
+: 
+[,…]
+services
+: 
+[{isWarmup: false, features: {umpPromotionId: [5000000118517839]},…}]
+0
+: 
+{isWarmup: false, features: {umpPromotionId: [5000000118517839]},…}
+atmosphereCode
+: 
+"platformFreeShipping_atm"
+features
+: 
+{umpPromotionId: [5000000118517839]}
+id
+: 
+"780"
+isWarmup
+: 
+false
+materials
+: 
+[{materialCode: "search_item_text",…}]
+0
+: 
+{materialCode: "search_item_text",…}
+fragments
+: 
+{0011_amount: "1000", 0011: "US $10", 0011_currency: "USD"}
+0011
+: 
+"US $10"
+0011_amount
+: 
+"1000"
+0011_currency
+: 
+"USD"
+materialCode
+: 
+"search_item_text"
+type
+: 
+"TEXT"
+value
+: 
+"Free shipping over US $10"
+priority
+: 
+34
+similarProductUrl
+: 
+"https://www.aliexpress.com/campaign/wow/gcp/findSimilar-lp/index?itemId=1005005032233649"
+store_name
+: 
+"baasploa Official Store"
+store_number
+: 
+"1102521229"
+title
+: 
+"Baasploa Lightweight Running Shoes For Men 2022 Men's Designer Mesh Casual Sneakers Lace-Up Male Outdoor Sports Tennis Shoe"
+totalSale
+: 
+"1000+"
+trace
+: 
+{,…}
+
+

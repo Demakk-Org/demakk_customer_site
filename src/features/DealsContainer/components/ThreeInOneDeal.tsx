@@ -23,7 +23,7 @@ function ThreeInOneDeal({
           height={1}
           p={"1.5rem"}
           borderRadius={"1rem"}
-          bgcolor={"background.lighter"}
+          bgcolor={"action.hover"}
         >
           <Typography
             fontSize={"1.5rem"}

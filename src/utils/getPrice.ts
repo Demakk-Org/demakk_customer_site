@@ -26,7 +26,7 @@ const getPrice = (price: number | string): { int: string; dec: string } => {
   integerPartStringList.reverse().forEach((num, ind) => {
     returnIntegerPart.push(num);
 
-    if ((ind + 1) % 3 == 0) {
+    if ((ind + 1) % 3 == 0 && integerPartStringList.length - 1 != ind) {
       returnIntegerPart.push(",");
     }
   });

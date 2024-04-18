@@ -21,7 +21,7 @@ export default function TopSellingCard({
   }
 
   return (
-    <Stack>
+    <Stack display={{ xs: 'none', sm: 'flex' }}>
       <Stack
         direction={'row'}
         divider={<Divider orientation="vertical" flexItem />}
@@ -41,7 +41,11 @@ export default function TopSellingCard({
             {topSoldItem}
           </Typography>
         )}
-        {days && <Typography fontSize={'.6rem'}>{days} days</Typography>}
+        {days && (
+          <Typography minWidth={'max-content'} fontSize={'.6rem'}>
+            {days} days
+          </Typography>
+        )}
       </Stack>
     </Stack>
   );

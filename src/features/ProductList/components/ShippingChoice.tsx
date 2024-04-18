@@ -1,15 +1,15 @@
 import { Stack, Typography } from '@mui/material';
 import React from 'react';
 
-interface shippingChoiceProps {
-  choice: string | undefined;
-  freeShippingPrice: number | undefined;
+interface ShippingChoiceProps {
+  choice?: boolean;
+  freeShippingPrice?: number;
 }
 
 export default function ShippingChoice({
   choice,
   freeShippingPrice,
-}: shippingChoiceProps) {
+}: ShippingChoiceProps) {
   return (
     <>
       {choice && (
@@ -25,11 +25,15 @@ export default function ShippingChoice({
                 borderRadius: '.2rem',
               },
               minWidth: 'max-content',
+              fontSize: '.875rem',
             }}
           >
-            <span className="choice">{choice}</span> Free shipping over
+            <Typography component={'span'} className="choice">
+              {choice}
+            </Typography>
+            Free shipping
           </Typography>
-          <Typography>ETB{freeShippingPrice}</Typography>
+          <Typography> over ETB{freeShippingPrice}</Typography>
         </Stack>
       )}
     </>

@@ -1,34 +1,38 @@
-import { Rating } from '@mui/material';
-import React from 'react';
+import { Typography, Rating, Stack } from '@mui/material';
 
-interface numberOfSoldProps {
-  numOfSold: number | undefined;
+interface RatingProps {
+  value: number;
 }
-
-export default function ProductRating({ numOfSold }: numberOfSoldProps) {
-  if (!numOfSold) {
-    return null;
-  }
+export default function ProductRating({ value }: RatingProps) {
   return (
     <>
-      {numOfSold && numOfSold > 5 && (
+      <Rating
+        max={5}
+        value={value}
+        precision={0.5}
+        readOnly
+        sx={{
+          display: { xs: 'none', sm: 'inline-flex' },
+          fontSize: '.8rem',
+        }}
+      />
+      <Stack
+        direction={'row'}
+        spacing={0.25}
+        alignItems={'center'}
+        display={{ xs: 'inline-flex', sm: 'none' }}
+      >
         <Rating
-          value={
-            numOfSold > 5 && numOfSold <= 10
-              ? 2.5
-              : numOfSold > 10 && numOfSold <= 50
-              ? 3.5
-              : numOfSold > 50
-              ? 4.5
-              : 0
-          }
-          precision={0.5}
+          max={1}
+          value={value / 5}
+          precision={0.1}
           readOnly
           sx={{
-            fontSize: '.875rem',
+            fontSize: '.8rem',
           }}
         />
-      )}
+        <Typography fontSize={'.75rem'}>{value}</Typography>
+      </Stack>
     </>
   );
 }

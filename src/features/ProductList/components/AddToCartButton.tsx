@@ -16,25 +16,15 @@ export default function AddToCartButton({ id }: AddToCartButton) {
         color="primaryButton"
         sx={{
           position: 'absolute',
-          // color: 'black',
           bottom: '10%',
           right: '10%',
           backgroundColor: 'background.paper',
           '&:hover': {
-            // background: 'black',
-            '.cart-icon': { color: 'white' },
+            '.cart-icon': { color: 'background.paper' },
           },
         }}
       >
-        <AddShoppingCartRoundedIcon
-          className="cart-icon"
-          // color=""
-          sx={{
-            '&:hover': {
-              // color: (theme) => theme.palette.brighten.main,
-            },
-          }}
-        />
+        <AddShoppingCartRoundedIcon className="cart-icon" />
       </IconButton>
     </>
   );

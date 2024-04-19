@@ -14,8 +14,10 @@ const Pdata = {
       extraDiscount: 2,
       discountPercent: 40,
       dealType: 'Wellcome deal',
-      topSoldItem: 'Top seling',
-      date: 5,
+      topSelling: {
+        status: true,
+        days: 7,
+      },
       choice: 'Choice',
       freeShip: 2000,
       description: 'A popular shirt for new comers',
@@ -31,6 +33,10 @@ const Pdata = {
       numReviewsThreshold: 10,
       numberOfSold: 3,
       discount: 'ETB8,271.34',
+      topSelling: {
+        status: false,
+        days: 0,
+      },
       choice: 'Choice',
       freeShip: 5000,
       description: 'nice brand popular shirt for everyone ',

@@ -8,11 +8,9 @@ interface numberOfSoldProps {
 export default function SoldQuantity({ numOfSold }: numberOfSoldProps) {
   return (
     <>
-      {numOfSold && (
-        <Typography minWidth={'max-content'} fontSize={'.75rem'}>
-          {numOfSold} sold
-        </Typography>
-      )}
+      <Typography minWidth={'max-content'} fontSize={'.75rem'}>
+        {numOfSold} sold
+      </Typography>
     </>
   );
 }

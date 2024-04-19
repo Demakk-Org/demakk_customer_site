@@ -7,6 +7,7 @@ import ProductRating from './components/ProductRating';
 import AddToCartButton from './components/AddToCartButton';
 import DealsContainer from './containers/DealsContainer';
 import SellingPrice from './components/SellingPrice';
+import HoveringButtons from './components/HoveringButtons';
 
 interface productDataProps {
   product: any;
@@ -63,7 +64,7 @@ export default function ProductCard({ product }: productDataProps) {
               bottom="0px"
               sx={{
                 borderRadius: '.5rem',
-                backgroundColor: 'rgba(0, 0, 0, .04);',
+                backgroundColor: 'background.productImageBackground',
               }}
             ></Box>
             <AddToCartButton id="add to cart" />
@@ -91,14 +92,20 @@ export default function ProductCard({ product }: productDataProps) {
                     spacing={1}
                     alignItems={'center'}
                   >
-                    <ProductRating value={4} />
-                    <SoldQuantity numOfSold={product.numberOfSold} />
+                    {product.productRating && (
+                      <ProductRating ratingValue={product.productRating} />
+                    )}
+                    {product.numberOfSold && (
+                      <SoldQuantity numOfSold={product.numberOfSold} />
+                    )}
                   </Stack>
-                  <TopSellingCard
-                    topSoldItem={product.topSoldItem}
-                    days={product.date}
-                    numOfSold={product.numberOfSold}
-                  />
+                  {product.topSelling?.status && (
+                    <TopSellingCard
+                      // topSoldItem={product.topSoldItem}
+                      days={product.topSelling?.days}
+                      // numOfSold={product.numberOfSold}
+                    />
+                  )}
                 </Stack>
 
                 <Stack
@@ -129,39 +136,7 @@ export default function ProductCard({ product }: productDataProps) {
             </Stack>
           </Stack>
 
-          <Stack
-            className="buttons"
-            direction={'row'}
-            width={1}
-            display="none"
-            justifyContent="space-between"
-            mt={'8px'}
-            zIndex={2}
-          >
-            <Button
-              variant="contained"
-              color="primaryButton"
-              sx={{
-                fontSize: { md: '.65rem', xs: '.5rem' },
-                fontWeight: 'bold',
-                borderRadius: '14px',
-                minWidth: 'max-content',
-              }}
-            >
-              See preview
-            </Button>
-            <Button
-              variant="contained"
-              color="primaryButton"
-              sx={{
-                fontSize: { md: '.7rem', xs: '.5rem' },
-                fontWeight: 'bold',
-                borderRadius: '14px',
-              }}
-            >
-              Similar items
-            </Button>
-          </Stack>
+          <HoveringButtons />
           <Box
             className="hovered-container"
             display="none"

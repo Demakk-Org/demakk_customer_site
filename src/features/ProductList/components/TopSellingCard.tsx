@@ -1,25 +1,10 @@
 import { Divider, Stack, Typography } from '@mui/material';
-import React from 'react';
 
 interface SellingDaysProps {
-  days: number | undefined;
-  topSoldItem: string | undefined;
-  numOfSold: number | undefined;
+  days?: number;
 }
 
-export default function TopSellingCard({
-  days,
-  topSoldItem,
-  numOfSold,
-}: SellingDaysProps) {
-  if (!topSoldItem || !days) {
-    return null;
-  }
-
-  if (!numOfSold) {
-    return null;
-  }
-
+export default function TopSellingCard({ days }: SellingDaysProps) {
   return (
     <Stack display={{ xs: 'none', sm: 'flex' }}>
       <Stack
@@ -29,18 +14,17 @@ export default function TopSellingCard({
         p={'0rem .3rem'}
         border={'.05rem solid'}
         borderRadius={'.2rem'}
-        sx={{ backgroundColor: 'lightBlue' }}
+        sx={{ backgroundColor: 'background.lighter' }}
         alignItems={'center'}
       >
-        {topSoldItem && (
-          <Typography
-            minWidth={'max-content'}
-            fontSize={'.5rem'}
-            fontWeight={'bold'}
-          >
-            {topSoldItem}
-          </Typography>
-        )}
+        <Typography
+          minWidth={'max-content'}
+          fontSize={'.5rem'}
+          fontWeight={'bold'}
+        >
+          Top selling
+        </Typography>
+
         {days && (
           <Typography minWidth={'max-content'} fontSize={'.6rem'}>
             {days} days

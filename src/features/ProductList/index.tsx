@@ -1,9 +1,12 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Box, Grid } from '@mui/material';
 import Pdata from '@/data/Pdata';
 import ProductCard from './ProductCard';
+import useProductStore from '@/store/product';
 
 export default function ProductListing() {
+  const { products, setProducts } = useProductStore();
+
   return (
     <Grid
       container
@@ -12,14 +15,7 @@ export default function ProductListing() {
       mt="1.5rem"
     >
       {Pdata.products.map((productData) => (
-        <Grid
-          item
-          height={'375px'}
-          xs={6}
-          sm={4}
-          md={2.4}
-          key={productData.name}
-        >
+        <Grid item xs={6} sm={4} md={2.4} key={productData.name}>
           <ProductCard product={productData} />
         </Grid>
       ))}

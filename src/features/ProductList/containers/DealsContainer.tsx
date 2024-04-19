@@ -1,4 +1,4 @@
-import { Box, Typography } from '@mui/material';
+import { Box, Divider, Stack, Typography } from '@mui/material';
 import React from 'react';
 
 interface dealProps {
@@ -13,7 +13,20 @@ export default function DealsContainer({
   discountPercent,
 }: dealProps) {
   return (
-    <>
+    <Stack
+      width={'100%'}
+      direction={'row'}
+      alignItems={'center'}
+      divider={
+        <Box
+          height={'.3rem'}
+          minWidth={'.3rem'}
+          m={'0 .25rem'}
+          borderRadius={'50%'}
+          sx={{ backgroundColor: 'text.price' }}
+        ></Box>
+      }
+    >
       <Typography
         minWidth={'max-content'}
         fontSize={'.6rem'}
@@ -21,42 +34,26 @@ export default function DealsContainer({
         color={'white'}
         p={'0rem .4rem '}
         borderRadius={'.2rem'}
-        sx={{ backgroundColor: 'brown' }}
+        sx={{ backgroundColor: 'background.blue' }}
       >
         {deal}
       </Typography>
-      {extraDiscount && deal && (
-        <Box
-          height={'.3rem'}
-          minWidth={'.3rem'}
-          borderRadius={'50%'}
-          sx={{ backgroundColor: 'brown' }}
-        ></Box>
-      )}
       {extraDiscount && (
         <Typography
           title="Extra 2% off with discont"
           noWrap
-          color={'brown'}
+          color={'text.price'}
           fontSize={'.7rem'}
           fontWeight={'bold'}
         >
           Extra {extraDiscount}% off with discont
         </Typography>
       )}
-      {extraDiscount && discountPercent && (
-        <Box
-          height={'.3rem'}
-          minWidth={'.3rem'}
-          borderRadius={'50%'}
-          sx={{ backgroundColor: 'brown' }}
-        ></Box>
-      )}
       {discountPercent && (
-        <Typography color={'brown'} fontSize={'.7rem'} fontWeight={'bold'}>
+        <Typography color={'text.price'} fontSize={'.7rem'} fontWeight={'bold'}>
           -{discountPercent}%
         </Typography>
       )}
-    </>
+    </Stack>
   );
 }

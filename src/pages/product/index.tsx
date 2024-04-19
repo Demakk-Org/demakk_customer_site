@@ -1,19 +1,19 @@
-import NavBar from "@/features/Navbar";
-import { product1 } from "../../../product";
-import styles from "@/styles/Home.module.css";
+import NavBar from '@/features/Navbar';
+import { product1 } from '../../../product';
+import styles from '@/styles/Home.module.css';
 
-import { Avatar, Box, Typography } from "@mui/material";
-import getPrice from "@/utils/getPrice";
-import Head from "next/head";
-import { useEffect } from "react";
-import useProductStore from "@/store/product";
-import { LANG } from "@/store/user";
+import { Avatar, Box, Typography } from '@mui/material';
+import getPrice from '@/utils/getPrice';
+import Head from 'next/head';
+import { useEffect } from 'react';
+import useProductStore from '@/store/product';
+import { LANG } from '@/store/user';
 
 function Product() {
   const { products, setProducts } = useProductStore();
 
   useEffect(() => {
-    setProducts({ limit: 10, lang: LANG.en, page: 2 });
+    setProducts({ limit: 10, lang: LANG.en, page: 1 });
   }, []);
 
   return (
@@ -28,7 +28,7 @@ function Product() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main className={`${styles.main}`}>
-        <Box width={"100%"} minHeight={"100vh"} bgcolor={"background.paper"}>
+        <Box width={'100%'} minHeight={'100vh'} bgcolor={'background.paper'}>
           <NavBar />
           {products.map((product) => {
             const p = product.getProductforCard();
@@ -40,7 +40,7 @@ function Product() {
                   src={p?.images && p?.images}
                   sx={{ width: 80, height: 80 }}
                 />
-                <Typography color={"text.primary"}>{p.name}</Typography>
+                <Typography color={'text.primary'}>{p.name}</Typography>
               </Box>
             );
           })}

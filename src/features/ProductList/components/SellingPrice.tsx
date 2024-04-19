@@ -46,7 +46,7 @@ export default function SellingPrice({ price, oldPrice }: priceProps) {
           fontSize={'.75rem'}
           sx={{
             textDecoration: 'line-through',
-            color: 'hsl(0, 0%, 60%)',
+            color: 'text.oldPrice',
             fontSize: '.75rem',
           }}
         >

@@ -1,14 +1,14 @@
 import { Typography, Rating, Stack } from '@mui/material';
 
 interface RatingProps {
-  value: number;
+  ratingValue: number;
 }
-export default function ProductRating({ value }: RatingProps) {
+export default function ProductRating({ ratingValue }: RatingProps) {
   return (
     <>
       <Rating
         max={5}
-        value={value}
+        value={ratingValue}
         precision={0.5}
         readOnly
         sx={{
@@ -24,14 +24,14 @@ export default function ProductRating({ value }: RatingProps) {
       >
         <Rating
           max={1}
-          value={value / 5}
+          value={ratingValue / 5}
           precision={0.1}
           readOnly
           sx={{
             fontSize: '.8rem',
           }}
         />
-        <Typography fontSize={'.75rem'}>{value}</Typography>
+        <Typography fontSize={'.75rem'}>{ratingValue}</Typography>
       </Stack>
     </>
   );

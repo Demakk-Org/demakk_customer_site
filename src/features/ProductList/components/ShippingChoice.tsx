@@ -21,7 +21,7 @@ export default function ShippingChoice({
                 p: '0rem .4rem ',
                 fontSize: '.65rem',
                 fontWeight: 'bold',
-                backgroundColor: 'orange',
+                backgroundColor: 'demakkSecondary.main',
                 borderRadius: '.2rem',
               },
               minWidth: 'max-content',

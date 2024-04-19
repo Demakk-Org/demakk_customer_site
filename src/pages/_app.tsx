@@ -61,7 +61,7 @@ declare module '@mui/material/SvgIcon' {
     darken: true;
     bright: true;
     brighten: true;
-    demakkPrimary: true; 
+    demakkPrimary: true;
     demakkSecondary: true;
     primaryButton: true;
     secondaryButton: true;
@@ -238,11 +238,14 @@ const lightTheme = createTheme(lTheme, {
       teritiary: '#e7e7e7',
       links: '#191919cc',
       price: '#ff0000',
+      oldPrice: 'hsl(0, 0%, 60%)',
     },
     background: {
       lightOpaque: '#d0d0d0',
       lighter: '#d0d0d099',
       reddish: '#ffc7b899',
+      blue: '#33A4FF ',
+      productImageBackground: 'rgba(0, 0, 0, .04)',
     },
     demakkPrimary: lTheme.palette.augmentColor({
       color: {

@@ -7,13 +7,11 @@ import PinLocation from '@/features/Home/PinLocation';
 import Recommendation from '@/features/Recommendation';
 import Footer from '@/features/Footer';
 import DealsContainer from '@/features/DealsContainer';
-import ProductsCard from '@/features/Product/components/ProductsCard';
-
 import { Box } from '@mui/material';
 import { ReactElement } from 'react';
+import ProductListing from '@/features/ProductList';
 
 export default function Home(): ReactElement {
-  const price: number | string = 3452;
   return (
     <>
       <Head>
@@ -32,7 +30,7 @@ export default function Home(): ReactElement {
           <Recommendation />
           <DealsContainer />
           <DiscountSale />
-          <ProductsCard price={price} />
+          <ProductListing />
           <Footer />
         </Box>
       </main>

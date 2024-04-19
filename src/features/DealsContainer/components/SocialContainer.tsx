@@ -12,7 +12,7 @@ function SocialContainer() {
       flexDirection={"column"}
       gap={1}
       p={"1.5rem"}
-      bgcolor={"background.reddish"}
+      bgcolor={"action.hover"}
       borderRadius={"1rem"}
     >
       <Box display={"flex"} gap={"1rem"}>

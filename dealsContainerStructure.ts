@@ -1,4 +1,4 @@
-import { Product } from "@/model/product";
+import { Product } from "@/model/productModel";
 import mongoose from "mongoose";
 
 interface Rating {
@@ -19,19 +19,6 @@ interface Image {
   urls: string[];
   primary: number;
 }
-
-// export interface Product {
-//   id: mongoose.Types.ObjectId;
-//   name: string;
-//   description: string;
-//   price: number;
-//   ratings?: Rating;
-//   productCategory: string;
-//   tags: string[];
-//   images?: Image;
-//   reviews?: mongoose.Types.ObjectId;
-//   popularity: number;
-// }
 
 enum DealType {
   welcomeDeals = "Welcome deals",
@@ -173,3 +160,4 @@ class GetDiscountProductList {
     ]
 
 */
+

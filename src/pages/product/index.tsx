@@ -12,7 +12,7 @@ import useDiscountStore from '@/store/discount';
 function Product() {
   const { products, setProducts, page, limit, nextPage, prevPage } =
     useProductStore();
-  const { discount, setDiscount } = useDiscountStore();
+  console.log(products);
 
   useEffect(() => {
     setProducts({ limit, lang: LANG.en, page });
@@ -41,8 +41,7 @@ function Product() {
             <Box p={'1rem'} display={'flex'} gap={'1rem'}>
               {products.map((product) => {
                 const p = product.getProductforCard();
-                console.log(p.discountedPrice(discount));
-
+                console.log(p);
                 return (
                   <Box
                     key={p.id.toString()}

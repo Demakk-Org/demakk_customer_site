@@ -16,6 +16,11 @@ export interface Product {
   popularity: number;
 }
 
+interface ShippingState {
+  status: boolean;
+  above: number;
+}
+
 export class GetProduct {
   private id: mongoose.Types.ObjectId;
   private name: string;
@@ -41,7 +46,20 @@ export class GetProduct {
     this.popularity = product.popularity;
   }
 
-  getDiscountList(discounts: GetDiscount[]) {
+  // getDiscountList(discounts: GetDiscount[]) {
+  //   let discountList: ReturnedDiscount[] = [];
+  //   discounts.forEach((discount) => {
+  //     let d = discount.getDiscountInfo();
+  //     if (d.products.includes(this.id.toString()) && d.status == "active") {
+  //       discountList.push(d);
+  //     }
+  //   });
+
+  //   console.log(discountList);
+  //   return discountList;
+  // }
+
+  getShippingDiscount(discounts: GetDiscount[]): ShippingState {
     let discountList: ReturnedDiscount[] = [];
     discounts.forEach((discount) => {
       let d = discount.getDiscountInfo();
@@ -50,11 +68,25 @@ export class GetProduct {
       }
     });
 
-    console.log(discountList);
-    return discountList;
+    let returnPrice: ShippingState = { status: false, above: 0 };
+
+    discountList.forEach((discount) => {
+      console.log(discount.discountType);
+      switch (discount.discountType) {
+        case DiscountType.freeShipping:
+          return (returnPrice = {
+            status: discount.status == "active",
+            above: discount.discountAmount,
+          });
+        default:
+          return (returnPrice = { status: false, above: 0 });
+      }
+    });
+
+    return returnPrice;
   }
 
-  getDiscountedPrice(discounts: GetDiscount[]): number {
+  getDiscountedPrice(discounts: GetDiscount[]) {
     let discountList: ReturnedDiscount[] = [];
     discounts.forEach((discount) => {
       let d = discount.getDiscountInfo();
@@ -73,7 +105,7 @@ export class GetProduct {
         case DiscountType.cashDiscount:
           return (returnPrice = this.price - discount.discountAmount);
         default:
-          return (returnPrice = this.price);
+          return (returnPrice = 0);
       }
     });
 
@@ -88,7 +120,7 @@ export class GetProduct {
       discountedPrice: this.getDiscountedPrice,
       ratings: this.ratings?.average,
       images: this.images?.images[0],
-      discounts: this.getDiscountList,
+      shipping: this.getShippingDiscount,
     };
   }
 }

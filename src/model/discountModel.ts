@@ -3,8 +3,8 @@ import mongoose from "mongoose";
 export enum DiscountType {
   cashDiscount = "Cash discount",
   percentageDiscount = "Percentage discount",
-  freeShipping = "Free Shipping",
-  volumeDiscount = "Volume Discount",
+  freeShipping = "Free shipping",
+  volumeDiscount = "Volume discount",
 }
 
 export enum DiscountStatus {

@@ -74,37 +74,6 @@ interface DealsContainer {
   weeklyDeals?: Deal;
 }
 
-// export const productCategories: ProductCategory[] = [
-//   {
-//     id: "124345646",
-//     name: "T-shirts",
-//   },
-//   {
-//     id: "124345647",
-//     name: "Shirts",
-//   },
-//   {
-//     id: "124345648",
-//     name: "Pants",
-//   },
-//   {
-//     id: "124345649",
-//     name: "Shoes",
-//   },
-//   {
-//     id: "124345650",
-//     name: "Bags",
-//   },
-//   {
-//     id: "124345651",
-//     name: "Accessories",
-//   },
-//   {
-//     id: "124345652",
-//     name: "Others",
-//   },
-// ];
-
 class GetDiscountProductList {
   products: Product[];
   discountType: DiscountType;
@@ -160,4 +129,3 @@ class GetDiscountProductList {
     ]
 
 */
-

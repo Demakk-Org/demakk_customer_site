@@ -37,7 +37,6 @@ function Product() {
             <Box p={"1rem"} display={"flex"} gap={"1rem"}>
               {products.map((product) => {
                 const p = product.getProductforCard();
-                console.log(p.discounts(discount));
                 console.log(p.discountedPrice(discount));
 
                 return (
@@ -67,10 +66,7 @@ function Product() {
                       {getPrice(p.price).int}.{getPrice(p.price).dec}
                     </Typography>
                     {p.discountedPrice(discount) && (
-                      <Typography
-                        color={"text.primary"}
-                        // sx={{ textDecoration: "line-through" }}
-                      >
+                      <Typography color={"text.primary"}>
                         {getPrice(p.discountedPrice(discount)).int}.
                         {getPrice(p.discountedPrice(discount)).dec}
                       </Typography>
@@ -78,6 +74,13 @@ function Product() {
                     {p.ratings && (
                       <Typography color={"text.primary"}>
                         {p.ratings}
+                      </Typography>
+                    )}
+                    {p.shipping(discount).status && (
+                      <Typography color={"text.primary"}>
+                        Free shipping{" "}
+                        {p.shipping(discount).above > 0 &&
+                          ` over $${p.shipping(discount).above}`}
                       </Typography>
                     )}
                   </Box>

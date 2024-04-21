@@ -1,6 +1,6 @@
-import { create } from "zustand";
-import getProducts, { GetProductProps } from "@/hooks/getProducts";
-import { GetProduct } from "@/model/productModel";
+import { create } from 'zustand';
+import getProducts, { GetProductProps } from '@/hooks/getProducts';
+import { GetProduct } from '@/model/productModel';
 
 interface ProductStoreProps {
   products: GetProduct[];

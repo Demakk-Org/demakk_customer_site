@@ -20,6 +20,7 @@ export default function ProductListing() {
       spacing={2}
       padding={{ md: '3rem 3rem', xs: '.6rem .6rem', sm: '1.5rem 3rem' }}
       mt="1.5rem"
+      mb={'2.5rem'}
     >
       {products.map((productData) => {
         const pro = productData.getProductforCard();

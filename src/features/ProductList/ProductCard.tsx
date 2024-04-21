@@ -106,23 +106,30 @@ export default function ProductCard({
                 {product.name}
               </Typography>
               <Stack direction={{ xs: 'column-reverse', sm: 'column' }}>
-                <Stack direction={'row'} spacing={0.5} alignItems={'center'}>
+                <Stack
+                  direction={'row'}
+                  spacing={0.5}
+                  alignItems={'center'}
+                  justifyContent={'space-between'}
+                >
                   <Stack
                     direction={{ xs: 'row-reverse', sm: 'row' }}
                     spacing={1}
                     alignItems={'center'}
                   >
-                    {product.ratings && (
-                      <ProductRating ratingValue={product.ratings} />
+                    {product.ratings ? (
+                      <ProductRating ratingValue={product.ratings || 4} />
+                    ) : (
+                      <></>
                     )}
-                    {product.numberOfSold && (
-                      <SoldQuantity numOfSold={product.numberOfSold} />
+                    {!product.numberOfSold && (
+                      <SoldQuantity numOfSold={product.numberOfSold || 50} />
                     )}
                   </Stack>
-                  {product.topSelling?.status && (
+                  {!product.topSelling?.status && (
                     <TopSellingCard
                       // topSoldItem={product.topSoldItem}
-                      days={product.topSelling?.days}
+                      days={product.topSelling?.days || 7}
                       // numOfSold={product.numberOfSold}
                     />
                   )}
@@ -136,22 +143,22 @@ export default function ProductCard({
                 >
                   <SellingPrice
                     price={product.price}
-                    oldPrice={product.oldPrice}
+                    oldPrice={product.oldPrice || 3000}
                   />
                 </Stack>
               </Stack>
             </Stack>
             <Stack direction={'row'} spacing={0.5} alignItems={'center'}>
               <DealsContainer
-                deal={product.dealType}
-                extraDiscount={product.extraDiscount}
-                discountPercent={product.discountPercent}
+                deal={product.dealType || 'welcome deal'}
+                extraDiscount={product.extraDiscount || 25}
+                discountPercent={product.discountPercent || 50}
               />
             </Stack>
             <Stack>
               <ShippingChoice
-                choice={product.choice}
-                freeShippingPrice={product.freeShip}
+                choice={product.choice || true}
+                freeShippingPrice={product.freeShip || 5000}
               />
             </Stack>
           </Stack>

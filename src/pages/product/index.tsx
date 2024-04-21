@@ -33,8 +33,8 @@ function Product() {
       <main className={`${styles.main}`}>
         <Box width={"100%"} minHeight={"100vh"} bgcolor={"background.paper"}>
           <NavBar />
-          <Box display={"flex"} flexDirection={"column"} alignItems={"center"}>
-            <Box p={"1rem"} display={"flex"} gap={"1rem"}>
+          <Box display={'flex'} flexDirection={'column'} alignItems={'center'}>
+            <Box p={'1rem'} display={'flex'} gap={'1rem'}>
               {products.map((product) => {
                 const p = product.getProductforCard();
                 console.log(p.discountedPrice(discount));
@@ -42,9 +42,9 @@ function Product() {
                 return (
                   <Box
                     key={p.id.toString()}
-                    display={"flex"}
-                    flexDirection={"column"}
-                    alignItems={"center"}
+                    display={'flex'}
+                    flexDirection={'column'}
+                    alignItems={'center'}
                   >
                     <Avatar
                       variant="square"
@@ -88,14 +88,14 @@ function Product() {
               })}
             </Box>
 
-            <Box display={"flex"} alignItems={"center"} gap={2}>
+            <Box display={'flex'} alignItems={'center'} gap={2}>
               <Button variant="contained" onClick={() => prevPage()}>
                 Prev
               </Button>
               <Button variant="contained" onClick={() => nextPage()}>
                 Next
               </Button>
-              <Typography color={"text.primary"}>Page: {page}</Typography>
+              <Typography color={'text.primary'}>Page: {page}</Typography>
             </Box>
           </Box>
         </Box>

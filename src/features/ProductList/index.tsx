@@ -12,7 +12,7 @@ export default function ProductListing() {
   console.log(products);
   useEffect(() => {
     setProducts({ limit, lang: LANG.en, page });
-  }, []);
+  }, [limit]);
 
   return (
     <Grid

@@ -1,6 +1,6 @@
 import { GetProduct, Product } from "@/model/productModel";
 import { LANG } from "@/store/user";
-import axios from "axios";
+
 
 export interface GetProductProps {
   limit: number;

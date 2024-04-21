@@ -14,7 +14,7 @@ interface ProductStoreProps {
 const useProductStore = create<ProductStoreProps>((set) => ({
   products: [],
   page: 1,
-  limit: 5,
+  limit: 7,
   setProducts: async (value) => {
     ///get from the database ansd set to the store
     const productList: GetProduct[] = await getProducts(value);

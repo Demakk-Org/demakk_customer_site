@@ -1,6 +1,7 @@
 import mongoose from "mongoose";
 import { Rating } from "./ratingModel";
 import { Image } from "./imageModel";
+import { DiscountType, GetDiscount, ReturnedDiscount } from "./discountModel";
 
 export interface Product {
   id: mongoose.Types.ObjectId;
@@ -40,8 +41,43 @@ export class GetProduct {
     this.popularity = product.popularity;
   }
 
-  getDiscountList(){
-    
+  getDiscountList(discounts: GetDiscount[]) {
+    let discountList: ReturnedDiscount[] = [];
+    discounts.forEach((discount) => {
+      let d = discount.getDiscountInfo();
+      if (d.products.includes(this.id.toString()) && d.status == "active") {
+        discountList.push(d);
+      }
+    });
+
+    console.log(discountList);
+    return discountList;
+  }
+
+  getDiscountedPrice(discounts: GetDiscount[]): number {
+    let discountList: ReturnedDiscount[] = [];
+    discounts.forEach((discount) => {
+      let d = discount.getDiscountInfo();
+      if (d.products.includes(this.id.toString()) && d.status == "active") {
+        discountList.push(d);
+      }
+    });
+
+    let returnPrice: number = 0;
+    discountList.forEach((discount) => {
+      console.log(discount.discountType);
+      switch (discount.discountType) {
+        case DiscountType.percentageDiscount:
+          return (returnPrice =
+            this.price - (discount.discountAmount * this.price) / 100);
+        case DiscountType.cashDiscount:
+          return (returnPrice = this.price - discount.discountAmount);
+        default:
+          return (returnPrice = this.price);
+      }
+    });
+
+    return returnPrice;
   }
 
   getProductforCard() {
@@ -49,8 +85,10 @@ export class GetProduct {
       id: this.id,
       name: this.name,
       price: this.price,
+      discountedPrice: this.getDiscountedPrice,
       ratings: this.ratings?.average,
       images: this.images?.images[0],
+      discounts: this.getDiscountList,
     };
   }
 }

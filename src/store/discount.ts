@@ -1,9 +1,10 @@
 import getDiscounts from "@/hooks/getDiscounts";
-import { Discount } from "@/model/discountModel";
+import { Discount, GetDiscount } from "@/model/discountModel";
 import { create } from "zustand";
 
 interface DiscountStoreProps {
-  discount: Discount[];
+  discount: GetDiscount[];
+  setDiscount: () => void;
 }
 
 const useDiscountStore = create<DiscountStoreProps>((set) => ({

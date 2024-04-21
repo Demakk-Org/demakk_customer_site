@@ -1,13 +1,13 @@
-import NavBar from "@/features/Navbar";
-import { product1 } from "../../../product";
-import styles from "@/styles/Home.module.css";
+import NavBar from '@/features/Navbar';
+import { product1 } from '../../../product';
+import styles from '@/styles/Home.module.css';
 
-import { Avatar, Box, Button, Typography } from "@mui/material";
-import getPrice from "@/utils/getPrice";
-import Head from "next/head";
-import { useEffect } from "react";
-import useProductStore from "@/store/product";
-import { LANG } from "@/store/user";
+import { Avatar, Box, Button, Typography } from '@mui/material';
+import getPrice from '@/utils/getPrice';
+import Head from 'next/head';
+import { useEffect } from 'react';
+import useProductStore from '@/store/product';
+import { LANG } from '@/store/user';
 
 function Product() {
   const { products, setProducts, page, limit, nextPage, prevPage } =
@@ -16,7 +16,7 @@ function Product() {
 
   useEffect(() => {
     setProducts({ limit, lang: LANG.en, page });
-  }, [page]);
+  }, [limit, page, setProducts]);
 
   return (
     <>
@@ -31,43 +31,43 @@ function Product() {
       </Head>
       <main className={`${styles.main}`}>
         <Box
-          width={"100%"}
-          minHeight={"100vh"}
-          bgcolor={"background.paper"}
+          width={'100%'}
+          minHeight={'100vh'}
+          bgcolor={'background.paper'}
           // p={"2rem"}
         >
           <NavBar />
-          <Box display={"flex"} flexDirection={"column"} alignItems={"center"}>
-            <Box p={"1rem"} display={"flex"} gap={"1rem"}>
+          <Box display={'flex'} flexDirection={'column'} alignItems={'center'}>
+            <Box p={'1rem'} display={'flex'} gap={'1rem'}>
               {products.map((product) => {
                 const p = product.getProductforCard();
                 console.log(p);
                 return (
                   <Box
                     key={p.id.toString()}
-                    display={"flex"}
-                    flexDirection={"column"}
-                    alignItems={"center"}
+                    display={'flex'}
+                    flexDirection={'column'}
+                    alignItems={'center'}
                   >
                     <Avatar
                       variant="square"
                       src={p?.images && p?.images}
                       sx={{ width: 80, height: 80 }}
                     />
-                    <Typography color={"text.primary"}>{p.name}</Typography>
+                    <Typography color={'text.primary'}>{p.name}</Typography>
                   </Box>
                 );
               })}
             </Box>
 
-            <Box display={"flex"} alignItems={"center"} gap={2}>
+            <Box display={'flex'} alignItems={'center'} gap={2}>
               <Button variant="contained" onClick={() => prevPage()}>
                 Prev
               </Button>
               <Button variant="contained" onClick={() => nextPage()}>
                 Next
               </Button>
-              <Typography color={"text.primary"}>Page: {page}</Typography>
+              <Typography color={'text.primary'}>Page: {page}</Typography>
             </Box>
           </Box>
         </Box>

@@ -34,7 +34,7 @@ export default function DealsContainer({
         color={'white'}
         p={'0rem .4rem '}
         borderRadius={'.2rem'}
-        sx={{ backgroundColor: 'background.reddish' }}
+        sx={{ backgroundColor: 'error.main' }}
       >
         {deal}
       </Typography>

@@ -1,13 +1,13 @@
 import NavBar from "@/features/Navbar";
 import styles from "@/styles/Home.module.css";
-
+import useDiscountStore from "@/store/discount";
 import { Avatar, Box, Button, Typography } from "@mui/material";
 import getPrice from "@/utils/getPrice";
 import Head from "next/head";
 import { useEffect } from "react";
 import useProductStore from "@/store/product";
 import { LANG } from "@/store/user";
-import useDiscountStore from "@/store/discount";
+
 
 function Product() {
   const { products, setProducts, page, limit, nextPage, prevPage } =

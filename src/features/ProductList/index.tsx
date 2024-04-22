@@ -5,13 +5,20 @@ import ProductCard from './ProductCard';
 import useProductStore from '@/store/product';
 import axios from 'axios';
 import { LANG } from '@/store/user';
+import { Discount } from '../../../dealsContainerStructure';
+import useDiscountStore from '@/store/discount';
+import { DiscountOutlined } from '@mui/icons-material';
 
 export default function ProductListing() {
   const { products, setProducts, page, limit, nextPage, prevPage } =
     useProductStore();
+
+  const { discount, setDiscount } = useDiscountStore();
+
   console.log(products);
   useEffect(() => {
     setProducts({ limit, lang: LANG.en, page });
+    setDiscount();
   }, []);
 
   return (
@@ -25,6 +32,7 @@ export default function ProductListing() {
       {products.map((productData) => {
         const pro = productData.getProductforCard();
         console.log(pro);
+        console.log(pro.discountedPrice(discount));
         return (
           <Grid
             item

@@ -9,20 +9,23 @@ import DealsContainer from './containers/DealsContainer';
 import SellingPrice from './components/SellingPrice';
 import HoveringButtons from './components/HoveringButtons';
 import mongoose from 'mongoose';
+import { GetDiscount } from '@/model/discountModel';
+import useDiscountStore from '@/store/discount';
+import { ShippingState } from '@/model/productModel';
 
 interface ProductDataProps {
   id: mongoose.Types.ObjectId;
   ratings?: number;
   images?: string;
   price: number;
-  oldPrice?: number;
+  discountedPrice: (discounts: GetDiscount[]) => number;
   name: string;
   dealType?: string;
   numberOfSold?: number;
   extraDiscount?: number;
   discountPercent?: number;
   choice?: boolean;
-  freeShip?: number;
+  shipping: (discounts: GetDiscount[]) => ShippingState;
   topSelling?: {
     status: boolean;
     days: number;
@@ -34,6 +37,7 @@ export default function ProductCard({
 }: {
   product: ProductDataProps;
 }) {
+  const { discount } = useDiscountStore();
   return (
     <Box position="relative">
       <Box
@@ -84,7 +88,7 @@ export default function ProductCard({
               bottom="0px"
               sx={{
                 borderRadius: '.5rem',
-                backgroundColor: 'background.gray',
+                backgroundColor: 'background.productbg',
               }}
             ></Box>
             <AddToCartButton id="add to cart" />
@@ -118,18 +122,20 @@ export default function ProductCard({
                     alignItems={'center'}
                   >
                     {product.ratings ? (
-                      <ProductRating ratingValue={product.ratings || 4} />
+                      <ProductRating ratingValue={product.ratings} />
                     ) : (
                       <></>
                     )}
-                    {!product.numberOfSold && (
+                    {product.numberOfSold ? (
                       <SoldQuantity numOfSold={product.numberOfSold || 50} />
+                    ) : (
+                      <></>
                     )}
                   </Stack>
                   {!product.topSelling?.status && (
                     <TopSellingCard
                       // topSoldItem={product.topSoldItem}
-                      days={product.topSelling?.days || 7}
+                      days={product.topSelling?.days}
                       // numOfSold={product.numberOfSold}
                     />
                   )}
@@ -143,7 +149,7 @@ export default function ProductCard({
                 >
                   <SellingPrice
                     price={product.price}
-                    oldPrice={product.oldPrice || 3000}
+                    oldPrice={product.discountedPrice(discount)}
                   />
                 </Stack>
               </Stack>
@@ -158,7 +164,7 @@ export default function ProductCard({
             <Stack>
               <ShippingChoice
                 choice={product.choice || true}
-                freeShippingPrice={product.freeShip || 5000}
+                freeShippingPrice={product.shipping(discount).above}
               />
             </Stack>
           </Stack>

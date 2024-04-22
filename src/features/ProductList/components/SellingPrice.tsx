@@ -4,11 +4,11 @@ import getPrice from '@/utils/getPrice';
 
 interface priceProps {
   price: number | string;
-  oldPrice?: number | string;
+  oldPrice: number;
 }
 
 export default function SellingPrice({ price, oldPrice }: priceProps) {
-  const { int, dec } = getPrice(price);
+  // const { int, dec } = getPrice();
 
   return (
     <>
@@ -38,22 +38,20 @@ export default function SellingPrice({ price, oldPrice }: priceProps) {
           }}
         >
           <span className="currency">ETB</span>
-          <span className="price-int">{int}</span>
-          <span className="price-dec">.{dec}</span>
+          <span className="price-int">{getPrice(oldPrice || price).int}</span>
+          <span className="price-dec">.{getPrice(oldPrice || price).dec}</span>
         </Typography>
 
-        {oldPrice && (
-          <Typography
-            fontSize={'.75rem'}
-            sx={{
-              textDecoration: 'line-through',
-              color: 'text.oldPrice',
-              fontSize: '.75rem',
-            }}
-          >
-            ETB{oldPrice}
-          </Typography>
-        )}
+        <Typography
+          fontSize={'.75rem'}
+          sx={{
+            textDecoration: 'line-through',
+            color: 'text.oldPrice',
+            fontSize: '.75rem',
+          }}
+        >
+          ETB{getPrice(price).int}.{getPrice(price).dec}
+        </Typography>
       </Stack>
     </>
   );

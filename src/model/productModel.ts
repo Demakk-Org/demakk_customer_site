@@ -1,7 +1,7 @@
-import mongoose from "mongoose";
-import { Rating } from "./ratingModel";
-import { Image } from "./imageModel";
-import { DiscountType, GetDiscount, ReturnedDiscount } from "./discountModel";
+import mongoose from 'mongoose';
+import { Rating } from './ratingModel';
+import { Image } from './imageModel';
+import { DiscountType, GetDiscount, ReturnedDiscount } from './discountModel';
 
 export interface Product {
   id: mongoose.Types.ObjectId;
@@ -16,7 +16,7 @@ export interface Product {
   popularity: number;
 }
 
-interface ShippingState {
+export interface ShippingState {
   status: boolean;
   above: number;
 }
@@ -63,7 +63,7 @@ export class GetProduct {
     let discountList: ReturnedDiscount[] = [];
     discounts.forEach((discount) => {
       let d = discount.getDiscountInfo();
-      if (d.products.includes(this.id.toString()) && d.status == "active") {
+      if (d.products.includes(this.id.toString()) && d.status == 'active') {
         discountList.push(d);
       }
     });
@@ -75,7 +75,7 @@ export class GetProduct {
       switch (discount.discountType) {
         case DiscountType.freeShipping:
           return (returnPrice = {
-            status: discount.status == "active",
+            status: discount.status == 'active',
             above: discount.discountAmount,
           });
         default:
@@ -90,7 +90,7 @@ export class GetProduct {
     let discountList: ReturnedDiscount[] = [];
     discounts.forEach((discount) => {
       let d = discount.getDiscountInfo();
-      if (d.products.includes(this.id.toString()) && d.status == "active") {
+      if (d.products.includes(this.id.toString()) && d.status == 'active') {
         discountList.push(d);
       }
     });

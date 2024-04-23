@@ -20,6 +20,10 @@ const useProductStore = create<ProductStoreProps>((set) => ({
     const productList: GetProduct[] = await getProducts(value);
     set({ products: productList });
   },
+  // getProductById: (id: string) => {
+  //   // Retrieve product from store's state by ID
+  //   return store.products.find(product => product._id === id);
+  // },
   /**
    * next set of products
    */

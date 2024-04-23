@@ -3,11 +3,11 @@ import { Typography, Stack } from '@mui/material';
 import getPrice from '@/utils/getPrice';
 
 interface priceProps {
-  price: number | string;
-  oldPrice: number;
+  discountedPrice: number | string;
+  price: number;
 }
 
-export default function SellingPrice({ price, oldPrice }: priceProps) {
+export default function SellingPrice({ price, discountedPrice }: priceProps) {
   // const { int, dec } = getPrice();
 
   return (
@@ -38,20 +38,28 @@ export default function SellingPrice({ price, oldPrice }: priceProps) {
           }}
         >
           <span className="currency">ETB</span>
-          <span className="price-int">{getPrice(oldPrice || price).int}</span>
-          <span className="price-dec">.{getPrice(oldPrice || price).dec}</span>
+          <span className="price-int">
+            {getPrice(discountedPrice || price).int}
+          </span>
+          <span className="price-dec">
+            .{getPrice(discountedPrice || price).dec}
+          </span>
         </Typography>
 
-        <Typography
-          fontSize={'.75rem'}
-          sx={{
-            textDecoration: 'line-through',
-            color: 'text.oldPrice',
-            fontSize: '.75rem',
-          }}
-        >
-          ETB{getPrice(price).int}.{getPrice(price).dec}
-        </Typography>
+        {discountedPrice ? (
+          <Typography
+            fontSize={'.75rem'}
+            sx={{
+              textDecoration: 'line-through',
+              color: 'text.oldPrice',
+              fontSize: '.75rem',
+            }}
+          >
+            ETB{getPrice(price).int}.{getPrice(price).dec}
+          </Typography>
+        ) : (
+          <></>
+        )}
       </Stack>
     </>
   );

@@ -12,6 +12,7 @@ import mongoose from 'mongoose';
 import { GetDiscount } from '@/model/discountModel';
 import useDiscountStore from '@/store/discount';
 import { ShippingState } from '@/model/productModel';
+import Link from 'next/link';
 
 interface ProductDataProps {
   id: mongoose.Types.ObjectId;
@@ -148,8 +149,8 @@ export default function ProductCard({
                   justifyContent={'flex-start'}
                 >
                   <SellingPrice
+                    discountedPrice={product.discountedPrice(discount)}
                     price={product.price}
-                    oldPrice={product.discountedPrice(discount)}
                   />
                 </Stack>
               </Stack>

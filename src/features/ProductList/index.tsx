@@ -8,6 +8,7 @@ import { LANG } from '@/store/user';
 import { Discount } from '../../../dealsContainerStructure';
 import useDiscountStore from '@/store/discount';
 import { DiscountOutlined } from '@mui/icons-material';
+import Link from 'next/link';
 
 export default function ProductListing() {
   const { products, setProducts, page, limit, nextPage, prevPage } =
@@ -30,9 +31,9 @@ export default function ProductListing() {
       mb={'2.5rem'}
     >
       {products.map((productData) => {
-        const pro = productData.getProductforCard();
-        console.log(pro);
-        console.log(pro.discountedPrice(discount));
+        const product = productData.getProductforCard();
+        console.log(product);
+        console.log(product.discountedPrice(discount));
         return (
           <Grid
             item
@@ -40,9 +41,11 @@ export default function ProductListing() {
             xs={6}
             sm={4}
             md={2.4}
-            key={pro.id.toString()}
+            key={product.id.toString()}
           >
-            <ProductCard product={pro} />
+            <Link href={`/item/${product.id}`}>
+              <ProductCard product={product} />
+            </Link>
           </Grid>
         );
       })}

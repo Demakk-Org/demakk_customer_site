@@ -12,20 +12,21 @@ import useDiscountStore from "@/store/discount";
 function Product() {
   const { products, setProducts, page, limit, nextPage, prevPage } =
     useProductStore();
-  const { discount, setDiscount } = useDiscountStore();
-
+  const { deal, discount, setDiscount, setDeal } = useDiscountStore();
+  console.log(discount[0]?.getDiscountInfo());
   useEffect(() => {
     setProducts({ limit, lang: LANG.en, page });
     setDiscount();
+    setDeal();
   }, [page]);
 
   return (
     <>
       <Head>
-        <title>Demakk Ecommerce site</title>
+        <title>Demakk E-commerce site</title>
         <meta
           name="description"
-          content="The best ecommerce to shop with custom design"
+          content="The best e-commerce to shop with custom design"
         />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
@@ -36,8 +37,8 @@ function Product() {
           <Box display={"flex"} flexDirection={"column"} alignItems={"center"}>
             <Box p={"1rem"} display={"flex"} gap={"1rem"}>
               {products.map((product) => {
-                const p = product.getProductforCard();
-                console.log(p.discountedPrice(discount));
+                const p = product.getProductForCard();
+                // console.log(p.deals(deal));
 
                 return (
                   <Box
@@ -65,10 +66,17 @@ function Product() {
                     >
                       {getPrice(p.price).int}.{getPrice(p.price).dec}
                     </Typography>
-                    {p.discountedPrice(discount) && (
+                    {p.discountedPrice(discount).afterDiscount && (
                       <Typography color={"text.primary"}>
-                        {getPrice(p.discountedPrice(discount)).int}.
-                        {getPrice(p.discountedPrice(discount)).dec}
+                        {
+                          getPrice(p.discountedPrice(discount).afterDiscount)
+                            .int
+                        }
+                        .
+                        {
+                          getPrice(p.discountedPrice(discount).afterDiscount)
+                            .dec
+                        }
                       </Typography>
                     )}
                     {p.ratings && (
@@ -81,6 +89,16 @@ function Product() {
                         Free shipping{" "}
                         {p.shipping(discount).above > 0 &&
                           ` over $${p.shipping(discount).above}`}
+                      </Typography>
+                    )}
+                    {p.discountedPrice(discount) && (
+                      <Typography color={"text.primary"}>
+                        {p.deals(discount)}
+                      </Typography>
+                    )}
+                    {p.discountedPrice(discount).discountPercent && (
+                      <Typography color={"text.primary"}>
+                        {p.discountedPrice(discount).discountPercent}%
                       </Typography>
                     )}
                   </Box>

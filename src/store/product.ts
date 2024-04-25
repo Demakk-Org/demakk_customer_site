@@ -16,7 +16,7 @@ const useProductStore = create<ProductStoreProps>((set) => ({
   page: 1,
   limit: 7,
   setProducts: async (value) => {
-    ///get from the database ansd set to the store
+    ///get from the database and set to the store
     const productList: GetProduct[] = await getProducts(value);
     set({ products: productList });
   },

@@ -1,3 +1,4 @@
+import getDeal from "@/hooks/getDeal";
 import mongoose from "mongoose";
 
 export enum DiscountType {
@@ -19,6 +20,7 @@ export interface ReturnedDiscount {
   discountAmount: number;
   status: DiscountStatus;
   products: string[];
+  deal: string;
 }
 
 export interface Discount {
@@ -27,6 +29,7 @@ export interface Discount {
   discountAmount: number;
   status: DiscountStatus;
   products: string[];
+  deal: string;
   createdAt?: Date;
   updatedAt?: Date;
 }
@@ -37,6 +40,7 @@ export class GetDiscount {
   private discountAmount: number;
   private status: DiscountStatus;
   private products: string[];
+  private deal: string;
   private createdAt?: Date;
   private updatedAt?: Date;
 
@@ -46,6 +50,7 @@ export class GetDiscount {
     this.discountAmount = discount.discountAmount;
     this.status = discount.status;
     this.products = discount.products;
+    this.deal = discount.deal;
     this.createdAt = discount.createdAt;
     this.updatedAt = discount.updatedAt;
   }
@@ -59,6 +64,7 @@ export class GetDiscount {
       discountAmount: this.discountAmount,
       status: this.status,
       products: this.products,
+      deal: this.deal,
     };
   }
 }

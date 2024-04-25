@@ -16,9 +16,14 @@ export interface Product {
   popularity: number;
 }
 
-interface ShippingState {
+export interface ShippingState {
   status: boolean;
   above: number;
+}
+
+export interface IAfterDiscountAndPercent {
+  afterDiscount: number;
+  discountPercent: number;
 }
 
 export class GetProduct {
@@ -46,19 +51,6 @@ export class GetProduct {
     this.popularity = product.popularity;
   }
 
-  // getDiscountList(discounts: GetDiscount[]) {
-  //   let discountList: ReturnedDiscount[] = [];
-  //   discounts.forEach((discount) => {
-  //     let d = discount.getDiscountInfo();
-  //     if (d.products.includes(this.id.toString()) && d.status == "active") {
-  //       discountList.push(d);
-  //     }
-  //   });
-
-  //   console.log(discountList);
-  //   return discountList;
-  // }
-
   getShippingDiscount(discounts: GetDiscount[]): ShippingState {
     let discountList: ReturnedDiscount[] = [];
     discounts.forEach((discount) => {
@@ -71,7 +63,6 @@ export class GetProduct {
     let returnPrice: ShippingState = { status: false, above: 0 };
 
     discountList.forEach((discount) => {
-      console.log(discount.discountType);
       switch (discount.discountType) {
         case DiscountType.freeShipping:
           return (returnPrice = {
@@ -86,7 +77,9 @@ export class GetProduct {
     return returnPrice;
   }
 
-  getDiscountedPrice(discounts: GetDiscount[]) {
+  getDiscountedPriceAndPercent(
+    discounts: GetDiscount[]
+  ): IAfterDiscountAndPercent {
     let discountList: ReturnedDiscount[] = [];
     discounts.forEach((discount) => {
       let d = discount.getDiscountInfo();
@@ -95,32 +88,65 @@ export class GetProduct {
       }
     });
 
+    let returnPriceAndPercent: IAfterDiscountAndPercent = {
+      afterDiscount: 0,
+      discountPercent: 0,
+    };
     let returnPrice: number = 0;
+
     discountList.forEach((discount) => {
-      console.log(discount.discountType);
       switch (discount.discountType) {
         case DiscountType.percentageDiscount:
-          return (returnPrice =
-            this.price - (discount.discountAmount * this.price) / 100);
+          returnPrice =
+            this.price - (discount.discountAmount * this.price) / 100;
+          return (returnPriceAndPercent = {
+            afterDiscount: returnPrice,
+            discountPercent: discount.discountAmount,
+          });
         case DiscountType.cashDiscount:
-          return (returnPrice = this.price - discount.discountAmount);
+          returnPrice = this.price - discount.discountAmount;
+          let returnPercent = Math.ceil(
+            (discount.discountAmount / this.price) * 100
+          );
+
+          return (returnPriceAndPercent = {
+            afterDiscount: returnPrice,
+            discountPercent: returnPercent,
+          });
         default:
-          return (returnPrice = 0);
+          returnPriceAndPercent = {
+            afterDiscount: 0,
+            discountPercent: 0,
+          };
       }
     });
 
-    return returnPrice;
+    return returnPriceAndPercent;
   }
 
-  getProductforCard() {
+  getDeals(discounts: GetDiscount[]) {
+    let dealName: string = "";
+
+    discounts.forEach((discount) => {
+      let d = discount.getDiscountInfo();
+      if (d.products.includes(this.id.toString()) && d.status == "active") {
+        dealName = d.deal;
+      }
+    });
+
+    return dealName;
+  }
+
+  getProductForCard() {
     return {
       id: this.id,
       name: this.name,
       price: this.price,
-      discountedPrice: this.getDiscountedPrice,
+      discountedPrice: this.getDiscountedPriceAndPercent,
       ratings: this.ratings?.average,
       images: this.images?.images[0],
       shipping: this.getShippingDiscount,
+      deals: this.getDeals,
     };
   }
 }

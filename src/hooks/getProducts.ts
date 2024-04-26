@@ -21,6 +21,7 @@ const getProducts = async ({ limit, page, lang }: GetProductProps) => {
   const list: GetProduct[] = products.data.data.data.map((product: Product) => {
     product;
     const newProduct = new GetProduct(product);
+    
     return newProduct;
   });
 

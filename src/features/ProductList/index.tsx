@@ -1,13 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { Box, Grid } from '@mui/material';
-import Pdata from '@/data/Pdata';
 import ProductCard from './ProductCard';
 import useProductStore from '@/store/product';
-import axios from 'axios';
 import { LANG } from '@/store/user';
-import { Discount } from '../../../dealsContainerStructure';
 import useDiscountStore from '@/store/discount';
-import { DiscountOutlined } from '@mui/icons-material';
 import Link from 'next/link';
 
 export default function ProductListing() {

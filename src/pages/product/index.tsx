@@ -8,12 +8,17 @@ import { useEffect } from "react";
 import useProductStore from "@/store/product";
 import { LANG } from "@/store/user";
 import useDiscountStore from "@/store/discount";
+import axios from "axios";
+import { GetProduct } from "@/model/productModel";
+import getProduct from "@/hooks/getProduct";
 
-function Product() {
+function Product({ product }: { product: any }) {
   const { products, setProducts, page, limit, nextPage, prevPage } =
     useProductStore();
   const { deal, discount, setDiscount, setDeal } = useDiscountStore();
-  console.log(discount[0]?.getDiscountInfo());
+
+  console.log(new GetProduct(product), "from the props");
+
   useEffect(() => {
     setProducts({ limit, lang: LANG.en, page });
     setDiscount();
@@ -38,8 +43,7 @@ function Product() {
             <Box p={"1rem"} display={"flex"} gap={"1rem"}>
               {products.map((product) => {
                 const p = product.getProductForCard();
-                // console.log(p.deals(deal));
-
+                console.log(p.id);
                 return (
                   <Box
                     key={p.id.toString()}
@@ -49,57 +53,82 @@ function Product() {
                   >
                     <Avatar
                       variant="square"
-                      src={p?.images && p?.images}
+                      src={p?.images && p?.images.imageUrls[0]}
                       sx={{ width: 80, height: 80 }}
                     />
                     <Typography color={"text.primary"}>
                       {p.id.toString()}
                     </Typography>
                     <Typography color={"text.primary"}>{p.name}</Typography>
-                    <Typography
-                      color={"text.primary"}
-                      sx={{
-                        textDecoration: p.discountedPrice(discount)
-                          ? "line-through"
-                          : "unset",
-                      }}
+                    <Box
+                      display={"flex"}
+                      gap={"0.5rem"}
+                      flexDirection={"row-reverse"}
                     >
-                      {getPrice(p.price).int}.{getPrice(p.price).dec}
-                    </Typography>
-                    {p.discountedPrice(discount).afterDiscount && (
+                      {p.price ? (
+                        <Typography
+                          color={"text.primary"}
+                          sx={{
+                            textDecoration: p.discountedPrice(discount)
+                              .afterDiscount
+                              ? "line-through"
+                              : "unset",
+                          }}
+                        >
+                          {getPrice(p.price).int}.{getPrice(p.price).dec}
+                        </Typography>
+                      ) : (
+                        <></>
+                      )}
+                      {p.discountedPrice(discount).afterDiscount ? (
+                        <Typography color={"text.primary"}>
+                          {
+                            getPrice(p.discountedPrice(discount).afterDiscount)
+                              .int
+                          }
+                          .
+                          {
+                            getPrice(p.discountedPrice(discount).afterDiscount)
+                              .dec
+                          }
+                        </Typography>
+                      ) : (
+                        <></>
+                      )}
+                    </Box>
+
+                    {p.ratings.average ? (
                       <Typography color={"text.primary"}>
-                        {
-                          getPrice(p.discountedPrice(discount).afterDiscount)
-                            .int
-                        }
-                        .
-                        {
-                          getPrice(p.discountedPrice(discount).afterDiscount)
-                            .dec
-                        }
+                        {p.ratings.average}
                       </Typography>
+                    ) : (
+                      <></>
                     )}
-                    {p.ratings && (
-                      <Typography color={"text.primary"}>
-                        {p.ratings}
-                      </Typography>
-                    )}
-                    {p.shipping(discount).status && (
+                    <Box display={"flex"} gap="0.5rem">
+                      {p.discountedPrice(discount) ? (
+                        <Typography color={"text.primary"}>
+                          {p.deals(discount)}
+                        </Typography>
+                      ) : (
+                        <></>
+                      )}
+                      {p.discountedPrice(discount).discountPercent ? (
+                        <Typography color={"text.primary"}>
+                          {p.discountedPrice(discount).discountPercent}%
+                        </Typography>
+                      ) : (
+                        <></>
+                      )}
+                    </Box>
+
+                    {p.shipping(discount).status ? (
                       <Typography color={"text.primary"}>
                         Free shipping{" "}
                         {p.shipping(discount).above > 0 &&
                           ` over $${p.shipping(discount).above}`}
                       </Typography>
-                    )}
-                    {p.discountedPrice(discount) && (
-                      <Typography color={"text.primary"}>
-                        {p.deals(discount)}
-                      </Typography>
-                    )}
-                    {p.discountedPrice(discount).discountPercent && (
-                      <Typography color={"text.primary"}>
-                        {p.discountedPrice(discount).discountPercent}%
-                      </Typography>
+                    ) : (
+                      <></>
                     )}
                   </Box>
                 );
@@ -123,3 +152,13 @@ function Product() {
 }
 
 export default Product;
+
+export async function getStaticProps() {
+  const product = await getProduct({ productId: "65cbb7eedbb6c540322a61ce" });
+
+  return {
+    props: {
+      product,
+    },
+  };
+}

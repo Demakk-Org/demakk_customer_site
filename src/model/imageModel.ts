@@ -5,6 +5,6 @@ export interface Image {
   type: string;
   name: string;
   description: string;
-  images: string[];
+  imageUrls: string[];
   primary: number;
 }

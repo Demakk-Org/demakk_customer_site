@@ -1,4 +1,4 @@
-import { Deal, GetDeal } from "@/model/dealModel";
+import { Deal, EStatus, GetDeal } from "@/model/dealModel";
 import { LANG } from "@/store/user";
 import axios from "axios";
 // import { Deal } from "../../dealsContainerStructure";
@@ -15,10 +15,12 @@ const server = "https://demakk-backend.vercel.app/api/v1";
 const getDeals = async () => {
   const deals = await axios.get(`${local}/deal`);
 
-  const list: GetDeal[] = deals.data.data.map((deal: Deal) => {
-    const newDeal = new GetDeal(deal);
-    return newDeal;
-  });
+  const list: GetDeal[] = deals.data.data
+    .filter((deal: Deal) => deal.status == EStatus.active)
+    .map((deal: Deal) => {
+      const newDeal = new GetDeal(deal);
+      return newDeal;
+    });
 
   return list;
 };

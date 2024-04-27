@@ -21,6 +21,7 @@ export interface ReturnedDiscount {
   status: DiscountStatus;
   products: string[];
   deal: string;
+  above: number;
 }
 
 export interface Discount {
@@ -30,6 +31,7 @@ export interface Discount {
   status: DiscountStatus;
   products: string[];
   deal: string;
+  aboveAmount: number;
   createdAt?: Date;
   updatedAt?: Date;
 }
@@ -41,6 +43,7 @@ export class GetDiscount {
   private status: DiscountStatus;
   private products: string[];
   private deal: string;
+  private aboveAmount: number;
   private createdAt?: Date;
   private updatedAt?: Date;
 
@@ -51,6 +54,7 @@ export class GetDiscount {
     this.status = discount.status;
     this.products = discount.products;
     this.deal = discount.deal;
+    this.aboveAmount = discount.aboveAmount;
     this.createdAt = discount.createdAt;
     this.updatedAt = discount.updatedAt;
   }
@@ -65,6 +69,7 @@ export class GetDiscount {
       status: this.status,
       products: this.products,
       deal: this.deal,
+      above: this.aboveAmount,
     };
   }
 }

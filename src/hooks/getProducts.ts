@@ -1,4 +1,4 @@
-import { GetProduct, Product } from "@/model/productModel";
+import { GetProduct, IProduct } from "@/model/productModel";
 import { LANG } from "@/store/user";
 import axios from "axios";
 
@@ -18,10 +18,14 @@ const getProducts = async ({ limit, page, lang }: GetProductProps) => {
     }`
   );
 
-  const list: GetProduct[] = products.data.data.data.map((product: Product) => {
-    const newProduct = new GetProduct(product);
-    return newProduct;
-  });
+  // console.log(products.data.data.data[1]);
+
+  const list: GetProduct[] = products.data.data.data.map(
+    (product: IProduct) => {
+      const newProduct = new GetProduct(product);
+      return newProduct;
+    }
+  );
 
   return list;
 };

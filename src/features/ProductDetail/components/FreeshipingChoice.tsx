@@ -1,7 +1,11 @@
 import React from 'react';
 import { Stack, Typography } from '@mui/material';
+import useProductStore from '@/store/product';
+import useDiscountStore from '@/store/discount';
 
-export default function FreeshipingChoice({ data }: any) {
+export default function FreeshipingChoice() {
+  const { product } = useProductStore();
+  const { discount } = useDiscountStore();
   return (
     <div>
       <Stack>
@@ -22,14 +26,14 @@ export default function FreeshipingChoice({ data }: any) {
           <Typography component={'span'} className="choice" mr={'.25rem'}>
             Choice
           </Typography>
-          Free shipping
-          {data.freeShippingPrice ? (
-            <Typography component={'span'}>
-              {' '}
-              over ETB{data.freeShippingPrice}
+          {product?.getProductforCard().shipping(discount).status && (
+            <Typography color={'text.primary'}>
+              Free shipping{' '}
+              {product?.getProductforCard().shipping(discount).above > 0 &&
+                ` over $${
+                  product?.getProductforCard().shipping(discount).above
+                }`}
             </Typography>
-          ) : (
-            <></>
           )}
         </Typography>
       </Stack>

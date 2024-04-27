@@ -47,7 +47,7 @@ function Product() {
                   >
                     <Avatar
                       variant="square"
-                      src={p?.images && p?.images}
+                      src={p?.images?.images[0] && p?.images.images[0]}
                       sx={{ width: 80, height: 80 }}
                     />
                     <Typography color={'text.primary'}>
@@ -70,10 +70,8 @@ function Product() {
                         {getPrice(p.discountedPrice(discount)).dec}
                       </Typography>
                     )}
-                    {p.ratings && (
-                      <Typography color={'text.primary'}>
-                        {p.ratings}
-                      </Typography>
+                    {p.rating && (
+                      <Typography color={'text.primary'}>{p.rating}</Typography>
                     )}
                     {p.shipping(discount).status && (
                       <Typography color={'text.primary'}>

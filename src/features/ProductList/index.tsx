@@ -5,8 +5,11 @@ import useProductStore from '@/store/product';
 import { LANG } from '@/store/user';
 import useDiscountStore from '@/store/discount';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 
 export default function ProductListing() {
+  const router = useRouter();
+
   const { products, setProducts, page, limit, nextPage, prevPage } =
     useProductStore();
 
@@ -40,7 +43,10 @@ export default function ProductListing() {
             key={product.id.toString()}
           >
             <Link href={`/item/${product.id}`}>
-              <ProductCard product={product} />
+              <ProductCard
+                product={product}
+                // onClick={() => router.push(`/item/${product.id}`)}
+              />
             </Link>
           </Grid>
         );

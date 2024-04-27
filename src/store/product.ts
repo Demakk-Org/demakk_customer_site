@@ -1,6 +1,6 @@
 import { create } from 'zustand';
 import getProducts, { GetProductProps } from '@/hooks/getProducts';
-import { GetProduct } from '@/model/productModel';
+import { GetProduct, Product } from '@/model/productModel';
 
 interface ProductStoreProps {
   products: GetProduct[];
@@ -9,6 +9,7 @@ interface ProductStoreProps {
   limit: number;
 
   setProducts: (props: GetProductProps) => void;
+  setProduct: (value: Product) => void;
   nextPage: () => void;
   prevPage: () => void;
 }
@@ -29,13 +30,17 @@ const useProductStore = create<ProductStoreProps>((set) => ({
     const productList: GetProduct[] = await getProducts(value);
     set({ products: productList });
   },
+
+  setProduct: async (value) => {
+    ///get from the database ansd set to the store
+    const product = new GetProduct(value);
+    set({ product });
+  },
   /**
    * next set of products
    */
   nextPage: () => set((state) => ({ page: state.page + 1 })),
   prevPage: () => set((state) => ({ page: state.page - 1 })),
 }));
-
-
 
 export default useProductStore;

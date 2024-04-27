@@ -1,29 +1,23 @@
 import {
   Box,
   Button,
-  Container,
   Divider,
-  Drawer,
   Grid,
   Paper,
-  Rating,
   Stack,
-  Toolbar,
   Typography,
 } from '@mui/material';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 import ShareIcon from '@mui/icons-material/Share';
 
-import NavBar from '../Navbar';
 import Image from './containers/images/ItemImages';
 import Contents from './containers/contents/Contents';
-import { ST } from 'next/dist/shared/lib/utils';
 
-export default function DetailsPage({ data }: any) {
+export default function DetailsPage() {
   return (
     <>
       <Box overflow="auto">
-        <NavBar />
+        {/* <NavBar /> */}
 
         {/* container for image description and side nav */}
         <Grid
@@ -43,10 +37,10 @@ export default function DetailsPage({ data }: any) {
             // md={10}
           >
             <Grid item xs={5}>
-              <Image data={data} />
+              <Image />
             </Grid>
             <Grid item xs={7}>
-              <Contents data={data} />
+              <Contents />
             </Grid>
           </Grid>
           {/* for side scrollable nav */}

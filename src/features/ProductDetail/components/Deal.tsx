@@ -1,21 +1,21 @@
 import { Box, Stack, Typography } from '@mui/material';
 import React from 'react';
 
-export default function Deal({ data }: any) {
+export default function Deal() {
   return (
     <Box
-      borderRadius={'.2rem'}
+      borderRadius={'.5rem'}
       sx={{ backgroundColor: 'error.main' }}
-      height={'2rem'}
+      // height={'2rem'}
     >
       <Stack direction={'row'} p={'0 1rem'}>
         <Typography
-          fontSize={'1rem'}
+          fontSize={'.875rem'}
           fontWeight={'bold'}
-          color={'white'}
-          p={'0rem .4rem '}
+          // color={'white'}
+          p={'.25rem .4rem '}
         >
-          {data.dealType || 'Welcome Deal'}
+          {'Welcome Deal'}
         </Typography>
         <Box></Box>
       </Stack>

@@ -8,7 +8,7 @@ export interface Product {
   name: string;
   description: string;
   price: number;
-  ratings?: Rating;
+  rating?: Rating;
   productCategory: string;
   tags: string[];
   images?: Image;
@@ -26,7 +26,7 @@ export class GetProduct {
   private name: string;
   private description: string;
   private price: number;
-  private ratings?: Rating;
+  private rating?: Rating;
   private productCategory: string;
   private tags: string[];
   private images?: Image;
@@ -38,7 +38,7 @@ export class GetProduct {
     this.name = product.name;
     this.description = product.description;
     this.price = product.price;
-    this.ratings = product.ratings;
+    this.rating = product.rating;
     this.productCategory = product.productCategory;
     this.tags = product.tags;
     this.images = product.images;
@@ -116,10 +116,11 @@ export class GetProduct {
     return {
       id: this.id,
       name: this.name,
+      description: this.description,
       price: this.price,
       discountedPrice: this.getDiscountedPrice,
-      ratings: this.ratings?.average,
-      images: this.images?.images[0],
+      rating: this.rating?.average,
+      images: this.images,
       shipping: this.getShippingDiscount,
     };
   }

@@ -12,11 +12,10 @@ import mongoose from 'mongoose';
 import { GetDiscount } from '@/model/discountModel';
 import useDiscountStore from '@/store/discount';
 import { ShippingState } from '@/model/productModel';
-import Link from 'next/link';
 
 interface ProductDataProps {
   id: mongoose.Types.ObjectId;
-  ratings?: number;
+  rating?: number;
   images?: string;
   price: number;
   discountedPrice: (discounts: GetDiscount[]) => number;
@@ -122,8 +121,8 @@ export default function ProductCard({
                     spacing={1}
                     alignItems={'center'}
                   >
-                    {product.ratings ? (
-                      <ProductRating ratingValue={product.ratings} />
+                    {product.rating ? (
+                      <ProductRating ratingValue={product.rating} />
                     ) : (
                       <></>
                     )}

@@ -8,21 +8,30 @@ import { useEffect } from "react";
 import useProductStore from "@/store/product";
 import { LANG } from "@/store/user";
 import useDiscountStore from "@/store/discount";
-import axios from "axios";
-import { GetProduct } from "@/model/productModel";
+import { IProductForPage } from "@/model/productModel";
 import getProduct from "@/hooks/getProduct";
 
-function Product({ product }: { product: any }) {
-  const { products, setProducts, page, limit, nextPage, prevPage } =
-    useProductStore();
+function Product({ item }: { item: IProductForPage }) {
+  const {
+    product,
+    products,
+    setProducts,
+    setProduct,
+    page,
+    limit,
+    nextPage,
+    prevPage,
+  } = useProductStore();
   const { deal, discount, setDiscount, setDeal } = useDiscountStore();
 
-  console.log(new GetProduct(product), "from the props");
-
+  console.log(product);
   useEffect(() => {
     setProducts({ limit, lang: LANG.en, page });
     setDiscount();
     setDeal();
+    if (item) {
+      setProduct(item);
+    }
   }, [page]);
 
   return (
@@ -43,7 +52,6 @@ function Product({ product }: { product: any }) {
             <Box p={"1rem"} display={"flex"} gap={"1rem"}>
               {products.map((product) => {
                 const p = product.getProductForCard();
-                console.log(p.id);
                 return (
                   <Box
                     key={p.id.toString()}
@@ -97,9 +105,9 @@ function Product({ product }: { product: any }) {
                       )}
                     </Box>
 
-                    {p.ratings.average ? (
+                    {p.rating?.average ? (
                       <Typography color={"text.primary"}>
-                        {p.ratings.average}
+                        {p.rating.average}
                       </Typography>
                     ) : (
                       <></>
@@ -154,11 +162,11 @@ function Product({ product }: { product: any }) {
 export default Product;
 
 export async function getStaticProps() {
-  const product = await getProduct({ productId: "65cbb7eedbb6c540322a61ce" });
+  const item = await getProduct({ productId: "65cbb7eedbb6c540322a61ce" });
 
   return {
     props: {
-      product,
+      item,
     },
   };
 }

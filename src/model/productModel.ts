@@ -31,28 +31,45 @@ export interface IProduct {
   name: string;
   description: string;
   price: number;
-  ratings: Rating;
-  productCategory: ObjectId | IProductCategory;
   tags: string[];
-  images: { images: ObjectId } & Image;
-  reviews: ObjectId[] & IReview[];
+  images: Image;
   popularity: number;
   sold: number;
-  productVariants: ObjectId[] & IProductVariant[];
+  ratings: Rating;
 }
+
+export type IProductForPage = IProduct & {
+  productCategory: IProductCategory;
+  productVariants: IProductVariant[];
+  reviews: IReview[];
+};
+
+export type IProductForCard = IProduct & {
+  productCategory: ObjectId;
+  productVariants: ObjectId[];
+  reviews: ObjectId[];
+};
 
 export interface IReturnedProduct {
   id: ObjectId;
   name: string;
   price: number;
   discountedPrice: (discounts: GetDiscount[]) => IAfterDiscountAndPercent;
-  ratings: Rating;
-  images: { images: ObjectId } & Image;
+  rating: Rating;
+  images: Image;
   shipping: (discounts: GetDiscount[]) => ShippingState;
   deals: (discounts: GetDiscount[]) => string;
-  productVariants: ObjectId[];
-  reviews: ObjectId[];
 }
+
+export type IReturnedProductForCard = {
+  reviews: ObjectId[];
+  productVariants: ObjectId[];
+} & IReturnedProduct;
+
+export type IReturnedProductForPage = {
+  reviews: IReview[];
+  productVariants: IProductVariant[];
+} & IReturnedProduct;
 
 export enum EVariantType {
   sub = "sub",
@@ -60,9 +77,9 @@ export enum EVariantType {
 }
 
 export interface IProductVariant {
-  id: ObjectId;
-  value: String;
-  stockVarietyType: String;
+  _id: ObjectId;
+  value: string;
+  stockVarietyType: string;
   product: ObjectId;
   imageIndex: number;
   type: EVariantType;
@@ -82,32 +99,26 @@ export interface IAfterDiscountAndPercent {
 }
 
 export class GetProduct {
-  private id: ObjectId;
-  private name: string;
-  private description: string;
-  private productCategory: ObjectId | IProductCategory;
-  private tags: string[];
-  private price: number;
-  private images: { images: ObjectId } & Image;
-  private ratings: Rating;
-  private reviews: ObjectId[] & IReview[];
-  private popularity: number;
-  private sold: number;
-  private productVariants: ObjectId[] & IProductVariant[];
+  public id: ObjectId;
+  public name: string;
+  public description: string;
+  public tags: string[];
+  public price: number;
+  public images: Image;
+  public rating: Rating;
+  public popularity: number;
+  public sold: number;
 
   constructor(product: IProduct) {
     this.id = product.id;
     this.name = product.name;
     this.description = product.description;
-    this.productCategory = product.productCategory;
     this.tags = product.tags;
     this.price = product.price;
     this.images = product.images;
-    this.ratings = product.ratings;
-    this.reviews = product.reviews;
+    this.rating = product.ratings;
     this.popularity = product.popularity;
     this.sold = product.sold;
-    this.productVariants = product.productVariants;
   }
 
   getShippingDiscount(discounts: GetDiscount[]): ShippingState {
@@ -203,16 +214,65 @@ export class GetProduct {
 
     return dealName;
   }
+}
 
-  getProductVariants() {}
+export class GetProductForCard extends GetProduct {
+  private reviews: ObjectId[];
+  private productCategory: ObjectId;
+  private productVariants: ObjectId[];
 
-  getProductForCard(): IReturnedProduct {
+  constructor(
+    product: IProduct,
+    reviews: ObjectId[],
+    productCategory: ObjectId,
+    productVariants: ObjectId[]
+  ) {
+    super(product);
+    this.reviews = reviews;
+    this.productCategory = productCategory;
+    this.productVariants = productVariants;
+  }
+
+  getProductForCard(): IReturnedProductForCard {
     return {
       id: this.id,
       name: this.name,
       price: this.price,
       discountedPrice: this.getDiscountedPriceAndPercent,
-      ratings: this.ratings,
+      rating: this.rating,
+      images: this.images,
+      shipping: this.getShippingDiscount,
+      deals: this.getDeals,
+      productVariants: this.productVariants,
+      reviews: this.reviews,
+    };
+  }
+}
+
+export class GetProductForPage extends GetProduct {
+  private reviews: IReview[];
+  private productCategory: IProductCategory;
+  private productVariants: IProductVariant[];
+
+  constructor(
+    product: IProduct,
+    reviews: IReview[],
+    productCategory: IProductCategory,
+    productVariants: IProductVariant[]
+  ) {
+    super(product);
+    this.reviews = reviews;
+    this.productCategory = productCategory;
+    this.productVariants = productVariants;
+  }
+
+  getProductForCard(): IReturnedProductForPage {
+    return {
+      id: this.id,
+      name: this.name,
+      price: this.price,
+      discountedPrice: this.getDiscountedPriceAndPercent,
+      rating: this.rating,
       images: this.images,
       shipping: this.getShippingDiscount,
       deals: this.getDeals,

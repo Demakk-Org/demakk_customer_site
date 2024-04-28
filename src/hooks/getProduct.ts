@@ -1,4 +1,3 @@
-import { GetProduct, IProduct } from "@/model/productModel";
 import { LANG } from "@/store/user";
 import axios from "axios";
 import { ObjectId } from "mongoose";
@@ -19,16 +18,19 @@ const getProduct = async ({
   page,
   lang,
 }: GetProductProps) => {
-  const { data } = await axios.get(
-    `${local}/product/${productId}?${limit && `limit=${limit}`}&${
-      page && `page=${page}`
-    }&${lang && `lang=${lang}`}`
-  );
+  try {
+    const { data } = await axios.get(
+      `${local}/product/${productId}?${limit && `limit=${limit}`}&${
+        page && `page=${page}`
+      }&${lang && `lang=${lang}`}`
+    );
 
-  console.log(data.data, "from hook");
-
-  const product = data.data;
-  return product;
+    const product = data.data;
+    return product;
+  } catch (err: any) {
+    console.log(err.message);
+    return null;
+  }
 };
 
 export default getProduct;

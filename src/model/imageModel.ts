@@ -1,10 +1,11 @@
-import mongoose from "mongoose";
+import mongoose, { ObjectId } from "mongoose";
 
 export interface Image {
-  rid: mongoose.Types.ObjectId;
+  rid: ObjectId;
   type: string;
   name: string;
   description: string;
   imageUrls: string[];
   primary: number;
+  _id: ObjectId;
 }

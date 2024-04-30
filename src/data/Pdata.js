@@ -4,7 +4,6 @@ const Pdata = [
   '/assets/images/product2.webp',
   '/assets/images/product7.webp',
   '/assets/images/product6.webp',
-  '/assets/images/product7.webp',
 ];
 // products: [
 //   {

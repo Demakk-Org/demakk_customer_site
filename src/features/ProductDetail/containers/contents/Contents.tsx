@@ -1,11 +1,12 @@
 import React from 'react';
 import Deal from '../../components/Deal';
-import { Box, Stack } from '@mui/material';
+import { Box, Divider, Stack } from '@mui/material';
 import ItemPrice from '../../components/ItemPrice';
 import ExtraDiscount from '../../components/ExtraDiscount';
 import FreeshipingChoice from '../../components/FreeshipingChoice';
 import ItemDescription from '../../components/ItemDescription';
 import RatingAndReview from '../../components/RatingAndReview';
+import ColorChoice from '../../components/ColorChoice';
 
 export default function Contents() {
   return (
@@ -30,6 +31,8 @@ export default function Contents() {
       <ItemDescription />
       {/* Rating and reviws */}
       <RatingAndReview />
+      <Divider sx={{ m: '1rem 0rem' }} />
+      <ColorChoice />
     </Box>
   );
 }

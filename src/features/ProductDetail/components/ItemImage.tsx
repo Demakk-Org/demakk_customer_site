@@ -120,7 +120,8 @@ const ItemImage = () => {
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
         onMouseMove={handleMouseMove}
-        sx={{ aspectRatio: 1 }}
+        borderRadius={'.5rem'}
+        sx={{ aspectRatio: 1, mb: '2rem' }}
       >
         <Box
           component={'img'}
@@ -147,10 +148,18 @@ const ItemImage = () => {
             },
           }}
         />
-        <Box position={'absolute'}></Box>
+        <Box
+          position={'absolute'}
+          width={1}
+          height={1}
+          top={0}
+          left={0}
+          sx={{ bgcolor: 'background.productbg' }}
+        ></Box>
       </Box>
 
       <Box
+        position={'relative'}
         justifyContent={'center'}
         width={1}
         mt={'1rem'}
@@ -174,9 +183,6 @@ const ItemImage = () => {
             }}
             onClick={() => setMainImage(images)}
           />
-
-          //   {images}
-          // </Stack>
         ))}
       </Box>
     </>

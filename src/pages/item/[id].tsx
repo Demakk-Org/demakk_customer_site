@@ -64,7 +64,7 @@ export const getStaticProps = (async (context: any) => {
   );
   const product = await res.json();
   const item: Product = product.data;
-  console.log(item);
+  // console.log(item);
   // const product = new GetProduct(repo.data);
 
   // console.log(product);

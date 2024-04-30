@@ -1,14 +1,18 @@
 import React from 'react';
 import { Typography, Stack } from '@mui/material';
 import getPrice from '@/utils/getPrice';
+import useProductStore from '@/store/product';
+import useDiscountStore from '@/store/discount';
 
-interface priceProps {
-  discountedPrice: number | string;
-  price: number;
-}
+// interface priceProps {
+//   discountedPrice: number | string;
+//   price: number;
+// }
 
-export default function SellingPrice({ price, discountedPrice }: priceProps) {
-  // const { int, dec } = getPrice();
+export default function SellingPrice() {
+  const { product } = useProductStore();
+  const { discount } = useDiscountStore();
+  const item = product?.getProductforCard();
 
   return (
     <>
@@ -18,44 +22,77 @@ export default function SellingPrice({ price, discountedPrice }: priceProps) {
         alignItems={'baseline'}
         sx={{ flexWrap: 'wrap' }}
       >
-        <Typography
-          mr={'.5rem'}
-          sx={{
-            display: 'flex',
-            alignItems: 'baseline',
-            '.currency': {
-              fontSize: '.75rem',
-              fontWeight: 'bold',
-            },
-            '.price-int': {
-              fontSize: '1.5rem',
-              fontWeight: 'bold',
-            },
-            '.price-dec': {
-              fontSize: '.75rem',
-              fontWeight: 'bold',
-            },
-          }}
-        >
-          <span className="currency">ETB</span>
-          <span className="price-int">
-            {getPrice(discountedPrice || price).int}
-          </span>
-          <span className="price-dec">
-            .{getPrice(discountedPrice || price).dec}
-          </span>
-        </Typography>
-
-        {discountedPrice ? (
+        {item?.discountedPrice(discount) ? (
           <Typography
-            fontSize={'.75rem'}
+            mr={'.5rem'}
+            sx={{
+              display: 'flex',
+              alignItems: 'baseline',
+              color: 'text.price',
+              '.currency': {
+                fontSize: '1.5rem',
+                fontWeight: 'bold',
+              },
+              '.price-int': {
+                fontSize: '2.5rem',
+                fontWeight: 'bold',
+              },
+              '.price-dec': {
+                fontSize: '1.5rem',
+                fontWeight: 'bold',
+              },
+            }}
+          >
+            <span className="currency">ETB</span>
+            <span className="price-int">
+              {getPrice(item?.discountedPrice(discount)).int}
+            </span>
+            <span className="price-dec">
+              .{getPrice(item?.discountedPrice(discount)).dec}
+            </span>
+          </Typography>
+        ) : (
+          <Typography
+            mr={'.5rem'}
+            sx={{
+              display: 'flex',
+              alignItems: 'baseline',
+              color: 'text.price',
+              '.currency': {
+                fontSize: '1.5rem',
+                fontWeight: 'bold',
+              },
+              '.price-int': {
+                fontSize: '3rem',
+                fontWeight: 'bold',
+              },
+              '.price-dec': {
+                fontSize: '1.5rem',
+                fontWeight: 'bold',
+              },
+            }}
+          >
+            <span className="currency">ETB</span>
+            <span className="price-int">
+              {getPrice(item ? item.price : 0).int}
+            </span>
+            <span className="price-dec">
+              .{getPrice(item ? item.price : 0).dec}
+            </span>
+          </Typography>
+        )}
+
+        {item?.discountedPrice(discount) ? (
+          <Typography
+            // fontSize={'1rem'}
+            fontWeight={'bold'}
             sx={{
               textDecoration: 'line-through',
               color: 'text.oldPrice',
-              fontSize: '.75rem',
+              fontSize: '.875rem',
             }}
           >
-            ETB{getPrice(price).int}.{getPrice(price).dec}
+            ETB{getPrice(item.price).int}.{getPrice(item.price).dec}
           </Typography>
         ) : (
           <></>

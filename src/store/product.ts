@@ -27,7 +27,9 @@ const useProductStore = create<ProductStoreProps>((set) => ({
 
   setProducts: async (value) => {
     ///get from the database ansd set to the store
+    console.log('from setProduct');
     const productList: GetProduct[] = await getProducts(value);
+
     set({ products: productList });
   },
 

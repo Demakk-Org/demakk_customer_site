@@ -7,10 +7,12 @@ import useProductStore from '@/store/product';
 export default function ItemDescription() {
   const { product } = useProductStore();
   return (
-    <div>
-      <Stack>
-        <Typography>{product?.getProductforCard().description}</Typography>
-      </Stack>
-    </div>
+    <Typography
+      variant="body1"
+      fontWeight={'bold'}
+      sx={{ m: '.5rem 0', lineHeight: 1.25 }}
+    >
+      {product?.getProductforCard().description}
+    </Typography>
   );
 }

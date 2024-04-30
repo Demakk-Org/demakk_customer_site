@@ -47,7 +47,7 @@ function Product() {
                   >
                     <Avatar
                       variant="square"
-                      src={p?.images?.images[0] && p?.images.images[0]}
+                      src={p?.images?.imageUrls[0] && p?.images.images[0]}
                       sx={{ width: 80, height: 80 }}
                     />
                     <Typography color={'text.primary'}>

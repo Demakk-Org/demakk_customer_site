@@ -1,14 +1,17 @@
+import useProductStore from '@/store/product';
 import { Typography, Rating, Stack } from '@mui/material';
 
-interface RatingProps {
-  ratingValue: number;
-}
-export default function ProductRating({ ratingValue }: RatingProps) {
+// interface RatingProps {
+//   ratingValue: number;
+// }
+export default function ProductRating() {
+  const {product} = useProductStore()
+  const data = product?.getProductforCard()
   return (
     <>
       <Rating
         max={5}
-        value={ratingValue}
+        value={data?.rating}
         precision={0.5}
         readOnly
         sx={{
@@ -24,14 +27,14 @@ export default function ProductRating({ ratingValue }: RatingProps) {
       >
         <Rating
           max={1}
-          value={ratingValue}
+          value={data?.rating}
           precision={0.1}
           readOnly
           sx={{
             fontSize: '.8rem',
           }}
         />
-        <Typography fontSize={'.75rem'}>{ratingValue}</Typography>
+        <Typography fontSize={'.75rem'}>{data?.rating}</Typography>
       </Stack>
     </>
   );

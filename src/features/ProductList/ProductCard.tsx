@@ -1,5 +1,5 @@
 import { Button, Card, CardMedia, Typography, Box, Stack } from '@mui/material';
-import React from 'react';
+import React, { useEffect } from 'react';
 import ShippingChoice from './components/ShippingChoice';
 import TopSellingCard from './components/TopSellingCard';
 import SoldQuantity from './components/SoldQuantity';
@@ -12,6 +12,8 @@ import mongoose from 'mongoose';
 import { GetDiscount } from '@/model/discountModel';
 import useDiscountStore from '@/store/discount';
 import { ShippingState } from '@/model/productModel';
+import { Image } from '../../model/imageModel';
+import useProductStore from '@/store/product';
 
 interface ProductDataProps {
   id: mongoose.Types.ObjectId;
@@ -37,7 +39,13 @@ export default function ProductCard({
 }: {
   product: ProductDataProps;
 }) {
-  const { discount } = useDiscountStore();
+  //   const { discount } = useDiscountStore();
+  // const { products } = useProductStore();
+
+  // useEffect(()=> {
+  // setProduct(products);
+  // }, [])
+
   return (
     <Box position="relative">
       <Box
@@ -121,24 +129,20 @@ export default function ProductCard({
                     spacing={1}
                     alignItems={'center'}
                   >
-                    {product.rating ? (
-                      <ProductRating ratingValue={product.rating} />
-                    ) : (
-                      <></>
-                    )}
-                    {product.numberOfSold ? (
+                    {product.rating ? <ProductRating /> : <></>}
+                    {/* {product.numberOfSold ? (
                       <SoldQuantity numOfSold={product.numberOfSold || 50} />
                     ) : (
                       <></>
-                    )}
+                    )} */}
                   </Stack>
-                  {!product.topSelling?.status && (
+                  {/* {!product.topSelling?.status && (
                     <TopSellingCard
                       // topSoldItem={product.topSoldItem}
                       days={product.topSelling?.days}
                       // numOfSold={product.numberOfSold}
                     />
-                  )}
+                  )} */}
                 </Stack>
 
                 <Stack
@@ -147,25 +151,22 @@ export default function ProductCard({
                   alignItems={'baseline'}
                   justifyContent={'flex-start'}
                 >
-                  <SellingPrice
-                    discountedPrice={product.discountedPrice(discount)}
-                    price={product.price}
-                  />
+                  <SellingPrice />
                 </Stack>
               </Stack>
             </Stack>
             <Stack direction={'row'} spacing={0.5} alignItems={'center'}>
-              <DealsContainer
+              {/* <DealsContainer
                 deal={product.dealType || 'welcome deal'}
                 extraDiscount={product.extraDiscount || 25}
                 discountPercent={product.discountPercent || 50}
-              />
+              /> */}
             </Stack>
             <Stack>
-              <ShippingChoice
+              {/* <ShippingChoice
                 choice={product.choice || true}
                 freeShippingPrice={product.shipping(discount).above}
-              />
+              /> */}
             </Stack>
           </Stack>
 

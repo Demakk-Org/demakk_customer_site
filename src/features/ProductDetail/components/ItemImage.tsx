@@ -45,11 +45,13 @@
 import React, { useState } from 'react';
 import Box from '@mui/material/Box';
 import useProductStore from '@/store/product';
+import Pdata from '@/data/Pdata';
 
 const ItemImage = () => {
+  const [mainImage, setMainImage] = useState(Pdata[0]);
+
   const { product } = useProductStore();
 
-  
   const [zoomWidth, setZoomWidth] = useState<number | null>(null);
   const [imgPosition, setImgPosition] = useState({ top: 0, left: 0 });
 
@@ -108,43 +110,76 @@ const ItemImage = () => {
   }, []);
 
   return (
-    <Box
-      className="img-cont"
-      width={1}
-      position="relative"
-      overflow={'hidden'}
-      // maxHeight={'400px'}
-      onMouseEnter={handleMouseEnter}
-      onMouseLeave={handleMouseLeave}
-      onMouseMove={handleMouseMove}
-      sx={{ aspectRatio: 1 }}
-    >
+    <>
       <Box
-        component={'img'}
-        className="imgElem"
-        position={'absolute'}
+        className="img-cont"
         width={1}
-        // height={1}
-        display={'block'}
-        src={
-          product?.getProductforCard().images?.images[
-            product.getProductforCard().images?.primary || 0
-          ]
-        }
-        alt={'image of a product'}
-        sx={{
-          width: zoomWidth ? `${zoomWidth}%` : '100%',
-          position: 'relative',
-          top: `${imgPosition.top}px`,
-          left: `${imgPosition.left}px`,
-          '&:hover': {
-            // display: 'bock',
-            cursor: 'pointer',
-          },
-        }}
-      />
-      <Box position={'absolute'}></Box>
-    </Box>
+        position="relative"
+        overflow={'hidden'}
+        // maxHeight={'400px'}
+        onMouseEnter={handleMouseEnter}
+        onMouseLeave={handleMouseLeave}
+        onMouseMove={handleMouseMove}
+        sx={{ aspectRatio: 1 }}
+      >
+        <Box
+          component={'img'}
+          className="imgElem"
+          position={'absolute'}
+          width={1}
+          // height={1}
+          display={'block'}
+          src={
+            // product?.getProductforCard().images?.imageUrls[
+            //   product.getProductforCard().images.primary
+            // ]
+            mainImage
+          }
+          alt={'image of a product'}
+          sx={{
+            width: zoomWidth ? `${zoomWidth}%` : '100%',
+            position: 'relative',
+            top: `${imgPosition.top}px`,
+            left: `${imgPosition.left}px`,
+            '&:hover': {
+              // display: 'bock',
+              cursor: 'pointer',
+            },
+          }}
+        />
+        <Box position={'absolute'}></Box>
+      </Box>
+
+      <Box
+        justifyContent={'center'}
+        width={1}
+        mt={'1rem'}
+        // overflow-x={'auto'}
+        gap={'.5rem'}
+        display={{ xs: 'none', sm: 'flex' }}
+        sx={{ overflowX: 'auto' }}
+      >
+        {Pdata.map((images) => (
+          <Box
+            component="img"
+            src={images}
+            height={'50px'}
+            width={'50px'}
+            key={images}
+            sx={{
+              '&:hover': {
+                border: '.1rem solid black',
+              },
+              bgcolor: 'background.productbg',
+            }}
+            onClick={() => setMainImage(images)}
+          />
+
+          //   {images}
+          // </Stack>
+        ))}
+      </Box>
+    </>
   );
 };
 

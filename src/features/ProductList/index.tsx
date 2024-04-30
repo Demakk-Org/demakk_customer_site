@@ -8,18 +8,16 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 
 export default function ProductListing() {
-  const router = useRouter();
-
   const { products, setProducts, page, limit, nextPage, prevPage } =
     useProductStore();
-
+  console.log(products, 'from productListing');
   const { discount, setDiscount } = useDiscountStore();
 
-  console.log(products);
   useEffect(() => {
     setProducts({ limit, lang: LANG.en, page });
     setDiscount();
-  }, []);
+  }, [page]);
+  // console.log(products);
 
   return (
     <Grid
@@ -29,10 +27,10 @@ export default function ProductListing() {
       mt="1.5rem"
       mb={'2.5rem'}
     >
-      {products.map((productData) => {
+      {products?.map((productData) => {
         const product = productData.getProductforCard();
-        console.log(product);
-        console.log(product.discountedPrice(discount));
+        console.log('from product item list', product);
+        // console.log(product.);
         return (
           <Grid
             item
@@ -43,10 +41,7 @@ export default function ProductListing() {
             key={product.id.toString()}
           >
             <Link href={`/item/${product.id}`}>
-              <ProductCard
-                product={product}
-                // onClick={() => router.push(`/item/${product.id}`)}
-              />
+              <ProductCard product= {product} />
             </Link>
           </Grid>
         );

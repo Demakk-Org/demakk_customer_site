@@ -11,7 +11,7 @@ export interface Product {
   rating?: Rating;
   productCategory: string;
   tags: string[];
-  images?: Image;
+  images: Image;
   reviews?: mongoose.Types.ObjectId;
   popularity: number;
 }
@@ -29,7 +29,7 @@ export class GetProduct {
   private rating?: Rating;
   private productCategory: string;
   private tags: string[];
-  private images?: Image;
+  private images: Image;
   private reviews?: mongoose.Types.ObjectId;
   private popularity: number;
 

@@ -23,6 +23,8 @@ export default function ItemPrice() {
               fontWeight: 'bold',
             },
             '.price-int': {
+              fontFamily:
+                'Open Sans, Roboto, Arial, Helvetica, sans-serif, SimSun',
               fontSize: '2.5rem',
               fontWeight: 'bold',
             },

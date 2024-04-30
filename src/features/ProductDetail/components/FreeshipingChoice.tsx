@@ -11,23 +11,30 @@ export default function FreeshipingChoice() {
       <Stack>
         <Typography
           sx={{
+            backgroundColor: 'demakkSecondary.main',
+            minWidth: 'max-content',
+            borderRadius: '.5rem',
+            marginTop: '.5rem',
+            // fontSize: '.6rem',
+            // fontWeight: 'bold',
             '.choice': {
               minWidth: 'max-content',
               p: '0rem .4rem ',
-              fontSize: '.65rem',
+              fontSize: '.875rem',
               fontWeight: 'bold',
               backgroundColor: 'demakkSecondary.main',
-              borderRadius: '.2rem',
+              borderRadius: '.5rem',
             },
-            minWidth: 'max-content',
-            fontSize: '.875rem',
           }}
         >
           <Typography component={'span'} className="choice" mr={'.25rem'}>
             Choice
           </Typography>
           {product?.getProductforCard().shipping(discount).status && (
-            <Typography color={'text.primary'}>
+            <Typography
+              color={'text.primary'}
+              sx={{ fontSize: '.75rem', fontWeight: 'bold', padding: '.5rem' }}
+            >
               Free shipping{' '}
               {product?.getProductforCard().shipping(discount).above > 0 &&
                 ` over $${

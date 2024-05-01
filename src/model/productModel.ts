@@ -1,6 +1,7 @@
-import mongoose from "mongoose";
-import { Rating } from "./ratingModel";
-import { Image } from "./imageModel";
+import mongoose from 'mongoose';
+import { Rating } from './ratingModel';
+import { Image } from './imageModel';
+import { DiscountType, GetDiscount, ReturnedDiscount } from './discountModel';
 
 export interface Product {
   id: mongoose.Types.ObjectId;
@@ -13,6 +14,11 @@ export interface Product {
   images?: Image;
   reviews?: mongoose.Types.ObjectId;
   popularity: number;
+}
+
+export interface ShippingState {
+  status: boolean;
+  above: number;
 }
 
 export class GetProduct {
@@ -40,8 +46,70 @@ export class GetProduct {
     this.popularity = product.popularity;
   }
 
-  getDiscountList(){
-    
+  // getDiscountList(discounts: GetDiscount[]) {
+  //   let discountList: ReturnedDiscount[] = [];
+  //   discounts.forEach((discount) => {
+  //     let d = discount.getDiscountInfo();
+  //     if (d.products.includes(this.id.toString()) && d.status == "active") {
+  //       discountList.push(d);
+  //     }
+  //   });
+
+  //   console.log(discountList);
+  //   return discountList;
+  // }
+
+  getShippingDiscount(discounts: GetDiscount[]): ShippingState {
+    let discountList: ReturnedDiscount[] = [];
+    discounts.forEach((discount) => {
+      let d = discount.getDiscountInfo();
+      if (d.products.includes(this.id.toString()) && d.status == 'active') {
+        discountList.push(d);
+      }
+    });
+
+    let returnPrice: ShippingState = { status: false, above: 0 };
+
+    discountList.forEach((discount) => {
+      console.log(discount.discountType);
+      switch (discount.discountType) {
+        case DiscountType.freeShipping:
+          return (returnPrice = {
+            status: discount.status == 'active',
+            above: discount.discountAmount,
+          });
+        default:
+          return (returnPrice = { status: false, above: 0 });
+      }
+    });
+
+    return returnPrice;
+  }
+
+  getDiscountedPrice(discounts: GetDiscount[]) {
+    let discountList: ReturnedDiscount[] = [];
+    discounts.forEach((discount) => {
+      let d = discount.getDiscountInfo();
+      if (d.products.includes(this.id.toString()) && d.status == 'active') {
+        discountList.push(d);
+      }
+    });
+
+    let returnPrice: number = 0;
+    discountList.forEach((discount) => {
+      console.log(discount.discountType);
+      switch (discount.discountType) {
+        case DiscountType.percentageDiscount:
+          return (returnPrice =
+            this.price - (discount.discountAmount * this.price) / 100);
+        case DiscountType.cashDiscount:
+          return (returnPrice = this.price - discount.discountAmount);
+        default:
+          return (returnPrice = 0);
+      }
+    });
+
+    return returnPrice;
   }
 
   getProductforCard() {

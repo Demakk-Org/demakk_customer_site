@@ -2,7 +2,7 @@ import { Typography } from '@mui/material';
 import React from 'react';
 
 interface numberOfSoldProps {
-  numOfSold: number | undefined;
+  numOfSold?: number;
 }
 
 export default function SoldQuantity({ numOfSold }: numberOfSoldProps) {

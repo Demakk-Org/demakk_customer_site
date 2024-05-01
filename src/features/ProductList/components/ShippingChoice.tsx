@@ -3,7 +3,7 @@ import React from 'react';
 
 interface ShippingChoiceProps {
   choice?: boolean;
-  freeShippingPrice?: number;
+  freeShippingPrice: number;
 }
 
 export default function ShippingChoice({
@@ -12,7 +12,7 @@ export default function ShippingChoice({
 }: ShippingChoiceProps) {
   return (
     <>
-      {choice && (
+      {freeShippingPrice ? (
         <Stack>
           <Typography
             sx={{
@@ -29,12 +29,21 @@ export default function ShippingChoice({
             }}
           >
             <Typography component={'span'} className="choice" mr={'.25rem'}>
-              {choice}
+              Choice
             </Typography>
             Free shipping
+            {freeShippingPrice ? (
+              <Typography component={'span'}>
+                {' '}
+                over ETB{freeShippingPrice}
+              </Typography>
+            ) : (
+              <></>
+            )}
           </Typography>
-          <Typography> over ETB{freeShippingPrice}</Typography>
         </Stack>
+      ) : (
+        <></>
       )}
     </>
   );

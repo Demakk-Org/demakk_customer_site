@@ -244,6 +244,7 @@ const lightTheme = createTheme(lTheme, {
       lighter: '#d0d0d099',
       reddish: '#ffc7b899',
       gray: 'rgba(210, 204, 204, 0.6)',
+      productbg: 'rgba(0, 0, 0, 0.04)',
     },
     demakkPrimary: lTheme.palette.augmentColor({
       color: {

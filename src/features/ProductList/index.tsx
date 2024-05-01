@@ -1,18 +1,22 @@
 import React, { useEffect, useState } from 'react';
 import { Box, Grid } from '@mui/material';
-import Pdata from '@/data/Pdata';
 import ProductCard from './ProductCard';
 import useProductStore from '@/store/product';
-import axios from 'axios';
 import { LANG } from '@/store/user';
+import useDiscountStore from '@/store/discount';
+import Link from 'next/link';
 
 export default function ProductListing() {
   const { products, setProducts, page, limit, nextPage, prevPage } =
     useProductStore();
+
+  const { discount, setDiscount } = useDiscountStore();
+
   console.log(products);
   useEffect(() => {
     setProducts({ limit, lang: LANG.en, page });
-  }, [limit, page, setProducts]);
+    setDiscount();
+  }, []);
 
   return (
     <Grid
@@ -23,8 +27,9 @@ export default function ProductListing() {
       mb={'2.5rem'}
     >
       {products.map((productData) => {
-        const pro = productData.getProductforCard();
-        console.log(pro);
+        const product = productData.getProductforCard();
+        console.log(product);
+        console.log(product.discountedPrice(discount));
         return (
           <Grid
             item
@@ -32,9 +37,11 @@ export default function ProductListing() {
             xs={6}
             sm={4}
             md={2.4}
-            key={pro.id.toString()}
+            key={product.id.toString()}
           >
-            <ProductCard product={pro} />
+            <Link href={`/item/${product.id}`}>
+              <ProductCard product={product} />
+            </Link>
           </Grid>
         );
       })}

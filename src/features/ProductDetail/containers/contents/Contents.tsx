@@ -7,6 +7,7 @@ import FreeshipingChoice from '../../components/FreeshipingChoice';
 import ItemDescription from '../../components/ItemDescription';
 import RatingAndReview from '../../components/RatingAndReview';
 import ColorChoice from '../../components/ColorChoice';
+import Size from '../../components/Size';
 
 export default function Contents() {
   return (
@@ -33,6 +34,8 @@ export default function Contents() {
       <RatingAndReview />
       <Divider sx={{ m: '1rem 0rem' }} />
       <ColorChoice />
+      <Divider sx={{ m: '1rem 0rem' }} />
+      <Size />
     </Box>
   );
 }

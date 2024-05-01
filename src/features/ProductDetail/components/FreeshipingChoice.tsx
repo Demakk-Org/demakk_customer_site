@@ -15,8 +15,6 @@ export default function FreeshipingChoice() {
             minWidth: 'max-content',
             borderRadius: '.5rem',
             marginTop: '.5rem',
-            // fontSize: '.6rem',
-            // fontWeight: 'bold',
             '.choice': {
               minWidth: 'max-content',
               p: '0rem .4rem ',

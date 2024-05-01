@@ -19,7 +19,6 @@ import useProductStore from '@/store/product';
 import useDiscountStore from '@/store/discount';
 import { LANG } from '@/store/user';
 import RelatedItemListing from './containers/relatedItemCard/RelatedItemListing';
-// import RelatedItemListing from './containers/relatedItemCard/relatedItemListing';
 
 export default function DetailsPage() {
   const { products, setProducts, page, limit, nextPage, prevPage } =
@@ -33,9 +32,7 @@ export default function DetailsPage() {
   }, [page]);
   return (
     <>
-      <Box overflow="auto">
-        {/* <NavBar /> */}
-
+      <Box>
         {/* container for image description and side nav */}
         <Grid
           container
@@ -44,7 +41,7 @@ export default function DetailsPage() {
           m={'2rem'}
         >
           {/* images related items description along the column */}
-          <Grid item xs={9} container>
+          <Grid item xs={9} container direction={'column'}>
             {/* image, related images and  description */}
 
             <Grid
@@ -60,7 +57,10 @@ export default function DetailsPage() {
                 <Contents />
               </Grid>
             </Grid>
-            <Divider sx={{ m: '2rem 0rem' }} orientation="horizontal" />
+            <Divider
+              sx={{ mt: '1rem', fontSize: 'bold' }}
+              orientation="horizontal"
+            />
             <RelatedItemListing />
           </Grid>
           {/* for side scrollable nav */}

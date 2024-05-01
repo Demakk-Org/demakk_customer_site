@@ -1,30 +1,38 @@
 import {
   Box,
   Button,
-  Container,
   Divider,
-  Drawer,
   Grid,
   Paper,
-  Rating,
   Stack,
-  Toolbar,
   Typography,
 } from '@mui/material';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 import ShareIcon from '@mui/icons-material/Share';
 
-import NavBar from '../Navbar';
 import Image from './containers/images/ItemImages';
 import Contents from './containers/contents/Contents';
-import { ST } from 'next/dist/shared/lib/utils';
+import Head from 'next/head';
+import RelatedItemCard from './containers/relatedItemCard/RelatedItemCard';
+import { useEffect } from 'react';
+import useProductStore from '@/store/product';
+import useDiscountStore from '@/store/discount';
+import { LANG } from '@/store/user';
+import RelatedItemListing from './containers/relatedItemCard/RelatedItemListing';
 
-export default function DetailsPage({ data }: any) {
+export default function DetailsPage() {
+  const { products, setProducts, page, limit, nextPage, prevPage } =
+    useProductStore();
+  console.log(products, 'from productListing');
+  const { discount, setDiscount } = useDiscountStore();
+
+  useEffect(() => {
+    setProducts({ limit, lang: LANG.en, page });
+    setDiscount();
+  }, [page]);
   return (
     <>
-      <Box overflow="auto">
-        <NavBar />
-
+      <Box>
         {/* container for image description and side nav */}
         <Grid
           container
@@ -32,42 +40,45 @@ export default function DetailsPage({ data }: any) {
           spacing={2}
           m={'2rem'}
         >
-          {/* image, related images and  description */}
-          <Grid
-            item
-            direction={{ xs: 'column', sm: 'row' }}
-            xs={9}
-            container
-            spacing={2}
+          {/* images related items description along the column */}
+          <Grid item xs={9} container direction={'column'}>
+            {/* image, related images and  description */}
 
-            // md={10}
-          >
-            <Grid item xs={5}>
-              <Image data={data} />
+            <Grid
+              item
+              direction={{ xs: 'column', sm: 'row' }}
+              container
+              spacing={2}
+            >
+              <Grid item xs={5}>
+                <Image />
+              </Grid>
+              <Grid item xs={7}>
+                <Contents />
+              </Grid>
             </Grid>
-            <Grid item xs={7}>
-              <Contents data={data} />
-            </Grid>
+            <Divider
+              sx={{ mt: '1rem', fontSize: 'bold' }}
+              orientation="horizontal"
+            />
+            <RelatedItemListing />
           </Grid>
           {/* for side scrollable nav */}
           <Grid
+            position={'relative'}
             item
             display={{ xs: 'none', sm: 'flex' }}
             xs
             //  sx={{ bgcolor: 'blue' }}
           >
-            {/* <Drawer
-              variant="permanent"
-              anchor="right"
-              sx={{ bgcolor: 'blue' }} 
-            >
-              <Toolbar />
-              <Divider />
-            </Drawer> */}
             <Box>
               <Paper
                 elevation={1}
-                sx={{ p: '1rem 1rem 0', maxHeight: 'calc(100vh - 112px)' }}
+                sx={{
+                  p: '1rem 1rem 0',
+                  height: '100vh',
+                  // maxHeight: 'calc(100vh - 112px)'
+                }}
               >
                 <Stack
                   direction={'row'}

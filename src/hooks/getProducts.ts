@@ -1,6 +1,7 @@
 import { GetProduct, Product } from '@/model/productModel';
 import { LANG } from '@/store/user';
 import axios from 'axios';
+import { Console } from 'console';
 
 export interface GetProductProps {
   limit: number;
@@ -17,11 +18,11 @@ const getProducts = async ({ limit, page, lang }: GetProductProps) => {
       lang && `lang=${lang}`
     }`
   );
-
+  console.log('from gerProduct', products);
   const list: GetProduct[] = products.data.data.data.map((product: Product) => {
     product;
     const newProduct = new GetProduct(product);
-    
+
     return newProduct;
   });
 

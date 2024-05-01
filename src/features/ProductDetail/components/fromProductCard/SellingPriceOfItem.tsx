@@ -9,7 +9,7 @@ import useDiscountStore from '@/store/discount';
 //   price: number;
 // }
 
-export default function SellingPrice() {
+export default function SellingPriceOfItem() {
   const { product } = useProductStore();
   const { discount } = useDiscountStore();
   const item = product?.getProductforCard();
@@ -30,15 +30,15 @@ export default function SellingPrice() {
               alignItems: 'baseline',
               color: 'text.price',
               '.currency': {
-                fontSize: '1.5rem',
+                fontSize: '.5rem',
                 fontWeight: 'bold',
               },
               '.price-int': {
-                fontSize: '2.5rem',
+                fontSize: '1rem',
                 fontWeight: 'bold',
               },
               '.price-dec': {
-                fontSize: '1.5rem',
+                fontSize: '.5rem',
                 fontWeight: 'bold',
               },
             }}
@@ -59,15 +59,15 @@ export default function SellingPrice() {
               alignItems: 'baseline',
               color: 'text.price',
               '.currency': {
-                fontSize: '1.5rem',
+                fontSize: '.5rem',
                 fontWeight: 'bold',
               },
               '.price-int': {
-                fontSize: '3rem',
+                fontSize: '1rem',
                 fontWeight: 'bold',
               },
               '.price-dec': {
-                fontSize: '1.5rem',
+                fontSize: '.5rem',
                 fontWeight: 'bold',
               },
             }}

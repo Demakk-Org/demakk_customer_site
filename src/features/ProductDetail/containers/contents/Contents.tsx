@@ -1,17 +1,19 @@
 import React from 'react';
 import Deal from '../../components/Deal';
-import { Stack } from '@mui/material';
+import { Box, Divider, Stack } from '@mui/material';
 import ItemPrice from '../../components/ItemPrice';
 import ExtraDiscount from '../../components/ExtraDiscount';
 import FreeshipingChoice from '../../components/FreeshipingChoice';
 import ItemDescription from '../../components/ItemDescription';
 import RatingAndReview from '../../components/RatingAndReview';
+import ColorChoice from '../../components/ColorChoice';
+import Size from '../../components/Size';
 
-export default function Contents({ data }: any) {
+export default function Contents() {
   return (
-    <div>
+    <Box>
       <Stack>
-        <Deal data={data} />
+        <Deal />
       </Stack>
       {/* price and discount */}
       <Stack
@@ -20,16 +22,20 @@ export default function Contents({ data }: any) {
         alignItems={'baseline'}
         sx={{ flexWrap: 'wrap' }}
       >
-        <ItemPrice data={data} />
+        <ItemPrice />
       </Stack>
       {/* extra discount */}
-      <ExtraDiscount data={data} />
+      <ExtraDiscount />
       {/* choice and freeshipping */}
-      <FreeshipingChoice data={data} />
+      <FreeshipingChoice />
       {/* product description */}
-      <ItemDescription data={data} />
+      <ItemDescription />
       {/* Rating and reviws */}
-      <RatingAndReview data={data} />
-    </div>
+      <RatingAndReview />
+      <Divider sx={{ m: '1rem 0rem' }} />
+      <ColorChoice />
+      <Divider sx={{ m: '1rem 0rem' }} />
+      <Size />
+    </Box>
   );
 }

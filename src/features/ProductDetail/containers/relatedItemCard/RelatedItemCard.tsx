@@ -1,44 +1,10 @@
+import AddToCartButton from '@/features/ProductList/components/AddToCartButton';
 import { Button, Card, CardMedia, Typography, Box, Stack } from '@mui/material';
 import React, { useEffect } from 'react';
-import ShippingChoice from './components/ShippingChoice';
-import TopSellingCard from './components/TopSellingCard';
-import SoldQuantity from './components/SoldQuantity';
-import ProductRating from './components/ProductRating';
-import AddToCartButton from './components/AddToCartButton';
-import DealsContainer from './containers/DealsContainer';
-import SellingPrice from './components/SellingPrice';
-import HoveringButtons from './components/HoveringButtons';
-import mongoose from 'mongoose';
-import { GetDiscount } from '@/model/discountModel';
-import useDiscountStore from '@/store/discount';
-import { ShippingState } from '@/model/productModel';
-import { Image } from '../../model/imageModel';
-import useProductStore from '@/store/product';
+import SellingPriceOfItem from '../../components/fromProductCard/SellingPriceOfItem';
+import HoveringButtons from '../../components/fromProductCard/HoveringButtonsItem';
 
-interface ProductDataProps {
-  id: mongoose.Types.ObjectId;
-  rating?: number;
-  images?: string;
-  price: number;
-  discountedPrice: (discounts: GetDiscount[]) => number;
-  name: string;
-  dealType?: string;
-  numberOfSold?: number;
-  extraDiscount?: number;
-  discountPercent?: number;
-  choice?: boolean;
-  shipping: (discounts: GetDiscount[]) => ShippingState;
-  topSelling?: {
-    status: boolean;
-    days: number;
-  };
-}
-
-export default function ProductCard({
-  product,
-}: {
-  product: ProductDataProps;
-}) {
+export default function RelatedItemCard() {
   //   const { discount } = useDiscountStore();
   // const { products } = useProductStore();
 
@@ -53,7 +19,7 @@ export default function ProductCard({
         width={1}
         sx={{
           '&:hover .buttons': {
-            display: { xs: 'none', sm: 'flex' },
+            display: { xs: 'none', sm: 'inline' },
           },
           '&:hover div .hovered-container': {
             display: { xs: 'none', sm: 'block' },
@@ -84,7 +50,7 @@ export default function ProductCard({
             <CardMedia
               component="img"
               width={1}
-              image={product.images}
+              image={''}
               // alt={product.alt}
               sx={{ borderRadius: '.5rem', aspectRatio: 1 }}
             />
@@ -112,10 +78,10 @@ export default function ProductCard({
               <Typography
                 sx={{ lineHeight: '1.5' }}
                 noWrap
-                title={product.name}
+                title={''}
                 fontSize={'.875rem'}
               >
-                {product.name}
+                product spec
               </Typography>
               <Stack direction={{ xs: 'column-reverse', sm: 'column' }}>
                 <Stack
@@ -129,7 +95,6 @@ export default function ProductCard({
                     spacing={1}
                     alignItems={'center'}
                   >
-                    {product.rating ? <ProductRating /> : <></>}
                     {/* {product.numberOfSold ? (
                       <SoldQuantity numOfSold={product.numberOfSold || 50} />
                     ) : (
@@ -151,7 +116,7 @@ export default function ProductCard({
                   alignItems={'baseline'}
                   justifyContent={'flex-start'}
                 >
-                  <SellingPrice />
+                  <SellingPriceOfItem />
                 </Stack>
               </Stack>
             </Stack>

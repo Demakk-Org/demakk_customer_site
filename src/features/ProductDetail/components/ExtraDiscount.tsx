@@ -1,7 +1,9 @@
+import useDiscountStore from '@/store/discount';
+import useProductStore from '@/store/product';
 import { Stack, Typography } from '@mui/material';
 import React from 'react';
 
-export default function ExtraDiscount({ data }: any) {
+export default function ExtraDiscount() {
   return (
     <div>
       <Stack>
@@ -12,7 +14,7 @@ export default function ExtraDiscount({ data }: any) {
           fontSize={'.7rem'}
           fontWeight={'bold'}
         >
-          Extra {data.extraDiscount || 5}% off with discont
+          Extra % off with discont
         </Typography>
       </Stack>
     </div>

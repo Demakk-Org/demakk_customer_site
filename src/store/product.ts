@@ -1,15 +1,19 @@
-import { create } from 'zustand';
-import getProducts, { GetProductProps } from '@/hooks/getProducts';
-import { GetProduct, Product } from '@/model/productModel';
+import { create } from "zustand";
+import getProducts, { GetProductProps } from "@/hooks/getProducts";
+import {
+  GetProductForPage,
+  GetProductForCard,
+  IProductForPage,
+} from "@/model/productModel";
 
 interface ProductStoreProps {
-  products: GetProduct[];
-  product: GetProduct | null;
+  products: GetProductForCard[];
+  product: GetProductForPage | null;
   page: number;
   limit: number;
 
   setProducts: (props: GetProductProps) => void;
-  setProduct: (value: Product) => void;
+  setProduct: (props: IProductForPage) => void;
   nextPage: () => void;
   prevPage: () => void;
 }
@@ -18,24 +22,19 @@ const useProductStore = create<ProductStoreProps>((set) => ({
   products: [],
   product: null,
   page: 1,
-  limit: 7,
-
-  // setProduct: async (value) => {
-  //   ///get from the database ansd set to the store
-  //   const productList: GetProduct = await getProducts(value);
-  //   set({ products: productList });
-
+  limit: 5,
   setProducts: async (value) => {
-    ///get from the database ansd set to the store
-    console.log('from setProduct');
-    const productList: GetProduct[] = await getProducts(value);
-
+    ///get from the database and set to the store
+    const productList: GetProductForCard[] = await getProducts(value);
     set({ products: productList });
   },
-
-  setProduct: async (value) => {
-    ///get from the database ansd set to the store
-    const product = new GetProduct(value);
+  setProduct: (value) => {
+    const product = new GetProductForPage(
+      value,
+      value.reviews,
+      value.productCategory,
+      value.productVariants
+    );
     set({ product });
   },
   /**

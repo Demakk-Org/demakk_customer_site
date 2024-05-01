@@ -60,19 +60,19 @@ interface DiscountedProduct extends Product {
   discountedPrice: number;
 }
 
-export interface Deal {
-  dealType: DealType;
-  subtitle: string;
-  image?: string;
-  products: GetDiscountProductList;
-}
+// export interface Deal {
+//   dealType: DealType;
+//   subtitle: string;
+//   image?: string;
+//   products: GetDiscountProductList;
+// }
 
-interface DealsContainer {
-  welcomeDeals?: Deal;
-  topBrands?: Deal;
-  bestSellers?: Deal;
-  weeklyDeals?: Deal;
-}
+// interface DealsContainer {
+//   welcomeDeals?: Deal;
+//   topBrands?: Deal;
+//   bestSellers?: Deal;
+//   weeklyDeals?: Deal;
+// }
 
 // export const productCategories: ProductCategory[] = [
 //   {

@@ -21,15 +21,15 @@ import { LANG } from '@/store/user';
 import RelatedItemListing from './containers/relatedItemCard/RelatedItemListing';
 
 export default function DetailsPage() {
-  const { products, setProducts, page, limit, nextPage, prevPage } =
-    useProductStore();
-  console.log(products, 'from productListing');
-  const { discount, setDiscount } = useDiscountStore();
+  // const { products, setProducts, page, limit, nextPage, prevPage } =
+  //   useProductStore();
+  // console.log(products, 'from productListing');
+  // const { discount, setDiscount } = useDiscountStore();
 
-  useEffect(() => {
-    setProducts({ limit, lang: LANG.en, page });
-    setDiscount();
-  }, [page]);
+  // useEffect(() => {
+  //   setProducts({ limit, lang: LANG.en, page });
+  //   setDiscount();
+  // }, [page]);
   return (
     <>
       <Box>

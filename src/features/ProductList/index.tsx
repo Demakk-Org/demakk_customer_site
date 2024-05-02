@@ -28,7 +28,6 @@ export default function ProductListing() {
     >
       {products?.map((productData) => {
         const product = productData.getProductForCard();
-        console.log('from product card', product);
         return (
           <Grid
             item

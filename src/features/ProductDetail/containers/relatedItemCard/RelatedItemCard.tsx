@@ -3,10 +3,13 @@ import { Button, Card, CardMedia, Typography, Box, Stack } from '@mui/material';
 import React, { useEffect } from 'react';
 import SellingPriceOfItem from '../../components/fromProductCard/SellingPriceOfItem';
 import HoveringButtons from '../../components/fromProductCard/HoveringButtonsItem';
+import useProductStore from '@/store/product';
+import useDiscountStore from '@/store/discount';
 
 export default function RelatedItemCard() {
-  //   const { discount } = useDiscountStore();
-  // const { products } = useProductStore();
+  const { product } = useProductStore();
+  const { discount } = useDiscountStore();
+  const item = product?.getProductForCard();
 
   // useEffect(()=> {
   // setProduct(products);
@@ -50,7 +53,7 @@ export default function RelatedItemCard() {
             <CardMedia
               component="img"
               width={1}
-              image={''}
+              image={item?.images.imageUrls[item.images.primary]}
               // alt={product.alt}
               sx={{ borderRadius: '.5rem', aspectRatio: 1 }}
             />

@@ -4,8 +4,8 @@ import React, { useEffect } from 'react';
 
 export default function ProductsDetail({ item }: { item: Product }) {
   const { discount, setDiscount } = useDiscountStore();
-  const { product, setProduct } = useProductStore();
-
+  const { product, setProduct, page, limit, nextPage, prevPage } =
+    useProductStore();
   useEffect(() => {
     // setDiscount();
     setProduct(item);
@@ -45,6 +45,7 @@ import useProductStore from '@/store/product';
 import Head from 'next/head';
 import { Box } from '@mui/material';
 import NavBar from '@/features/Navbar';
+import { LANG } from '@/store/user';
 
 export async function getStaticPaths() {
   const res = await fetch('https://demakk-backend.vercel.app/api/v1/product');
@@ -64,11 +65,6 @@ export const getStaticProps = (async (context: any) => {
   );
   const product = await res.json();
   const item: Product = product.data;
-  // console.log(item);
-  // const product = new GetProduct(repo.data);
-
-  // console.log(product);
-  // return { props: { product: repo.data } };
   return { props: { item } };
 }) satisfies GetStaticProps<{
   item: Product;

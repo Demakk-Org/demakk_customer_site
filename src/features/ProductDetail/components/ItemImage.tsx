@@ -102,7 +102,7 @@ const ItemImage = () => {
           height={1}
           top={0}
           left={0}
-          sx={{ bgcolor: 'background.productbg' }}
+          sx={{ bgcolor: 'background.productBg' }}
         ></Box>
       </Box>
 

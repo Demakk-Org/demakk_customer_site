@@ -82,7 +82,7 @@ export default function SellingPriceOfItem() {
           </Typography>
         )}
 
-        {item?.discountedPrice(discount) ? (
+        {item?.discountedPrice(discount).afterDiscount ? (
           <Typography
             // fontSize={'1rem'}
             fontWeight={'bold'}

@@ -11,35 +11,17 @@ import HoveringButtons from './components/HoveringButtons';
 import mongoose from 'mongoose';
 import { GetDiscount } from '@/model/discountModel';
 import useDiscountStore from '@/store/discount';
-import { ShippingState } from '@/model/productModel';
+import { IReturnedProductForCard, ShippingState } from '@/model/productModel';
 import { Image } from '../../model/imageModel';
 import useProductStore from '@/store/product';
-
-interface ProductDataProps {
-  id: mongoose.Types.ObjectId;
-  rating?: number;
-  images?: string;
-  price: number;
-  discountedPrice: (discounts: GetDiscount[]) => number;
-  name: string;
-  dealType?: string;
-  numberOfSold?: number;
-  extraDiscount?: number;
-  discountPercent?: number;
-  choice?: boolean;
-  shipping: (discounts: GetDiscount[]) => ShippingState;
-  topSelling?: {
-    status: boolean;
-    days: number;
-  };
-}
+import { product1 } from '../../../product';
 
 export default function ProductCard({
   product,
 }: {
-  product: ProductDataProps;
+  product: IReturnedProductForCard;
 }) {
-  //   const { discount } = useDiscountStore();
+  const { discount } = useDiscountStore();
   // const { products } = useProductStore();
 
   // useEffect(()=> {
@@ -84,8 +66,8 @@ export default function ProductCard({
             <CardMedia
               component="img"
               width={1}
-              image={product.images}
-              // alt={product.alt}
+              image={product.images.imageUrls[product.images.primary]}
+              alt={product.images.description}
               sx={{ borderRadius: '.5rem', aspectRatio: 1 }}
             />
             <Box
@@ -129,12 +111,16 @@ export default function ProductCard({
                     spacing={1}
                     alignItems={'center'}
                   >
-                    {product.rating ? <ProductRating /> : <></>}
-                    {/* {product.numberOfSold ? (
-                      <SoldQuantity numOfSold={product.numberOfSold || 50} />
+                    {product.rating ? (
+                      <ProductRating ratingValue={product.rating.average} />
                     ) : (
                       <></>
-                    )} */}
+                    )}
+                    {product.sold ? (
+                      <SoldQuantity numOfSold={product.sold} />
+                    ) : (
+                      <></>
+                    )}
                   </Stack>
                   {/* {!product.topSelling?.status && (
                     <TopSellingCard
@@ -151,14 +137,16 @@ export default function ProductCard({
                   alignItems={'baseline'}
                   justifyContent={'flex-start'}
                 >
-                  <SellingPrice />
+                  <SellingPrice
+                    price={product.price}
+                    discountedPrice={product.discountedPrice}
+                  />
                 </Stack>
               </Stack>
             </Stack>
             <Stack direction={'row'} spacing={0.5} alignItems={'center'}>
               {/* <DealsContainer
-                deal={product.dealType || 'welcome deal'}
-                extraDiscount={product.extraDiscount || 25}
+                deal={product.deals || 'welcome deal'}
                 discountPercent={product.discountPercent || 50}
               /> */}
             </Stack>

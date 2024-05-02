@@ -3,7 +3,9 @@ import axios from 'axios';
 
 const getDiscounts = async () => {
   try {
-    const discounts = await axios.get("http://localhost:8080/api/v1/discount");
+    const discounts = await axios.get(
+      'https://demakk-backend.vercel.app/api/v1/discount'
+    );
 
     const list: GetDiscount[] = discounts.data.data.map(
       (discount: Discount) => {

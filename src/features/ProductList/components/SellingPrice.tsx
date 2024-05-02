@@ -3,16 +3,19 @@ import { Typography, Stack } from '@mui/material';
 import getPrice from '@/utils/getPrice';
 import useProductStore from '@/store/product';
 import useDiscountStore from '@/store/discount';
+import { GetDiscount } from '@/model/discountModel';
+import { IAfterDiscountAndPercent } from '@/model/productModel';
 
-// interface priceProps {
-//   discountedPrice: number | string;
-//   price: number;
-// }
+interface PriceProps {
+  discountedPrice: (discounts: GetDiscount[]) => IAfterDiscountAndPercent;
+  price: number;
+}
 
-export default function SellingPrice() {
-  const { product } = useProductStore();
-  const { discount } = useDiscountStore();
-  const item = product?.getProductforCard();
+export default function SellingPrice({ price, discountedPrice }: PriceProps) {
+  const { discount, setDiscount } = useDiscountStore();
+  // const { product } = useProductStore();
+  // const { discount } = useDiscountStore();
+  // const item = product?.getProductforCard();
 
   return (
     <>
@@ -22,7 +25,7 @@ export default function SellingPrice() {
         alignItems={'baseline'}
         sx={{ flexWrap: 'wrap' }}
       >
-        {item?.discountedPrice(discount) ? (
+        {price ? (
           <Typography
             mr={'.5rem'}
             sx={{
@@ -45,10 +48,10 @@ export default function SellingPrice() {
           >
             <span className="currency">ETB</span>
             <span className="price-int">
-              {getPrice(item?.discountedPrice(discount)).int}
+              {getPrice(discountedPrice(discount).afterDiscount).int}
             </span>
             <span className="price-dec">
-              .{getPrice(item?.discountedPrice(discount)).dec}
+              .{getPrice(discountedPrice(discount).afterDiscount).dec}
             </span>
           </Typography>
         ) : (
@@ -73,16 +76,12 @@ export default function SellingPrice() {
             }}
           >
             <span className="currency">ETB</span>
-            <span className="price-int">
-              {getPrice(item ? item.price : 0).int}
-            </span>
-            <span className="price-dec">
-              .{getPrice(item ? item.price : 0).dec}
-            </span>
+            <span className="price-int">{getPrice(price).int}</span>
+            <span className="price-dec">.{getPrice(price).dec}</span>
           </Typography>
         )}
 
-        {item?.discountedPrice(discount) ? (
+        {discountedPrice(discount).afterDiscount ? (
           <Typography
             // fontSize={'1rem'}
             fontWeight={'bold'}
@@ -92,7 +91,7 @@ export default function SellingPrice() {
               fontSize: '.875rem',
             }}
           >
-            ETB{getPrice(item.price).int}.{getPrice(item.price).dec}
+            ETB{getPrice(price).int}.{getPrice(price).dec}
           </Typography>
         ) : (
           <></>

@@ -1,21 +1,21 @@
-import getDeal from "@/hooks/getDeal";
-import mongoose from "mongoose";
+import getDeal from '@/hooks/getDeal';
+import mongoose, { ObjectId } from 'mongoose';
 
 export enum DiscountType {
-  cashDiscount = "Cash discount",
-  percentageDiscount = "Percentage discount",
-  freeShipping = "Free shipping",
-  volumeDiscount = "Volume discount",
+  cashDiscount = 'Cash discount',
+  percentageDiscount = 'Percentage discount',
+  freeShipping = 'Free shipping',
+  volumeDiscount = 'Volume discount',
 }
 
 export enum DiscountStatus {
-  active = "active",
-  closed = "closed",
-  pending = "pending",
+  active = 'active',
+  closed = 'closed',
+  pending = 'pending',
 }
 
 export interface ReturnedDiscount {
-  id: mongoose.Types.ObjectId;
+  id: ObjectId;
   discountType: string;
   discountAmount: number;
   status: DiscountStatus;
@@ -25,6 +25,7 @@ export interface ReturnedDiscount {
 }
 
 export interface Discount {
+  id: ObjectId;
   discountType: DiscountType;
   discountAmount: number;
   status: DiscountStatus;
@@ -36,6 +37,7 @@ export interface Discount {
 }
 
 export class GetDiscount {
+  private id: ObjectId;
   private discountType: DiscountType;
   private discountAmount: number;
   private status: DiscountStatus;
@@ -46,6 +48,7 @@ export class GetDiscount {
   private updatedAt?: Date;
 
   constructor(discount: Discount) {
+    this.id = discount.id;
     this.discountType = discount.discountType;
     this.discountAmount = discount.discountAmount;
     this.status = discount.status;

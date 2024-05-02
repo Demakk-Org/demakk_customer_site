@@ -1,7 +1,7 @@
-import { ObjectId } from "mongoose";
-import { Rating } from "./ratingModel";
-import { Image } from "./imageModel";
-import { DiscountType, GetDiscount, ReturnedDiscount } from "./discountModel";
+import { ObjectId } from 'mongoose';
+import { Rating } from './ratingModel';
+import { Image } from './imageModel';
+import { DiscountType, GetDiscount, ReturnedDiscount } from './discountModel';
 
 export interface IReview {
   user: ObjectId;
@@ -59,6 +59,7 @@ export interface IReturnedProduct {
   images: Image;
   shipping: (discounts: GetDiscount[]) => ShippingState;
   deals: (discounts: GetDiscount[]) => string;
+  sold: number;
 }
 
 export type IReturnedProductForCard = {
@@ -67,13 +68,14 @@ export type IReturnedProductForCard = {
 } & IReturnedProduct;
 
 export type IReturnedProductForPage = {
+  description: String;
   reviews: IReview[];
   productVariants: IProductVariant[];
 } & IReturnedProduct;
 
 export enum EVariantType {
-  sub = "sub",
-  main = "main",
+  sub = 'sub',
+  main = 'main',
 }
 
 export interface IProductVariant {
@@ -136,7 +138,7 @@ export class GetProduct {
       switch (discount.discountType) {
         case DiscountType.freeShipping:
           return (returnPrice = {
-            status: discount.status == "active",
+            status: discount.status == 'active',
             above: discount.above,
           });
         default:
@@ -155,7 +157,7 @@ export class GetProduct {
       let d = discount.getDiscountInfo();
       if (
         d.products.includes(this.id.toString()) &&
-        d.status == "active" &&
+        d.status == 'active' &&
         d.discountType !== DiscountType.freeShipping
       ) {
         discountList.push(d);
@@ -199,13 +201,13 @@ export class GetProduct {
   }
 
   getDeals(discounts: GetDiscount[]) {
-    let dealName: string = "";
+    let dealName: string = '';
 
     discounts.forEach((discount) => {
       let d = discount.getDiscountInfo();
       if (
         d.products.includes(this.id.toString()) &&
-        d.status == "active" &&
+        d.status == 'active' &&
         d.discountType !== DiscountType.freeShipping
       ) {
         dealName = d.deal;
@@ -237,7 +239,6 @@ export class GetProductForCard extends GetProduct {
     return {
       id: this.id,
       name: this.name,
-      description: this.description,
       price: this.price,
       discountedPrice: this.getDiscountedPriceAndPercent,
       rating: this.rating,
@@ -246,6 +247,7 @@ export class GetProductForCard extends GetProduct {
       deals: this.getDeals,
       productVariants: this.productVariants,
       reviews: this.reviews,
+      sold: this.sold,
     };
   }
 }
@@ -271,6 +273,7 @@ export class GetProductForPage extends GetProduct {
     return {
       id: this.id,
       name: this.name,
+      description: this.description,
       price: this.price,
       discountedPrice: this.getDiscountedPriceAndPercent,
       rating: this.rating,
@@ -279,6 +282,7 @@ export class GetProductForPage extends GetProduct {
       deals: this.getDeals,
       productVariants: this.productVariants,
       reviews: this.reviews,
+      sold: this.sold,
     };
   }
 }

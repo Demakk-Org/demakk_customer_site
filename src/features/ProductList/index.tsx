@@ -10,7 +10,6 @@ import { useRouter } from 'next/router';
 export default function ProductListing() {
   const { products, setProducts, page, limit, nextPage, prevPage } =
     useProductStore();
-  console.log(products, 'from productListing');
   const { discount, setDiscount } = useDiscountStore();
 
   useEffect(() => {
@@ -28,9 +27,8 @@ export default function ProductListing() {
       mb={'2.5rem'}
     >
       {products?.map((productData) => {
-        const product = productData.getProductforCard();
-        console.log('from product item list', product);
-        // console.log(product.);
+        const product = productData.getProductForCard();
+        console.log('from product card', product);
         return (
           <Grid
             item
@@ -41,7 +39,7 @@ export default function ProductListing() {
             key={product.id.toString()}
           >
             <Link href={`/item/${product.id}`}>
-              <ProductCard product= {product} />
+              <ProductCard product={product} />
             </Link>
           </Grid>
         );

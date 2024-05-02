@@ -10,7 +10,7 @@ export default function ItemDescription() {
       fontWeight={'bold'}
       sx={{ m: '.5rem 0', lineHeight: 1.25 }}
     >
-      {product?.getProductforCard().description}
+      {product?.getProductForCard().description}
     </Typography>
   );
 }

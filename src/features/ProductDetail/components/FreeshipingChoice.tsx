@@ -28,15 +28,15 @@ export default function FreeshipingChoice() {
           <Typography component={'span'} className="choice" mr={'.25rem'}>
             Choice
           </Typography>
-          {product?.getProductforCard().shipping(discount).status && (
+          {product?.getProductForCard().shipping(discount).status && (
             <Typography
               color={'text.primary'}
               sx={{ fontSize: '.75rem', fontWeight: 'bold', padding: '.5rem' }}
             >
               Free shipping{' '}
-              {product?.getProductforCard().shipping(discount).above > 0 &&
+              {product?.getProductForCard().shipping(discount).above > 0 &&
                 ` over $${
-                  product?.getProductforCard().shipping(discount).above
+                  product?.getProductForCard().shipping(discount).above
                 }`}
             </Typography>
           )}

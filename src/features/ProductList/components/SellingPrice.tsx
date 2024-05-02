@@ -7,7 +7,7 @@ import { GetDiscount } from '@/model/discountModel';
 import { IAfterDiscountAndPercent } from '@/model/productModel';
 
 interface PriceProps {
-  discountedPrice: (discounts: GetDiscount[]) => IAfterDiscountAndPercent;
+  discountedPrice: IAfterDiscountAndPercent;
   price: number;
 }
 
@@ -25,33 +25,33 @@ export default function SellingPrice({ price, discountedPrice }: PriceProps) {
         alignItems={'baseline'}
         sx={{ flexWrap: 'wrap' }}
       >
-        {price ? (
+        {discountedPrice.afterDiscount ? (
           <Typography
             mr={'.5rem'}
             sx={{
               display: 'flex',
               alignItems: 'baseline',
-              color: 'text.price',
+              color: 'main',
               '.currency': {
-                fontSize: '1.5rem',
+                fontSize: '.875rem',
                 fontWeight: 'bold',
               },
               '.price-int': {
-                fontSize: '2.5rem',
+                fontSize: '1.5rem',
                 fontWeight: 'bold',
               },
               '.price-dec': {
-                fontSize: '1.5rem',
+                fontSize: '.875rem',
                 fontWeight: 'bold',
               },
             }}
           >
             <span className="currency">ETB</span>
             <span className="price-int">
-              {getPrice(discountedPrice(discount).afterDiscount).int}
+              {getPrice(discountedPrice.afterDiscount).int}
             </span>
             <span className="price-dec">
-              .{getPrice(discountedPrice(discount).afterDiscount).dec}
+              .{getPrice(discountedPrice.afterDiscount).dec}
             </span>
           </Typography>
         ) : (
@@ -60,17 +60,17 @@ export default function SellingPrice({ price, discountedPrice }: PriceProps) {
             sx={{
               display: 'flex',
               alignItems: 'baseline',
-              color: 'text.price',
+              color: 'main',
               '.currency': {
-                fontSize: '1.5rem',
+                fontSize: '.875rem',
                 fontWeight: 'bold',
               },
               '.price-int': {
-                fontSize: '3rem',
+                fontSize: '1.5rem',
                 fontWeight: 'bold',
               },
               '.price-dec': {
-                fontSize: '1.5rem',
+                fontSize: '.875rem',
                 fontWeight: 'bold',
               },
             }}
@@ -81,10 +81,10 @@ export default function SellingPrice({ price, discountedPrice }: PriceProps) {
           </Typography>
         )}
 
-        {discountedPrice(discount).afterDiscount ? (
+        {discountedPrice.afterDiscount ? (
           <Typography
             // fontSize={'1rem'}
-            fontWeight={'bold'}
+            // fontWeight={'bold'}
             sx={{
               textDecoration: 'line-through',
               color: 'text.oldPrice',

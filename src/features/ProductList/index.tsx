@@ -22,7 +22,7 @@ export default function ProductListing() {
     <Grid
       container
       spacing={2}
-      padding={{ md: '3rem 3rem', xs: '.6rem .6rem', sm: '1.5rem 3rem' }}
+      padding={{ md: '6rem 9rem', xs: '.6rem .6rem', sm: '1.5rem 3rem' }}
       mt="1.5rem"
       mb={'2.5rem'}
     >
@@ -38,7 +38,10 @@ export default function ProductListing() {
             md={2.4}
             key={product.id.toString()}
           >
-            <Link href={`/item/${product.id}`}>
+            <Link
+              href={`/item/${product.id}`}
+              style={{ textDecoration: 'none' }}
+            >
               <ProductCard product={product} />
             </Link>
           </Grid>

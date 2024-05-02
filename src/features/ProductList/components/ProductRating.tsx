@@ -9,16 +9,20 @@ export default function ProductRating({ ratingValue }: RatingProps) {
   // const data = product?.getProductForCard()
   return (
     <>
-      <Rating
-        max={5}
-        value={ratingValue}
-        precision={0.5}
-        readOnly
-        sx={{
-          display: { xs: 'none', sm: 'inline-flex' },
-          fontSize: '.8rem',
-        }}
-      />
+      {ratingValue ? (
+        <Rating
+          max={5}
+          value={ratingValue}
+          precision={0.5}
+          readOnly
+          sx={{
+            display: { xs: 'none', sm: 'inline-flex' },
+            fontSize: '1rem',
+          }}
+        />
+      ) : (
+        <></>
+      )}
       <Stack
         direction={'row'}
         spacing={0.25}

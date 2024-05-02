@@ -12,7 +12,7 @@ import useDiscountStore from '@/store/discount';
 export default function SellingPriceOfItem() {
   const { product } = useProductStore();
   const { discount } = useDiscountStore();
-  const item = product?.getProductforCard();
+  const item = product?.getProductForCard();
 
   return (
     <>
@@ -22,7 +22,7 @@ export default function SellingPriceOfItem() {
         alignItems={'baseline'}
         sx={{ flexWrap: 'wrap' }}
       >
-        {item?.discountedPrice(discount) ? (
+        {item?.discountedPrice(discount).afterDiscount ? (
           <Typography
             mr={'.5rem'}
             sx={{
@@ -45,10 +45,10 @@ export default function SellingPriceOfItem() {
           >
             <span className="currency">ETB</span>
             <span className="price-int">
-              {getPrice(item?.discountedPrice(discount)).int}
+              {getPrice(item?.discountedPrice(discount).afterDiscount).int}
             </span>
             <span className="price-dec">
-              .{getPrice(item?.discountedPrice(discount)).dec}
+              .{getPrice(item?.discountedPrice(discount).afterDiscount).dec}
             </span>
           </Typography>
         ) : (

@@ -78,7 +78,7 @@ export default function ProductCard({
               bottom="0px"
               sx={{
                 borderRadius: '.5rem',
-                backgroundColor: 'background.productbg',
+                backgroundColor: 'background.productBg',
               }}
             ></Box>
             <AddToCartButton id="add to cart" />
@@ -92,10 +92,10 @@ export default function ProductCard({
           >
             <Stack direction={{ xs: 'column-reverse', sm: 'column' }}>
               <Typography
-                sx={{ lineHeight: '1.5' }}
+                // sx={{ lineHeight: '1.5' }}
                 noWrap
                 title={product.name}
-                fontSize={'.875rem'}
+                fontSize={'1.1rem'}
               >
                 {product.name}
               </Typography>
@@ -139,7 +139,7 @@ export default function ProductCard({
                 >
                   <SellingPrice
                     price={product.price}
-                    discountedPrice={product.discountedPrice}
+                    discountedPrice={product.discountedPrice(discount)}
                   />
                 </Stack>
               </Stack>

@@ -34,7 +34,7 @@ export default function RelatedItemListing() {
       </Typography>
       <Grid item container direction={'row'} spacing={'1rem'}>
         {products?.slice(0, 6).map((productData) => {
-          const product = productData.getProductforCard();
+          const product = productData.getProductForCard();
           return (
             <Grid
               item

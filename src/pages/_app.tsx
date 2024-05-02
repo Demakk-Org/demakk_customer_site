@@ -238,13 +238,14 @@ const lightTheme = createTheme(lTheme, {
       teritiary: '#e7e7e7',
       links: '#191919cc',
       price: '#ff0000',
+      oldPrice: 'rgb(153, 153, 153)',
     },
     background: {
       lightOpaque: '#d0d0d0',
       lighter: '#d0d0d099',
       reddish: '#ffc7b899',
       gray: 'rgba(210, 204, 204, 0.6)',
-      productbg: 'rgba(0, 0, 0, 0.04)',
+      productBg: 'rgba(0, 0, 0, 0.04)',
     },
     demakkPrimary: lTheme.palette.augmentColor({
       color: {

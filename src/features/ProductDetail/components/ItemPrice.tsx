@@ -73,16 +73,19 @@ export default function ItemPrice() {
         </Typography>
       )}
 
-      <Typography
-        fontWeight={'bold'}
-        sx={{
-          textDecoration: 'line-through',
-          color: 'text.oldPrice',
-          fontSize: '.875rem',
-        }}
-      >
-        ETB4500
-      </Typography>
+      {item?.discountedPrice(discount).afterDiscount ? (
+        <Typography
+          sx={{
+            textDecoration: 'line-through',
+            color: 'text.oldPrice',
+            fontSize: '.875rem',
+          }}
+        >
+          ETB{getPrice(item.price).int}.{getPrice(item.price).dec}
+        </Typography>
+      ) : (
+        <></>
+      )}
 
       <Typography></Typography>
     </Stack>

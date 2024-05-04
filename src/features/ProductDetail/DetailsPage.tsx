@@ -9,27 +9,11 @@ import {
 } from '@mui/material';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 import ShareIcon from '@mui/icons-material/Share';
-
 import Image from './containers/images/ItemImages';
 import Contents from './containers/contents/Contents';
-import Head from 'next/head';
-import RelatedItemCard from './containers/relatedItemCard/RelatedItemCard';
-import { useEffect } from 'react';
-import useProductStore from '@/store/product';
-import useDiscountStore from '@/store/discount';
-import { LANG } from '@/store/user';
 import RelatedItemListing from './containers/relatedItemCard/RelatedItemListing';
 
 export default function DetailsPage() {
-  // const { products, setProducts, page, limit, nextPage, prevPage } =
-  //   useProductStore();
-  // console.log(products, 'from productListing');
-  // const { discount, setDiscount } = useDiscountStore();
-
-  // useEffect(() => {
-  //   setProducts({ limit, lang: LANG.en, page });
-  //   setDiscount();
-  // }, [page]);
   return (
     <>
       <Box>
@@ -38,7 +22,8 @@ export default function DetailsPage() {
           container
           direction={{ xs: 'column', sm: 'row' }}
           spacing={2}
-          m={'2rem'}
+          p={'0rem 3rem'}
+          mt={'1rem'}
         >
           {/* images related items description along the column */}
           <Grid item xs={9} container direction={'column'}>
@@ -65,19 +50,21 @@ export default function DetailsPage() {
           </Grid>
           {/* for side scrollable nav */}
           <Grid
-            position={'relative'}
+            position={'sticky'}
             item
             display={{ xs: 'none', sm: 'flex' }}
             xs
-            //  sx={{ bgcolor: 'blue' }}
+            sx={{ bgcolor: 'blue' }}
           >
-            <Box>
+            <Box width={1}>
               <Paper
                 elevation={1}
                 sx={{
                   p: '1rem 1rem 0',
-                  height: '100vh',
-                  // maxHeight: 'calc(100vh - 112px)'
+                  // height: '100vh',
+                  maxHeight: 'calc(100vh - 112px)',
+                  overflow: 'hidden',
+                  overflowY: ' auto',
                 }}
               >
                 <Stack

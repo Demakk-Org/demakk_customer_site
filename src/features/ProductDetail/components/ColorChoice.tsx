@@ -1,21 +1,22 @@
-import Pdata from '@/data/Pdata';
+import useProductStore from '@/store/product';
 import { Box, Typography } from '@mui/material';
 import React from 'react';
 
 export default function ColorChoice() {
+  const { product } = useProductStore();
   return (
     <Box>
       <Typography sx={{ fontWeight: 'bold', fontSize: '.75rem', ml: '.5rem' }}>
         Color:{''}
       </Typography>
-      <Box position={'relative'} display={'flex'} gap={'.5rem'}>
-        {Pdata.images.map((image) => (
+      <Box display={'flex'} gap={'.5rem'}>
+        {product?.images.imageUrls.map((image) => (
           <Box key={image} sx={{}}>
             <Box
               component={'img'}
               src={image}
-              width={'50px'}
-              height={'50px'}
+              width={'100px'}
+              height={'100px'}
               sx={{}}
             />
           </Box>

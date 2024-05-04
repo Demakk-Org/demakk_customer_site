@@ -4,9 +4,9 @@ import useProductStore from '@/store/product';
 import Pdata from '@/data/Pdata';
 
 const ItemImage = () => {
-  const [mainImage, setMainImage] = useState(Pdata.images[0]);
-
   const { product } = useProductStore();
+
+  const [singleItemImages, setMainImage] = useState('');
 
   const [zoomWidth, setZoomWidth] = useState<number | null>(null);
   const [imgPosition, setImgPosition] = useState({ top: 0, left: 0 });
@@ -84,8 +84,11 @@ const ItemImage = () => {
           position={'absolute'}
           width={1}
           display={'block'}
-          src={mainImage}
-          alt={'image of a product'}
+          src={
+            singleItemImages ||
+            product?.images.imageUrls[product.images.primary]
+          }
+          alt={'image of the product'}
           sx={{
             width: zoomWidth ? `${zoomWidth}%` : '100%',
             position: 'relative',
@@ -96,6 +99,7 @@ const ItemImage = () => {
             },
           }}
         />
+
         <Box
           position={'absolute'}
           width={1}
@@ -114,19 +118,19 @@ const ItemImage = () => {
         display={{ xs: 'none', sm: 'flex' }}
         sx={{ overflowX: 'auto' }}
       >
-        {Pdata.images.map((images) => (
+        {product?.images.imageUrls.map((singleItemImages) => (
           <Box
             component="img"
-            src={images}
-            height={'50px'}
-            width={'50px'}
-            key={images}
+            src={singleItemImages}
+            height={'75px'}
+            width={'75px'}
+            key={singleItemImages}
             sx={{
               '&:hover': {
                 border: '.1rem solid black',
               },
             }}
-            onClick={() => setMainImage(images)}
+            onClick={() => setMainImage(singleItemImages)}
           />
         ))}
       </Box>

@@ -20,7 +20,7 @@ const getProduct = async ({
 }: GetProductProps) => {
   try {
     const { data } = await axios.get(
-      `${local}/product/${productId}?${limit && `limit=${limit}`}&${
+      `${server}/product/${productId}?${limit && `limit=${limit}`}&${
         page && `page=${page}`
       }&${lang && `lang=${lang}`}`
     );

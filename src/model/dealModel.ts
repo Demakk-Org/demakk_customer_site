@@ -1,9 +1,11 @@
-import mongoose, { StringExpressionOperator } from "mongoose";
+import { ObjectId } from "mongoose";
 import { Image } from "./imageModel";
+import { GetDiscount, IDiscount } from "./discountModel";
+import { GetProduct } from "./productModel";
 
 export interface IDealType {
   name: string;
-  subTitles: string;
+  subTitle: string;
 }
 
 export enum EStatus {
@@ -12,55 +14,72 @@ export enum EStatus {
   closed = "closed",
 }
 
-export interface Deal {
-  _id: mongoose.Types.ObjectId;
+export interface IDeal {
+  _id: ObjectId;
   dealType: IDealType;
   images: Image;
-  discounts: string[];
-  startDate: Date;
+  discounts: IDiscount[];
   status: EStatus;
   endDate: Date;
+  startDate: Date;
 }
 
-export interface ReturnedDeal {
+export interface IReturnedDeal {
   id: string;
   dealType: IDealType;
-  subTitle: string;
-  images: string[];
-  discounts: string[];
+  images: Image;
+  discounts: () => GetDiscount[];
   status: EStatus;
   startDate: Date;
   endDate: Date;
 }
 
 export class GetDeal {
-  private id: mongoose.Types.ObjectId;
+  private id: ObjectId;
   private dealType: IDealType;
-  private image: string[];
-  private discounts: string[];
-  private startAt?: Date;
-  private endAt?: Date;
+  private images: Image;
+  private discounts: IDiscount[];
+  private startDate: Date;
+  private endDate: Date;
   private status: EStatus;
 
-  constructor(deal: Deal) {
+  constructor(deal: IDeal) {
     this.id = deal._id;
     this.dealType = deal.dealType;
-    this.image = deal.images?.imageUrls;
+    this.images = deal.images;
     this.discounts = deal.discounts;
-    this.startAt = deal.startDate;
-    this.endAt = deal.endDate;
+    this.startDate = deal.startDate;
+    this.endDate = deal.endDate;
     this.status = deal.status;
   }
 
-  getDeal() {
+  getDiscountsFromDeal(): GetDiscount[] {
+    let discounts: GetDiscount[] = [];
+    this.discounts.forEach((discount) => {
+      discounts.push(new GetDiscount(discount));
+    });
+
+    return discounts;
+  }
+
+  getAllProductsForDeal(): GetProduct[] {
+    let products: GetProduct[] = [];
+    this.getDiscountsFromDeal().forEach((discount) => {
+      products = [...products, ...discount.getProductsFromDiscount()];
+    });
+
+    return products;
+  }
+
+  getDeal(): IReturnedDeal {
     return {
       id: this.id.toString(),
       dealType: this.dealType,
-      image: this.image,
-      discounts: this.discounts,
+      images: this.images,
+      discounts: this.getDiscountsFromDeal,
       status: this.status,
-      startAt: this.startAt,
-      endAt: this.endAt,
+      startDate: this.startDate,
+      endDate: this.endDate,
     };
   }
 }

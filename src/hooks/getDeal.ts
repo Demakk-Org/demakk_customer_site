@@ -1,4 +1,4 @@
-import { Deal, GetDeal } from "@/model/dealModel";
+import { IDeal, GetDeal } from "@/model/dealModel";
 import { LANG } from "@/store/user";
 import axios from "axios";
 

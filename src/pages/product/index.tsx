@@ -12,23 +12,13 @@ import { IProductForPage } from "@/model/productModel";
 import getProduct from "@/hooks/getProduct";
 
 function Product({ item }: { item: IProductForPage }) {
-  const {
-    product,
-    products,
-    setProducts,
-    setProduct,
-    page,
-    limit,
-    nextPage,
-    prevPage,
-  } = useProductStore();
-  const { deal, discount, setDiscount, setDeal } = useDiscountStore();
+  const { products, setProducts, setProduct, page, limit, nextPage, prevPage } =
+    useProductStore();
+  const { discount, setDiscount } = useDiscountStore();
 
-  console.log(product);
   useEffect(() => {
     setProducts({ limit, lang: LANG.en, page });
     setDiscount();
-    setDeal();
     if (item) {
       setProduct(item);
     }
@@ -113,7 +103,7 @@ function Product({ item }: { item: IProductForPage }) {
                       <></>
                     )}
                     <Box display={"flex"} gap="0.5rem">
-                      {p.discountedPrice(discount) ? (
+                      {p.discountedPrice(discount).afterDiscount ? (
                         <Typography color={"text.primary"}>
                           {p.deals(discount)}
                         </Typography>

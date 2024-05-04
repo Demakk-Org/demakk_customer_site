@@ -1,5 +1,6 @@
-import getDeal from "@/hooks/getDeal";
-import mongoose from "mongoose";
+import { ObjectId } from "mongoose";
+import { GetProduct, IProduct } from "./productModel";
+import { IDeal } from "./dealModel";
 
 export enum DiscountType {
   cashDiscount = "Cash discount",
@@ -14,59 +15,64 @@ export enum DiscountStatus {
   pending = "pending",
 }
 
-export interface ReturnedDiscount {
-  id: mongoose.Types.ObjectId;
-  discountType: string;
+export interface IReturnedDiscount {
+  id: ObjectId;
+  discountType: { name: DiscountType };
   discountAmount: number;
   status: DiscountStatus;
-  products: string[];
-  deal: string;
+  getProducts: () => GetProduct[];
+  products: IProduct[];
+  deal: IDeal;
   above: number;
 }
 
-export interface Discount {
-  id: mongoose.Types.ObjectId;
-  discountType: DiscountType;
+export interface IDiscount {
+  _id: ObjectId;
+  discountType: { name: DiscountType };
   discountAmount: number;
   status: DiscountStatus;
-  products: string[];
-  deal: string;
+  products: IProduct[];
+  deal: IDeal;
   aboveAmount: number;
   createdAt?: Date;
   updatedAt?: Date;
 }
 
 export class GetDiscount {
-  private id: mongoose.Types.ObjectId;
-  private discountType: DiscountType;
+  private id: ObjectId;
+  private discountType: { name: DiscountType };
   private discountAmount: number;
   private status: DiscountStatus;
-  private products: string[];
-  private deal: string;
+  private products: IProduct[];
+  private deal: IDeal;
   private aboveAmount: number;
-  private createdAt?: Date;
-  private updatedAt?: Date;
 
-  constructor(discount: Discount) {
-    this.id = discount.id;
+  constructor(discount: IDiscount) {
+    this.id = discount._id;
     this.discountType = discount.discountType;
     this.discountAmount = discount.discountAmount;
     this.status = discount.status;
     this.products = discount.products;
     this.deal = discount.deal;
     this.aboveAmount = discount.aboveAmount;
-    this.createdAt = discount.createdAt;
-    this.updatedAt = discount.updatedAt;
   }
 
-  getDiscountType(discountTypeId: string) {}
+  getProductsFromDiscount(): GetProduct[] {
+    let products: GetProduct[] = [];
+    this.products?.forEach((product) => {
+      products.push(new GetProduct(product));
+    });
 
-  getDiscountInfo(): ReturnedDiscount {
+    return products;
+  }
+
+  getDiscountInfo(): IReturnedDiscount {
     return {
       id: this.id,
       discountType: this.discountType,
       discountAmount: this.discountAmount,
       status: this.status,
+      getProducts: this.getProductsFromDiscount,
       products: this.products,
       deal: this.deal,
       above: this.aboveAmount,

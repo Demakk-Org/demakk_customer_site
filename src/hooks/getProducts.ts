@@ -14,7 +14,7 @@ const server = "https://demakk-backend.vercel.app/api/v1";
 const getProducts = async ({ limit, page, lang }: GetProductProps) => {
   try {
     const products = await axios.get(
-      `${local}/product?${limit && `limit=${limit}`}&${
+      `${server}/product?${limit && `limit=${limit}`}&${
         page && `page=${page}`
       }&${lang && `lang=${lang}`}`
     );

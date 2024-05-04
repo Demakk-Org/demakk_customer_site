@@ -1,7 +1,7 @@
 import { ObjectId } from "mongoose";
 import { Rating } from "./ratingModel";
 import { Image } from "./imageModel";
-import { DiscountType, GetDiscount, ReturnedDiscount } from "./discountModel";
+import { DiscountType, GetDiscount, IReturnedDiscount } from "./discountModel";
 
 export interface IReview {
   user: ObjectId;
@@ -11,7 +11,7 @@ export interface IReview {
 }
 
 export interface IProductCategory {
-  id: string;
+  _id: string;
   stockItem: ObjectId | IStockItem;
   name: string;
   additionalPrice: number;
@@ -19,7 +19,7 @@ export interface IProductCategory {
 }
 
 export interface IStockItem {
-  id: string;
+  _id: string;
   stockType: ObjectId;
   name: string;
   price: number;
@@ -27,7 +27,7 @@ export interface IStockItem {
 }
 
 export interface IProduct {
-  id: ObjectId;
+  _id: ObjectId;
   name: string;
   description: string;
   price: number;
@@ -110,7 +110,7 @@ export class GetProduct {
   public sold: number;
 
   constructor(product: IProduct) {
-    this.id = product.id;
+    this.id = product._id;
     this.name = product.name;
     this.description = product.description;
     this.tags = product.tags;
@@ -122,18 +122,20 @@ export class GetProduct {
   }
 
   getShippingDiscount(discounts: GetDiscount[]): ShippingState {
-    let discountList: ReturnedDiscount[] = [];
+    let discountList: IReturnedDiscount[] = [];
     discounts.forEach((discount) => {
       let d = discount.getDiscountInfo();
-      if (d.products.includes(this.id.toString()) && d.status == "active") {
-        discountList.push(d);
-      }
+      d.getProducts()?.forEach((product) => {
+        if (product.id == this.id && d.status == "active") {
+          discountList.push(d);
+        }
+      });
     });
 
     let returnPrice: ShippingState = { status: false, above: 0 };
 
     discountList.forEach((discount) => {
-      switch (discount.discountType) {
+      switch (discount.discountType.name) {
         case DiscountType.freeShipping:
           return (returnPrice = {
             status: discount.status == "active",
@@ -150,16 +152,19 @@ export class GetProduct {
   getDiscountedPriceAndPercent(
     discounts: GetDiscount[]
   ): IAfterDiscountAndPercent {
-    let discountList: ReturnedDiscount[] = [];
+    let discountList: IReturnedDiscount[] = [];
+
     discounts.forEach((discount) => {
       let d = discount.getDiscountInfo();
-      if (
-        d.products.includes(this.id.toString()) &&
-        d.status == "active" &&
-        d.discountType !== DiscountType.freeShipping
-      ) {
-        discountList.push(d);
-      }
+      d.getProducts()?.forEach((product) => {
+        if (
+          d.status == "active" &&
+          product.id == this.id &&
+          d.discountType.name !== DiscountType.freeShipping
+        ) {
+          discountList.push(d);
+        }
+      });
     });
 
     let returnPriceAndPercent: IAfterDiscountAndPercent = {
@@ -169,7 +174,7 @@ export class GetProduct {
     let returnPrice: number = 0;
 
     discountList.forEach((discount) => {
-      switch (discount.discountType) {
+      switch (discount.discountType.name) {
         case DiscountType.percentageDiscount:
           returnPrice =
             this.price - (discount.discountAmount * this.price) / 100;
@@ -194,22 +199,24 @@ export class GetProduct {
           };
       }
     });
-
     return returnPriceAndPercent;
   }
 
   getDeals(discounts: GetDiscount[]) {
     let dealName: string = "";
-
+    console.log("it's here");
     discounts.forEach((discount) => {
       let d = discount.getDiscountInfo();
-      if (
-        d.products.includes(this.id.toString()) &&
-        d.status == "active" &&
-        d.discountType !== DiscountType.freeShipping
-      ) {
-        dealName = d.deal;
-      }
+
+      d.getProducts()?.forEach((product) => {
+        if (
+          product.id.toString() == this.id.toString() &&
+          d.status == "active" &&
+          d.discountType.name !== DiscountType.freeShipping
+        ) {
+          dealName = d.deal.dealType.name;
+        }
+      });
     });
 
     return dealName;

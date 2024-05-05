@@ -1,12 +1,11 @@
-import React, { useState } from 'react';
-import Box from '@mui/material/Box';
-import useProductStore from '@/store/product';
-import Pdata from '@/data/Pdata';
+import React, { useState } from "react";
+import Box from "@mui/material/Box";
+import useProductStore from "@/store/product";
 
 const ItemImage = () => {
   const { product } = useProductStore();
 
-  const [singleItemImages, setMainImage] = useState('');
+  const [singleItemImages, setMainImage] = useState("");
 
   const [zoomWidth, setZoomWidth] = useState<number | null>(null);
   const [imgPosition, setImgPosition] = useState({ top: 0, left: 0 });
@@ -22,7 +21,7 @@ const ItemImage = () => {
 
   const handleMouseMove = (event: React.MouseEvent<HTMLDivElement>) => {
     const imgContElem = event.currentTarget;
-    const imgElem = imgContElem.querySelector('.imgElem');
+    const imgElem = imgContElem.querySelector(".imgElem");
 
     if (imgElem) {
       const imgWidth = imgElem.clientWidth;
@@ -50,7 +49,7 @@ const ItemImage = () => {
   };
 
   const changeHeight = () => {
-    const imgContElem = document.querySelector('.img-cont');
+    const imgContElem = document.querySelector(".img-cont");
 
     // if (imgContElem) {
     //   imgContElem.height = imgContElem.clientHeight + 'px';
@@ -59,9 +58,9 @@ const ItemImage = () => {
 
   React.useEffect(() => {
     changeHeight();
-    window.addEventListener('resize', changeHeight);
+    window.addEventListener("resize", changeHeight);
     return () => {
-      window.removeEventListener('resize', changeHeight);
+      window.removeEventListener("resize", changeHeight);
     };
   }, []);
 
@@ -71,66 +70,66 @@ const ItemImage = () => {
         className="img-cont"
         width={1}
         position="relative"
-        overflow={'hidden'}
+        overflow={"hidden"}
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
         onMouseMove={handleMouseMove}
-        borderRadius={'.5rem'}
-        sx={{ aspectRatio: 1, mb: '2rem' }}
+        borderRadius={".5rem"}
+        sx={{ aspectRatio: 1, mb: "2rem" }}
       >
         <Box
-          component={'img'}
+          component={"img"}
           className="imgElem"
-          position={'absolute'}
+          position={"absolute"}
           width={1}
-          display={'block'}
+          display={"block"}
           src={
             singleItemImages ||
             product?.images.imageUrls[product.images.primary]
           }
-          alt={'image of the product'}
+          alt={"image of the product"}
           sx={{
-            width: zoomWidth ? `${zoomWidth}%` : '100%',
-            position: 'relative',
+            width: zoomWidth ? `${zoomWidth}%` : "100%",
+            position: "relative",
             top: `${imgPosition.top}px`,
             left: `${imgPosition.left}px`,
-            '&:hover': {
-              cursor: 'pointer',
+            "&:hover": {
+              cursor: "pointer",
             },
           }}
         />
 
         <Box
-          position={'absolute'}
+          position={"absolute"}
           width={1}
           height={1}
           top={0}
           left={0}
-          sx={{ bgcolor: 'background.productBg' }}
+          sx={{ bgcolor: "background.productBg" }}
         ></Box>
       </Box>
 
       <Box
-        justifyContent={'center'}
+        justifyContent={"center"}
         width={1}
-        mt={'1rem'}
-        gap={'.5rem'}
-        display={{ xs: 'none', sm: 'flex' }}
-        sx={{ overflowX: 'auto' }}
+        mt={"1rem"}
+        gap={".5rem"}
+        display={{ xs: "none", sm: "flex" }}
+        sx={{ overflowX: "auto" }}
       >
         {product?.images.imageUrls.map((singleItemImages) => (
           <Box
             component="img"
             src={singleItemImages}
-            height={'75px'}
-            width={'75px'}
+            height={"75px"}
+            width={"75px"}
             key={singleItemImages}
             sx={{
-              '&:hover': {
-                border: '.1rem solid black',
+              "&:hover": {
+                border: ".1rem solid black",
               },
             }}
-            onClick={() => setMainImage(singleItemImages)}
+            onMouseEnter={() => setMainImage(singleItemImages)}
           />
         ))}
       </Box>

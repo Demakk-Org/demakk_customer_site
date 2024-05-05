@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from 'react';
-import { Box, Grid } from '@mui/material';
-import ProductCard from './ProductCard';
-import useProductStore from '@/store/product';
-import { LANG } from '@/store/user';
-import useDiscountStore from '@/store/discount';
-import Link from 'next/link';
-import { useRouter } from 'next/router';
+import React, { useEffect, useState } from "react";
+import { Box, Grid } from "@mui/material";
+import ProductCard from "./ProductCard";
+import useProductStore from "@/store/product";
+import { LANG } from "@/store/user";
+import useDiscountStore from "@/store/discount";
+import Link from "next/link";
+import { useRouter } from "next/router";
 
 export default function ProductListing() {
   const { products, setProducts, page, limit, nextPage, prevPage } =
@@ -22,16 +22,17 @@ export default function ProductListing() {
     <Grid
       container
       spacing={2}
-      padding={{ md: '6rem 9rem', xs: '.6rem .6rem', sm: '1.5rem 3rem' }}
+      padding={{ md: "6rem 9rem", xs: ".6rem .6rem", sm: "1.5rem 3rem" }}
       mt="1.5rem"
-      mb={'2.5rem'}
+      mb={"2.5rem"}
     >
       {products?.map((productData) => {
         const product = productData.getProductForCard();
+
         return (
           <Grid
             item
-            height={'375px'}
+            height={"375px"}
             xs={6}
             sm={4}
             md={2.4}
@@ -39,7 +40,7 @@ export default function ProductListing() {
           >
             <Link
               href={`/item/${product.id}`}
-              style={{ textDecoration: 'none' }}
+              style={{ textDecoration: "none" }}
             >
               <ProductCard product={product} />
             </Link>

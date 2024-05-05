@@ -1,13 +1,13 @@
-import React from 'react';
-import Deal from '../../components/Deal';
-import { Box, Divider, Stack } from '@mui/material';
-import ItemPrice from '../../components/ItemPrice';
-import ExtraDiscount from '../../components/ExtraDiscount';
-import FreeshipingChoice from '../../components/FreeshipingChoice';
-import ItemDescription from '../../components/ItemDescription';
-import RatingAndReview from '../../components/RatingAndReview';
-import ColorChoice from '../../components/ColorChoice';
-import Size from '../../components/Size';
+import React from "react";
+import Deal from "../../components/Deal";
+import { Box, Divider, Stack } from "@mui/material";
+import ItemPrice from "../../components/ItemPrice";
+import ExtraDiscount from "../../components/ExtraDiscount";
+import FreeshipingChoice from "../../components/FreeshipingChoice";
+import ItemDescription from "../../components/ItemDescription";
+import RatingAndReview from "../../components/RatingAndReview";
+import ColorChoice from "../../components/ColorChoice";
+import Size from "../../components/Size";
 
 export default function Contents() {
   return (
@@ -17,10 +17,10 @@ export default function Contents() {
       </Stack>
       {/* price and discount */}
       <Stack
-        direction={'row'}
+        direction={"row"}
         // spacing={0.5}
-        alignItems={'baseline'}
-        sx={{ flexWrap: 'wrap' }}
+        alignItems={"baseline"}
+        sx={{ flexWrap: "wrap" }}
       >
         <ItemPrice />
       </Stack>
@@ -32,10 +32,10 @@ export default function Contents() {
       <ItemDescription />
       {/* Rating and reviws */}
       <RatingAndReview />
-      <Divider sx={{ m: '1rem 0rem' }} />
+      <Divider sx={{ m: "1rem 0rem" }} />
       <ColorChoice />
-      <Divider sx={{ m: '1rem 0rem' }} />
       <Size />
+      <Divider sx={{ m: "1rem 0rem" }} />
     </Box>
   );
 }

@@ -2,7 +2,7 @@ import DetailsPage from '@/features/ProductDetail/DetailsPage';
 import styles from '@/styles/Home.module.css';
 import React, { useEffect } from 'react';
 
-export default function ProductsDetail({ item }: { item: Product }) {
+export default function ProductsDetail({ item }: { item: IProductForPage }) {
   const { discount, setDiscount } = useDiscountStore();
   const { product, setProduct, page, limit, nextPage, prevPage } =
     useProductStore();
@@ -40,7 +40,7 @@ import type {
   GetStaticPaths,
 } from 'next';
 import useDiscountStore from '@/store/discount';
-import { GetProduct, Product } from '@/model/productModel';
+import { GetProduct, IProductForPage } from '@/model/productModel';
 import useProductStore from '@/store/product';
 import Head from 'next/head';
 import { Box } from '@mui/material';
@@ -52,7 +52,7 @@ export async function getStaticPaths() {
   const products = await res.json();
   const paths = products.data.data.map((product: any) => {
     return {
-      params: { id: `${product.id.toString()}` },
+      params: { id: `${product._id.toString()}` },
     };
   });
   return { paths, fallback: false };
@@ -64,9 +64,9 @@ export const getStaticProps = (async (context: any) => {
     `https://demakk-backend.vercel.app/api/v1/product/${id}`
   );
   const product = await res.json();
-  const item: Product = product.data;
+  const item: IProductForPage = product.data;
   console.log('from item', item);
   return { props: { item } };
 }) satisfies GetStaticProps<{
-  item: Product;
+  item: IProductForPage;
 }>;

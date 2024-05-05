@@ -35,7 +35,7 @@ export interface IProduct {
   images: Image;
   popularity: number;
   sold: number;
-  ratings: Rating;
+  rating: Rating;
 }
 
 export type IProductForPage = IProduct & {
@@ -71,11 +71,12 @@ export type IReturnedProductForPage = {
   description: String;
   reviews: IReview[];
   productVariants: IProductVariant[];
+  productCategory: IProductCategory;
 } & IReturnedProduct;
 
 export enum EVariantType {
-  sub = 'sub',
-  main = 'main',
+  sub = "sub",
+  main = "main",
 }
 
 export interface IProductVariant {
@@ -118,7 +119,7 @@ export class GetProduct {
     this.tags = product.tags;
     this.price = product.price;
     this.images = product.images;
-    this.rating = product.ratings;
+    this.rating = product.rating;
     this.popularity = product.popularity;
     this.sold = product.sold;
   }
@@ -140,7 +141,7 @@ export class GetProduct {
       switch (discount.discountType.name) {
         case DiscountType.freeShipping:
           return (returnPrice = {
-            status: discount.status == 'active',
+            status: discount.status == "active",
             above: discount.above,
           });
         default:
@@ -201,6 +202,7 @@ export class GetProduct {
           };
       }
     });
+    console.log("discount", returnPriceAndPercent);
     return returnPriceAndPercent;
   }
 
@@ -290,6 +292,7 @@ export class GetProductForPage extends GetProduct {
       productVariants: this.productVariants,
       reviews: this.reviews,
       sold: this.sold,
+      productCategory: this.productCategory,
     };
   }
 }

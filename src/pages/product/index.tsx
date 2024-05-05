@@ -36,25 +36,25 @@ function Product({ item }: { item: IProductForPage }) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main className={`${styles.main}`}>
-        <Box width={'100%'} minHeight={'100vh'} bgcolor={'background.paper'}>
+        <Box width={"100%"} minHeight={"100vh"} bgcolor={"background.paper"}>
           <NavBar />
-          <Box display={'flex'} flexDirection={'column'} alignItems={'center'}>
-            <Box p={'1rem'} display={'flex'} gap={'1rem'}>
+          <Box display={"flex"} flexDirection={"column"} alignItems={"center"}>
+            <Box p={"1rem"} display={"flex"} gap={"1rem"}>
               {products.map((product) => {
                 const p = product.getProductForCard();
                 return (
                   <Box
                     key={p.id.toString()}
-                    display={'flex'}
-                    flexDirection={'column'}
-                    alignItems={'center'}
+                    display={"flex"}
+                    flexDirection={"column"}
+                    alignItems={"center"}
                   >
                     <Avatar
                       variant="square"
                       src={p?.images && p?.images.imageUrls[0]}
                       sx={{ width: 80, height: 80 }}
                     />
-                    <Typography color={'text.primary'}>
+                    <Typography color={"text.primary"}>
                       {p.id.toString()}
                     </Typography>
                     <Typography color={"text.primary"}>{p.name}</Typography>
@@ -133,14 +133,14 @@ function Product({ item }: { item: IProductForPage }) {
               })}
             </Box>
 
-            <Box display={'flex'} alignItems={'center'} gap={2}>
+            <Box display={"flex"} alignItems={"center"} gap={2}>
               <Button variant="contained" onClick={() => prevPage()}>
                 Prev
               </Button>
               <Button variant="contained" onClick={() => nextPage()}>
                 Next
               </Button>
-              <Typography color={'text.primary'}>Page: {page}</Typography>
+              <Typography color={"text.primary"}>Page: {page}</Typography>
             </Box>
           </Box>
         </Box>

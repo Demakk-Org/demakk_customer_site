@@ -1,8 +1,8 @@
-import useDiscountStore from '@/store/discount';
-import useProductStore from '@/store/product';
-import getPrice from '@/utils/getPrice';
-import { Stack, Typography } from '@mui/material';
-import React from 'react';
+import useDiscountStore from "@/store/discount";
+import useProductStore from "@/store/product";
+import getPrice from "@/utils/getPrice";
+import { Stack, Typography } from "@mui/material";
+import React from "react";
 
 export default function ItemPrice() {
   const { product } = useProductStore();
@@ -10,27 +10,31 @@ export default function ItemPrice() {
   const item = product?.getProductForCard();
 
   return (
-    <Stack direction={'row'} alignItems={'baseline'}>
+    <Stack
+      direction={"row"}
+      alignItems={"baseline"}
+      m={".75rem 0rem 0rem 0rem"}
+    >
       {item?.discountedPrice(discount).afterDiscount ? (
         <Typography
-          mr={'.5rem'}
+          mr={".5rem"}
           sx={{
-            display: 'flex',
-            alignItems: 'baseline',
-            color: 'text.price',
-            '.currency': {
-              fontSize: '1.5rem',
-              fontWeight: 'bold',
+            display: "flex",
+            alignItems: "baseline",
+            color: "text.price",
+            ".currency": {
+              fontSize: "1.4rem",
+              fontWeight: "bold",
             },
-            '.price-int': {
+            ".price-int": {
               fontFamily:
-                'Open Sans, Roboto, Arial, Helvetica, sans-serif, SimSun',
-              fontSize: '2.5rem',
-              fontWeight: 'bold',
+                "Open Sans, Roboto, Arial, Helvetica, sans-serif, SimSun",
+              fontSize: "2.3rem",
+              fontWeight: "bold",
             },
-            '.price-dec': {
-              fontSize: '1.5rem',
-              fontWeight: 'bold',
+            ".price-dec": {
+              fontSize: "1.4rem",
+              fontWeight: "bold",
             },
           }}
         >
@@ -44,22 +48,22 @@ export default function ItemPrice() {
         </Typography>
       ) : (
         <Typography
-          mr={'.5rem'}
+          mr={".5rem"}
           sx={{
-            display: 'flex',
-            alignItems: 'baseline',
-            color: 'text.price',
-            '.currency': {
-              fontSize: '1.5rem',
-              fontWeight: 'bold',
+            display: "flex",
+            alignItems: "baseline",
+            color: "text.price",
+            ".currency": {
+              fontSize: "1.5rem",
+              fontWeight: "bold",
             },
-            '.price-int': {
-              fontSize: '3rem',
-              fontWeight: 'bold',
+            ".price-int": {
+              fontSize: "3rem",
+              fontWeight: "bold",
             },
-            '.price-dec': {
-              fontSize: '1.5rem',
-              fontWeight: 'bold',
+            ".price-dec": {
+              fontSize: "1.5rem",
+              fontWeight: "bold",
             },
           }}
         >
@@ -76,9 +80,10 @@ export default function ItemPrice() {
       {item?.discountedPrice(discount).afterDiscount ? (
         <Typography
           sx={{
-            textDecoration: 'line-through',
-            color: 'text.oldPrice',
-            fontSize: '.875rem',
+            textDecoration: "line-through",
+            color: "text.primary",
+            fontSize: ".875rem",
+            fontWeight: "bold",
           }}
         >
           ETB{getPrice(item.price).int}.{getPrice(item.price).dec}
@@ -86,8 +91,13 @@ export default function ItemPrice() {
       ) : (
         <></>
       )}
-
-      <Typography></Typography>
+      {item?.discountedPrice(discount).discountPercent ? (
+        <Typography color={"error.main"} m={"0rem 0rem 0rem .75rem"}>
+          -{item?.discountedPrice(discount).discountPercent}%
+        </Typography>
+      ) : (
+        <></>
+      )}
     </Stack>
   );
 }

@@ -5,6 +5,7 @@ import LargeDeviceDealsContainer from "./containers/LargeDeviceDealsContainer";
 import useDiscountStore from "@/store/discount";
 import { useEffect } from "react";
 import LayoutTwo from "./layouts/layout-3c-3-3-3";
+import LayoutOne from "./layouts/layout-3c-4-2-3";
 
 function DealsContainer() {
   const { deal, discount, setDeal, setDiscount } = useDiscountStore();
@@ -27,28 +28,6 @@ function DealsContainer() {
     >
       <SmallDeviceDealsContainer />
       <LargeDeviceDealsContainer />
-      <LayoutTwo
-        threeInOne={{
-          title: deal[0].getDeal().dealType.name,
-          subtitle: deal[0].getDeal().dealType.subTitle,
-          productList: deal[0].getAllProductsForDeal(),
-        }}
-        center={{
-          title: deal[0].getDeal().dealType.name,
-          subtitle: deal[0].getDeal().dealType.subTitle,
-          productList: deal[0].getAllProductsForDeal(),
-        }}
-        leftTop={{
-          title: deal[1].getDeal().dealType.name,
-          subtitle: deal[1].getDeal().dealType.subTitle,
-          productList: deal[1].getAllProductsForDeal(),
-        }}
-        leftBottom={{
-          title: deal[3].getDeal().dealType.name,
-          subtitle: deal[3].getDeal().dealType.subTitle,
-          productList: deal[3].getAllProductsForDeal(),
-        }}
-      />
     </Box>
   );
 }

@@ -63,6 +63,7 @@ function LayoutTwo({ threeInOne, center, leftTop, leftBottom }: ILayoutOne) {
             subtitle={leftTop.subtitle}
             productList={leftTop.productList}
             number={3}
+            showPercent
           />
         </Grid>
         <Grid item>

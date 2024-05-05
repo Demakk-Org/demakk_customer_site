@@ -45,6 +45,7 @@ function ThreeInOneDealContainer({
         display={"flex"}
         flexDirection={"column"}
         alignItems={"center"}
+        justifyContent={"center"}
       >
         <Box width={0.7} position={"relative"}>
           <Box

@@ -20,8 +20,6 @@ function DealsProductCard({
   notShowDiscountPercent,
   size = 1,
 }: IDealsProductCard) {
-  const { log } = console;
-  log("from deals product card", discountPercent, discountValue, price);
   return (
     <Grid item xs={12 / size} display={"flex"} flexDirection={"column"}>
       <Box display={"flex"} flexDirection={"column"} gap={"0.5rem"}>
@@ -42,7 +40,6 @@ function DealsProductCard({
         >
           <Typography
             noWrap
-            // flex={1}
             fontSize={"0.8rem"}
             fontWeight={500}
             color={"text.price"}

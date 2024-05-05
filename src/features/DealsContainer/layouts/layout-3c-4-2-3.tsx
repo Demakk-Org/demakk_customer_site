@@ -1,10 +1,8 @@
-import { Grid, Stack } from "@mui/material";
-import React from "react";
-import SocialContainer from "../components/SocialContainer";
+import { Grid } from "@mui/material";
 import useUserStore from "@/store/user";
 import DealsProductCardContainer from "../components/DealsProductCardContainer";
 import { GetProduct } from "@/model/productModel";
-import DealsInCarousel from "../components/DealsInCarousel";
+import ThreeInOneDealContainer from "../components/ThreeInOneDealContainer";
 
 interface ILayoutOne {
   threeInOne: {
@@ -12,61 +10,62 @@ interface ILayoutOne {
     subtitle: string;
     productList: GetProduct[];
   };
-  fourList: {
+  top: {
     title: string;
     subtitle: string;
     productList: GetProduct[];
   };
-  twoList: {
+  bottomLeft: {
     title: string;
     subtitle: string;
     productList: GetProduct[];
   };
-  threeList: {
+  bottomRight: {
     title: string;
     subtitle: string;
     productList: GetProduct[];
   };
 }
 
-function LayoutOne({ threeInOne, fourList, twoList, threeList }: ILayoutOne) {
+function LayoutOne({ threeInOne, top, bottomLeft, bottomRight }: ILayoutOne) {
   const { user } = useUserStore();
   return (
-    <Grid container spacing={1}>
-      <Grid item xs={5}>
-        {!user && <SocialContainer />}
-        <DealsInCarousel
+    <Grid container spacing={2}>
+      <Grid item xs={4}>
+        <ThreeInOneDealContainer
           title={threeInOne.title}
           subtitle={threeInOne.subtitle}
           productList={threeInOne.productList}
         />
       </Grid>
-      <Grid item xs={7} container direction={"column"}>
+      <Grid item xs={8} direction={"column"} container spacing={2}>
         <Grid item>
           <DealsProductCardContainer
             position={"none"}
-            title={fourList.title}
-            subtitle={fourList.subtitle}
-            productList={fourList.productList}
+            first
+            title={top.title}
+            subtitle={top.subtitle}
+            productList={top.productList}
             number={4}
           />
         </Grid>
-        <Grid item container>
-          <Grid item>
+
+        <Grid item direction={"row"} container spacing={2}>
+          <Grid item xs={4.8}>
             <DealsProductCardContainer
-              position={"none"}
-              title={twoList.title}
-              subtitle={twoList.subtitle}
-              productList={twoList.productList}
+              position="none"
+              title={bottomLeft.title}
+              subtitle={bottomLeft.subtitle}
+              productList={bottomLeft.productList}
               number={2}
             />
           </Grid>
-          <Grid item>
+          <Grid item xs={7.2}>
             <DealsProductCardContainer
-              position={"none"}
-              title={threeList.title}
-              subtitle={threeList.subtitle}
-              productList={threeList.productList}
+              position="none"
+              title={bottomRight.title}
+              subtitle={bottomRight.subtitle}
+              productList={bottomRight.productList}
               number={3}
             />
           </Grid>

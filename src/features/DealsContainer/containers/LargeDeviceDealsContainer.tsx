@@ -8,7 +8,7 @@ function LargeDeviceDealsContainer() {
 
   return (
     <Box display={{ xs: "none", md: "block" }}>
-      <LayoutTwo
+      {/* <LayoutTwo
         threeInOne={{
           title: deal[0].getDeal().dealType.name,
           subtitle: deal[0].getDeal().dealType.subTitle,
@@ -29,7 +29,7 @@ function LargeDeviceDealsContainer() {
           subtitle: deal[3].getDeal().dealType.subTitle,
           productList: deal[3].getAllProductsForDeal(),
         }}
-      />
+      /> */}
 
       <LayoutOne
         threeInOne={{

@@ -27,8 +27,6 @@ function DealsComponentForMobile({
         width={1}
         display={"flex"}
         flexDirection={"column"}
-        bgcolor={"background.lighter"}
-        p={"0.5rem"}
         borderRadius={"0.75rem"}
       >
         <Box
@@ -44,21 +42,22 @@ function DealsComponentForMobile({
           mt={1}
           sx={{ textWrap: "nowrap" }}
         >
-          US $
+          ETB
           <Typography
             component={"span"}
+            fontWeight={700}
             fontSize={{ xs: "1.2rem", sm: "1.8rem" }}
           >
-            {getPrice(price).int}
+            {getPrice(discountPrice).int}
           </Typography>
-          .{getPrice(price).dec}
+          .{getPrice(discountPrice).dec}
         </Typography>
         <Typography
           fontSize={{ xs: "0.8rem", sm: "1.2rem" }}
           color={"text.secondary"}
           sx={{ textDecoration: "line-through" }}
         >
-          US ${getPrice(discountPrice).int}.{getPrice(discountPrice).dec}
+          ETB {getPrice(price).int}.{getPrice(price).dec}
         </Typography>
         <Typography
           fontSize={{ xs: "0.8rem", sm: "1.2rem" }}

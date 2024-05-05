@@ -4,8 +4,6 @@ import SmallDeviceDealsContainer from "./containers/SmallDeviceDealsContainer";
 import LargeDeviceDealsContainer from "./containers/LargeDeviceDealsContainer";
 import useDiscountStore from "@/store/discount";
 import { useEffect } from "react";
-import LayoutTwo from "./layouts/layout-3c-3-3-3";
-import LayoutOne from "./layouts/layout-3c-4-2-3";
 
 function DealsContainer() {
   const { deal, discount, setDeal, setDiscount } = useDiscountStore();

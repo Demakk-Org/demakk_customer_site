@@ -2,7 +2,6 @@ import useDiscountStore from "@/store/discount";
 import useProductStore from "@/store/product";
 import { Box, Stack, Typography } from "@mui/material";
 import React from "react";
-import Account from "../../../pages/account/index";
 
 export default function Deal() {
   const { product } = useProductStore();

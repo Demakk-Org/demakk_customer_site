@@ -1,22 +1,16 @@
-import { Box, Divider, Stack, Typography } from "@mui/material";
+import { Box, Stack, Typography } from "@mui/material";
 import React from "react";
 import useProductStore from "../../../store/product";
-import { Discount } from "../../../../dealsContainerStructure";
 import useDiscountStore from "@/store/discount";
 
-interface dealProps {
-  deal: string | undefined;
-  extraDiscount: number | undefined;
-  discountPercent: number | undefined;
+interface DealProps {
+  deal: string;
 }
 
-export default function DealsContainer({
-  deal,
-  extraDiscount,
-  discountPercent,
-}: dealProps) {
+export default function DealsContainer({ deal }: DealProps) {
   const { product } = useProductStore();
   const { discount } = useDiscountStore();
+  // let item = product.getProductForCard()()
   return (
     <Stack
       width={"100%"}
@@ -28,7 +22,7 @@ export default function DealsContainer({
           minWidth={".3rem"}
           m={"0 .25rem 0 .25rem"}
           borderRadius={"50%"}
-          sx={{ backgroundColor: "text.price" }}
+          sx={{ backgroundColor: "error.loght" }}
         ></Box>
       }
     >
@@ -36,14 +30,15 @@ export default function DealsContainer({
         minWidth={"max-content"}
         fontSize={".6rem"}
         fontWeight={"bold"}
-        color={"white"}
-        p={"0rem .4rem "}
+        color={"bright.main"}
+        p={"0rem .4rem .2rem .4rem "}
         borderRadius={".2rem"}
-        sx={{ backgroundColor: "error.main" }}
+        sx={{ backgroundColor: "error.light" }}
       >
-        {product?.getDeals(discount)}
+        {deal}
       </Typography>
-      {extraDiscount && (
+
+      {/* {extraDiscount && (
         <Typography
           title="Extra 2% off with discont"
           noWrap
@@ -58,7 +53,7 @@ export default function DealsContainer({
         <Typography color={"text.price"} fontSize={".7rem"} fontWeight={"bold"}>
           -{discountPercent}%
         </Typography>
-      )}
+      )} */}
     </Stack>
   );
 }

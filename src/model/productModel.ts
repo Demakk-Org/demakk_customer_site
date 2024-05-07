@@ -35,7 +35,7 @@ export interface IProduct {
   images: Image;
   popularity: number;
   sold: number;
-  ratings: Rating;
+  rating: Rating;
 }
 
 export type IProductForPage = IProduct & {
@@ -59,6 +59,7 @@ export interface IReturnedProduct {
   images: Image;
   shipping: (discounts: GetDiscount[]) => ShippingState;
   deals: (discounts: GetDiscount[]) => string;
+  sold: number;
 }
 
 export type IReturnedProductForCard = {
@@ -67,8 +68,10 @@ export type IReturnedProductForCard = {
 } & IReturnedProduct;
 
 export type IReturnedProductForPage = {
+  description: String;
   reviews: IReview[];
   productVariants: IProductVariant[];
+  productCategory: IProductCategory;
 } & IReturnedProduct;
 
 export enum EVariantType {
@@ -116,7 +119,7 @@ export class GetProduct {
     this.tags = product.tags;
     this.price = product.price;
     this.images = product.images;
-    this.rating = product.ratings;
+    this.rating = product.rating;
     this.popularity = product.popularity;
     this.sold = product.sold;
   }
@@ -199,6 +202,7 @@ export class GetProduct {
           };
       }
     });
+    console.log("discount", returnPriceAndPercent);
     return returnPriceAndPercent;
   }
 
@@ -252,6 +256,7 @@ export class GetProductForCard extends GetProduct {
       deals: this.getDeals,
       productVariants: this.productVariants,
       reviews: this.reviews,
+      sold: this.sold,
     };
   }
 }
@@ -277,6 +282,7 @@ export class GetProductForPage extends GetProduct {
     return {
       id: this.id,
       name: this.name,
+      description: this.description,
       price: this.price,
       discountedPrice: this.getDiscountedPriceAndPercent,
       rating: this.rating,
@@ -285,6 +291,8 @@ export class GetProductForPage extends GetProduct {
       deals: this.getDeals,
       productVariants: this.productVariants,
       reviews: this.reviews,
+      sold: this.sold,
+      productCategory: this.productCategory,
     };
   }
 }

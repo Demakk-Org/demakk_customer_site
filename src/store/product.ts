@@ -22,7 +22,7 @@ const useProductStore = create<ProductStoreProps>((set) => ({
   products: [],
   product: null,
   page: 1,
-  limit: 5,
+  limit: 10,
   setProducts: async (value) => {
     ///get from the database and set to the store
     const productList: GetProductForCard[] = await getProducts(value);

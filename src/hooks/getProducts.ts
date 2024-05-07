@@ -1,6 +1,6 @@
-import { GetProductForCard, IProductForCard } from "@/model/productModel";
-import { LANG } from "@/store/user";
-import axios from "axios";
+import { GetProductForCard, IProductForCard } from '@/model/productModel';
+import { LANG } from '@/store/user';
+import axios from 'axios';
 
 export interface GetProductProps {
   limit: number;
@@ -8,8 +8,8 @@ export interface GetProductProps {
   lang: LANG;
 }
 
-const local = "http://localhost:8080/api/v1";
-const server = "https://demakk-backend.vercel.app/api/v1";
+const local = 'http://localhost:8080/api/v1';
+const server = 'https://demakk-backend.vercel.app/api/v1';
 
 const getProducts = async ({ limit, page, lang }: GetProductProps) => {
   try {
@@ -32,7 +32,7 @@ const getProducts = async ({ limit, page, lang }: GetProductProps) => {
     );
     return list;
   } catch (e: any) {
-    console.log("Error", e.message);
+    console.log('Error', e.message);
     return [];
   }
 };

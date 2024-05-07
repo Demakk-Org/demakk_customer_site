@@ -3,16 +3,16 @@ import { GetProduct, IProduct } from "./productModel";
 import { IDeal } from "./dealModel";
 
 export enum DiscountType {
-  cashDiscount = "Cash discount",
-  percentageDiscount = "Percentage discount",
-  freeShipping = "Free shipping",
-  volumeDiscount = "Volume discount",
+  cashDiscount = 'Cash discount',
+  percentageDiscount = 'Percentage discount',
+  freeShipping = 'Free shipping',
+  volumeDiscount = 'Volume discount',
 }
 
 export enum DiscountStatus {
-  active = "active",
-  closed = "closed",
-  pending = "pending",
+  active = 'active',
+  closed = 'closed',
+  pending = 'pending',
 }
 
 export interface IReturnedDiscount {

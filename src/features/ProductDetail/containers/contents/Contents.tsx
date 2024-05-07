@@ -9,7 +9,15 @@ import RatingAndReview from "../../components/RatingAndReview";
 import ColorChoice from "../../components/ColorChoice";
 import Size from "../../components/Size";
 
-export default function Contents() {
+interface ColredImageProps {
+  singleItemImages: string;
+  setMainImage: Function;
+}
+
+export default function Contents({
+  singleItemImages,
+  setMainImage,
+}: ColredImageProps) {
   return (
     <Box>
       <Stack>
@@ -33,7 +41,10 @@ export default function Contents() {
       {/* Rating and reviws */}
       <RatingAndReview />
       <Divider sx={{ m: "1rem 0rem" }} />
-      <ColorChoice />
+      <ColorChoice
+        singleItemImages={singleItemImages}
+        setMainImage={setMainImage}
+      />
       <Size />
       <Divider sx={{ m: "1rem 0rem" }} />
     </Box>

@@ -2,10 +2,15 @@ import React, { useState } from "react";
 import Box from "@mui/material/Box";
 import useProductStore from "@/store/product";
 
-const ItemImage = () => {
+interface ColredImageProps {
+  singleItemImages: string;
+  setMainImage: Function;
+}
+
+const ItemImage = ({ singleItemImages, setMainImage }: ColredImageProps) => {
   const { product } = useProductStore();
 
-  const [singleItemImages, setMainImage] = useState("");
+  // const [singleItemImages, setMainImage] = useState("");
 
   const [zoomWidth, setZoomWidth] = useState<number | null>(null);
   const [imgPosition, setImgPosition] = useState({ top: 0, left: 0 });
@@ -86,6 +91,8 @@ const ItemImage = () => {
           src={
             singleItemImages ||
             product?.images.imageUrls[product.images.primary]
+
+            // (coloredImage || )
           }
           alt={"image of the product"}
           sx={{

@@ -2,9 +2,19 @@ import useProductStore from "@/store/product";
 import { Box, Typography } from "@mui/material";
 import React, { useState } from "react";
 
-export default function ColorChoice() {
+interface ColredImageProps {
+  singleItemImages: string;
+  setMainImage: Function;
+}
+
+export default function ColorChoice({
+  singleItemImages,
+  setMainImage,
+}: ColredImageProps) {
   const { product } = useProductStore();
   const [colorName, setColorName] = useState("");
+  // const [coloredImage, setColoredImage] = useState("");
+
   return (
     <>
       {product?.getProductForCard().productVariants && (
@@ -22,10 +32,18 @@ export default function ColorChoice() {
                 <Box
                   component={"img"}
                   src={product.images.imageUrls[variant.imageIndex]}
-                  width={"100px"}
-                  height={"100px"}
-                  sx={{}}
-                  onClick={() => setColorName(variant.value)}
+                  width={"75px"}
+                  height={"75px"}
+                  sx={{
+                    "&:hover": {
+                      border: ".1rem solid",
+                      borderColor: "dark.main",
+                    },
+                  }}
+                  onClick={() => {
+                    setColorName(variant.value);
+                    setMainImage(product.images.imageUrls[variant.imageIndex]);
+                  }}
                 />
               </Box>
             ))}

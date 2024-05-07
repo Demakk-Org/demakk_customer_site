@@ -1,10 +1,10 @@
-import { create } from 'zustand';
-import getProducts, { GetProductProps } from '@/hooks/getProducts';
+import { create } from "zustand";
+import getProducts, { GetProductProps } from "@/hooks/getProducts";
 import {
   GetProductForPage,
   GetProductForCard,
   IProductForPage,
-} from '@/model/productModel';
+} from "@/model/productModel";
 
 interface ProductStoreProps {
   products: GetProductForCard[];
@@ -22,7 +22,7 @@ const useProductStore = create<ProductStoreProps>((set) => ({
   products: [],
   product: null,
   page: 1,
-  limit: 8,
+  limit: 10,
   setProducts: async (value) => {
     ///get from the database and set to the store
     const productList: GetProductForCard[] = await getProducts(value);

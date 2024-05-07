@@ -12,8 +12,13 @@ import ShareIcon from "@mui/icons-material/Share";
 import Image from "./containers/images/ItemImages";
 import Contents from "./containers/contents/Contents";
 import RelatedItemListing from "./containers/relatedItemCard/RelatedItemListing";
+import { useState } from "react";
+
+interface ColoredImageChoiseProps {}
 
 export default function DetailsPage() {
+  const [singleItemImages, setMainImage] = useState("");
+
   return (
     <>
       <Box>
@@ -36,10 +41,16 @@ export default function DetailsPage() {
               spacing={2}
             >
               <Grid item xs={5}>
-                <Image />
+                <Image
+                  singleItemImages={singleItemImages}
+                  setMainImage={setMainImage}
+                />
               </Grid>
               <Grid item xs={7}>
-                <Contents />
+                <Contents
+                  singleItemImages={singleItemImages}
+                  setMainImage={setMainImage}
+                />
               </Grid>
             </Grid>
             <Divider

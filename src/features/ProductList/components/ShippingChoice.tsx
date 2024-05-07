@@ -1,5 +1,4 @@
-import { Stack, Typography } from '@mui/material';
-import React from 'react';
+import { Stack, Typography } from "@mui/material";
 
 interface ShippingChoiceProps {
   choice?: boolean;
@@ -16,25 +15,25 @@ export default function ShippingChoice({
         <Stack>
           <Typography
             sx={{
-              '.choice': {
-                minWidth: 'max-content',
-                p: '0rem .4rem ',
-                fontSize: '.65rem',
-                fontWeight: 'bold',
-                backgroundColor: 'demakkSecondary.main',
-                borderRadius: '.2rem',
+              ".choice": {
+                minWidth: "max-content",
+                p: "0rem .4rem ",
+                fontSize: ".65rem",
+                fontWeight: "bold",
+                backgroundColor: "demakkSecondary.main",
+                borderRadius: ".2rem",
               },
-              minWidth: 'max-content',
-              fontSize: '.875rem',
+              minWidth: "max-content",
+              fontSize: ".875rem",
             }}
           >
-            <Typography component={'span'} className="choice" mr={'.25rem'}>
+            <Typography component={"span"} className="choice" mr={".25rem"}>
               Choice
             </Typography>
             Free shipping
             {freeShippingPrice ? (
-              <Typography component={'span'}>
-                {' '}
+              <Typography component={"span"}>
+                {" "}
                 over ETB{freeShippingPrice}
               </Typography>
             ) : (

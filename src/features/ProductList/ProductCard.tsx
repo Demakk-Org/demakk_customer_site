@@ -1,5 +1,4 @@
 import {
-  Button,
   Card,
   CardMedia,
   Typography,
@@ -7,9 +6,6 @@ import {
   Stack,
   useTheme,
 } from "@mui/material";
-import React, { useEffect } from "react";
-import ShippingChoice from "./components/ShippingChoice";
-import TopSellingCard from "./components/TopSellingCard";
 import SoldQuantity from "./components/SoldQuantity";
 import ProductRating from "./components/ProductRating";
 import AddToCartButton from "./components/AddToCartButton";
@@ -18,6 +14,7 @@ import SellingPrice from "./components/SellingPrice";
 import HoveringButtons from "./components/HoveringButtons";
 import useDiscountStore from "@/store/discount";
 import { IReturnedProductForCard } from "@/model/productModel";
+import ShippingChoice from "./components/ShippingChoice";
 
 export default function ProductCard({
   product,
@@ -52,7 +49,6 @@ export default function ProductCard({
             top: 0,
             left: 0,
           },
-          // bgcolor: theme.palette.mode === "dark" ? "bright.main" : "black",
         }}
       >
         <Card
@@ -152,19 +148,16 @@ export default function ProductCard({
             </Stack>
             <Stack direction={"row"} spacing={0.5} alignItems={"center"}>
               {product.discountedPrice(discount).afterDiscount ? (
-                <DealsContainer
-                  deal={product.deals(discount)}
-                  // discountPercent={product.discountPercent ||}
-                />
+                <DealsContainer deal={product.deals(discount)} />
               ) : (
                 <></>
               )}
             </Stack>
             <Stack>
-              {/* <ShippingChoice
-                choice={product.choice || true}
+              <ShippingChoice
+                choice={product.shipping(discount).status}
                 freeShippingPrice={product.shipping(discount).above}
-              /> */}
+              />
             </Stack>
           </Stack>
 

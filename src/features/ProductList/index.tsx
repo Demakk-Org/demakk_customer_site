@@ -1,11 +1,10 @@
-import React, { useEffect, useState } from "react";
-import { Box, Grid } from "@mui/material";
+import React, { useEffect } from "react";
+import { Grid } from "@mui/material";
 import ProductCard from "./ProductCard";
 import useProductStore from "@/store/product";
 import { LANG } from "@/store/user";
 import useDiscountStore from "@/store/discount";
 import Link from "next/link";
-import { useRouter } from "next/router";
 
 export default function ProductListing() {
   const { products, setProducts, page, limit, nextPage, prevPage } =
@@ -16,7 +15,6 @@ export default function ProductListing() {
     setProducts({ limit, lang: LANG.en, page });
     setDiscount();
   }, [page]);
-  // console.log(products);
 
   return (
     <Grid
@@ -41,6 +39,7 @@ export default function ProductListing() {
             <Link
               href={`/item/${product.id}`}
               style={{ textDecoration: "none" }}
+              target="_blank"
             >
               <ProductCard product={product} />
             </Link>

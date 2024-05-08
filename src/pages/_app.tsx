@@ -156,6 +156,7 @@ const darkTheme = createTheme(dTheme, {
       teritiary: "#575757",
       links: "#ffffffcc",
       price: "#ff0000",
+      dealHeader: "#ff0000",
     },
     background: {
       lightOpaque: "#414141",
@@ -238,6 +239,8 @@ const lightTheme = createTheme(lTheme, {
       teritiary: "#e7e7e7",
       links: "#191919cc",
       price: "#ff0000",
+      dealHeader: "#ff0000",
+      contrast: "#191919cc",
     },
     background: {
       lightOpaque: "#d0d0d0",

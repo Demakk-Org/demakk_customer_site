@@ -17,7 +17,7 @@ export default function ColorChoice({
 
   return (
     <>
-      {product?.getProductForCard().productVariants && (
+      {product?.getProductForCard().productVariants ? (
         <Box>
           <Box display={"flex"}>
             <Typography
@@ -49,6 +49,8 @@ export default function ColorChoice({
             ))}
           </Box>
         </Box>
+      ) : (
+        <></>
       )}
     </>
   );

@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import Box from "@mui/material/Box";
 import useProductStore from "@/store/product";
+import CarouselContainer from "@/component/CarouselContainer";
+import { Breakpoints } from "@/data/carouselBreakPoints";
 
 interface ColredImageProps {
   singleItemImages: string;
@@ -75,6 +77,7 @@ const ItemImage = ({ singleItemImages, setMainImage }: ColredImageProps) => {
         className="img-cont"
         width={1}
         position="relative"
+        display={{ xs: "none", sm: "grid" }}
         overflow={"hidden"}
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
@@ -91,8 +94,6 @@ const ItemImage = ({ singleItemImages, setMainImage }: ColredImageProps) => {
           src={
             singleItemImages ||
             product?.images.imageUrls[product.images.primary]
-
-            // (coloredImage || )
           }
           alt={"image of the product"}
           sx={{
@@ -116,29 +117,27 @@ const ItemImage = ({ singleItemImages, setMainImage }: ColredImageProps) => {
         ></Box>
       </Box>
 
-      <Box
-        justifyContent={"center"}
-        width={1}
-        mt={"1rem"}
-        gap={".5rem"}
-        display={{ xs: "none", sm: "flex" }}
-        sx={{ overflowX: "auto" }}
-      >
-        {product?.images.imageUrls.map((singleItemImages) => (
-          <Box
-            component="img"
-            src={singleItemImages}
-            height={"75px"}
-            width={"75px"}
-            key={singleItemImages}
-            sx={{
-              "&:hover": {
-                border: ".1rem solid black",
-              },
-            }}
-            onMouseEnter={() => setMainImage(singleItemImages)}
-          />
-        ))}
+      <Box width={1} minHeight={"100px"} maxWidth={"400px"} mt={"1rem"}>
+        {product?.getProductForCard().images._id && (
+          <CarouselContainer type={Breakpoints.productItemImagesCarousel}>
+            {product?.images.imageUrls.map((singleItemImages) => (
+              <Box
+                component="img"
+                key={singleItemImages}
+                src={singleItemImages}
+                width={1}
+                sx={{
+                  "&:hover": {
+                    border: ".1rem solid black",
+                  },
+                  aspectRatio: 1,
+                  objectFit: "contain",
+                }}
+                onMouseEnter={() => setMainImage(singleItemImages)}
+              />
+            ))}
+          </CarouselContainer>
+        )}
       </Box>
     </>
   );

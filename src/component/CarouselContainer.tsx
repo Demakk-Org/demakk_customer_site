@@ -25,7 +25,7 @@ function CarouselContainer({
       draggable={true}
       showDots={false}
       responsive={getBreakpoint(type)}
-      ssr={true}
+      ssr={false}
       infinite={infinite}
       autoPlay={animate}
       autoPlaySpeed={3000}

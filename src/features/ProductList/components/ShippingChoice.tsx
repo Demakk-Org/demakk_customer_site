@@ -26,6 +26,7 @@ export default function ShippingChoice({
               minWidth: "max-content",
               fontSize: ".875rem",
             }}
+            noWrap
           >
             <Typography component={"span"} className="choice" mr={".25rem"}>
               Choice

@@ -35,7 +35,7 @@ export default function ProductCard({
           },
           "&:hover div .hovered-container": {
             display: { xs: "none", sm: "block" },
-            bgcolor:
+            bgcolor: (theme) =>
               theme.palette.mode === "dark"
                 ? "background.lightOpaque"
                 : "background.paper",
@@ -113,7 +113,7 @@ export default function ProductCard({
                     spacing={1}
                     alignItems={"center"}
                   >
-                    {product.rating ? (
+                    {product.rating.average ? (
                       <ProductRating ratingValue={product.rating.average} />
                     ) : (
                       <></>

@@ -28,7 +28,7 @@ export default function ProductRating({ ratingValue }: RatingProps) {
       >
         <Rating
           max={1}
-          value={ratingValue}
+          value={ratingValue / 5}
           precision={0.1}
           readOnly
           sx={{

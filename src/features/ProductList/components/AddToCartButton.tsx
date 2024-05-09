@@ -20,15 +20,17 @@ export default function AddToCartButton({ id }: AddToCartButton) {
           position: "absolute",
           bottom: "10%",
           right: "10%",
-          backgroundColor:
+          backgroundColor: (theme) =>
             theme.palette.mode === "dark" ? "bright.main" : "background.paper",
+          // theme.palette.mode === "dark" ? "bright.main" : "background.paper",
           ".cart-icon": {
             color: "dark.main",
           },
           "&:hover": {
-            bgcolor: theme.palette.mode === "dark" ? "dark.main" : "black",
+            bgcolor: (theme) =>
+              theme.palette.mode === "dark" ? "dark.main" : "black",
             ".cart-icon": {
-              color:
+              color: (theme) =>
                 theme.palette.mode === "dark"
                   ? "primary.main"
                   : "background.paper",

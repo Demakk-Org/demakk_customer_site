@@ -12,36 +12,34 @@ export default function ShippingChoice({
   return (
     <>
       {freeShippingPrice ? (
-        <Stack>
-          <Typography
-            sx={{
-              ".choice": {
-                minWidth: "max-content",
-                p: "0rem .4rem ",
-                fontSize: ".65rem",
-                fontWeight: "bold",
-                backgroundColor: "demakkSecondary.main",
-                borderRadius: ".2rem",
-              },
+        <Typography
+          sx={{
+            ".choice": {
               minWidth: "max-content",
-              fontSize: ".875rem",
-            }}
-            noWrap
-          >
-            <Typography component={"span"} className="choice" mr={".25rem"}>
-              Choice
-            </Typography>
-            Free shipping
-            {freeShippingPrice ? (
-              <Typography component={"span"}>
-                {" "}
-                over ETB{freeShippingPrice}
-              </Typography>
-            ) : (
-              <></>
-            )}
+              p: "0rem .4rem ",
+              fontSize: ".65rem",
+              fontWeight: "bold",
+              backgroundColor: "demakkSecondary.main",
+              borderRadius: ".2rem",
+            },
+            fontSize: ".875rem",
+            overflowWrap: "break-word",
+            whiteSpace: "pre-line",
+          }}
+        >
+          <Typography component={"span"} className="choice" mr={".25rem"}>
+            Choice
           </Typography>
-        </Stack>
+          Free shipping
+          {freeShippingPrice ? (
+            <Typography component={"span"}>
+              {" "}
+              over ETB{freeShippingPrice}
+            </Typography>
+          ) : (
+            <></>
+          )}
+        </Typography>
       ) : (
         <></>
       )}

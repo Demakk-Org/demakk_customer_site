@@ -13,8 +13,8 @@ import getProduct from "@/hooks/getProduct";
 
 function Product({ item }: { item: IProductForPage }) {
   const {
-    products,
     product,
+    products,
     setProducts,
     setProduct,
     page,
@@ -23,7 +23,7 @@ function Product({ item }: { item: IProductForPage }) {
     prevPage,
   } = useProductStore();
   const { discount, setDiscount } = useDiscountStore();
-  console.log(product?.getProductForCard());
+
   useEffect(() => {
     setProducts({ limit, lang: LANG.en, page });
     setDiscount();

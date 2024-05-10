@@ -36,6 +36,7 @@ export interface IProduct {
   popularity: number;
   sold: number;
   rating: Rating;
+  stockVarietyTypeList: string[];
 }
 
 export type IProductForPage = IProduct & {
@@ -59,6 +60,7 @@ export interface IReturnedProduct {
   images: Image;
   shipping: (discounts: GetDiscount[]) => ShippingState;
   deals: (discounts: GetDiscount[]) => string;
+  stockVarietyTypeList: string[];
 }
 
 export type IReturnedProductForCard = {
@@ -111,6 +113,7 @@ export class GetProduct {
   public rating: Rating;
   public popularity: number;
   public sold: number;
+  public stockVarietyTypeList: string[];
 
   constructor(product: IProduct) {
     this.id = product._id;
@@ -122,6 +125,7 @@ export class GetProduct {
     this.rating = product.rating;
     this.popularity = product.popularity;
     this.sold = product.sold;
+    this.stockVarietyTypeList = product.stockVarietyTypeList;
   }
 
   getShippingDiscount(discounts: GetDiscount[]): ShippingState {
@@ -243,7 +247,7 @@ export class GetProductForCard extends GetProduct {
     this.productVariants = productVariants;
   }
 
-  getProductForCard(): IReturnedProductForCard {
+  getProductForCard(): Omit<IReturnedProductForCard, "stockVarietyTypeList"> {
     return {
       id: this.id,
       name: this.name,
@@ -288,6 +292,7 @@ export class GetProductForPage extends GetProduct {
       deals: this.getDeals,
       productVariants: this.productVariants,
       reviews: this.reviews,
+      stockVarietyTypeList: this.stockVarietyTypeList,
     };
   }
 }

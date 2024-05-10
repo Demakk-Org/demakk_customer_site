@@ -9,29 +9,32 @@ import RatingAndReview from "../../components/RatingAndReview";
 import ColorChoice from "../../components/ColorChoice";
 import Size from "../../components/Size";
 
-interface ColredImageProps {
-  singleItemImages: string;
-  setMainImage: Function;
+interface MainVariantProps {
+  previewImage: string;
+  setPreviewImage: Function;
 }
 
 export default function Contents({
-  singleItemImages,
-  setMainImage,
-}: ColredImageProps) {
+  previewImage,
+  setPreviewImage,
+}: MainVariantProps) {
   return (
     <Box>
       <Stack>
         <Deal />
       </Stack>
       {/* price and discount */}
-      <Stack
+      {/* <Stack
         direction={"row"}
-        // spacing={0.5}
         alignItems={"baseline"}
-        sx={{ flexWrap: "wrap" }}
-      >
-        <ItemPrice />
-      </Stack>
+        m={{ xs: "none", sm: ".75rem 0rem 0rem 0rem" }}
+        sx={{
+          p: { xs: ".2rem, .5rem, .2rem, .5rem", sm: "none" },
+          flexWrap: "wrap",
+        }}
+      > */}
+      <ItemPrice />
+      {/* </Stack> */}
       {/* extra discount */}
       <ExtraDiscount />
       {/* choice and freeshipping */}
@@ -42,8 +45,8 @@ export default function Contents({
       <RatingAndReview />
       <Divider sx={{ m: "1rem 0rem" }} />
       <ColorChoice
-        singleItemImages={singleItemImages}
-        setMainImage={setMainImage}
+        previewImage={previewImage}
+        setPreviewImage={setPreviewImage}
       />
       <Size />
       <Divider sx={{ m: "1rem 0rem" }} />

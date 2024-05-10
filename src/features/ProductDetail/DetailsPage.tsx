@@ -1,12 +1,13 @@
 import { Box, Divider, Grid, Typography } from "@mui/material";
-import Image from "./containers/images/ItemImages";
+// import Image from "./containers/images/ItemImages";
 import Contents from "./containers/contents/Contents";
 import RelatedItemListing from "./containers/relatedItemCard/RelatedItemListing";
 import { useState } from "react";
 import SideNav from "./components/SideNav";
+import ItemImages from "./components/ItemImages";
 
 export default function DetailsPage() {
-  const [singleItemImages, setMainImage] = useState("");
+  const [previewImage, setPreviewImage] = useState("");
 
   return (
     <>
@@ -29,16 +30,16 @@ export default function DetailsPage() {
               container
               spacing={2}
             >
-              <Grid item sm={5}>
-                <Image
-                  singleItemImages={singleItemImages}
-                  setMainImage={setMainImage}
+              <Grid item xs={12} sm={5}>
+                <ItemImages
+                  previewImage={previewImage}
+                  setPreviewImage={setPreviewImage}
                 />
               </Grid>
               <Grid item sm={7}>
                 <Contents
-                  singleItemImages={singleItemImages}
-                  setMainImage={setMainImage}
+                  previewImage={previewImage}
+                  setPreviewImage={setPreviewImage}
                 />
               </Grid>
             </Grid>

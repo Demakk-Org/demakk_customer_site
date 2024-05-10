@@ -35,6 +35,8 @@ function CarouselContainer({
       removeArrowOnDeviceType={["tablet", "mobile"]}
       dotListClass="custom-dot-list-style"
       itemClass="carousel-item-padding-40-px"
+      // centerMode
+      // centerSlidePercentage={50}
     >
       {children}
     </Carousel>

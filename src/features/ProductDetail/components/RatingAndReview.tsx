@@ -5,8 +5,8 @@ import React from "react";
 export default function RatingAndReview() {
   const { product } = useProductStore();
   return (
-    <div>
-      <Stack direction={"row"} spacing={1}>
+    <>
+      <Stack direction={"row"} spacing={1} m={{ xs: ".5rem" }}>
         {product?.getProductForCard().rating?.average ? (
           <Stack direction={"row"} spacing={1}>
             <Rating
@@ -25,6 +25,6 @@ export default function RatingAndReview() {
         )}
         <Typography fontSize={".75rem"}>{45} Reviews</Typography>
       </Stack>
-    </div>
+    </>
   );
 }

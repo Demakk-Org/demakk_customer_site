@@ -2,33 +2,33 @@ import useProductStore from "@/store/product";
 import { Box, Typography } from "@mui/material";
 import React, { useState } from "react";
 
-interface ColredImageProps {
-  singleItemImages: string;
-  setMainImage: Function;
+interface MainVariantListProps {
+  previewImage: string;
+  setPreviewImage: Function;
 }
 
 export default function ColorChoice({
-  singleItemImages,
-  setMainImage,
-}: ColredImageProps) {
+  previewImage,
+  setPreviewImage,
+}: MainVariantListProps) {
   const { product } = useProductStore();
-  const [colorName, setColorName] = useState("");
+  const [variantName, setVariantName] = useState("");
   // const [coloredImage, setColoredImage] = useState("");
 
   return (
     <>
       {product?.getProductForCard().productVariants ? (
         <Box>
-          <Box display={"flex"}>
+          <Box>
             <Typography
               sx={{ fontWeight: "bold", fontSize: ".75rem", ml: ".5rem" }}
             >
-              Color:{colorName}
+              Color:{variantName}
             </Typography>
           </Box>
           <Box display={"flex"} gap={".5rem"}>
             {product?.getProductForCard().productVariants.map((variant) => (
-              <Box key={variant._id.toString()} sx={{}}>
+              <Box key={variant._id.toString()}>
                 <Box
                   component={"img"}
                   src={product.images.imageUrls[variant.imageIndex]}
@@ -41,8 +41,10 @@ export default function ColorChoice({
                     },
                   }}
                   onClick={() => {
-                    setColorName(variant.value);
-                    setMainImage(product.images.imageUrls[variant.imageIndex]);
+                    setVariantName(variant.value);
+                    setPreviewImage(
+                      product.images.imageUrls[variant.imageIndex]
+                    );
                   }}
                 />
               </Box>

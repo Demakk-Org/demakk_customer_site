@@ -13,7 +13,16 @@ export default function ItemPrice() {
     <Stack
       direction={"row"}
       alignItems={"baseline"}
-      m={".75rem 0rem 0rem 0rem"}
+      position={"relative"}
+      // justifyContent={{ xs: "center", sm: "none" }}
+      m={{ xs: "-.5rem 0rem", sm: ".75rem 0rem 0rem 0rem" }}
+      sx={{
+        pl: { xs: ".5rem", sm: "none" },
+        bgcolor: "background.paper",
+        borderTopLeftRadius: { xs: ".4rem", sm: "none" },
+        borderTopRightRadius: { xs: ".4rem", sm: "none" },
+      }}
+      zIndex={{ xs: 3, sm: 0 }}
     >
       {item?.discountedPrice(discount).afterDiscount ? (
         <Typography
@@ -21,19 +30,17 @@ export default function ItemPrice() {
           sx={{
             display: "flex",
             alignItems: "baseline",
-            color: "text.price",
+            color: { xs: "text.primary", sm: "text.price" },
             ".currency": {
-              fontSize: "1.4rem",
+              fontSize: { xs: "1rem", sm: "1.4rem" },
               fontWeight: "bold",
             },
             ".price-int": {
-              fontFamily:
-                "Open Sans, Roboto, Arial, Helvetica, sans-serif, SimSun",
-              fontSize: "2.3rem",
+              fontSize: { xs: "2rem", sm: "3rem" },
               fontWeight: "bold",
             },
             ".price-dec": {
-              fontSize: "1.4rem",
+              fontSize: { xs: "1rem", sm: "1.4rem" },
               fontWeight: "bold",
             },
           }}
@@ -52,17 +59,17 @@ export default function ItemPrice() {
           sx={{
             display: "flex",
             alignItems: "baseline",
-            color: "text.price",
+            color: { xs: "text.primary", sm: "text.price" },
             ".currency": {
-              fontSize: "1.5rem",
+              fontSize: { xs: "1rem", sm: "1.4rem" },
               fontWeight: "bold",
             },
             ".price-int": {
-              fontSize: "3rem",
+              fontSize: { xs: "2rem", sm: "3rem" },
               fontWeight: "bold",
             },
             ".price-dec": {
-              fontSize: "1.5rem",
+              fontSize: { xs: "1rem", sm: "1.4rem" },
               fontWeight: "bold",
             },
           }}
@@ -81,9 +88,9 @@ export default function ItemPrice() {
         <Typography
           sx={{
             textDecoration: "line-through",
-            color: "text.primary",
+            color: { xs: "text.oldPrice", sm: "text.primary" },
             fontSize: ".875rem",
-            fontWeight: "bold",
+            fontWeight: { xs: "none", sm: "bold" },
           }}
         >
           ETB{getPrice(item.price).int}.{getPrice(item.price).dec}
@@ -92,7 +99,7 @@ export default function ItemPrice() {
         <></>
       )}
       {item?.discountedPrice(discount).discountPercent ? (
-        <Typography color={"error.main"} m={"0rem 0rem 0rem .75rem"}>
+        <Typography color={"text.price"} m={"0rem 0rem 0rem .75rem"}>
           -{item?.discountedPrice(discount).discountPercent}%
         </Typography>
       ) : (

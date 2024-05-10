@@ -3,16 +3,17 @@ import Box from "@mui/material/Box";
 import useProductStore from "@/store/product";
 import CarouselContainer from "@/component/CarouselContainer";
 import { Breakpoints } from "@/data/carouselBreakPoints";
+import { Stack } from "@mui/material";
 
-interface ColredImageProps {
-  singleItemImages: string;
-  setMainImage: Function;
+interface ItemImageProps {
+  previewImage: string;
+  setPreviewImage: Function;
 }
 
-const ItemImage = ({ singleItemImages, setMainImage }: ColredImageProps) => {
+const ItemImages = ({ previewImage, setPreviewImage }: ItemImageProps) => {
   const { product } = useProductStore();
 
-  // const [singleItemImages, setMainImage] = useState("");
+  // const [itemImage, setMainImage] = useState("");
 
   const [zoomWidth, setZoomWidth] = useState<number | null>(null);
   const [imgPosition, setImgPosition] = useState({ top: 0, left: 0 });
@@ -83,7 +84,7 @@ const ItemImage = ({ singleItemImages, setMainImage }: ColredImageProps) => {
         onMouseLeave={handleMouseLeave}
         onMouseMove={handleMouseMove}
         borderRadius={".5rem"}
-        sx={{ aspectRatio: 1, mb: "2rem" }}
+        sx={{ aspectRatio: 1, mb: "1rem" }}
       >
         <Box
           component={"img"}
@@ -92,8 +93,7 @@ const ItemImage = ({ singleItemImages, setMainImage }: ColredImageProps) => {
           width={1}
           display={"block"}
           src={
-            singleItemImages ||
-            product?.images.imageUrls[product.images.primary]
+            previewImage || product?.images.imageUrls[product.images.primary]
           }
           alt={"image of the product"}
           sx={{
@@ -117,30 +117,43 @@ const ItemImage = ({ singleItemImages, setMainImage }: ColredImageProps) => {
         ></Box>
       </Box>
 
-      <Box width={1} minHeight={"100px"} maxWidth={"400px"} mt={"1rem"}>
+      <Stack width={"400px"} height={1} spacing={1}>
         {product?.getProductForCard().images._id && (
           <CarouselContainer type={Breakpoints.productItemImagesCarousel}>
-            {product?.images.imageUrls.map((singleItemImages) => (
-              <Box
-                component="img"
-                key={singleItemImages}
-                src={singleItemImages}
-                width={1}
-                sx={{
-                  "&:hover": {
-                    border: ".1rem solid black",
-                  },
-                  aspectRatio: 1,
-                  objectFit: "contain",
-                }}
-                onMouseEnter={() => setMainImage(singleItemImages)}
-              />
+            {product?.images.imageUrls.map((itemImage) => (
+              <Box width={1} key={itemImage} position={"relative"}>
+                <Box
+                  component="img"
+                  width={1}
+                  src={itemImage}
+                  key={itemImage}
+                  sx={{
+                    sm: {
+                      "&:hover": {
+                        border: ".1rem solid black",
+                      },
+                    },
+
+                    aspectRatio: 1,
+                    // bgcolor: "background.productBg",
+                  }}
+                  // onMouseEnter={() => setPreviewImage(itemImage)}
+                />{" "}
+                <Box
+                  position={"absolute"}
+                  width={1}
+                  height={1}
+                  top={0}
+                  left={0}
+                  sx={{ bgcolor: "background.productBg" }}
+                ></Box>
+              </Box>
             ))}
           </CarouselContainer>
         )}
-      </Box>
+      </Stack>
     </>
   );
 };
 
-export default ItemImage;
+export default ItemImages;

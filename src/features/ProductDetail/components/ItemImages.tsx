@@ -4,6 +4,7 @@ import useProductStore from "@/store/product";
 import CarouselContainer from "@/component/CarouselContainer";
 import { Breakpoints } from "@/data/carouselBreakPoints";
 import { Stack } from "@mui/material";
+import { ObjectId } from "mongoose";
 
 interface ItemImageProps {
   previewImage: string;
@@ -73,7 +74,7 @@ const ItemImages = ({ previewImage, setPreviewImage }: ItemImageProps) => {
   }, []);
 
   return (
-    <>
+    <Box width={1}>
       <Box
         className="img-cont"
         width={1}
@@ -117,13 +118,28 @@ const ItemImages = ({ previewImage, setPreviewImage }: ItemImageProps) => {
         ></Box>
       </Box>
 
-      <Stack width={"400px"} height={1} spacing={1}>
+      <Box maxWidth={"400px"} height={1}>
         {product?.getProductForCard().images._id && (
           <CarouselContainer type={Breakpoints.productItemImagesCarousel}>
+            {/* <Stack
+              width={1}
+              // key={itemImage}
+              // position={"relative"}
+              direction={"row"}
+              // justifyContent={"center"}
+              spacing={2}
+              // onMouseEnter={() => setPreviewImage(itemImage)}
+            > */}
             {product?.images.imageUrls.map((itemImage) => (
-              <Box width={1} key={itemImage} position={"relative"}>
+              <Box
+                width={1}
+                key={itemImage}
+                position={"relative"}
+                onMouseEnter={() => setPreviewImage(itemImage)}
+              >
                 <Box
                   component="img"
+                  position={"relative"}
                   width={1}
                   src={itemImage}
                   key={itemImage}
@@ -133,11 +149,10 @@ const ItemImages = ({ previewImage, setPreviewImage }: ItemImageProps) => {
                         border: ".1rem solid black",
                       },
                     },
-
                     aspectRatio: 1,
                     // bgcolor: "background.productBg",
                   }}
-                  // onMouseEnter={() => setPreviewImage(itemImage)}
+                  onMouseEnter={() => setPreviewImage(itemImage)}
                 />{" "}
                 <Box
                   position={"absolute"}
@@ -149,10 +164,11 @@ const ItemImages = ({ previewImage, setPreviewImage }: ItemImageProps) => {
                 ></Box>
               </Box>
             ))}
+            {/* </Stack> */}
           </CarouselContainer>
         )}
-      </Stack>
-    </>
+      </Box>
+    </Box>
   );
 };
 

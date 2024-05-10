@@ -68,8 +68,8 @@ export default function ProductCard({
             <CardMedia
               component="img"
               width={1}
-              image={product.images.imageUrls[product.images.primary]}
-              alt={product.images.description}
+              image={product?.images?.imageUrls[0]}
+              alt={product.images?.description}
               sx={{ borderRadius: ".5rem", aspectRatio: 1 }}
             />
             <Box

@@ -48,7 +48,9 @@ import NavBar from "@/features/Navbar";
 import { LANG } from "@/store/user";
 
 export async function getStaticPaths() {
-  const res = await fetch("https://demakk-backend.vercel.app/api/v1/product");
+  const res = await fetch(
+    "https://demakk-backend.vercel.app/api/v1/product?page=4"
+  );
   const products = await res.json();
   const paths = products.data.data.map((product: any) => {
     return {

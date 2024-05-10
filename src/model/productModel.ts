@@ -55,7 +55,10 @@ export interface IReturnedProduct {
   id: ObjectId;
   name: string;
   price: number;
-  discountedPrice: (discounts: GetDiscount[]) => IAfterDiscountAndPercent;
+  discountedPrice: (
+    discounts: GetDiscount[],
+    price?: number
+  ) => IAfterDiscountAndPercent;
   rating: Rating;
   images: Image;
   shipping: (discounts: GetDiscount[]) => ShippingState;
@@ -157,9 +160,11 @@ export class GetProduct {
   }
 
   getDiscountedPriceAndPercent(
-    discounts: GetDiscount[]
+    discounts: GetDiscount[],
+    price?: number
   ): IAfterDiscountAndPercent {
     let discountList: IReturnedDiscount[] = [];
+    if (!price) price = this.price;
 
     discounts.forEach((discount) => {
       let d = discount.getDiscountInfo();
@@ -183,16 +188,15 @@ export class GetProduct {
     discountList.forEach((discount) => {
       switch (discount.discountType.name) {
         case DiscountType.percentageDiscount:
-          returnPrice =
-            this.price - (discount.discountAmount * this.price) / 100;
+          returnPrice = price - (discount.discountAmount * price) / 100;
           return (returnPriceAndPercent = {
             afterDiscount: returnPrice,
             discountPercent: discount.discountAmount,
           });
         case DiscountType.cashDiscount:
-          returnPrice = this.price - discount.discountAmount;
+          returnPrice = price - discount.discountAmount;
           let returnPercent = Math.ceil(
-            (discount.discountAmount / this.price) * 100
+            (discount.discountAmount / price) * 100
           );
 
           return (returnPriceAndPercent = {

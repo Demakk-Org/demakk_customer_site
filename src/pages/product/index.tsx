@@ -12,8 +12,16 @@ import { IProductForPage } from "@/model/productModel";
 import getProduct from "@/hooks/getProduct";
 
 function Product({ item }: { item: IProductForPage }) {
-  const { products, setProducts, setProduct, page, limit, nextPage, prevPage } =
-    useProductStore();
+  const {
+    product,
+    products,
+    setProducts,
+    setProduct,
+    page,
+    limit,
+    nextPage,
+    prevPage,
+  } = useProductStore();
   const { discount, setDiscount } = useDiscountStore();
 
   useEffect(() => {

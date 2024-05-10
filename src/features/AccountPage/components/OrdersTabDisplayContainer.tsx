@@ -62,7 +62,13 @@ function OrdersTabDisplayContainer({
 
   return (
     <>
-      {[...order, ...order].map((order, index) => {
+      {order.map((order, index) => {
+        let totalPrice = 0;
+
+        order.getOrder().orderItems.map((item) => {
+          totalPrice += item.productVariant.price * item.quantity;
+        });
+
         return (
           <Stack
             key={index}
@@ -134,23 +140,15 @@ function OrdersTabDisplayContainer({
 
             <Stack direction={"row"} gap={2}>
               <Stack width={"65%"} gap={2} divider={<Divider flexItem />}>
-                {[
-                  ...order.getOrder().orderItems,
-                  // ...order.getOrder().orderItems,
-                ].map((orderItem, index) => {
+                {order.getOrder().orderItems.map((orderItem, index) => {
+                  console.log(orderItem.productVariant.stockVarieties);
                   return (
                     <Stack direction={"row"} key={index} gap={2}>
                       <Box
                         width={"25%"}
                         component={"img"}
                         alignSelf={"flex-start"}
-                        src={
-                          order.getOrder().orderItems[0].product.images
-                            .imageUrls[
-                            order.getOrder().orderItems[0].product.images
-                              .primary
-                          ]
-                        }
+                        src={orderItem.productVariant.imageUrl}
                         sx={{ aspectRatio: 1, objectFit: "cover" }}
                       />
                       <Stack gap={2} width={"75%"}>
@@ -159,7 +157,7 @@ function OrdersTabDisplayContainer({
                           color={"text.primary"}
                           fontWeight={300}
                         >
-                          {order.getOrder().orderItems[0].product.name.en}
+                          {orderItem.productVariant.product.name}
                         </Typography>
                         <Stack
                           direction={"row"}
@@ -167,26 +165,23 @@ function OrdersTabDisplayContainer({
                           color={"text.secondary"}
                           divider={<Typography pr={"0.25rem"}>, </Typography>}
                         >
-                          <Typography component={"span"}>Gray</Typography>
-                          <Typography component={"span"}>42</Typography>
+                          {/* <Typography component={"span"}>Gray</Typography>
+                          <Typography component={"span"}>42</Typography> */}
+                          {orderItem.productVariant.stockVarieties.map(
+                            (stockVariety, index) => (
+                              <Typography key={index} component={"span"}>
+                                {stockVariety.value}
+                              </Typography>
+                            )
+                          )}
                         </Stack>
                         <Stack direction={"row"} gap={2}>
                           <Typography fontWeight={300} color={"text.primary"}>
-                            ETB{" "}
-                            {
-                              getPrice(
-                                order.getOrder().orderItems[0].product.price
-                              ).int
-                            }
-                            .
-                            {
-                              getPrice(
-                                order.getOrder().orderItems[0].product.price
-                              ).dec
-                            }
+                            ETB {getPrice(orderItem.productVariant.price).int}.
+                            {getPrice(orderItem.productVariant.price).dec}
                           </Typography>
                           <Typography fontWeight={300} color={"text.secondary"}>
-                            x{order.getOrder().orderItems[0].quantity}
+                            x{orderItem.quantity}
                           </Typography>
                         </Stack>
                       </Stack>
@@ -201,7 +196,8 @@ function OrdersTabDisplayContainer({
                 sx={{ "&>button": { borderRadius: "2rem" } }}
               >
                 <Typography textAlign={"center"} color={"text.primary"}>
-                  Total: ETB 1999.00
+                  Total: ETB {getPrice(totalPrice).int}.
+                  {getPrice(totalPrice).dec}
                 </Typography>
                 <Button
                   variant="contained"
@@ -233,7 +229,7 @@ function OrdersTabDisplayContainer({
                 component={"img"}
                 alignSelf={"flex-start"}
                 src={
-                  order.getOrder().orderItems[0].product.images.imageUrls[
+                  orderItem.product.images.imageUrls[
                     order.getOrder().orderItems[0].product.images.primary
                   ]
                 }

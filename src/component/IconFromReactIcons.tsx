@@ -20,12 +20,13 @@ function IconFromReactIcons({
       width={width || 25}
       height={height || 25}
       color={color || "text.primary"}
+      display={"flex"}
       sx={{
         "&>svg": {
           color: "inherit !important",
           height: "inherit !important",
           width: "inherit !important",
-          fontSize: "unset",
+          fontSize: "1rem !important",
           strokeWidth: strokeWidth
             ? strokeWidth + " !important"
             : "1px !important",

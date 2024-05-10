@@ -89,6 +89,7 @@ export interface IProductVariant {
   imageUrl: string;
   price: number;
   numberOfAvailable: number;
+  product: IProduct;
 }
 
 export interface ShippingState {

@@ -1,5 +1,6 @@
 import { ObjectId } from "mongoose";
 import { Image } from "./imageModel";
+import { IProductVariant } from "./productModel";
 
 export interface IOrderStatus {
   _id: ObjectId;
@@ -16,12 +17,7 @@ export interface ICoupon {
 
 export interface IOrderItem {
   _id: ObjectId;
-  product: {
-    name: { en?: string; am?: string; or?: string };
-    images: Image;
-    _Id: ObjectId;
-    price: number;
-  };
+  productVariant: IProductVariant;
   quantity: number;
   couponCode?: ICoupon;
 }

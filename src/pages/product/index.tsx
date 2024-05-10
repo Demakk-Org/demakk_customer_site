@@ -23,6 +23,7 @@ function Product({ item }: { item: IProductForPage }) {
     prevPage,
   } = useProductStore();
   const { discount, setDiscount } = useDiscountStore();
+
   useEffect(() => {
     setProducts({ limit, lang: LANG.en, page });
     setDiscount();

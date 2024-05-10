@@ -1,34 +1,59 @@
-import { Box, Grid } from "@mui/material";
-
-import SocialContainer from "../components/SocialContainer";
-import DealsInCarousel from "../components/DealsInCarousel";
-import DealInFullHeight from "../components/DealInFullHeight";
-import ThreeInOneDeal from "../components/ThreeInOneDeal";
+import useDiscountStore from "@/store/discount";
+import LayoutTwo from "../layouts/layout-3c-3-3-3";
+import LayoutOne from "../layouts/layout-3c-4-2-3";
+import { Box } from "@mui/material";
 
 function LargeDeviceDealsContainer() {
+  const { deal } = useDiscountStore();
+
   return (
-    <Grid width={1} container spacing={2} display={{ xs: "none", md: "flex" }}>
-      <Grid item xs={3}>
-        <Box display={"flex"} flexDirection={"column"} gap={2} height={1}>
-          <SocialContainer />
-          <DealsInCarousel />
-        </Box>
-      </Grid>
-      <Grid item xs={4}>
-        <DealInFullHeight />
-      </Grid>
-      <Grid item xs={5}>
-        <Grid container height={1} width={1}>
-          <ThreeInOneDeal
-            top={true}
-            title={"topBrands"}
-            subtitle={"topPriceAndQualityPicks"}
-            first={true}
-          />
-          <ThreeInOneDeal title={"weeklyDeals"} subtitle={"lowPrices"} />
-        </Grid>
-      </Grid>
-    </Grid>
+    <Box display={{ xs: "none", md: "block" }}>
+      {/* <LayoutTwo
+        threeInOne={{
+          title: deal[0].getDeal().dealType.name,
+          subtitle: deal[0].getDeal().dealType.subTitle,
+          productList: deal[0].getAllProductsForDeal(),
+        }}
+        center={{
+          title: deal[0].getDeal().dealType.name,
+          subtitle: deal[0].getDeal().dealType.subTitle,
+          productList: deal[0].getAllProductsForDeal(),
+        }}
+        leftTop={{
+          title: deal[1].getDeal().dealType.name,
+          subtitle: deal[1].getDeal().dealType.subTitle,
+          productList: deal[1].getAllProductsForDeal(),
+        }}
+        leftBottom={{
+          title: deal[3].getDeal().dealType.name,
+          subtitle: deal[3].getDeal().dealType.subTitle,
+          productList: deal[3].getAllProductsForDeal(),
+        }}
+      /> */}
+
+      <LayoutOne
+        threeInOne={{
+          title: deal[0].getDeal().dealType.name,
+          subtitle: deal[0].getDeal().dealType.subTitle,
+          productList: deal[0].getAllProductsForDeal(),
+        }}
+        top={{
+          title: deal[0].getDeal().dealType.name,
+          subtitle: deal[0].getDeal().dealType.subTitle,
+          productList: deal[0].getAllProductsForDeal(),
+        }}
+        bottomLeft={{
+          title: deal[1].getDeal().dealType.name,
+          subtitle: deal[1].getDeal().dealType.subTitle,
+          productList: deal[1].getAllProductsForDeal(),
+        }}
+        bottomRight={{
+          title: deal[3].getDeal().dealType.name,
+          subtitle: deal[3].getDeal().dealType.subTitle,
+          productList: deal[3].getAllProductsForDeal(),
+        }}
+      />
+    </Box>
   );
 }
 

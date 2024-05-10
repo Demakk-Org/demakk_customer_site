@@ -35,7 +35,7 @@ export interface IProduct {
   images: Image;
   popularity: number;
   sold: number;
-  ratings: Rating;
+  rating: Rating;
 }
 
 export type IProductForPage = IProduct & {
@@ -72,18 +72,21 @@ export type IReturnedProductForPage = {
 } & IReturnedProduct;
 
 export enum EVariantType {
-  sub = "sub",
-  main = "main",
+  sub = "Sub",
+  main = "Main",
+}
+
+export interface StockVariety {
+  type: String;
+  value: String;
+  class: EVariantType;
 }
 
 export interface IProductVariant {
   _id: ObjectId;
-  value: string;
-  stockVarietyType: string;
-  product: ObjectId;
+  stockVarieties: StockVariety[];
   imageIndex: number;
-  type: EVariantType;
-  subVariants: ObjectId[];
+  imageUrl: string;
   price: number;
   numberOfAvailable: number;
 }
@@ -116,7 +119,7 @@ export class GetProduct {
     this.tags = product.tags;
     this.price = product.price;
     this.images = product.images;
-    this.rating = product.ratings;
+    this.rating = product.rating;
     this.popularity = product.popularity;
     this.sold = product.sold;
   }
@@ -273,7 +276,7 @@ export class GetProductForPage extends GetProduct {
     this.productVariants = productVariants;
   }
 
-  getProductForCard(): IReturnedProductForPage {
+  getProductForPage(): IReturnedProductForPage {
     return {
       id: this.id,
       name: this.name,

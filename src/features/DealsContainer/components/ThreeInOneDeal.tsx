@@ -1,12 +1,17 @@
 import useUserStore from "@/store/user";
 import getLanguage from "@/utils/getLanguage";
 import { Box, Grid, Typography } from "@mui/material";
+import { Fragment } from "react";
+import DealsProductCard from "./DealsProductCard";
+import { GetProduct } from "@/model/productModel";
 
 interface ThreeInOneDealerProps {
   title: string;
   subtitle: string;
   top?: boolean;
   first?: boolean;
+  productList?: GetProduct[];
+  number: number;
 }
 
 function ThreeInOneDeal({
@@ -14,6 +19,8 @@ function ThreeInOneDeal({
   title,
   subtitle,
   first,
+  productList,
+  number,
 }: ThreeInOneDealerProps) {
   const { lang } = useUserStore();
   return (
@@ -36,56 +43,18 @@ function ThreeInOneDeal({
             {getLanguage(subtitle, lang)}
           </Typography>
           <Grid container spacing={2} width={1}>
-            {Array(3)
+            {Array(number)
               .fill(true)
               .map((val, ind) => (
-                <Grid
-                  key={ind}
-                  item
-                  xs={4}
-                  display={"flex"}
-                  flexDirection={"column"}
-                >
-                  <Box
-                    width={1}
-                    component={"img"}
-                    src={`/assets/images/product${ind + 2}.webp`}
-                    sx={{
-                      aspectRatio: 1,
-                      objectFit: "cover",
-                      border: "1px solid lightgray",
-                      borderRadius: "1rem",
-                    }}
+                <Fragment key={ind}>
+                  <DealsProductCard
+                    image={`/assets/images/product${ind + 2}.webp`}
+                    price={18.55}
+                    discountValue={8.95}
+                    discountPercent={55}
+                    size={number}
                   />
-                  <Box
-                    display={"flex"}
-                    justifyContent={"space-between"}
-                    alignItems={"center"}
-                    pt={"0.5rem"}
-                  >
-                    <Typography
-                      fontSize={"0.8rem"}
-                      fontWeight={"bold"}
-                      color={"text.price"}
-                      sx={{ textWrap: "nowrap" }}
-                    >
-                      US $
-                      <Typography component={"span"} fontSize={"1.2rem"}>
-                        18
-                      </Typography>
-                      .55
-                    </Typography>
-                    <Typography
-                      fontSize={"0.8rem"}
-                      p={"0rem 0.5rem"}
-                      color={"text.secondary"}
-                      bgcolor={"background.lighter"}
-                      borderRadius={"0.5rem"}
-                    >
-                      54%
-                    </Typography>
-                  </Box>
-                </Grid>
+                </Fragment>
               ))}
           </Grid>
         </Box>

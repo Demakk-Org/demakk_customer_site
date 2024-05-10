@@ -42,6 +42,19 @@ declare module "@mui/material/Button" {
   }
 }
 
+declare module "@mui/material/AppBar" {
+  interface AppBarPropsColorOverrides {
+    dark: true;
+    darken: true;
+    bright: true;
+    brighten: true;
+    demakkPrimary: true;
+    demakkSecondary: true;
+    primaryButton: true;
+    secondaryButton: true;
+  }
+}
+
 declare module "@mui/material/IconButton" {
   interface IconButtonPropsColorOverrides {
     dark: true;
@@ -151,6 +164,37 @@ const lTheme = createTheme({
 });
 
 const darkTheme = createTheme(dTheme, {
+  components: {
+    MuiOutlinedInput: {
+      styleOverrides: {
+        notchedOutline: {
+          borderColor: "darkgray",
+          letterSpacing: "0.2px",
+        },
+        root: {
+          [`&:hover .${outlinedInputClasses.notchedOutline}`]: {
+            borderColor: "#fff",
+          },
+          [`&.Mui-focused .${outlinedInputClasses.notchedOutline}`]: {
+            borderColor: "#ffa889",
+          },
+        },
+      },
+    },
+  },
+  typography: {
+    fontFamily: [
+      "Montserrat",
+      "Poppins",
+      "-apple-system",
+      "BlinkMacSystemFont",
+      '"Segoe UI"',
+      "Roboto",
+    ].join(","),
+    button: {
+      textTransform: "capitalize",
+    },
+  },
   palette: {
     text: {
       teritiary: "#575757",
@@ -159,7 +203,8 @@ const darkTheme = createTheme(dTheme, {
     },
     background: {
       lightOpaque: "#414141",
-      lighter: "#63636399",
+      light: "#63636344",
+      lighter: "#63636322",
       reddish: "#ff795b99",
     },
     demakkPrimary: dTheme.palette.augmentColor({
@@ -241,7 +286,8 @@ const lightTheme = createTheme(lTheme, {
     },
     background: {
       lightOpaque: "#d0d0d0",
-      lighter: "#d0d0d099",
+      light: "#d0d0d044 ",
+      lighter: "#d0d0d022",
       reddish: "#ffc7b899",
     },
     demakkPrimary: lTheme.palette.augmentColor({

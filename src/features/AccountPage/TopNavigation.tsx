@@ -18,7 +18,7 @@ export default function TopNavigationBar() {
       top={0}
       zIndex={1100}
     >
-      <AppBar position={"sticky"}>
+      <AppBar position={"sticky"} color="darken">
         <Toolbar>
           <IconButton
             size="large"

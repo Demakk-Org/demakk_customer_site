@@ -8,7 +8,7 @@ import { CiUser } from "react-icons/ci";
 import { useState } from "react";
 
 export default function BottomNavigationBar() {
-  const [value, setValue] = useState<number>(0);
+  const [value, setValue] = useState<number>(3);
 
   return (
     <Box

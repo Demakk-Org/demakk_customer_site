@@ -36,6 +36,7 @@ export interface IProduct {
   popularity: number;
   sold: number;
   rating: Rating;
+  stockVarietyTypeList: string[];
 }
 
 export type IProductForPage = IProduct & {
@@ -54,11 +55,15 @@ export interface IReturnedProduct {
   id: ObjectId;
   name: string;
   price: number;
-  discountedPrice: (discounts: GetDiscount[]) => IAfterDiscountAndPercent;
+  discountedPrice: (
+    discounts: GetDiscount[],
+    price?: number
+  ) => IAfterDiscountAndPercent;
   rating: Rating;
   images: Image;
   shipping: (discounts: GetDiscount[]) => ShippingState;
   deals: (discounts: GetDiscount[]) => string;
+  stockVarietyTypeList: string[];
   sold: number;
 }
 
@@ -114,6 +119,7 @@ export class GetProduct {
   public rating: Rating;
   public popularity: number;
   public sold: number;
+  public stockVarietyTypeList: string[];
 
   constructor(product: IProduct) {
     this.id = product._id;
@@ -125,6 +131,7 @@ export class GetProduct {
     this.rating = product.rating;
     this.popularity = product.popularity;
     this.sold = product.sold;
+    this.stockVarietyTypeList = product.stockVarietyTypeList;
   }
 
   getShippingDiscount(discounts: GetDiscount[]): ShippingState {
@@ -156,9 +163,11 @@ export class GetProduct {
   }
 
   getDiscountedPriceAndPercent(
-    discounts: GetDiscount[]
+    discounts: GetDiscount[],
+    price?: number
   ): IAfterDiscountAndPercent {
     let discountList: IReturnedDiscount[] = [];
+    if (!price) price = this.price;
 
     discounts.forEach((discount) => {
       let d = discount.getDiscountInfo();
@@ -182,16 +191,15 @@ export class GetProduct {
     discountList.forEach((discount) => {
       switch (discount.discountType.name) {
         case DiscountType.percentageDiscount:
-          returnPrice =
-            this.price - (discount.discountAmount * this.price) / 100;
+          returnPrice = price - (discount.discountAmount * price) / 100;
           return (returnPriceAndPercent = {
             afterDiscount: returnPrice,
             discountPercent: discount.discountAmount,
           });
         case DiscountType.cashDiscount:
-          returnPrice = this.price - discount.discountAmount;
+          returnPrice = price - discount.discountAmount;
           let returnPercent = Math.ceil(
-            (discount.discountAmount / this.price) * 100
+            (discount.discountAmount / price) * 100
           );
 
           return (returnPriceAndPercent = {
@@ -247,7 +255,7 @@ export class GetProductForCard extends GetProduct {
     this.productVariants = productVariants;
   }
 
-  getProductForCard(): IReturnedProductForCard {
+  getProductForCard(): Omit<IReturnedProductForCard, "stockVarietyTypeList"> {
     return {
       id: this.id,
       name: this.name,
@@ -294,8 +302,6 @@ export class GetProductForPage extends GetProduct {
       deals: this.getDeals,
       productVariants: this.productVariants,
       reviews: this.reviews,
-      sold: this.sold,
-      productCategory: this.productCategory,
     };
   }
 }

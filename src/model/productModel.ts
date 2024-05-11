@@ -12,7 +12,7 @@ export interface IReview {
 
 export interface IProductCategory {
   _id: string;
-  stockItem: ObjectId | IStockItem;
+  stockItem: IStockItem;
   name: string;
   additionalPrice: number;
   additionalCost: number;
@@ -70,11 +70,13 @@ export interface IReturnedProduct {
 export type IReturnedProductForCard = {
   reviews: ObjectId[];
   productVariants: ObjectId[];
+  productCategory: ObjectId;
 } & IReturnedProduct;
 
 export type IReturnedProductForPage = {
   reviews: IReview[];
   productVariants: IProductVariant[];
+  productCategory: IProductCategory;
 } & IReturnedProduct;
 
 export enum EVariantType {
@@ -262,6 +264,7 @@ export class GetProductForCard extends GetProduct {
       images: this.images,
       shipping: this.getShippingDiscount,
       deals: this.getDeals,
+      productCategory: this.productCategory,
       productVariants: this.productVariants,
       reviews: this.reviews,
       sold: this.sold,
@@ -296,6 +299,7 @@ export class GetProductForPage extends GetProduct {
       images: this.images,
       shipping: this.getShippingDiscount,
       deals: this.getDeals,
+      productCategory: this.productCategory,
       productVariants: this.productVariants,
       reviews: this.reviews,
       sold: this.sold,

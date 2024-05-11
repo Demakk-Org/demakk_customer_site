@@ -63,6 +63,7 @@ export interface IReturnedProduct {
   images: Image;
   shipping: (discounts: GetDiscount[]) => ShippingState;
   deals: (discounts: GetDiscount[]) => string;
+  sold: number;
   stockVarietyTypeList: string[];
   sold: number;
 }
@@ -302,6 +303,8 @@ export class GetProductForPage extends GetProduct {
       deals: this.getDeals,
       productVariants: this.productVariants,
       reviews: this.reviews,
+      sold: this.sold,
+      stockVarietyTypeList: this.stockVarietyTypeList,
     };
   }
 }

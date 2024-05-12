@@ -1,15 +1,15 @@
-import AddToCartButton from '@/features/ProductList/components/AddToCartButton';
-import { Button, Card, CardMedia, Typography, Box, Stack } from '@mui/material';
-import React, { useEffect } from 'react';
-import SellingPriceOfItem from '../../components/fromProductCard/SellingPriceOfItem';
-import HoveringButtons from '../../components/fromProductCard/HoveringButtonsItem';
-import useProductStore from '@/store/product';
-import useDiscountStore from '@/store/discount';
+import AddToCartButton from "@/features/ProductList/components/AddToCartButton";
+import { Button, Card, CardMedia, Typography, Box, Stack } from "@mui/material";
+import React, { useEffect } from "react";
+import SellingPriceOfItem from "../../components/fromProductCard/SellingPriceOfItem";
+import HoveringButtons from "../../components/fromProductCard/HoveringButtonsItem";
+import useProductStore from "@/store/product";
+import useDiscountStore from "@/store/discount";
 
 export default function RelatedItemCard() {
   const { product } = useProductStore();
   const { discount } = useDiscountStore();
-  const item = product?.getProductForCard();
+  const item = product?.getProductForPage();
 
   // useEffect(()=> {
   // setProduct(products);
@@ -21,16 +21,16 @@ export default function RelatedItemCard() {
         display="flex"
         width={1}
         sx={{
-          '&:hover .buttons': {
-            display: { xs: 'none', sm: 'inline' },
+          "&:hover .buttons": {
+            display: { xs: "none", sm: "inline" },
           },
-          '&:hover div .hovered-container': {
-            display: { xs: 'none', sm: 'block' },
+          "&:hover div .hovered-container": {
+            display: { xs: "none", sm: "block" },
           },
-          '&:hover > div > div': { zIndex: 4 },
-          '&:hover > div': { zIndex: 5 },
-          '&:hover': {
-            position: 'absolute',
+          "&:hover > div > div": { zIndex: 4 },
+          "&:hover > div": { zIndex: 5 },
+          "&:hover": {
+            position: "absolute",
             top: 0,
             left: 0,
           },
@@ -38,24 +38,24 @@ export default function RelatedItemCard() {
       >
         <Card
           sx={{
-            width: '100%',
-            position: 'relative',
-            boxShadow: 'none',
-            borderRadius: '8px',
-            display: 'flex',
-            flexDirection: 'column',
+            width: "100%",
+            position: "relative",
+            boxShadow: "none",
+            borderRadius: "8px",
+            display: "flex",
+            flexDirection: "column",
             zIndex: 2,
-            overflow: 'visible',
-            background: 'none',
+            overflow: "visible",
+            background: "none",
           }}
         >
-          <Box width={1} position={'relative'} zIndex={2}>
+          <Box width={1} position={"relative"} zIndex={2}>
             <CardMedia
               component="img"
               width={1}
               image={item?.images.imageUrls[item.images.primary]}
               // alt={product.alt}
-              sx={{ borderRadius: '.5rem', aspectRatio: 1 }}
+              sx={{ borderRadius: ".5rem", aspectRatio: 1 }}
             />
             <Box
               position="absolute"
@@ -64,8 +64,8 @@ export default function RelatedItemCard() {
               right="0px"
               bottom="0px"
               sx={{
-                borderRadius: '.5rem',
-                backgroundColor: 'background.productbg',
+                borderRadius: ".5rem",
+                backgroundColor: "background.productbg",
               }}
             ></Box>
             <AddToCartButton id="add to cart" />
@@ -74,29 +74,29 @@ export default function RelatedItemCard() {
             display="flex"
             flexDirection="column"
             width={1}
-            mt={'8px'}
+            mt={"8px"}
             zIndex={2}
           >
-            <Stack direction={{ xs: 'column-reverse', sm: 'column' }}>
+            <Stack direction={{ xs: "column-reverse", sm: "column" }}>
               <Typography
-                sx={{ lineHeight: '1.5' }}
+                sx={{ lineHeight: "1.5" }}
                 noWrap
-                title={''}
-                fontSize={'.875rem'}
+                title={""}
+                fontSize={".875rem"}
               >
                 product spec
               </Typography>
-              <Stack direction={{ xs: 'column-reverse', sm: 'column' }}>
+              <Stack direction={{ xs: "column-reverse", sm: "column" }}>
                 <Stack
-                  direction={'row'}
+                  direction={"row"}
                   spacing={0.5}
-                  alignItems={'center'}
-                  justifyContent={'space-between'}
+                  alignItems={"center"}
+                  justifyContent={"space-between"}
                 >
                   <Stack
-                    direction={{ xs: 'row-reverse', sm: 'row' }}
+                    direction={{ xs: "row-reverse", sm: "row" }}
                     spacing={1}
-                    alignItems={'center'}
+                    alignItems={"center"}
                   >
                     {/* {product.numberOfSold ? (
                       <SoldQuantity numOfSold={product.numberOfSold || 50} />
@@ -114,16 +114,16 @@ export default function RelatedItemCard() {
                 </Stack>
 
                 <Stack
-                  direction={'row'}
+                  direction={"row"}
                   spacing={1}
-                  alignItems={'baseline'}
-                  justifyContent={'flex-start'}
+                  alignItems={"baseline"}
+                  justifyContent={"flex-start"}
                 >
                   <SellingPriceOfItem />
                 </Stack>
               </Stack>
             </Stack>
-            <Stack direction={'row'} spacing={0.5} alignItems={'center'}>
+            <Stack direction={"row"} spacing={0.5} alignItems={"center"}>
               {/* <DealsContainer
                 deal={product.dealType || 'welcome deal'}
                 extraDiscount={product.extraDiscount || 25}
@@ -144,14 +144,14 @@ export default function RelatedItemCard() {
             display="none"
             position="absolute"
             sx={{
-              height: 'calc(100% + 2rem)',
-              width: 'calc(100% + 2rem)',
-              top: '-1rem',
-              left: '-1rem',
-              backgroundColor: 'background.paper',
+              height: "calc(100% + 2rem)",
+              width: "calc(100% + 2rem)",
+              top: "-1rem",
+              left: "-1rem",
+              backgroundColor: "background.paper",
               boxShadow: (theme) => theme.shadows[2],
-              zIndex: '3 !important',
-              borderRadius: '1rem',
+              zIndex: "3 !important",
+              borderRadius: "1rem",
             }}
           ></Box>
         </Card>

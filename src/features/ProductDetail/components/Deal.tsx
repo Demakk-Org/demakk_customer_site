@@ -6,7 +6,7 @@ import React from "react";
 export default function Deal() {
   const { product } = useProductStore();
   const { discount } = useDiscountStore();
-  const item = product?.getProductForCard();
+  const item = product?.getProductForPage();
   console.log("from deal", item?.deals(discount));
   return (
     <Box

@@ -12,7 +12,7 @@ export default function ItemDescription() {
         sx={{ m: { xs: ".5rem", sm: ".5rem 0" }, lineHeight: 1.25 }}
         // noWrap
       >
-        {product?.getProductForCard().description}
+        {product?.getProductForPage().description}
       </Typography>
     </Stack>
   );

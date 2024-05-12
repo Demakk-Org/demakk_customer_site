@@ -7,7 +7,7 @@ import React from "react";
 export default function ItemPrice() {
   const { product } = useProductStore();
   const { discount } = useDiscountStore();
-  const item = product?.getProductForCard();
+  const item = product?.getProductForPage();
 
   return (
     <Stack

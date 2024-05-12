@@ -12,7 +12,7 @@ import useDiscountStore from '@/store/discount';
 export default function SellingPriceOfItem() {
   const { product } = useProductStore();
   const { discount } = useDiscountStore();
-  const item = product?.getProductForCard();
+  const item = product?.getProductForPage();
 
   return (
     <>

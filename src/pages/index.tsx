@@ -1,16 +1,16 @@
-import Head from 'next/head';
-import styles from '@/styles/Home.module.css';
+import Head from "next/head";
+import styles from "@/styles/Home.module.css";
 
-import Navbar from '@/features/Navbar';
-import DiscountSale from '@/features/DiscountSale';
-import PinLocation from '@/features/Home/PinLocation';
-import Recommendation from '@/features/Recommendation';
-import Footer from '@/features/Footer';
-import DealsContainer from '@/features/DealsContainer';
-import ProductListing from '@/features/ProductList';
+import Navbar from "@/features/Navbar";
+import DiscountSale from "@/features/DiscountSale";
+import PinLocation from "@/features/Home/PinLocation";
+import Recommendation from "@/features/Recommendation";
+import Footer from "@/features/Footer";
+import DealsContainer from "@/features/DealsContainer";
+import ProductListing from "@/features/ProductList";
 
-import { Box } from '@mui/material';
-import { ReactElement } from 'react';
+import { Box } from "@mui/material";
+import { ReactElement } from "react";
 
 export default function Home(): ReactElement {
   return (
@@ -25,13 +25,14 @@ export default function Home(): ReactElement {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main className={`${styles.main}`}>
-        <Box width={'100%'} minHeight={'100vh'} bgcolor={'background.paper'}>
+        <Box width={"100%"} minHeight={"100vh"} bgcolor={"background.paper"}>
           <Navbar />
-          {/* <PinLocation /> */}
-          {/* <Recommendation /> */}
+          <PinLocation />
+          <Recommendation />
           <DealsContainer />
-          {/* <DiscountSale /> */}
-          {/* <Footer /> */}
+          <DiscountSale />
+          <ProductListing />
+          <Footer />
         </Box>
       </main>
     </>

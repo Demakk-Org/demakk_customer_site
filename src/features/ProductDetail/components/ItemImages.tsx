@@ -118,8 +118,8 @@ const ItemImages = ({ previewImage, setPreviewImage }: ItemImageProps) => {
         ></Box>
       </Box>
 
-      <Box maxWidth={"400px"} height={1}>
-        {product?.getProductForCard().images._id && (
+      <Stack width={1} height={1} spacing={3}>
+        {product?.getProductForPage().images.imageUrls && (
           <CarouselContainer type={Breakpoints.productItemImagesCarousel}>
             {/* <Stack
               width={1}
@@ -139,7 +139,6 @@ const ItemImages = ({ previewImage, setPreviewImage }: ItemImageProps) => {
               >
                 <Box
                   component="img"
-                  position={"relative"}
                   width={1}
                   src={itemImage}
                   key={itemImage}
@@ -167,7 +166,7 @@ const ItemImages = ({ previewImage, setPreviewImage }: ItemImageProps) => {
             {/* </Stack> */}
           </CarouselContainer>
         )}
-      </Box>
+      </Stack>
     </Box>
   );
 };

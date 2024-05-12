@@ -7,7 +7,6 @@ import ItemImages from "./components/ItemImages";
 
 export default function DetailsPage() {
   const [previewImage, setPreviewImage] = useState("");
-  
 
   return (
     <Box>
@@ -20,22 +19,17 @@ export default function DetailsPage() {
         mt={{ sm: "1rem" }}
       >
         {/* images related items description along the column */}
-        <Grid item sm={9} container direction={"column"}>
+        <Grid item xs={12} sm={9} container direction={"column"}>
           {/* image, related images and  description */}
 
-          <Grid
-            item
-            direction={{ xs: "column", sm: "row" }}
-            container
-            spacing={2}
-          >
+          <Grid item direction={"row"} container spacing={2}>
             <Grid item xs={12} sm={5}>
               <ItemImages
                 previewImage={previewImage}
                 setPreviewImage={setPreviewImage}
               />
             </Grid>
-            <Grid item xs={6} sm={7}>
+            <Grid item xs={12} sm={7}>
               <Contents
                 previewImage={previewImage}
                 setPreviewImage={setPreviewImage}

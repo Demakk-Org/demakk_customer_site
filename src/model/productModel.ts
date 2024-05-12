@@ -65,7 +65,6 @@ export interface IReturnedProduct {
   deals: (discounts: GetDiscount[]) => string;
   sold: number;
   stockVarietyTypeList: string[];
-  sold: number;
 }
 
 export type IReturnedProductForCard = {
@@ -302,6 +301,7 @@ export class GetProductForPage extends GetProduct {
       shipping: this.getShippingDiscount,
       deals: this.getDeals,
       productVariants: this.productVariants,
+      productCategory: this.productCategory,
       reviews: this.reviews,
       sold: this.sold,
       stockVarietyTypeList: this.stockVarietyTypeList,

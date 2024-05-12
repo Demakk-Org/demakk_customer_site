@@ -12,54 +12,41 @@ import ShareIcon from "@mui/icons-material/Share";
 import React, { useEffect, useState } from "react";
 
 export default function SideNav() {
-  const [sideNavHeight, setSideNavHeight] = useState("calc(100vh - 150px)");
+  // const [sideBarContent, setSideBarContent] = useState("");
 
-  //   useEffect(() => {
-  //     const handleScroll = () => {
-  //       const sideNav = document.getElementById("sidenav");
-  //       if (!sideNav) return;
-  //       const scrollHeight = sideNav.scrollHeight;
-  //       const scrollTop = sideNav.scrollTop;
-  //       const clientHeight = sideNav.clientHeight;
+  // useEffect(() => {
+  //   const handleScroll = () => {
+  //     const parentElement = document.querySelector(".main-content");
+  //     const parentScrollTop = parentElement.scrollTop;
+  //     if (parentScrollTop > 100) {
+  //       setSideBarContent("hello side bar");
+  //     } else {
+  //       setSideBarContent("");
+  //     }
+  //   };
+  //   const parentElement = document.querySelector(".main-content");
+  //   parentElement.addEventListener("scroll", handleScroll);
 
-  //       const remainingHeight = scrollHeight - (scrollTop + clientHeight);
-
-  //       if (scrollTop === 0) {
-  //         setSideNavHeight("calc(100vh - 500px)");
-  //       } else if (remainingHeight === 0) {
-  //         // At the bottom
-  //         setSideNavHeight("calc(100vh )");
-  //       } else {
-  //         setSideNavHeight(`calc(100vh - ${scrollTop}px)`);
-  //       }
-  //     };
-  //     const sideNav = document.getElementById("sideNav");
-  //     if (sideNav) sideNav.addEventListener("scroll", handleScroll);
-
-  //     return () => {
-  //       if (sideNav) sideNav.removeEventListener("scroll", handleScroll);
-  //     };
-  //   }, []);
+  //   // Cleanup function to remove event listener
+  //   return () => {
+  //     parentElement.removeEventListener("scroll", handleScroll);
+  //   };
+  // }, []);
 
   return (
-    <Box
-      position={"relative"}
-      width={1}
-      onScroll={() => setSideNavHeight("100px")}
-    >
+    <Box className="main-content" position={"relative"} width={1}>
       {" "}
       <Box
         id="sidenav"
-        height={sideNavHeight}
+        height={"500px"}
         overflow={"hidden"}
         boxShadow={2}
         sx={{
           p: "1rem 1rem 0",
           overflow: "hidden",
-          //   overflowY: " auto",
+          overflowY: " auto",
           position: "sticky",
           top: "5rem",
-          // onScroll:{setSideNavHeight("calc(100vh - 150px)")}
         }}
       >
         <Stack

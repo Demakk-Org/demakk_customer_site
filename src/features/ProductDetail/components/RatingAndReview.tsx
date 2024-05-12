@@ -7,17 +7,17 @@ export default function RatingAndReview() {
   return (
     <>
       <Stack direction={"row"} spacing={1} m={{ xs: ".5rem" }}>
-        {product?.getProductForCard().rating?.average ? (
+        {product?.getProductForPage().rating?.average ? (
           <Stack direction={"row"} spacing={1}>
             <Rating
               size="small"
-              value={product?.getProductForCard().rating?.average}
+              value={product?.getProductForPage().rating?.average}
               // defaultValue={2.5}
               precision={0.5}
               readOnly
             />
             <Typography fontSize={".75rem"} fontWeight={"bold"}>
-              {product?.getProductForCard().rating?.average}
+              {product?.getProductForPage().rating?.average}
             </Typography>
           </Stack>
         ) : (

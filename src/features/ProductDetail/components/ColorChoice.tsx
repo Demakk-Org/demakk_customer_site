@@ -1,5 +1,5 @@
 import useProductStore from "@/store/product";
-import { Box, Typography } from "@mui/material";
+import { Box, Button, Grid, Typography } from "@mui/material";
 import React, { useState } from "react";
 
 interface MainVariantListProps {
@@ -18,7 +18,7 @@ export default function ColorChoice({
 
   return (
     <>
-      {product?.getProductForCard().productVariants ? (
+      {product?.getProductForPage().productVariants ? (
         <Box>
           <Box>
             <Typography
@@ -27,33 +27,30 @@ export default function ColorChoice({
               Color:{variantName}
             </Typography>
           </Box>
-          <Box display={"flex"} gap={".5rem"}>
-            {product
-              ?.getProductForCard()
-              .productVariants.slice(0, 6)
-              .map((variant) => (
-                <Box key={variant._id.toString()}>
-                  <Box
-                    component={"img"}
-                    src={product.images.imageUrls[variant.imageIndex]}
-                    width={"75px"}
-                    height={"75px"}
-                    sx={{
-                      "&:hover": {
-                        border: ".1rem solid",
-                        borderColor: "dark.main",
-                      },
-                    }}
-                    onClick={() => {
-                      setVariantName(variant.value);
-                      setPreviewImage(
-                        product.images.imageUrls[variant.imageIndex]
-                      );
-                    }}
-                  />
-                </Box>
-              ))}
-          </Box>
+          <Grid container gap={".5rem"}>
+            {product?.getProductForPage().productVariants?.map((variant) => (
+              <Grid item key={variant}>
+                <Box
+                  component={"img"}
+                  src={variant.imageUrl}
+                  width={"75px"}
+                  height={"75px"}
+                  sx={{
+                    "&:hover": {
+                      border: ".1rem solid",
+                      borderColor: "dark.main",
+                    },
+                  }}
+                  onClick={() => {
+                    setVariantName(variant.stockVarieties[0].value[0]);
+                    setPreviewImage(
+                      product.images.imageUrls[variant.imageIndex]
+                    );
+                  }}
+                />
+              </Grid>
+            ))}
+          </Grid>
         </Box>
       ) : (
         <></>

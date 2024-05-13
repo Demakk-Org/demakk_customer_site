@@ -21,7 +21,7 @@ export default function Deal() {
             fontSize={".85rem"}
             color="bright.main"
             fontWeight={"bold"}
-            p={{ xs: ".5rem 1rem 1rem 1rem", sm: ".5rem 1rem " }}
+            p={{ xs: ".5rem 1rem 1rem 1rem", sm: ".4rem 1rem " }}
           >
             {item?.deals(discount)}
           </Typography>

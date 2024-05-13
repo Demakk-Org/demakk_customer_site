@@ -11,11 +11,13 @@ export default function ItemPrice() {
 
   return (
     <Stack
+      useFlexGap
+      flexWrap="wrap"
       direction={"row"}
       alignItems={"baseline"}
       position={"relative"}
       // justifyContent={{ xs: "center", sm: "none" }}
-      m={{ xs: "-.5rem 0rem", sm: ".75rem 0rem 0rem 0rem" }}
+      m={{ xs: "-.5rem 0rem", sm: "0rem" }}
       sx={{
         pl: { xs: ".5rem", sm: "none" },
         bgcolor: "background.paper",

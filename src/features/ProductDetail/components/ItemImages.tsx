@@ -5,6 +5,7 @@ import CarouselContainer from "@/component/CarouselContainer";
 import { Breakpoints } from "@/data/carouselBreakPoints";
 import { Stack } from "@mui/material";
 import { ObjectId } from "mongoose";
+import Product from "@/pages/product";
 
 interface ItemImageProps {
   previewImage: string;
@@ -13,8 +14,8 @@ interface ItemImageProps {
 
 const ItemImages = ({ previewImage, setPreviewImage }: ItemImageProps) => {
   const { product } = useProductStore();
-
-  // const [itemImage, setMainImage] = useState("");
+  // const productImages = { images: [] };
+  // productImages.images.push(...product?.images?.imageUrls);
 
   const [zoomWidth, setZoomWidth] = useState<number | null>(null);
   const [imgPosition, setImgPosition] = useState({ top: 0, left: 0 });

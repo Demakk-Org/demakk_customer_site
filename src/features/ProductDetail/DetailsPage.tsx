@@ -1,9 +1,10 @@
-import { Box, Divider, Grid, Typography } from "@mui/material";
+import { Box, Divider, Grid, Stack, Typography } from "@mui/material";
 import Contents from "./containers/contents/Contents";
 import RelatedItemListing from "./containers/relatedItemCard/RelatedItemListing";
 import { useState } from "react";
 import SideNav from "./components/SideNav";
 import ItemImages from "./components/ItemImages";
+import DescriptionAndRatingDetail from "./containers/contents/DescriptionAndRatingDetail";
 
 export default function DetailsPage() {
   const [previewImage, setPreviewImage] = useState("");
@@ -42,14 +43,14 @@ export default function DetailsPage() {
           />
           <RelatedItemListing />
           <Divider />
-          <Typography>product description</Typography>
-          <Typography color={"error.main"}>
+          <DescriptionAndRatingDetail />
+          {/* <Typography color={"error.main"}>
             description for the product{" "}
           </Typography>
           <Typography color={"error.main"}>ratings and reviews </Typography>
           <Typography color={"error.main"}>
             and other technical specifications
-          </Typography>
+          </Typography> */}
         </Grid>
         {/* for side scrollable nav */}
         <Grid

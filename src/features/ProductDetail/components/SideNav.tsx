@@ -1,40 +1,32 @@
-import {
-  Box,
-  Button,
-  Card,
-  Divider,
-  Paper,
-  Stack,
-  Typography,
-} from "@mui/material";
+import { Box, Button, Divider, Stack, Typography } from "@mui/material";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 import ShareIcon from "@mui/icons-material/Share";
 import React, { useEffect, useState } from "react";
+import Deal from "./Deal";
+import ItemPrice from "./ItemPrice";
 
 export default function SideNav() {
-  // const [sideBarContent, setSideBarContent] = useState("");
+  const [sideBarContent, setSideBarContent] = useState(false);
 
-  // useEffect(() => {
-  //   const handleScroll = () => {
-  //     const parentElement = document.querySelector(".main-content");
-  //     const parentScrollTop = parentElement.scrollTop;
-  //     if (parentScrollTop > 100) {
-  //       setSideBarContent("hello side bar");
-  //     } else {
-  //       setSideBarContent("");
-  //     }
-  //   };
-  //   const parentElement = document.querySelector(".main-content");
-  //   parentElement.addEventListener("scroll", handleScroll);
+  useEffect(() => {
+    const handleScroll = () => {
+      const offSet = window.scrollY;
+      if (offSet > 200) {
+        setSideBarContent(true);
+      } else {
+        setSideBarContent(false);
+      }
+    };
 
-  //   // Cleanup function to remove event listener
-  //   return () => {
-  //     parentElement.removeEventListener("scroll", handleScroll);
-  //   };
-  // }, []);
+    window.addEventListener("scroll", handleScroll);
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
 
   return (
-    <Box className="main-content" position={"relative"} width={1}>
+    <Box id="main-content" position={"relative"} width={1} sx={{}}>
       {" "}
       <Box
         id="sidenav"
@@ -49,6 +41,14 @@ export default function SideNav() {
           top: "5rem",
         }}
       >
+        {sideBarContent && (
+          <>
+            <Deal />
+            <ItemPrice />
+            <Divider sx={{ margin: ".5rem" }} />
+          </>
+        )}
+
         <Stack
           direction={"row"}
           justifyContent={"space-between"}
@@ -100,17 +100,6 @@ export default function SideNav() {
           <Typography color={"error.main"}>
             and other technical specifications
           </Typography>
-          <Typography color={"error.main"}>only 5 left</Typography>
-          <Typography color={"error.main"}>only 5 left</Typography>
-          <Typography color={"error.main"}>only 5 left</Typography>
-          <Typography color={"error.main"}>only 5 left</Typography>
-          <Typography color={"error.main"}>only 5 left</Typography>
-          <Typography color={"error.main"}>only 5 left</Typography>
-          <Typography color={"error.main"}>only 5 left</Typography>
-          <Typography color={"error.main"}>only 5 left</Typography>
-          <Typography color={"error.main"}>only 5 left</Typography>
-          <Typography color={"error.main"}>only 5 left</Typography>
-          <Typography color={"error.main"}>only 5 left</Typography>
           <Typography color={"error.main"}>only 5 left</Typography>
         </Box>
         <Box position={"sticky"} bottom={0} bgcolor={"background.paper"}>

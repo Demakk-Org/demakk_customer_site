@@ -1,27 +1,56 @@
-import Pdata from "@/data/Pdata";
 import { Box, Button, Typography } from "@mui/material";
 import React, { useState } from "react";
+import useProductStore from "@/store/product";
+import { IProductVariant } from "@/model/productModel";
 
 export default function Size() {
   const [itemSize, setItemSize] = useState("");
+  const { product } = useProductStore();
+  // const [variantName, setVariantName] = useState<Set<string>>(new Set());
+
+  function uniqueVariant(): IProductVariant[] | undefined {
+    return product
+      ?.getProductForPage()
+      .productVariants.reduce<IProductVariant[]>(
+        (uniqueVariant, currentValue) => {
+          if (
+            !uniqueVariant?.some(
+              (variant) => variant.imageUrl === currentValue.imageUrl
+            )
+          ) {
+            uniqueVariant.push(currentValue);
+          }
+          return uniqueVariant;
+        },
+        []
+      );
+  }
+
+  console.log("variants", uniqueVariant());
+
   return (
     <Box>
       <Typography sx={{ fontWeight: "bold", fontSize: ".75rem", mb: ".5rem" }}>
         Size: {itemSize}
       </Typography>
       <Box position={"relative"} display={"flex"} gap={".5rem"}>
-        {Pdata.sizes.map((size) => (
-          <Box
-            key={size}
-            // direction={'row'}
-            sx={{}}
-          >
-            <Button
-              variant="outlined"
-              onClick={() => setItemSize(size.toString())}
-            >
-              {size}
-            </Button>
+        {uniqueVariant()?.map((size) => (
+          <Box key={size._id.toString()}>
+            {size.stockVarieties.map((sub) => {
+              if (sub.class === "Sub") {
+                return (
+                  <Button
+                    key={""}
+                    variant="outlined"
+                    onClick={() => setItemSize(sub.value.toString())}
+                  >
+                    {sub.value}
+                  </Button>
+                );
+              } else {
+                <></>;
+              }
+            })}
           </Box>
         ))}
       </Box>

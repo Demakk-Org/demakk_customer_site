@@ -1,6 +1,7 @@
 import useProductStore from "@/store/product";
-import { Box, Button, Grid, Typography } from "@mui/material";
+import { Box, Grid, Typography } from "@mui/material";
 import React, { useState } from "react";
+import { IProductVariant } from "../../../model/productModel";
 
 interface MainVariantListProps {
   previewImage: string;
@@ -13,12 +14,30 @@ export default function ColorChoice({
 }: MainVariantListProps) {
   const { product } = useProductStore();
   const [variantName, setVariantName] = useState("");
-  // const [coloredImage, setColoredImage] = useState("");
-  console.log("from page", product);
+
+  function uniqueVariant(): IProductVariant[] | undefined {
+    return product
+      ?.getProductForPage()
+      .productVariants.reduce<IProductVariant[]>(
+        (uniqueVariant, currentValue) => {
+          if (
+            !uniqueVariant?.some(
+              (variant) => variant.imageUrl === currentValue.imageUrl
+            )
+          ) {
+            uniqueVariant.push(currentValue);
+          }
+          return uniqueVariant;
+        },
+        []
+      );
+  }
+
+  console.log("variants", uniqueVariant);
 
   return (
     <>
-      {product?.getProductForPage().productVariants ? (
+      {uniqueVariant() ? (
         <Box>
           <Box>
             <Typography
@@ -28,26 +47,31 @@ export default function ColorChoice({
             </Typography>
           </Box>
           <Grid container gap={".5rem"}>
-            {product?.getProductForPage().productVariants?.map((variant) => (
-              <Grid item key={variant}>
-                <Box
-                  component={"img"}
-                  src={variant.imageUrl}
-                  width={"75px"}
-                  height={"75px"}
-                  sx={{
-                    "&:hover": {
-                      border: ".1rem solid",
-                      borderColor: "dark.main",
-                    },
-                  }}
-                  onClick={() => {
-                    setVariantName(variant.stockVarieties[0].value[0]);
-                    setPreviewImage(
-                      product.images.imageUrls[variant.imageIndex]
+            {uniqueVariant()?.map((color) => (
+              <Grid item key={color._id.toString()}>
+                {color.stockVarieties.map((main) => {
+                  if (main.class === "Main") {
+                    return (
+                      <Box
+                        key={""}
+                        component={"img"}
+                        src={color.imageUrl}
+                        width={"75px"}
+                        height={"75px"}
+                        sx={{
+                          "&:hover": {
+                            border: ".1rem solid",
+                            borderColor: "dark.main",
+                          },
+                        }}
+                        onClick={() => {
+                          setVariantName(main.value.toString());
+                          setPreviewImage(color.imageUrl);
+                        }}
+                      />
                     );
-                  }}
-                />
+                  }
+                })}
               </Grid>
             ))}
           </Grid>

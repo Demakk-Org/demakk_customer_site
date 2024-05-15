@@ -5,6 +5,7 @@ import carouselBreakPoints, {
 } from "@/data/carouselBreakPoints";
 import "react-multi-carousel/lib/styles.css";
 import React, { ReactNode } from "react";
+import { styled } from "@mui/material";
 
 interface CarouselContainerProps {
   children: ReactNode;
@@ -12,6 +13,13 @@ interface CarouselContainerProps {
   animate?: boolean;
   infinite?: boolean;
 }
+
+// const styledCarousel = styled('carousel-container')({
+//   display: "flex",
+//   justifyContent: "center",
+//   alignItems: "center",
+//   marginRight: "1rem",
+// });
 
 function CarouselContainer({
   children,
@@ -32,11 +40,11 @@ function CarouselContainer({
       customTransition="all 0.5s"
       transitionDuration={500}
       containerClass="carousel-container"
+      // containerClass={styledCarousel.toString()}
       removeArrowOnDeviceType={["tablet", "mobile"]}
       dotListClass="custom-dot-list-style"
-      itemClass="carousel-item-padding-40-px"
-      // centerMode
-      // centerSlidePercentage={50}
+      itemClass="carousel-item"
+      // itemClass={styledCarousel.toString()}
     >
       {children}
     </Carousel>

@@ -9,7 +9,11 @@ export default function ItemDescription() {
       <Typography
         variant="body1"
         fontWeight={"bold"}
-        sx={{ m: { xs: ".5rem", sm: ".5rem 0" }, lineHeight: 1.25 }}
+        sx={{
+          m: { xs: ".5rem", sm: ".5rem 0" },
+          lineHeight: 1.25,
+          color: "text.primary",
+        }}
         // noWrap
       >
         {product?.getProductForPage().description}

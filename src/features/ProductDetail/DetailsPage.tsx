@@ -10,7 +10,14 @@ export default function DetailsPage() {
   const [previewImage, setPreviewImage] = useState("");
 
   return (
-    <Box>
+    <Box
+      sx={{
+        bgcolor: (theme) =>
+          theme.palette.mode === "dark"
+            ? "background.paper"
+            : "background.paper",
+      }}
+    >
       {/* container for image description and side nav */}
       <Grid
         container
@@ -44,21 +51,13 @@ export default function DetailsPage() {
           <RelatedItemListing />
           <Divider />
           <DescriptionAndRatingDetail />
-          {/* <Typography color={"error.main"}>
-            description for the product{" "}
-          </Typography>
-          <Typography color={"error.main"}>ratings and reviews </Typography>
-          <Typography color={"error.main"}>
-            and other technical specifications
-          </Typography> */}
         </Grid>
         {/* for side scrollable nav */}
         <Grid
-          position={"sticky"}
           item
           display={{ xs: "none", sm: "flex" }}
           xs
-          // sx={{ bgcolor: 'blue' }}
+          // sx={{ bgcolor: "blue" }}
         >
           <SideNav />
         </Grid>

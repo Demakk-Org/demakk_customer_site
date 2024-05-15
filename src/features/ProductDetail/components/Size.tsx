@@ -30,7 +30,14 @@ export default function Size() {
 
   return (
     <Box>
-      <Typography sx={{ fontWeight: "bold", fontSize: ".75rem", mb: ".5rem" }}>
+      <Typography
+        sx={{
+          color: "text.primary",
+          fontWeight: "bold",
+          fontSize: ".75rem",
+          mb: ".5rem",
+        }}
+      >
         Size: {itemSize}
       </Typography>
       <Box position={"relative"} display={"flex"} gap={".5rem"}>

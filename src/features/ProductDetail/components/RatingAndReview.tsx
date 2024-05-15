@@ -16,14 +16,20 @@ export default function RatingAndReview() {
               precision={0.5}
               readOnly
             />
-            <Typography fontSize={".75rem"} fontWeight={"bold"}>
+            <Typography
+              color={"text.primary"}
+              fontSize={".75rem"}
+              fontWeight={"bold"}
+            >
               {product?.getProductForPage().rating?.average}
             </Typography>
           </Stack>
         ) : (
           <></>
         )}
-        <Typography fontSize={".75rem"}>{45} Reviews</Typography>
+        <Typography color={"text.primary"} fontSize={".75rem"}>
+          {45} Reviews
+        </Typography>
       </Stack>
     </>
   );

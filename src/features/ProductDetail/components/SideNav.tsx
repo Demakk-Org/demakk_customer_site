@@ -4,6 +4,7 @@ import ShareIcon from "@mui/icons-material/Share";
 import React, { useEffect, useState } from "react";
 import Deal from "./Deal";
 import ItemPrice from "./ItemPrice";
+import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 
 export default function SideNav() {
   const [sideBarContent, setSideBarContent] = useState(false);
@@ -26,19 +27,21 @@ export default function SideNav() {
   }, []);
 
   return (
-    <Box id="main-content" position={"relative"} width={1} sx={{}}>
-      {" "}
+    <Box width={1}>
       <Box
-        id="sidenav"
-        height={"500px"}
         overflow={"hidden"}
-        boxShadow={2}
+        boxShadow={1}
         sx={{
           p: "1rem 1rem 0",
+          borderRadius: ".5rem",
           overflow: "hidden",
           overflowY: " auto",
           position: "sticky",
           top: "5rem",
+          bgcolor: (theme) =>
+            theme.palette.mode === "dark"
+              ? "background.lightOpaque"
+              : "background.paper",
         }}
       >
         {sideBarContent && (
@@ -52,22 +55,30 @@ export default function SideNav() {
         <Stack
           direction={"row"}
           justifyContent={"space-between"}
-          // p={'0 1rem'}
+          // sx={{ bgcolor: "brighten.main" }}
         >
-          <Typography fontWeight={"bold"}>Ship to</Typography>
+          <Typography fontWeight={"bold"} sx={{ color: "text.primary" }}>
+            Ship to
+          </Typography>
           <Stack direction={"row"}>
-            <LocationOnIcon />
-            <Typography>Ethiopia</Typography>
+            <LocationOnIcon sx={{ color: "text.primary" }} />
+            <Typography sx={{ color: "text.primary" }}>Ethiopia</Typography>
           </Stack>
         </Stack>
         <Divider sx={{ margin: ".5rem" }} />
         <Box>
-          <Typography>shipping status</Typography>
-          <Typography>select another produc</Typography>
+          <Typography sx={{ color: "text.primary" }}>
+            shipping status
+          </Typography>
+          <Typography sx={{ color: "text.primary" }}>
+            select another produc
+          </Typography>
         </Box>
         <Divider sx={{ margin: ".5rem" }} />
         <Box>
-          <Typography fontWeight={"bold"}>Quantity</Typography>
+          <Typography fontWeight={"bold"} sx={{ color: "text.primary" }}>
+            Quantity
+          </Typography>
           <Stack direction={"row"} alignItems={"center"} spacing={2}>
             <Box
               component={"button"}
@@ -80,7 +91,7 @@ export default function SideNav() {
               -
             </Box>
 
-            <Typography>num</Typography>
+            <Typography sx={{ color: "text.primary" }}>num</Typography>
             <Box
               component={"button"}
               height={"2rem"}
@@ -92,23 +103,20 @@ export default function SideNav() {
               +
             </Box>
           </Stack>
-          <Typography color={"error.main"}>only 5 left</Typography>
-          <Typography color={"error.main"}>
-            description for the product{" "}
+          <Typography color={"error.main"} sx={{ color: "text.primary" }}>
+            only 5 left
           </Typography>
-          <Typography color={"error.main"}>ratings and reviews </Typography>
-          <Typography color={"error.main"}>
-            and other technical specifications
-          </Typography>
-          <Typography color={"error.main"}>only 5 left</Typography>
         </Box>
-        <Box position={"sticky"} bottom={0} bgcolor={"background.paper"}>
+        <Box position={"sticky"} bottom={0}>
           <Stack spacing={2} m={"1rem 0"}>
             <Button
               variant="contained"
               sx={{
                 borderRadius: "1.5rem",
                 p: ".625rem .75rem",
+                bgcolor: "error.light",
+                color: "background.paper",
+                fontWeight: "bold",
               }}
             >
               Buy now
@@ -119,6 +127,9 @@ export default function SideNav() {
                 borderRadius: "1.5rem",
                 mt: "1rem",
                 p: ".625rem .75rem",
+                bgcolor: "background.reddish",
+                color: "text.dealHeader",
+                fontWeight: "bold",
               }}
             >
               Add to cart
@@ -130,16 +141,24 @@ export default function SideNav() {
                 sx={{
                   borderRadius: "1.5rem",
                   width: "60%",
-                  color: "black",
+                  fontWeight: "bold",
+                  fontSize: "16px",
+                  color: "text.primary",
+                  borderColor: "text.primary",
                 }}
               >
                 share
               </Button>
               <Button
                 variant="outlined"
-                sx={{ borderRadius: "1.5rem", padding: "0 2rem" }}
+                sx={{
+                  borderRadius: "1.5rem",
+                  padding: "0 2rem",
+                  color: "text.primary",
+                  borderColor: "text.primary",
+                }}
               >
-                fav
+                <FavoriteBorderIcon />
               </Button>
             </Stack>
           </Stack>

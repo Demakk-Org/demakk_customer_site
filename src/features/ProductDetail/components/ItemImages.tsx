@@ -119,18 +119,9 @@ const ItemImages = ({ previewImage, setPreviewImage }: ItemImageProps) => {
         ></Box>
       </Box>
 
-      <Stack width={1} height={1} spacing={3}>
+      <Box width={1} height={1} ml={{ sm: "3rem" }}>
         {product?.getProductForPage().images.imageUrls && (
           <CarouselContainer type={Breakpoints.productItemImagesCarousel}>
-            {/* <Stack
-              width={1}
-              // key={itemImage}
-              // position={"relative"}
-              direction={"row"}
-              // justifyContent={"center"}
-              spacing={2}
-              // onMouseEnter={() => setPreviewImage(itemImage)}
-            > */}
             {product?.images.imageUrls.map((itemImage) => (
               <Box
                 width={1}
@@ -140,6 +131,7 @@ const ItemImages = ({ previewImage, setPreviewImage }: ItemImageProps) => {
               >
                 <Box
                   component="img"
+                  mr={"1rem"}
                   width={1}
                   src={itemImage}
                   key={itemImage}
@@ -153,7 +145,7 @@ const ItemImages = ({ previewImage, setPreviewImage }: ItemImageProps) => {
                     // bgcolor: "background.productBg",
                   }}
                   onMouseEnter={() => setPreviewImage(itemImage)}
-                />{" "}
+                />
                 <Box
                   position={"absolute"}
                   width={1}
@@ -164,10 +156,9 @@ const ItemImages = ({ previewImage, setPreviewImage }: ItemImageProps) => {
                 ></Box>
               </Box>
             ))}
-            {/* </Stack> */}
           </CarouselContainer>
         )}
-      </Stack>
+      </Box>
     </Box>
   );
 };

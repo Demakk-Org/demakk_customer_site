@@ -41,21 +41,26 @@ export default function ColorChoice({
         <Box>
           <Box>
             <Typography
-              sx={{ fontWeight: "bold", fontSize: ".75rem", ml: ".5rem" }}
+              sx={{
+                color: "text.primary",
+                fontWeight: "bold",
+                fontSize: ".75rem",
+                ml: ".5rem",
+              }}
             >
               Color:{variantName}
             </Typography>
           </Box>
           <Grid container gap={".5rem"}>
-            {uniqueVariant()?.map((color) => (
-              <Grid item key={color._id.toString()}>
-                {color.stockVarieties.map((main) => {
+            {uniqueVariant()?.map((colorVariant) => (
+              <Grid item key={colorVariant._id.toString()}>
+                {colorVariant.stockVarieties.map((main) => {
                   if (main.class === "Main") {
                     return (
                       <Box
                         key={""}
                         component={"img"}
-                        src={color.imageUrl}
+                        src={colorVariant.imageUrl}
                         width={"75px"}
                         height={"75px"}
                         sx={{
@@ -66,7 +71,7 @@ export default function ColorChoice({
                         }}
                         onClick={() => {
                           setVariantName(main.value.toString());
-                          setPreviewImage(color.imageUrl);
+                          setPreviewImage(colorVariant.imageUrl);
                         }}
                       />
                     );

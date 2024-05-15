@@ -20,7 +20,10 @@ export default function ItemPrice() {
       m={{ xs: "-.5rem 0rem", sm: "0rem" }}
       sx={{
         pl: { xs: ".5rem", sm: "none" },
-        bgcolor: "background.paper",
+        bgcolor: (theme) =>
+          theme.palette.mode === "dark"
+            ? "dark.lightOpaque"
+            : "background.paper",
         borderTopLeftRadius: { xs: ".4rem", sm: "none" },
         borderTopRightRadius: { xs: ".4rem", sm: "none" },
       }}

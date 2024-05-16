@@ -49,6 +49,7 @@ export type IProductForCard = IProduct & {
   productCategory: ObjectId;
   productVariants: ObjectId[];
   reviews: ObjectId[];
+  stockVarietyTypeList: string[];
 };
 
 export interface IReturnedProduct {
@@ -70,6 +71,7 @@ export interface IReturnedProduct {
 export type IReturnedProductForCard = {
   reviews: ObjectId[];
   productVariants: ObjectId[];
+  stockVarietyTypeList: string[];
 } & IReturnedProduct;
 
 export type IReturnedProductForPage = {
@@ -77,6 +79,7 @@ export type IReturnedProductForPage = {
   reviews: IReview[];
   productVariants: IProductVariant[];
   productCategory: IProductCategory;
+  stockVarietyTypeList: String[];
 } & IReturnedProduct;
 
 export enum EVariantType {
@@ -255,7 +258,7 @@ export class GetProductForCard extends GetProduct {
     this.productVariants = productVariants;
   }
 
-  getProductForCard(): Omit<IReturnedProductForCard, "stockVarietyTypeList"> {
+  getProductForCard(): IReturnedProductForCard {
     return {
       id: this.id,
       name: this.name,
@@ -266,6 +269,7 @@ export class GetProductForCard extends GetProduct {
       shipping: this.getShippingDiscount,
       deals: this.getDeals,
       productVariants: this.productVariants,
+      stockVarietyTypeList: this.stockVarietyTypeList,
       reviews: this.reviews,
       sold: this.sold,
     };

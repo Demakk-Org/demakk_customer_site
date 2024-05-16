@@ -1,12 +1,14 @@
-import { IconButton } from '@mui/material';
-import React from 'react';
-import AddShoppingCartRoundedIcon from '@mui/icons-material/AddShoppingCartRounded';
+import { IconButton, useTheme } from "@mui/material";
+import React from "react";
+import AddShoppingCartRoundedIcon from "@mui/icons-material/AddShoppingCartRounded";
 
 interface AddToCartButton {
   id: string;
 }
 
 export default function AddToCartButton({ id }: AddToCartButton) {
+  const theme = useTheme();
+
   return (
     <>
       <IconButton
@@ -15,12 +17,24 @@ export default function AddToCartButton({ id }: AddToCartButton) {
         aria-label="add to shopping cart"
         color="primaryButton"
         sx={{
-          position: 'absolute',
-          bottom: '10%',
-          right: '10%',
-          backgroundColor: 'background.paper',
-          '&:hover': {
-            '.cart-icon': { color: 'background.paper' },
+          position: "absolute",
+          bottom: "10%",
+          right: "10%",
+          backgroundColor: (theme) =>
+            theme.palette.mode === "dark" ? "bright.main" : "background.paper",
+          // theme.palette.mode === "dark" ? "bright.main" : "background.paper",
+          ".cart-icon": {
+            color: "dark.main",
+          },
+          "&:hover": {
+            bgcolor: (theme) =>
+              theme.palette.mode === "dark" ? "dark.main" : "black",
+            ".cart-icon": {
+              color: (theme) =>
+                theme.palette.mode === "dark"
+                  ? "primary.main"
+                  : "background.paper",
+            },
           },
         }}
       >

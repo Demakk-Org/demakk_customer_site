@@ -153,9 +153,10 @@ const lTheme = createTheme({
 const darkTheme = createTheme(dTheme, {
   palette: {
     text: {
-      teritiary: '#575757',
-      links: '#ffffffcc',
-      price: '#ff0000',
+      teritiary: "#575757",
+      links: "#ffffffcc",
+      price: "#ff0000",
+      dealHeader: "#ff0000",
     },
     background: {
       lightOpaque: '#414141',
@@ -235,17 +236,18 @@ const lightTheme = createTheme(lTheme, {
   },
   palette: {
     text: {
-      teritiary: '#e7e7e7',
-      links: '#191919cc',
-      price: '#ff0000',
-      oldPrice: 'hsl(0, 0%, 60%)',
+      teritiary: "#e7e7e7",
+      links: "#191919cc",
+      price: "#ff0000",
+      dealHeader: "#ff0000",
+      contrast: "#191919cc",
     },
     background: {
       lightOpaque: '#d0d0d0',
       lighter: '#d0d0d099',
       reddish: '#ffc7b899',
-      blue: '#33A4FF ',
-      productImageBackground: 'rgba(0, 0, 0, .04)',
+      gray: 'rgba(210, 204, 204, 0.6)',
+      productBg: 'rgba(0, 0, 0, 0.04)',
     },
     demakkPrimary: lTheme.palette.augmentColor({
       color: {
@@ -288,7 +290,7 @@ const lightTheme = createTheme(lTheme, {
 
 export default function App({ Component, pageProps }: AppProps) {
   const { darkMode, setTheme } = useThemeProvider();
-  console.log(lTheme);
+
   useEffect(() => {
     if (window) {
       let deviceDarkMode = window.matchMedia('(prefers-color-scheme:dark)');

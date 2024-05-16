@@ -42,7 +42,6 @@ export function countDown(time: string, lang: LANG): void {
     let x = setInterval(() => {
       var now = new Date().getTime();
       var distance = countDownDate - now;
-      console.log(distance);
 
       if (distance < 0) {
         clearInterval(x);

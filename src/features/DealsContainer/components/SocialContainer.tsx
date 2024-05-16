@@ -60,11 +60,26 @@ function SocialContainer() {
         gap={"1rem"}
         justifyContent={"space-between"}
         p={"0 1rem"}
+        fontSize={"1rem"}
       >
-        <FooterSocialLinks url="#" icon={<Facebook />} />
-        <FooterSocialLinks url="#" icon={<Google />} />
-        <FooterSocialLinks url="#" icon={<Apple />} />
-        <FooterSocialLinks url="#" icon={<Twitter />} />
+        <FooterSocialLinks
+          url="#"
+          icon={
+            <Box component={"img"} src="/social/facebook (1).png" width={30} />
+          }
+        />
+        <FooterSocialLinks
+          url="#"
+          icon={<Box component={"img"} src="/social/google.png" width={30} />}
+        />
+        <FooterSocialLinks
+          url="#"
+          icon={<Box component={"img"} src="/social/twitter.png" width={30} />}
+        />
+        <FooterSocialLinks
+          url="#"
+          icon={<Box component={"img"} src="/social/apple.png" width={30} />}
+        />
       </Box>
     </Box>
   );

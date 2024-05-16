@@ -1,10 +1,24 @@
 import { Box, Typography, Grid } from "@mui/material";
 
-import getLanguage from "@/utils/getLanguage";
-import useUserStore from "@/store/user";
+import { GetProduct } from "@/model/productModel";
+import getPrice from "@/utils/getPrice";
+import useDiscountStore from "@/store/discount";
 
-function DealInFullHeight() {
-  const { lang } = useUserStore();
+interface IDealInFullHeight {
+  title: string;
+  subtitle: string;
+  productList: GetProduct[];
+  showPercent?: boolean;
+}
+
+function DealInFullHeight({
+  title,
+  subtitle,
+  productList,
+  showPercent,
+}: IDealInFullHeight) {
+  const { discount } = useDiscountStore();
+  console.log(productList);
   return (
     <Box
       display={{ xs: "none", sm: "flex" }}
@@ -17,12 +31,12 @@ function DealInFullHeight() {
       <Typography
         fontSize={"1.5rem"}
         fontWeight={"bold"}
-        color={"primary.main"}
+        color={"text.dealHeader"}
       >
-        {getLanguage("welcomeDeal", lang)}
+        {title}
       </Typography>
       <Typography fontSize={"1.1rem"} mb={3} color={"text.primary"}>
-        {getLanguage("yourExclusivePrice", lang)}
+        {subtitle}
       </Typography>
       <Box
         flex={1}
@@ -37,7 +51,7 @@ function DealInFullHeight() {
           <Box
             width={1}
             component={"img"}
-            src="/assets/images/product12.webp"
+            src={productList[0]?.images.imageUrls[0]}
             sx={{ aspectRatio: 1, borderRadius: "1rem" }}
           />
           <Box
@@ -49,24 +63,43 @@ function DealInFullHeight() {
           >
             <Typography
               fontSize={"0.8rem"}
-              fontWeight={"bold"}
+              fontWeight={500}
               color={"text.price"}
               sx={{ textWrap: "nowrap" }}
             >
-              US $
-              <Typography component={"span"} fontSize={"1.2rem"}>
-                18
+              ETB
+              <Typography
+                component={"span"}
+                fontSize={"1.1rem"}
+                fontWeight={700}
+              >
+                {
+                  getPrice(
+                    productList[0]?.getDiscountedPriceAndPercent(discount)
+                      .afterDiscount
+                  ).int
+                }
               </Typography>
-              .55
+              .
+              {
+                getPrice(
+                  productList[0]?.getDiscountedPriceAndPercent(discount)
+                    .afterDiscount
+                ).dec
+              }
             </Typography>
             <Typography
+              title={`ETB ${getPrice(productList[0]?.price).int}.${
+                getPrice(productList[0]?.price).dec
+              }`}
               noWrap
               textOverflow={"ellipsis"}
               fontSize={"0.9rem"}
-              color={"text.teritiary"}
+              color={"text.contrast"}
               sx={{ textDecoration: "line-through" }}
             >
-              US $34.56
+              ETB {getPrice(productList[0]?.price).int}.
+              {getPrice(productList[0]?.price).dec}
             </Typography>
           </Box>
           <Box
@@ -92,7 +125,10 @@ function DealInFullHeight() {
               pb={"0.5rem"}
               color={"bright.main"}
             >
-              11
+              {
+                productList[0]?.getDiscountedPriceAndPercent(discount)
+                  .discountPercent
+              }
             </Typography>
           </Box>
         </Box>
@@ -115,24 +151,43 @@ function DealInFullHeight() {
               >
                 <Typography
                   fontSize={"0.8rem"}
-                  fontWeight={"bold"}
+                  fontWeight={500}
                   color={"text.price"}
                   sx={{ textWrap: "nowrap" }}
                 >
-                  US $
-                  <Typography component={"span"} fontSize={"1.2rem"}>
-                    18
+                  ETB{" "}
+                  <Typography
+                    component={"span"}
+                    fontSize={"1rem"}
+                    fontWeight={700}
+                  >
+                    {
+                      getPrice(
+                        productList[0]?.getDiscountedPriceAndPercent(discount)
+                          .afterDiscount
+                      ).int
+                    }
                   </Typography>
-                  .55
+                  .
+                  {
+                    getPrice(
+                      productList[0]?.getDiscountedPriceAndPercent(discount)
+                        .afterDiscount
+                    ).dec
+                  }
                 </Typography>
                 <Typography
+                  title={`ETB ${getPrice(productList[1].price).int}.${
+                    getPrice(productList[1].price).dec
+                  }`}
                   noWrap
                   textOverflow={"ellipsis"}
                   fontSize={"0.9rem"}
-                  color={"text.teritiary"}
+                  color={"text.contrast"}
                   sx={{ textDecoration: "line-through" }}
                 >
-                  US $34.56
+                  ETB {getPrice(productList[1].price).int}.
+                  {getPrice(productList[1].price).dec}
                 </Typography>
               </Box>
             </Box>
@@ -155,24 +210,43 @@ function DealInFullHeight() {
               >
                 <Typography
                   fontSize={"0.8rem"}
-                  fontWeight={"bold"}
+                  fontWeight={500}
                   color={"text.price"}
                   sx={{ textWrap: "nowrap" }}
                 >
-                  US $
-                  <Typography component={"span"} fontSize={"1.2rem"}>
-                    18
+                  ETB{" "}
+                  <Typography
+                    component={"span"}
+                    fontSize={"1rem"}
+                    fontWeight={700}
+                  >
+                    {
+                      getPrice(
+                        productList[2]?.getDiscountedPriceAndPercent(discount)
+                          .afterDiscount
+                      ).int
+                    }
                   </Typography>
-                  .55
+                  .
+                  {
+                    getPrice(
+                      productList[2]?.getDiscountedPriceAndPercent(discount)
+                        .afterDiscount
+                    ).dec
+                  }
                 </Typography>
                 <Typography
+                  title={`ETB ${getPrice(productList[2].price).int}.${
+                    getPrice(productList[2].price).dec
+                  }`}
                   noWrap
                   textOverflow={"ellipsis"}
                   fontSize={"0.9rem"}
-                  color={"text.teritiary"}
+                  color={"text.contrast"}
                   sx={{ textDecoration: "line-through" }}
                 >
-                  US $34.56
+                  ETB {getPrice(productList[2].price).int}.
+                  {getPrice(productList[2].price).dec}
                 </Typography>
               </Box>
             </Box>

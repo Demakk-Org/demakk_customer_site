@@ -6,30 +6,39 @@ import { ArrowForwardIos } from "@mui/icons-material";
 import { Breakpoints } from "@/data/carouselBreakPoints";
 import getLanguage from "@/utils/getLanguage";
 import useUserStore from "@/store/user";
+import useDiscountStore from "@/store/discount";
+import { Fragment } from "react";
 
 function SmallDeviceDealsContainer() {
   const { lang } = useUserStore();
+  const { deal, discount } = useDiscountStore();
+
+  if (!deal) return <></>;
+
   return (
     <Box
       width={1}
       display={{ xs: "flex", md: "none" }}
       flexDirection={"column"}
+      gap={"0.25rem"}
     >
       <Typography
         fontSize={{ xs: "1.1rem", sm: "2rem" }}
         pl={{ sm: "1rem" }}
         fontWeight={"bold"}
         color={"text.primary"}
+        letterSpacing={"1.5px"}
       >
-        {getLanguage("welcomeDeal", lang)}
+        {deal[0].getDeal().dealType.name}
       </Typography>
       <Typography
         pl={{ sm: "1rem" }}
-        fontSize={{ xs: "0.9rem", sm: "1.4rem" }}
+        fontSize={{ xs: "1rem", sm: "1.4rem" }}
         fontWeight={400}
+        letterSpacing={0.5}
         color={"text.primary"}
       >
-        {getLanguage("yourExclusivePrice", lang)}
+        {deal[0].getDeal().dealType.subTitle}
       </Typography>
       <Box width={1} mt={1}>
         <CarouselContainer
@@ -37,32 +46,25 @@ function SmallDeviceDealsContainer() {
           infinite={false}
           animate={false}
         >
-          <DealsComponentForMobile
-            imgUrl={"/assets/images/product2.webp"}
-            price={17.43}
-            discountPrice={32.88}
-            ordersNumber={122}
-          />
-          <DealsComponentForMobile
-            imgUrl={"/assets/images/product3.webp"}
-            price={37.15}
-            discountPrice={49.05}
-            ordersNumber={271}
-          />
-          <DealsComponentForMobile
-            imgUrl={"/assets/images/product4.webp"}
-            price={11.77}
-            discountPrice={18.11}
-            ordersNumber={98}
-          />
-          <DealsComponentForMobile
-            imgUrl={"/assets/images/product5.webp"}
-            price={7.67}
-            discountPrice={13}
-            ordersNumber={950}
-          />
+          {deal[0]
+            .getAllProductsForDeal()
+            .slice(0, 5)
+            .map((product) => (
+              <Fragment key={product.id.toString()}>
+                <DealsComponentForMobile
+                  imgUrl={product.images.imageUrls[product.images.primary]}
+                  price={product.price}
+                  discountPrice={
+                    product.getDiscountedPriceAndPercent(discount).afterDiscount
+                  }
+                  ordersNumber={product.sold}
+                />
+              </Fragment>
+            ))}
+
           <Box display={"flex"} height={1}>
             <Button
+              fullWidth
               endIcon={<ArrowForwardIos />}
               sx={{ color: "text.primary" }}
             >

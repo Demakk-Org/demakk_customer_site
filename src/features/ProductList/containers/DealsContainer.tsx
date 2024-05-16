@@ -1,59 +1,37 @@
-import { Box, Divider, Stack, Typography } from '@mui/material';
-import React from 'react';
+import { Box, Stack, Typography } from "@mui/material";
+import React from "react";
 
-interface dealProps {
-  deal: string | undefined;
-  extraDiscount: number | undefined;
-  discountPercent: number | undefined;
+interface DealProps {
+  deal: string;
 }
 
-export default function DealsContainer({
-  deal,
-  extraDiscount,
-  discountPercent,
-}: dealProps) {
+export default function DealsContainer({ deal }: DealProps) {
   return (
     <Stack
-      width={'100%'}
-      direction={'row'}
-      alignItems={'center'}
+      width={"100%"}
+      direction={"row"}
+      alignItems={"center"}
       divider={
         <Box
-          height={'.3rem'}
-          minWidth={'.3rem'}
-          m={'0 .25rem'}
-          borderRadius={'50%'}
-          sx={{ backgroundColor: 'text.price' }}
+          height={".3rem"}
+          minWidth={".3rem"}
+          m={"0 .25rem 0 .25rem"}
+          borderRadius={"50%"}
+          sx={{ backgroundColor: "error.loght" }}
         ></Box>
       }
     >
       <Typography
-        minWidth={'max-content'}
-        fontSize={'.6rem'}
-        fontWeight={'bold'}
-        color={'white'}
-        p={'0rem .4rem '}
-        borderRadius={'.2rem'}
-        sx={{ backgroundColor: 'background.blue' }}
+        minWidth={"max-content"}
+        fontSize={".6rem"}
+        fontWeight={"bold"}
+        color={"bright.main"}
+        p={"0rem .4rem .2rem .4rem "}
+        borderRadius={".2rem"}
+        sx={{ backgroundColor: "error.light" }}
       >
         {deal}
       </Typography>
-      {extraDiscount && (
-        <Typography
-          title="Extra 2% off with discont"
-          noWrap
-          color={'text.price'}
-          fontSize={'.7rem'}
-          fontWeight={'bold'}
-        >
-          Extra {extraDiscount}% off with discont
-        </Typography>
-      )}
-      {discountPercent && (
-        <Typography color={'text.price'} fontSize={'.7rem'} fontWeight={'bold'}>
-          -{discountPercent}%
-        </Typography>
-      )}
     </Stack>
   );
 }

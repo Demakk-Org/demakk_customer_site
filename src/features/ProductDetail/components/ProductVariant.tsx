@@ -8,8 +8,7 @@ interface MainVariantListProps {
   setPreviewImage: Function;
 }
 
-export default function ColorChoice({
-  previewImage,
+export default function ProductVariant({
   setPreviewImage,
 }: MainVariantListProps) {
   const { product } = useProductStore();
@@ -32,8 +31,6 @@ export default function ColorChoice({
         []
       );
   }
-
-  console.log("variants", uniqueVariant);
 
   return (
     <>
@@ -65,7 +62,7 @@ export default function ColorChoice({
                         height={"75px"}
                         sx={{
                           "&:hover": {
-                            border: ".1rem solid",
+                            border: "4px solid",
                             borderColor: "dark.main",
                           },
                         }}

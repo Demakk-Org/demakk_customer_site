@@ -13,7 +13,7 @@ export default function DescriptionAndRatingDetail() {
         spacing={3}
         alignItems={"center"}
       >
-        <Typography>Description</Typography>
+        <Typography >Description</Typography>
         <Typography>Specification</Typography>
         <Typography>Customer Reviews</Typography>
         <Typography>You may also like</Typography>

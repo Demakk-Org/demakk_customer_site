@@ -16,7 +16,6 @@ export default function ItemPrice() {
       direction={"row"}
       alignItems={"baseline"}
       position={"relative"}
-      // justifyContent={{ xs: "center", sm: "none" }}
       m={{ xs: "-.5rem 0rem", sm: "0rem" }}
       sx={{
         pl: { xs: ".5rem", sm: "none" },

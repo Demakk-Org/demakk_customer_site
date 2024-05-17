@@ -6,16 +6,17 @@ import SideNav from "./components/SideNav";
 import ItemImages from "./components/ItemImages";
 import DescriptionAndRatingDetail from "./containers/contents/DescriptionAndRatingDetail";
 
-export default function DetailsPage() {
+export default function ProductDetails() {
   const [previewImage, setPreviewImage] = useState("");
 
   return (
     <Box
       sx={{
-        bgcolor: (theme) =>
-          theme.palette.mode === "dark"
-            ? "background.paper"
-            : "background.paper",
+        bgcolor: "background.paper",
+        // theme) =>
+        //   theme.palette.mode === "dark"
+        //     ? "background.paper"
+        //     : "background.paper",
       }}
     >
       {/* container for image description and side nav */}
@@ -53,12 +54,7 @@ export default function DetailsPage() {
           <DescriptionAndRatingDetail />
         </Grid>
         {/* for side scrollable nav */}
-        <Grid
-          item
-          display={{ xs: "none", sm: "flex" }}
-          xs
-          // sx={{ bgcolor: "blue" }}
-        >
+        <Grid item display={{ xs: "none", sm: "flex" }} xs>
           <SideNav />
         </Grid>
       </Grid>

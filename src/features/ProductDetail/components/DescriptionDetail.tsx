@@ -1,12 +1,4 @@
-import {
-  Box,
-  List,
-  ListItem,
-  ListItemText,
-  Stack,
-  Typography,
-} from "@mui/material";
-import React from "react";
+import { List, ListItemText, Stack, Typography } from "@mui/material";
 
 export default function DescriptionDetail() {
   return (
@@ -28,28 +20,7 @@ export default function DescriptionDetail() {
         </List>
         <ListItemText primary={"Features:"}></ListItemText>
 
-        <ListItemText
-          primary={"specifications"}
-          // secondary={
-          //   <List component={"ol"}>
-          //     <ListItem>
-          //       <ListItemText primary={"soft product"} />
-          //     </ListItem>
-          //     <ListItem>
-          //       <ListItemText primary={"comfortable product"} />
-          //     </ListItem>
-          //     <ListItem>
-          //       <ListItemText primary={"durable product"} />
-          //     </ListItem>
-          //     <ListItem>
-          //       <ListItemText primary={"cheap product"} />
-          //     </ListItem>
-          //     <ListItem>
-          //       <ListItemText primary={"best product"} />
-          //     </ListItem>
-          //   </List>
-          // }
-        />
+        <ListItemText primary={"specifications"} />
       </List>
     </>
   );

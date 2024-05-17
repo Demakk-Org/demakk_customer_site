@@ -3,9 +3,9 @@ import Box from "@mui/material/Box";
 import useProductStore from "@/store/product";
 import CarouselContainer from "@/component/CarouselContainer";
 import { Breakpoints } from "@/data/carouselBreakPoints";
-import { Stack } from "@mui/material";
-import { ObjectId } from "mongoose";
-import Product from "@/pages/product";
+import { Button, Stack, Typography } from "@mui/material";
+import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
+import Size from "./Size";
 
 interface ItemImageProps {
   previewImage: string;
@@ -14,8 +14,6 @@ interface ItemImageProps {
 
 const ItemImages = ({ previewImage, setPreviewImage }: ItemImageProps) => {
   const { product } = useProductStore();
-  // const productImages = { images: [] };
-  // productImages.images.push(...product?.images?.imageUrls);
 
   const [zoomWidth, setZoomWidth] = useState<number | null>(null);
   const [imgPosition, setImgPosition] = useState({ top: 0, left: 0 });
@@ -119,7 +117,7 @@ const ItemImages = ({ previewImage, setPreviewImage }: ItemImageProps) => {
         ></Box>
       </Box>
 
-      <Box width={1} height={1} ml={{ sm: "3rem" }}>
+      <Box position={"relative"} width={1} ml={{ sm: "3rem" }}>
         {product?.getProductForPage().images.imageUrls && (
           <CarouselContainer type={Breakpoints.productItemImagesCarousel}>
             {product?.images.imageUrls.map((itemImage) => (
@@ -132,6 +130,7 @@ const ItemImages = ({ previewImage, setPreviewImage }: ItemImageProps) => {
                 <Box
                   component="img"
                   mr={"1rem"}
+                  gap={"1rem"}
                   width={1}
                   src={itemImage}
                   key={itemImage}
@@ -158,6 +157,59 @@ const ItemImages = ({ previewImage, setPreviewImage }: ItemImageProps) => {
             ))}
           </CarouselContainer>
         )}
+        <Box
+          display={{ sm: "none" }}
+          position={"absolute"}
+          top={0}
+          left={0}
+          width={1}
+          height={1}
+          // sx={{ bgcolor: "blue" }}
+        >
+          <Box
+            position={"absolute"}
+            left={"2.5%"}
+            top={"2.5%"}
+            // width={"50px"}
+            // height={"25px"}
+            sx={{ bgcolor: "background.paper", borderRadius: "16px" }}
+          >
+            <Typography color={"text.primary"} p={"4px 16px"}>
+              beautiful (5 answers)
+            </Typography>
+          </Box>
+          <Box
+            position={"absolute"}
+            left={"5%"}
+            bottom={"10%"}
+            // width={"50px"}
+            // height={"25px"}
+            sx={{ bgcolor: "background.paper", borderRadius: "16px" }}
+          >
+            <Typography color={"text.primary"} p={"4px 16px"}>
+              {}/{product?.images.imageUrls.length}
+            </Typography>
+          </Box>
+          <Stack
+            position={"absolute"}
+            alignItems={"center"}
+            spacing={".3rem"}
+            direction={"row"}
+            right={"5%"}
+            bottom={"10%"}
+            p={"4px 8px"}
+            // width={"50px"}
+            // height={"25px"}
+            sx={{ bgcolor: "background.paper", borderRadius: "16px" }}
+          >
+            <FavoriteBorderIcon
+              sx={{ color: "text.primary", fontSize: "18px" }}
+            />
+            <Typography color={"text.primary"} fontSize={".8rem"}>
+              2415
+            </Typography>
+          </Stack>
+        </Box>
       </Box>
     </Box>
   );

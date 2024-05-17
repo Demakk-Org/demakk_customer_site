@@ -66,13 +66,13 @@ const carouselBreakPoints = {
   productItemImagesCarousel: {
     superLargeDesktop: {
       breakpoint: { max: 4000, min: 3000 },
-      items: 3,
-      slidesToSlide: 2,
+      items: 6.5,
+      slidesToSlide: 3,
     },
     desktop: {
       breakpoint: { max: 3000, min: 1280 },
-      items: 6.5,
-      slidesToSlide: 3,
+      items: 8.5,
+      slidesToSlide: 4,
     },
     tablet: {
       breakpoint: { max: 1200, min: 600 },

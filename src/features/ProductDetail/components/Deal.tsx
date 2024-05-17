@@ -1,21 +1,19 @@
 import useDiscountStore from "@/store/discount";
 import useProductStore from "@/store/product";
 import { Box, Stack, Typography } from "@mui/material";
-import React from "react";
 
 export default function Deal() {
   const { product } = useProductStore();
   const { discount } = useDiscountStore();
   const item = product?.getProductForPage();
-  console.log("from deal", item?.deals(discount));
   return (
     <Box
       borderRadius={".5rem"}
       sx={{ backgroundColor: "error.light" }}
-      mt={{ xs: "-2rem", sm: ".1rem" }}
+      mt={{ xs: "-2rem", sm: "4px" }}
       zIndex={{ xs: 2, sm: "none" }}
     >
-      {item?.discountedPrice(discount).afterDiscount ? (
+      {item?.deals(discount) ? (
         <Stack direction={"row"}>
           <Typography
             fontSize={".85rem"}

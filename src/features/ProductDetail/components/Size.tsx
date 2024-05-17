@@ -26,6 +26,15 @@ export default function Size() {
       );
   }
 
+  function colorVariantedImageArray(): string[] | undefined {
+    let colorVariantedImageArray: string[] = [];
+    uniqueVariant()?.forEach((coloredImageUrls) => {
+      let colors = coloredImageUrls.imageUrl;
+      colorVariantedImageArray.push(colors);
+    });
+    return colorVariantedImageArray;
+  }
+
   console.log("variants", uniqueVariant());
 
   return (
@@ -43,6 +52,9 @@ export default function Size() {
       <Box position={"relative"} display={"flex"} gap={".5rem"}>
         {uniqueVariant()?.map((size) => (
           <Box key={size._id.toString()}>
+            {/* {colorVariantedImageArray()?.forEach(
+              (sizeForOneColorVariant) => sizeForOneColorVariant
+            )} */}
             {size.stockVarieties.map((sub) => {
               if (sub.class === "Sub") {
                 return (

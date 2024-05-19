@@ -4,7 +4,12 @@ export default function DescriptionDetail() {
   return (
     <>
       <Stack width={1} direction={"row"} justifyContent={"space-between"}>
-        <Typography component={"h1"} variant="h6" fontWeight={"bold"}>
+        <Typography
+          variant="h6"
+          component={"h1"}
+          color={"text.primary"}
+          fontWeight={"bold"}
+        >
           Description
         </Typography>
         <Typography fontWeight={"bold"}>Report Item</Typography>

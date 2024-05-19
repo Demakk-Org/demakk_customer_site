@@ -213,7 +213,7 @@ export class GetProduct {
           };
       }
     });
-    console.log("discount", returnPriceAndPercent);
+    // console.log("discount", returnPriceAndPercent);
     return returnPriceAndPercent;
   }
 

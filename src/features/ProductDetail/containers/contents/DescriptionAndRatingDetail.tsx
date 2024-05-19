@@ -1,6 +1,8 @@
 import React from "react";
 import DescriptionDetail from "../../components/DescriptionDetail";
-import { Box, Stack, Typography } from "@mui/material";
+import { Box, Divider, Stack, Typography } from "@mui/material";
+import ProductSpecification from "../../components/ProductSpecification";
+import CustomerReview from "../../components/CustomerReview";
 
 export default function DescriptionAndRatingDetail() {
   return (
@@ -13,13 +15,17 @@ export default function DescriptionAndRatingDetail() {
         spacing={3}
         alignItems={"center"}
       >
-        <Typography >Description</Typography>
-        <Typography>Specification</Typography>
-        <Typography>Customer Reviews</Typography>
-        <Typography>You may also like</Typography>
+        <Typography color={"text.primary"}>Description</Typography>
+        <Typography color={"text.primary"}>Specification</Typography>
+        <Typography color={"text.primary"}>Customer Reviews</Typography>
+        <Typography color={"text.primary"}>You may also like</Typography>
       </Stack>
       <Box>
         <DescriptionDetail />
+        <Divider />
+        <ProductSpecification />
+        <Divider />
+        <CustomerReview />
       </Box>
     </div>
   );

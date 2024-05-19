@@ -34,7 +34,7 @@ export default function Contents({
         previewImage={previewImage}
         setPreviewImage={setPreviewImage}
       />
-      <Size />
+      {/* <Size /> */}
       <Divider sx={{ m: "1rem 0rem" }} />
     </Box>
   );

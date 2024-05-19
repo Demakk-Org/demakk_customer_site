@@ -3,9 +3,8 @@ import Box from "@mui/material/Box";
 import useProductStore from "@/store/product";
 import CarouselContainer from "@/component/CarouselContainer";
 import { Breakpoints } from "@/data/carouselBreakPoints";
-import { Button, Stack, Typography } from "@mui/material";
+import { Stack, Typography } from "@mui/material";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
-import Size from "./Size";
 
 interface ItemImageProps {
   previewImage: string;

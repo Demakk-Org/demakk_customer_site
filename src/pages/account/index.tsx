@@ -17,13 +17,17 @@ import {
   Typography,
 } from "@mui/material";
 import AccountPageBreadcrumbs from "@/features/AccountPage/Breadcrumbs";
+import PaymentTabContent from "@/features/AccountPage/components/PaymentTabContent";
+import SettingTabContent from "@/features/AccountPage/components/SettingTabContent";
+import ShippingAddressTabContent from "@/features/AccountPage/components/ShippingAddressTabContent";
+import { useRouter } from "next/router";
 
 const buttons = [
   "Overview",
   "Orders",
   "Payments",
-  "Refund and return",
-  "Feedback",
+  // "Refund and return",
+  // "Feedback",
   "Settings",
   "Shipping address",
   "Message center",
@@ -38,6 +42,8 @@ const buttons = [
 
 function Account() {
   const { user } = useUserStore();
+  const router = useRouter();
+
   const [openAccountModal, setOpenAccountModal] = useState(false);
   const [selectedTab, setSelectedTab] = useState<number>(0);
 
@@ -68,7 +74,7 @@ function Account() {
           <TopNavigationBar />
           <Box
             display={"flex"}
-            maxWidth={{ xs: 1, md: "80%" }}
+            maxWidth={{ xs: 1, md: "90%" }}
             margin={"auto"}
             flexDirection={"column"}
             pb={"133px"}
@@ -78,7 +84,7 @@ function Account() {
             <Grid container spacing={{ sm: 3, md: 4 }}>
               <Grid item display={{ xs: "none", sm: "flex" }} sm={3}>
                 <Stack
-                  bgcolor={"background.light"}
+                  bgcolor={"background.lighter"}
                   p={"1rem 0"}
                   pr={0}
                   width={1}
@@ -141,6 +147,9 @@ function Account() {
               <Grid item xs={12} sm={9}>
                 {selectedTab == 0 && <OverviewTabContent />}
                 {selectedTab == 1 && <OrdersTabContent />}
+                {selectedTab == 2 && <PaymentTabContent />}
+                {selectedTab == 3 && <SettingTabContent />}
+                {selectedTab == 4 && <ShippingAddressTabContent />}
               </Grid>
             </Grid>
           </Box>

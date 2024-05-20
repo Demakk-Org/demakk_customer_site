@@ -3,8 +3,9 @@ import { Image } from "./imageModel";
 import { IProductVariant } from "./productModel";
 
 export interface IOrderStatus {
-  _id: ObjectId;
+  _id?: ObjectId;
   name: string;
+  orderIndex: number;
 }
 
 export interface ICoupon {
@@ -27,7 +28,7 @@ export interface IOrder {
   orderItems: IOrderItem[];
   orderDate: Date;
   deliverDate: Date;
-  orderStatus: IOrderStatus;
+  orderStatus: String;
 }
 
 export class GetOrder {
@@ -35,7 +36,7 @@ export class GetOrder {
   private orderItems: IOrderItem[];
   private orderDate: Date;
   private deliveryDate: Date;
-  private orderStatus: IOrderStatus;
+  private orderStatus: String;
 
   constructor(order: IOrder) {
     this.id = order._id;

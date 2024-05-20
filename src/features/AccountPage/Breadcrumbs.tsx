@@ -1,28 +1,32 @@
 import Breadcrumbs from "@mui/material/Breadcrumbs";
 import Link from "@mui/material/Link";
-import { Box } from "@mui/material";
-
-function handleClick(event: React.MouseEvent<HTMLDivElement, MouseEvent>) {
-  event.preventDefault();
-  alert("You clicked a breadcrumb.");
-}
+import { Box, Typography } from "@mui/material";
+import useUserStore from "@/store/user";
 
 export default function AccountPageBreadcrumbs() {
+  const { breadcrumbs } = useUserStore();
+
   return (
     <Box
       component={"div"}
       display={{ xs: "none", sm: "block" }}
       role="presentation"
-      onClick={handleClick}
-      p={{ sm: "1rem" }}
+      // p={{ sm: "1rem" }}
     >
       <Breadcrumbs aria-label="breadcrumb" separator={">"}>
-        <Link underline="hover" color="inherit" href="/" p={"0 0.5rem"}>
-          Home
-        </Link>
-        <Link underline="hover" color="inherit" href="/account/" p={"0 0.5rem"}>
-          Account
-        </Link>
+        {breadcrumbs.map((breadcrumb, index) => {
+          return (
+            <Link
+              underline="hover"
+              color="inherit"
+              href={breadcrumb.url}
+              p={"0 0.5rem"}
+              key={index}
+            >
+              <Typography>{breadcrumb.name}</Typography>
+            </Link>
+          );
+        })}
       </Breadcrumbs>
     </Box>
   );

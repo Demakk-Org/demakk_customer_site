@@ -1,27 +1,39 @@
 import { Box, Button, Divider, Stack, Typography } from "@mui/material";
-import { ordersTabs } from "./OrdersTabContent";
 import { FaChevronRight } from "react-icons/fa";
 import { LuClipboardList } from "react-icons/lu";
 import IconFromReactIcons from "@/component/IconFromReactIcons";
 import useOrderStore from "@/store/order";
-import { useEffect } from "react";
 import getPrice from "@/utils/getPrice";
+import { Dispatch, SetStateAction } from "react";
+import getMonths from "@/utils/getMonths";
+import useUserStore from "@/store/user";
 
 interface OrdersTabDisplayContainerProps {
   selectedTab: number;
+  setDetail: Dispatch<SetStateAction<boolean>>;
 }
 
 function OrdersTabDisplayContainer({
   selectedTab,
+  setDetail,
 }: OrdersTabDisplayContainerProps) {
-  const { order, setOrder } = useOrderStore();
-  console.log(order, "from orderTabDisplayContainer");
+  const { orderList, orderStatus, setOrder } = useOrderStore();
+  const { lang } = useUserStore();
+  console.log(orderList, "from orderTabDisplayContainer", orderStatus);
 
-  useEffect(() => {
-    setOrder();
-  }, []);
+  let OrderList = orderList.filter(
+    (order) =>
+      order.getOrder().orderStatus ==
+      [{ name: "View All", orderIndex: -1 }, ...orderStatus].sort(
+        (a, b) => a.orderIndex - b.orderIndex
+      )[selectedTab].name
+  );
 
-  if (!order.length) {
+  if (selectedTab == 0) {
+    OrderList = orderList;
+  }
+
+  if (!orderList.length || !OrderList.length) {
     return (
       <Stack
         bgcolor={"background.light"}
@@ -62,7 +74,7 @@ function OrdersTabDisplayContainer({
 
   return (
     <>
-      {order.map((order, index) => {
+      {OrderList.map((order, index) => {
         let totalPrice = 0;
 
         order.getOrder().orderItems.map((item) => {
@@ -84,7 +96,7 @@ function OrdersTabDisplayContainer({
               color={"text.primary"}
             >
               <Typography fontWeight={"bold"}>
-                {order.getOrder().orderStatus.name}
+                {order.getOrder().orderStatus}
               </Typography>
               <Stack
                 divider={
@@ -99,7 +111,17 @@ function OrdersTabDisplayContainer({
               >
                 <Stack>
                   <Typography color={"text.primary"} fontSize={"0.9rem"}>
-                    Order date: {order.getOrder().orderDate + ""}
+                    Order date:{" "}
+                    {getMonths({
+                      lang,
+                      index: new Date(
+                        order.getOrder().orderDate.toString()
+                      ).getMonth(),
+                    })}{" "}
+                    {new Date(order.getOrder().orderDate.toString()).getDate()},{" "}
+                    {new Date(
+                      order.getOrder().orderDate.toString()
+                    ).getFullYear()}
                   </Typography>
                   <Typography
                     color={"text.primary"}
@@ -124,6 +146,10 @@ function OrdersTabDisplayContainer({
                     alignItems: "center",
                     borderRadius: "2rem",
                     px: "1rem",
+                  }}
+                  onClick={() => {
+                    setDetail((p) => !p);
+                    setOrder(order.getOrder().id);
                   }}
                   endIcon={
                     <IconFromReactIcons
@@ -165,8 +191,6 @@ function OrdersTabDisplayContainer({
                           color={"text.secondary"}
                           divider={<Typography pr={"0.25rem"}>, </Typography>}
                         >
-                          {/* <Typography component={"span"}>Gray</Typography>
-                          <Typography component={"span"}>42</Typography> */}
                           {orderItem.productVariant.stockVarieties.map(
                             (stockVariety, index) => (
                               <Typography key={index} component={"span"}>
@@ -222,77 +246,6 @@ function OrdersTabDisplayContainer({
                 </Button>
               </Stack>
             </Stack>
-
-            {/* <Stack direction={"row"} gap={2}>
-              <Box
-                width={"15%"}
-                component={"img"}
-                alignSelf={"flex-start"}
-                src={
-                  orderItem.product.images.imageUrls[
-                    order.getOrder().orderItems[0].product.images.primary
-                  ]
-                }
-                sx={{ aspectRatio: 1, objectFit: "cover" }}
-              />
-              <Stack gap={2} width={"50%"}>
-                <Typography noWrap color={"text.primary"} fontWeight={300}>
-                  {order.getOrder().orderItems[0].product.name.en}
-                </Typography>
-                <Stack
-                  direction={"row"}
-                  // gap={1}
-                  color={"text.secondary"}
-                  divider={<Typography>,</Typography>}
-                >
-                  <Typography component={"span"}>Gray</Typography>
-                  <Typography component={"span"}>42</Typography>
-                </Stack>
-                <Stack direction={"row"} gap={2}>
-                  <Typography fontWeight={300} color={"text.primary"}>
-                    ETB{" "}
-                    {getPrice(order.getOrder().orderItems[0].product.price).int}
-                    .
-                    {getPrice(order.getOrder().orderItems[0].product.price).dec}
-                  </Typography>
-                  <Typography fontWeight={300} color={"text.secondary"}>
-                    x{order.getOrder().orderItems[0].quantity}
-                  </Typography>
-                </Stack>
-              </Stack>
-
-              <Stack
-                flex={1}
-                p={"0 2rem"}
-                gap={2}
-                sx={{ "&>button": { borderRadius: "2rem" } }}
-              >
-                <Typography textAlign={"center"} color={"text.primary"}>
-                  Total: ETB 1999.00
-                </Typography>
-                <Button
-                  variant="contained"
-                  color="demakkPrimary"
-                  sx={{ fontWeight: "bold" }}
-                >
-                  Write a review
-                </Button>
-                <Button
-                  variant="outlined"
-                  color="primaryButton"
-                  sx={{ fontWeight: "bold", color: "text.primary" }}
-                >
-                  Add to cart
-                </Button>
-                <Button
-                  variant="outlined"
-                  color="primaryButton"
-                  sx={{ fontWeight: "bold", color: "text.primary" }}
-                >
-                  Remove
-                </Button>
-              </Stack>
-            </Stack> */}
           </Stack>
         );
       })}

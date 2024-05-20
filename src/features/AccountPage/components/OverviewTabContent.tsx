@@ -1,3 +1,4 @@
+import useUserStore from "@/store/user";
 import {
   Avatar,
   Box,
@@ -7,7 +8,7 @@ import {
   Stack,
   Typography,
 } from "@mui/material";
-import React from "react";
+import React, { useEffect } from "react";
 import { BiDollarCircle } from "react-icons/bi";
 import { CiViewList } from "react-icons/ci";
 import { IoIosArrowForward, IoIosHeartEmpty } from "react-icons/io";
@@ -15,6 +16,14 @@ import { PiClockCountdown, PiUserList } from "react-icons/pi";
 import { RiCoupon2Line } from "react-icons/ri";
 
 function OverviewTabContent() {
+  const { setBreadcrumbs } = useUserStore();
+
+  useEffect(() => {
+    setBreadcrumbs([
+      { name: "Home", url: "/" },
+      { name: "Account", url: "/account" },
+    ]);
+  }, []);
   return (
     <Stack width={1} gap={{ xs: 3, md: 4 }}>
       <Box

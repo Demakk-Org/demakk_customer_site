@@ -2,7 +2,7 @@ import React from "react";
 import DescriptionDetail from "../../components/DescriptionDetail";
 import { Box, Divider, Stack, Typography } from "@mui/material";
 import ProductSpecification from "../../components/ProductSpecification";
-import CustomerReview from "../../components/CustomerReview";
+import CustomerReviewDetail from "../../components/CustomerReviewDetail";
 
 export default function DescriptionAndRatingDetail() {
   return (
@@ -25,7 +25,7 @@ export default function DescriptionAndRatingDetail() {
         <Divider />
         <ProductSpecification />
         <Divider />
-        <CustomerReview />
+        <CustomerReviewDetail />
       </Box>
     </div>
   );

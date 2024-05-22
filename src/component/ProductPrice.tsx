@@ -1,7 +1,8 @@
-// export default function ProductPrice(currency, price) {
-//   return (
-//     <div>
+export default function ProductPrice() {
+    
+  return (
+    <div>
 
-//     </div>
-//   )
-// }
+    </div>
+  )
+}

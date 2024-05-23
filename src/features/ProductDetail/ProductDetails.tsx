@@ -8,6 +8,7 @@ import DescriptionAndRatingDetail from "./containers/contents/DescriptionAndRati
 
 export default function ProductDetails() {
   const [previewImage, setPreviewImage] = useState("");
+  const [itemSize, setItemSize] = useState("");
 
   return (
     <Box
@@ -42,11 +43,13 @@ export default function ProductDetails() {
               <Contents
                 previewImage={previewImage}
                 setPreviewImage={setPreviewImage}
+                itemSize={itemSize}
+                setItemSize={setItemSize}
               />
             </Grid>
           </Grid>
           <Divider
-            sx={{ mt: "1rem", fontSize: "bold" }}
+            sx={{ mt: "1rem", fontSize: "bold", width: 1 }}
             orientation="horizontal"
           />
           <RelatedItemListing />

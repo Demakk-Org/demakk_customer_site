@@ -8,6 +8,7 @@ export default function DescriptionAndRatingDetail() {
   return (
     <div>
       <Stack
+        display={{ xs: "none", sm: "flex" }}
         width={1}
         height={"84px"}
         direction={"row"}
@@ -20,7 +21,7 @@ export default function DescriptionAndRatingDetail() {
         <Typography color={"text.primary"}>Customer Reviews</Typography>
         <Typography color={"text.primary"}>You may also like</Typography>
       </Stack>
-      <Box>
+      <Box display={{ xs: "none", sm: "flex" }}>
         <DescriptionDetail />
         <Divider />
         <ProductSpecification />

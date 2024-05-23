@@ -1,19 +1,12 @@
 import AddToCartButton from "@/features/ProductList/components/AddToCartButton";
-import { Button, Card, CardMedia, Typography, Box, Stack } from "@mui/material";
-import React, { useEffect } from "react";
+import { Card, CardMedia, Typography, Box, Stack } from "@mui/material";
 import SellingPriceOfItem from "../../components/fromProductCard/SellingPriceOfItem";
-import HoveringButtons from "../../components/fromProductCard/HoveringButtonsItem";
 import useProductStore from "@/store/product";
-import useDiscountStore from "@/store/discount";
+import HoveringButtons from "@/features/ProductList/components/HoveringButtons";
 
 export default function RelatedItemCard() {
   const { product } = useProductStore();
-  const { discount } = useDiscountStore();
   const item = product?.getProductForPage();
-
-  // useEffect(()=> {
-  // setProduct(products);
-  // }, [])
 
   return (
     <Box position="relative">
@@ -54,7 +47,6 @@ export default function RelatedItemCard() {
               component="img"
               width={1}
               image={item?.images.imageUrls[item.images.primary]}
-              // alt={product.alt}
               sx={{ borderRadius: ".5rem", aspectRatio: 1 }}
             />
             <Box

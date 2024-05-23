@@ -3,11 +3,78 @@ import useProductStore from "@/store/product";
 import getPrice from "@/utils/getPrice";
 import { Stack, Typography } from "@mui/material";
 import React from "react";
+import { IProductVariant } from "@/model/productModel";
 
-export default function ItemPrice() {
+interface VariantProps {
+  itemSize: string;
+  setItemSize: Function;
+  previewImage: string;
+  setPreviewImage: Function;
+}
+
+export default function ItemPrice({
+  itemSize,
+  setItemSize,
+  previewImage,
+}: VariantProps) {
   const { product } = useProductStore();
   const { discount } = useDiscountStore();
   const item = product?.getProductForPage();
+
+  const productVariantGroupedByImageUrls = () => {
+    return (
+      product
+        ?.getProductForPage()
+        .productVariants.reduce<Record<string, IProductVariant[]>>(
+          (acc, productVariant) => {
+            const imageUrl = productVariant.imageUrl;
+            if (!acc[imageUrl]) acc[imageUrl] = [];
+            acc[imageUrl].push({
+              _id: productVariant._id,
+              stockVarieties: productVariant.stockVarieties,
+              imageIndex: productVariant.imageIndex,
+              price: productVariant.price,
+              numberOfAvailable: productVariant.numberOfAvailable,
+              imageUrl: productVariant.imageUrl,
+            });
+            return acc;
+          },
+          {} as Record<string, IProductVariant[]>
+        ) ?? {}
+    );
+  };
+
+  //converting reduced groups to array of arrays for manipulation
+  let arrayOfGroupedVariants: IProductVariant[][] | undefined;
+  if (productVariantGroupedByImageUrls()) {
+    arrayOfGroupedVariants = Object.values(productVariantGroupedByImageUrls());
+  }
+
+  let variantPrices = arrayOfGroupedVariants?.map((groupedVariants) =>
+    groupedVariants.map((groupedVariant) =>
+      groupedVariant.stockVarieties.map((sub) => {
+        if (
+          sub.value === itemSize &&
+          groupedVariant.imageUrl === previewImage
+        ) {
+          {
+            return groupedVariant.price;
+          }
+        }
+      })
+    )
+  );
+
+  const variantPrice = Array.from(
+    new Set(
+      variantPrices?.flatMap((arrayOfPrices) =>
+        arrayOfPrices.flatMap((arrayOfPrice) => arrayOfPrice)
+      )
+    )
+  ).find((price) => price !== undefined);
+
+  console.log("prices", variantPrices);
+  console.log("price", variantPrice);
 
   return (
     <Stack
@@ -88,7 +155,8 @@ export default function ItemPrice() {
         </Typography>
       )}
 
-      {item?.discountedPrice(discount).afterDiscount ? (
+      {/* {item?.discountedPrice(discount).afterDiscount ? ( */}
+      {variantPrice !== undefined && (
         <Typography
           sx={{
             textDecoration: "line-through",
@@ -97,11 +165,13 @@ export default function ItemPrice() {
             fontWeight: { xs: "none", sm: "bold" },
           }}
         >
-          ETB{getPrice(item.price).int}.{getPrice(item.price).dec}
+          ETB{getPrice(variantPrice).int}.{getPrice(variantPrice).dec}
         </Typography>
-      ) : (
-        <></>
       )}
+
+      {/* // ) : (
+        // <></>
+      // )} */}
       {item?.discountedPrice(discount).discountPercent ? (
         <Typography color={"text.price"} m={"0rem 0rem 0rem .75rem"}>
           -{item?.discountedPrice(discount).discountPercent}%

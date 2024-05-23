@@ -33,7 +33,6 @@ export default function ShippingChoice({
           Free shipping
           {freeShippingPrice ? (
             <Typography component={"span"}>
-              {" "}
               over ETB{freeShippingPrice}
             </Typography>
           ) : (

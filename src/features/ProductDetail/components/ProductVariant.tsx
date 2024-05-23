@@ -1,20 +1,25 @@
 import useProductStore from "@/store/product";
-import { Box, Grid, Stack, Typography } from "@mui/material";
+import { Box, Button, Grid, Stack, Typography, useTheme } from "@mui/material";
 import React, { useState } from "react";
 import { IProductVariant } from "../../../model/productModel";
 
-interface MainVariantListProps {
+interface VariantListProps {
   previewImage: string;
   setPreviewImage: Function;
+  itemSize: string;
+  setItemSize: Function;
 }
 
 export default function ProductVariant({
   setPreviewImage,
   previewImage,
-}: MainVariantListProps) {
+  itemSize,
+  setItemSize,
+}: VariantListProps) {
   const { product } = useProductStore();
-  const [itemSize, setItemSize] = useState("");
   const [variantName, setVariantName] = useState("");
+
+  const theme = useTheme();
 
   //grouping productVarinants using reduce
   const productVariantGroupedByImageUrls = () => {
@@ -45,6 +50,7 @@ export default function ProductVariant({
   if (productVariantGroupedByImageUrls()) {
     arrayOfGroupedVariants = Object.values(productVariantGroupedByImageUrls());
   }
+  console.log("array of arrays", arrayOfGroupedVariants);
 
   //for main variant title ectract single value using map ant flat map over arryes of arrays
   let mainVariantTypes = arrayOfGroupedVariants?.map((groupedVariants) =>
@@ -84,57 +90,85 @@ export default function ProductVariant({
   return (
     <>
       {arrayOfGroupedVariants ? (
-        <Box>
-          <Box>
+        <Box m={{ xs: "0 0 .5rem 0", sm: "0 0 1rem 0" }}>
+          <Stack
+            direction={"row"}
+            alignItems={"center"}
+            spacing={"2px"}
+            m={{ xs: "0 4px 5px .5rem ", sm: "0 0 5px 0" }}
+          >
             <Typography
               sx={{
-                color: "text.primary",
-                fontWeight: "bold",
-                fontSize: ".75rem",
-                ml: ".5rem",
+                color: { xs: "text.oldPrice", sm: "text.primary" },
+                fontWeight: { xs: "", sm: "bold" },
+                fontSize: ".8rem",
               }}
             >
               {mainVariantType.map((main) => {
                 return main;
               })}
-              :{variantName}
             </Typography>
-          </Box>
-          <Grid container spacing={2}>
+            <Typography
+              sx={{
+                color: "text.primary",
+                fontWeight: { xs: "", sm: "bold" },
+                fontSize: ".75rem",
+              }}
+            >
+              : {variantName}
+            </Typography>
+          </Stack>
+          <Grid
+            container
+            spacing={2}
+            sx={{ p: { xs: "0 0 0 .5rem", sm: "0" } }}
+          >
             {arrayOfGroupedVariants?.map((groupedVariants) => (
               <Grid item key={""}>
-                <Box width={"100px"} height={"100px"} position={"relative"}>
-                  {groupedVariants.map((groupedVariant) => (
+                {groupedVariants.slice(-1).map((groupedVariant) => (
+                  <Box
+                    key={groupedVariant._id.toString()}
+                    width={{ xs: "40px", sm: "70px" }}
+                    height={{ xs: "40px", sm: "70px" }}
+                    borderRadius={{ xs: "50%", sm: "4px" }}
+                    position={"relative"}
+                    sx={{
+                      "&:hover": {
+                        border: "1px solid",
+                        borderColor: "dark.main",
+                      },
+                    }}
+                    onClick={() => {
+                      setVariantName(
+                        groupedVariant.stockVarieties
+                          .map((stockVariant) => {
+                            if (stockVariant.class == "Main") {
+                              return stockVariant.value;
+                            }
+                          })
+                          .join("")
+                      );
+                      setPreviewImage(groupedVariant.imageUrl);
+                    }}
+                  >
                     <Box
                       component="img"
-                      key={""}
-                      position="absolute"
-                      top={0}
-                      left={0}
+                      src={groupedVariant.imageUrl}
                       width={1}
                       height={1}
-                      src={groupedVariant.imageUrl}
-                      sx={{
-                        "&:hover": {
-                          border: "1px solid",
-                          borderColor: "dark.main",
-                        },
-                      }}
-                      onClick={() => {
-                        setVariantName(
-                          groupedVariant.stockVarieties
-                            .map((stockVariant) => {
-                              if (stockVariant.class == "Main") {
-                                return stockVariant.value;
-                              }
-                            })
-                            .join("")
-                        );
-                        setPreviewImage(groupedVariant.imageUrl);
-                      }}
+                      borderRadius={{ xs: "50%", sm: "4px" }}
                     />
-                  ))}
-                </Box>
+                    <Box
+                      position={"absolute"}
+                      width={1}
+                      height={1}
+                      borderRadius={{ xs: "50%", sm: "4px" }}
+                      top={0}
+                      left={0}
+                      sx={{ bgcolor: "background.productBg" }}
+                    ></Box>
+                  </Box>
+                ))}
               </Grid>
             ))}
           </Grid>
@@ -142,43 +176,84 @@ export default function ProductVariant({
       ) : (
         <></>
       )}
-      <Box>
-        <Typography
-          sx={{
-            color: "text.primary",
-            fontWeight: "bold",
-            fontSize: ".75rem",
-            mb: ".5rem",
-          }}
-        >
-          {subVariantType.map((main) => {
-            return main;
-          })}
-          : {itemSize}
-        </Typography>
-        <Stack direction={"row"} spacing={2}>
-          {arrayOfGroupedVariants?.map((groupedVariants) =>
-            groupedVariants.map((groupedVariant) =>
-              groupedVariant.stockVarieties.map((sub) => {
-                if (
-                  sub.class === "Sub" &&
-                  groupedVariant.imageUrl === previewImage
-                ) {
-                  return (
-                    <Box
-                      key={""}
-                      component={"button"}
-                      onClick={() => setItemSize(sub.value.toString())}
-                    >
-                      {sub.value || sub.value[0]}
-                    </Box>
-                  );
-                }
-              })
-            )
-          )}
-        </Stack>
-      </Box>
+      {arrayOfGroupedVariants ? (
+        <Box>
+          <Stack
+            direction={"row"}
+            alignItems={"center"}
+            spacing={"2px"}
+            m={{ xs: "0 4px 5px .5rem ", sm: "0 0 5px 0" }}
+          >
+            <Typography
+              sx={{
+                color: { xs: "text.oldPrice", sm: "text.primary" },
+                fontWeight: { xs: "", sm: "bold" },
+                fontSize: ".8rem",
+              }}
+            >
+              {subVariantType.map((sub) => {
+                return sub;
+              })}
+            </Typography>
+            <Typography
+              sx={{
+                color: "text.primary",
+                fontWeight: { xs: "", sm: "bold" },
+                fontSize: ".75rem",
+              }}
+            >
+              : {itemSize}
+            </Typography>
+          </Stack>
+
+          <Stack
+            direction={"row"}
+            spacing={2}
+            sx={{ p: { xs: "0 0 0 .5rem", sm: "0" } }}
+          >
+            {arrayOfGroupedVariants?.map((groupedVariants) =>
+              groupedVariants.map((groupedVariant) =>
+                groupedVariant.stockVarieties.map((sub) => {
+                  if (
+                    sub.class === "Sub" &&
+                    groupedVariant.imageUrl === previewImage
+                  ) {
+                    return (
+                      <Button
+                        key={groupedVariant._id.toString()}
+                        variant={
+                          theme.breakpoints.up("sm") ? "outlined" : "contained"
+                        }
+                        onClick={() => {
+                          setItemSize(sub.value.toString());
+                        }}
+                        sx={{
+                          color: "text.primary",
+                          padding: "4px 1rem",
+                          border: {
+                            xs: "none",
+                            sm: "1px solid  ",
+                          },
+                          borderRadius: ".5rem",
+                          bgcolor: {
+                            xs: "background.productBg",
+                            sm: "background.paper",
+                          },
+                          boxShadow: "none",
+                        }}
+                      >
+                        {sub.value}
+                      </Button>
+                    );
+                  }
+                })
+              )
+            )}
+          </Stack>
+        </Box>
+      ) : (
+        <></>
+      )}
     </>
   );
 }

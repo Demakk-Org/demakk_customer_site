@@ -1,12 +1,10 @@
-import React, { useEffect, useState } from "react";
-import { Box, Grid, Stack, Typography } from "@mui/material";
-
+import React, { useEffect } from "react";
+import { Grid, Typography } from "@mui/material";
 import useProductStore from "@/store/product";
 import { LANG } from "@/store/user";
 import useDiscountStore from "@/store/discount";
-import Link from "next/link";
-import { useRouter } from "next/router";
 import RelatedItemCard from "./RelatedItemCard";
+import ProductCard from "../../../ProductList/ProductCard";
 
 export default function RelatedItemListing() {
   const { products, setProducts, page, limit, nextPage, prevPage } =
@@ -47,7 +45,8 @@ export default function RelatedItemListing() {
               md={2}
               key={product.id.toString()}
             >
-              <RelatedItemCard />
+              {/* <RelatedItemCard /> */}
+              {/* <ProductCard product={product} /> */}
             </Grid>
           );
         })}

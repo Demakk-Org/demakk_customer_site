@@ -1,6 +1,13 @@
 import ProductDetails from "@/features/ProductDetail/ProductDetails";
 import styles from "@/styles/Home.module.css";
 import React, { useEffect } from "react";
+import type { GetStaticProps } from "next";
+import useDiscountStore from "@/store/discount";
+import { IProductForPage } from "@/model/productModel";
+import useProductStore from "@/store/product";
+import Head from "next/head";
+import { Box } from "@mui/material";
+import NavBar from "@/features/Navbar";
 
 export default function ProductsDetail({ item }: { item: IProductForPage }) {
   const { setDiscount } = useDiscountStore();
@@ -32,14 +39,6 @@ export default function ProductsDetail({ item }: { item: IProductForPage }) {
     </>
   );
 }
-
-import type { GetStaticProps } from "next";
-import useDiscountStore from "@/store/discount";
-import { IProductForPage } from "@/model/productModel";
-import useProductStore from "@/store/product";
-import Head from "next/head";
-import { Box } from "@mui/material";
-import NavBar from "@/features/Navbar";
 
 export async function getStaticPaths() {
   const res = await fetch(

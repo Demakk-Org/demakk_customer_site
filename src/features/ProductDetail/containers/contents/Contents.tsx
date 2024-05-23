@@ -5,24 +5,32 @@ import ItemPrice from "../../components/ItemPrice";
 import FreeshipingChoice from "../../components/FreeshipingChoice";
 import ItemDescription from "../../components/ItemDescription";
 import RatingAndReview from "../../components/RatingAndReview";
-import ColorChoice from "../../components/ProductVariant";
-import Size from "../../components/Size";
+import ProductVariant from "../../components/ProductVariant";
 
-interface MainVariantProps {
+interface VariantProps {
   previewImage: string;
   setPreviewImage: Function;
+  itemSize: string;
+  setItemSize: Function;
 }
 
 export default function Contents({
   previewImage,
   setPreviewImage,
-}: MainVariantProps) {
+  itemSize,
+  setItemSize,
+}: VariantProps) {
   return (
     <Box>
       <Stack>
         <Deal />
       </Stack>
-      <ItemPrice />
+      <ItemPrice
+        previewImage={previewImage}
+        setPreviewImage={setPreviewImage}
+        itemSize={itemSize}
+        setItemSize={setItemSize}
+      />
       {/* choice and freeshipping */}
       <FreeshipingChoice />
       {/* product description */}
@@ -30,11 +38,12 @@ export default function Contents({
       {/* Rating and reviws */}
       <RatingAndReview />
       <Divider sx={{ m: "1rem 0rem" }} />
-      <ColorChoice
+      <ProductVariant
         previewImage={previewImage}
         setPreviewImage={setPreviewImage}
+        itemSize={itemSize}
+        setItemSize={setItemSize}
       />
-      {/* <Size /> */}
       <Divider sx={{ m: "1rem 0rem" }} />
     </Box>
   );

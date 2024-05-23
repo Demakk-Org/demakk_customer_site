@@ -15,29 +15,30 @@ export default function HoveringButtons() {
       mt={"1rem"}
       zIndex={2}
     >
-      <Grid item md={6} height={"100%"}>
+      <Grid item xs={6} width={1} height={1}>
         <Button
           variant="contained"
           color="primaryButton"
           sx={{
-            fontSize: { md: ".75rem", xs: ".5rem" },
+            fontSize: ".75rem",
             fontWeight: "bold",
             borderRadius: "24px",
-            height: "100%",
+            width: 1,
+            height: 1,
           }}
         >
           See preview
         </Button>
       </Grid>
-      <Grid item md={6} height={"100%"}>
+      <Grid item xs={6} width={1} height={1}>
         <Button
           variant="contained"
           color="primaryButton"
           sx={{
-            fontSize: { md: ".8rem", xs: ".5rem" },
+            fontSize: ".8rem",
             fontWeight: "bold",
             borderRadius: "24px",
-            height: "100%",
+            height: 1,
             lineHeight: 1,
           }}
         >

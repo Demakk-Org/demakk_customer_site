@@ -6,6 +6,7 @@ import FreeshipingChoice from "../../components/FreeshipingChoice";
 import ItemDescription from "../../components/ItemDescription";
 import RatingAndReview from "../../components/RatingAndReview";
 import ProductVariant from "../../components/ProductVariant";
+import useProductStore from "@/store/product";
 
 interface VariantProps {
   previewImage: string;
@@ -20,6 +21,7 @@ export default function Contents({
   itemSize,
   setItemSize,
 }: VariantProps) {
+  const { product } = useProductStore();
   return (
     <Box>
       <Stack>

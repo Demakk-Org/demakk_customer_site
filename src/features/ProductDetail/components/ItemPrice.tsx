@@ -118,10 +118,19 @@ export default function ItemPrice({
         >
           <span className="currency">ETB</span>
           <span className="price-int">
-            {getPrice(item?.discountedPrice(discount).afterDiscount).int}
+            {
+              getPrice(
+                item?.discountedPrice(discount, variantPrice).afterDiscount
+              ).int
+            }
           </span>
           <span className="price-dec">
-            .{getPrice(item?.discountedPrice(discount).afterDiscount).dec}
+            .
+            {
+              getPrice(
+                item?.discountedPrice(discount, variantPrice).afterDiscount
+              ).dec
+            }
           </span>
         </Typography>
       ) : (

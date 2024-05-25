@@ -116,7 +116,7 @@ const ItemImages = ({ previewImage, setPreviewImage }: ItemImageProps) => {
         ></Box>
       </Box>
 
-      <Box position={"relative"} width={1} ml={{ sm: "3rem" }}>
+      <Box position={"relative"} width={1}>
         {product?.getProductForPage().images.imageUrls && (
           <CarouselContainer type={Breakpoints.productItemImagesCarousel}>
             {product?.images.imageUrls.map((itemImage) => (
@@ -128,7 +128,6 @@ const ItemImages = ({ previewImage, setPreviewImage }: ItemImageProps) => {
               >
                 <Box
                   component="img"
-                  mr={"1rem"}
                   gap={"1rem"}
                   width={1}
                   src={itemImage}
@@ -158,7 +157,6 @@ const ItemImages = ({ previewImage, setPreviewImage }: ItemImageProps) => {
         )}
         <Box
           display={{ sm: "none" }}
-          position={"absolute"}
           top={0}
           left={0}
           width={1}
@@ -167,10 +165,9 @@ const ItemImages = ({ previewImage, setPreviewImage }: ItemImageProps) => {
         >
           <Box
             position={"absolute"}
-            left={"2.5%"}
-            top={"2.5%"}
-            // width={"50px"}
-            // height={"25px"}
+            top="10px"
+            left="10px"
+            // width="200px"
             sx={{ bgcolor: "background.paper", borderRadius: "16px" }}
           >
             <Typography color={"text.primary"} p={"4px 16px"}>
@@ -179,10 +176,8 @@ const ItemImages = ({ previewImage, setPreviewImage }: ItemImageProps) => {
           </Box>
           <Box
             position={"absolute"}
-            left={"5%"}
-            bottom={"10%"}
-            // width={"50px"}
-            // height={"25px"}
+            bottom="30px"
+            left="10px"
             sx={{ bgcolor: "background.paper", borderRadius: "16px" }}
           >
             <Typography color={"text.primary"} p={"4px 16px"}>
@@ -194,12 +189,13 @@ const ItemImages = ({ previewImage, setPreviewImage }: ItemImageProps) => {
             alignItems={"center"}
             spacing={".3rem"}
             direction={"row"}
-            right={"5%"}
-            bottom={"10%"}
             p={"4px 8px"}
-            // width={"50px"}
-            // height={"25px"}
-            sx={{ bgcolor: "background.paper", borderRadius: "16px" }}
+            sx={{
+              bgcolor: "background.paper",
+              borderRadius: "16px",
+              bottom: "30px",
+              right: "10px",
+            }}
           >
             <FavoriteBorderIcon
               sx={{ color: "text.primary", fontSize: "18px" }}

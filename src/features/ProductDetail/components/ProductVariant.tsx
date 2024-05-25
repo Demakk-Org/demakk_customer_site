@@ -89,7 +89,7 @@ export default function ProductVariant({
 
   return (
     <>
-      {arrayOfGroupedVariants ? (
+      {mainVariantType && (
         <Box m={{ xs: "0 0 .5rem 0", sm: "0 0 1rem 0" }}>
           <Stack
             direction={"row"}
@@ -115,7 +115,7 @@ export default function ProductVariant({
                 fontSize: ".75rem",
               }}
             >
-              : {variantName}
+              {variantName}
             </Typography>
           </Stack>
           <Grid
@@ -173,8 +173,6 @@ export default function ProductVariant({
             ))}
           </Grid>
         </Box>
-      ) : (
-        <></>
       )}
       {arrayOfGroupedVariants ? (
         <Box>
@@ -202,7 +200,7 @@ export default function ProductVariant({
                 fontSize: ".75rem",
               }}
             >
-              : {itemSize}
+              {itemSize}
             </Typography>
           </Stack>
 

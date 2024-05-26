@@ -1,11 +1,4 @@
-import {
-  Card,
-  CardMedia,
-  Typography,
-  Box,
-  Stack,
-  useTheme,
-} from "@mui/material";
+import { Card, CardMedia, Typography, Box, Stack } from "@mui/material";
 import SoldQuantity from "./components/SoldQuantity";
 import ProductRating from "./components/ProductRating";
 import AddToCartButton from "./components/AddToCartButton";
@@ -22,7 +15,6 @@ export default function ProductCard({
   product: IReturnedProductForCard;
 }) {
   const { discount } = useDiscountStore();
-  const theme = useTheme();
 
   return (
     <Box position="relative">
@@ -40,15 +32,11 @@ export default function ProductCard({
                 ? "background.lightOpaque"
                 : "background.paper",
           },
-          "&:hover > div > div": { zIndex: 4 },
+          "&:hover > div > div": { zIndex: { sm: 4 } },
           "&:hover > div": {
-            zIndex: 5,
+            zIndex: { sm: 5 },
           },
-          "&:hover": {
-            position: "absolute",
-            top: 0,
-            left: 0,
-          },
+          "&:hover": { sm: { position: "absolute", top: 0, left: 0 } },
         }}
       >
         <Card
@@ -93,12 +81,7 @@ export default function ProductCard({
             zIndex={2}
           >
             <Stack direction={{ xs: "column-reverse", sm: "column" }}>
-              <Typography
-                // sx={{ lineHeight: '1.5' }}
-                noWrap
-                title={product.name}
-                fontSize={"1.1rem"}
-              >
+              <Typography noWrap title={product.name} fontSize={"1.1rem"}>
                 {product.name}
               </Typography>
               <Stack direction={{ xs: "column-reverse", sm: "column" }}>

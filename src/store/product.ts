@@ -21,7 +21,7 @@ interface ProductStoreProps {
 const useProductStore = create<ProductStoreProps>((set) => ({
   products: [],
   product: null,
-  page: 3,
+  page: 2,
   limit: 10,
   setProducts: async (value) => {
     ///get from the database and set to the store

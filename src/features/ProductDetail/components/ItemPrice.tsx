@@ -93,7 +93,7 @@ export default function ItemPrice({
         borderTopLeftRadius: { xs: ".4rem", sm: "none" },
         borderTopRightRadius: { xs: ".4rem", sm: "none" },
       }}
-      zIndex={{ xs: 3, sm: 0 }}
+      zIndex={{ xs: 2, sm: 0 }}
     >
       {item?.discountedPrice(discount).afterDiscount ? (
         <Typography

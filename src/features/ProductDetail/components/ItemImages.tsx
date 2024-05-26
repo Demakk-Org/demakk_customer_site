@@ -161,7 +161,7 @@ const ItemImages = ({ previewImage, setPreviewImage }: ItemImageProps) => {
           left={0}
           width={1}
           height={1}
-          // sx={{ bgcolor: "blue" }}
+          sx={{ bgcolor: "blue" }}
         >
           <Box
             position={"absolute"}
@@ -178,7 +178,10 @@ const ItemImages = ({ previewImage, setPreviewImage }: ItemImageProps) => {
             position={"absolute"}
             bottom="30px"
             left="10px"
-            sx={{ bgcolor: "background.paper", borderRadius: "16px" }}
+            sx={{
+              bgcolor: "background.paper",
+              borderRadius: "16px",
+            }}
           >
             <Typography color={"text.primary"} p={"4px 16px"}>
               {}/{product?.images.imageUrls.length}

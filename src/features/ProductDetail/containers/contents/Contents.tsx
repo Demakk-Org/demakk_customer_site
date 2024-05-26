@@ -23,7 +23,7 @@ export default function Contents({
 }: VariantProps) {
   const { product } = useProductStore();
   return (
-    <Box>
+    <Box position={"relative"} zIndex={5}>
       <Stack>
         <Deal />
       </Stack>

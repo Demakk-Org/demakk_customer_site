@@ -249,6 +249,9 @@ const lightTheme = createTheme(lTheme, {
       reddish: "#ffc7b899",
       gray: "rgba(210, 204, 204, 0.6)",
       productBg: "rgba(0, 0, 0, 0.04)",
+      transparent: "hsla(0, 0%, 100%, .7)",
+      shipping: "rgb(255, 244, 222)",
+      deal: "rgba(245, 199, 107, 0.97)",
     },
     demakkPrimary: lTheme.palette.augmentColor({
       color: {

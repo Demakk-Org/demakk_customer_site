@@ -5,6 +5,9 @@ import CarouselContainer from "@/component/CarouselContainer";
 import { Breakpoints } from "@/data/carouselBreakPoints";
 import { Stack, Typography } from "@mui/material";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
+import ImageFromCloudinary from "../../../component/ImageFromCloudinary";
+import { fill } from "@cloudinary/url-gen/actions/resize";
+import { CloudinaryImage } from "@cloudinary/url-gen";
 
 interface ItemImageProps {
   previewImage: string;
@@ -119,58 +122,57 @@ const ItemImages = ({ previewImage, setPreviewImage }: ItemImageProps) => {
       <Box position={"relative"} width={1}>
         {product?.getProductForPage().images.imageUrls && (
           <CarouselContainer type={Breakpoints.productItemImagesCarousel}>
-            {product?.images.imageUrls.map((itemImage) => (
-              <Box
-                width={1}
-                key={itemImage}
-                position={"relative"}
-                onMouseEnter={() => setPreviewImage(itemImage)}
-              >
+            {product?.images.imageUrls.map((image, index) => {
+              return (
                 <Box
-                  component="img"
-                  gap={"1rem"}
                   width={1}
-                  src={itemImage}
-                  key={itemImage}
-                  sx={{
-                    sm: {
-                      "&:hover": {
-                        border: ".1rem solid black",
+                  key={image}
+                  position={"relative"}
+                  onMouseEnter={() => setPreviewImage(image)}
+                >
+                  <ImageFromCloudinary publicId={image} width={1} height={1} />
+                  {/* <Box
+                    component="img"
+                    width={1}
+                    src={image}
+                    key={image}
+                    sx={{
+                      sm: {
+                        "&:hover": {
+                          border: ".1rem solid black",
+                        },
                       },
-                    },
-                    aspectRatio: 1,
-                    // bgcolor: "background.productBg",
-                  }}
-                  onMouseEnter={() => setPreviewImage(itemImage)}
-                />
-                <Box
-                  position={"absolute"}
-                  width={1}
-                  height={1}
-                  top={0}
-                  left={0}
-                  sx={{ bgcolor: "background.productBg" }}
-                ></Box>
-              </Box>
-            ))}
+                      aspectRatio: 1,
+                      // bgcolor: "background.productBg",
+                    }}
+                    onMouseEnter={() => setPreviewImage(image)}
+                  /> */}
+                  <Box
+                    position={"absolute"}
+                    width={1}
+                    height={1}
+                    top={0}
+                    left={0}
+                    sx={{ bgcolor: "background.productBg" }}
+                  ></Box>
+                </Box>
+              );
+            })}
           </CarouselContainer>
         )}
-        <Box
-          display={{ sm: "none" }}
-          top={0}
-          left={0}
-          width={1}
-          height={1}
-          sx={{ bgcolor: "blue" }}
-        >
+        <Box display={{ sm: "none" }} top={0} left={0} width={1} height={1}>
           <Box
             position={"absolute"}
             top="10px"
             left="10px"
             // width="200px"
-            sx={{ bgcolor: "background.paper", borderRadius: "16px" }}
+            sx={{ bgcolor: "background.transparent", borderRadius: "16px" }}
           >
-            <Typography color={"text.primary"} p={"4px 16px"}>
+            <Typography
+              color={"text.primary"}
+              p={"4px 16px"}
+              fontSize={".8rem"}
+            >
               beautiful (5 answers)
             </Typography>
           </Box>
@@ -179,11 +181,15 @@ const ItemImages = ({ previewImage, setPreviewImage }: ItemImageProps) => {
             bottom="30px"
             left="10px"
             sx={{
-              bgcolor: "background.paper",
+              bgcolor: "background.transparent",
               borderRadius: "16px",
             }}
           >
-            <Typography color={"text.primary"} p={"4px 16px"}>
+            <Typography
+              color={"text.primary"}
+              p={"4px 16px"}
+              fontSize={".8rem"}
+            >
               {}/{product?.images.imageUrls.length}
             </Typography>
           </Box>
@@ -194,7 +200,7 @@ const ItemImages = ({ previewImage, setPreviewImage }: ItemImageProps) => {
             direction={"row"}
             p={"4px 8px"}
             sx={{
-              bgcolor: "background.paper",
+              bgcolor: "background.transparent",
               borderRadius: "16px",
               bottom: "30px",
               right: "10px",

@@ -84,14 +84,14 @@ export default function ItemPrice({
       alignItems={"baseline"}
       position={"relative"}
       m={{ xs: "-.5rem 0rem", sm: "0rem" }}
+      p={{ xs: ".5rem", sm: "0rem" }}
       sx={{
         pl: { xs: ".5rem", sm: "none" },
         bgcolor: (theme) =>
           theme.palette.mode === "dark"
             ? "dark.lightOpaque"
             : "background.paper",
-        borderTopLeftRadius: { xs: ".4rem", sm: "none" },
-        borderTopRightRadius: { xs: ".4rem", sm: "none" },
+        borderRadius: { xs: "1rem 1rem 0 0", sm: "none" },
       }}
       zIndex={{ xs: 2, sm: 0 }}
     >
@@ -101,17 +101,18 @@ export default function ItemPrice({
           sx={{
             display: "flex",
             alignItems: "baseline",
-            color: { xs: "text.primary", sm: "text.price" },
+            color: { xs: "text.primary", sm: "error.light" },
             ".currency": {
-              fontSize: { xs: "1rem", sm: "1.4rem" },
+              fontSize: { xs: ".9rem", sm: "1.4rem" },
               fontWeight: "bold",
             },
             ".price-int": {
-              fontSize: { xs: "2rem", sm: "3rem" },
+              fontSize: { xs: "1.5rem", sm: "2.5rem" },
               fontWeight: "bold",
+              marginLeft: { xs: "2px", sm: "4px" },
             },
             ".price-dec": {
-              fontSize: { xs: "1rem", sm: "1.4rem" },
+              fontSize: { xs: ".8rem", sm: "1.4rem" },
               fontWeight: "bold",
             },
           }}
@@ -135,21 +136,21 @@ export default function ItemPrice({
         </Typography>
       ) : (
         <Typography
-          mr={".5rem"}
           sx={{
             display: "flex",
             alignItems: "baseline",
-            color: { xs: "text.primary", sm: "text.price" },
+            color: { xs: "text.primary", sm: "error.light" },
             ".currency": {
-              fontSize: { xs: "1rem", sm: "1.4rem" },
+              fontSize: { xs: ".9rem", sm: "1.4rem" },
               fontWeight: "bold",
             },
             ".price-int": {
-              fontSize: { xs: "2rem", sm: "3rem" },
+              fontSize: { xs: "1.5rem", sm: "2.5rem" },
               fontWeight: "bold",
+              marginLeft: { xs: "2px", sm: "4px" },
             },
             ".price-dec": {
-              fontSize: { xs: "1rem", sm: "1.4rem" },
+              fontSize: { xs: ".8rem", sm: "1.4rem" },
               fontWeight: "bold",
             },
           }}

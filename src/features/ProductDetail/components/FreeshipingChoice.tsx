@@ -11,7 +11,7 @@ export default function FreeshipingChoice() {
       <Stack>
         <Typography
           sx={{
-            backgroundColor: "demakkSecondary.main",
+            backgroundColor: "background.shipping",
             minWidth: "max-content",
             borderRadius: ".5rem",
             m: { xs: ".5rem", sm: ".5rem 0rem 0rem 0rem" },
@@ -25,9 +25,9 @@ export default function FreeshipingChoice() {
             },
           }}
         >
-          <Typography component={"span"} className="choice" mr={".25rem"}>
+          {/* <Typography component={"span"} className="choice" mr={".25rem"}>
             Choice
-          </Typography>
+          </Typography> */}
           {product?.getProductForPage().shipping(discount).status && (
             <Typography
               color={"text.primary"}

@@ -2,6 +2,7 @@ import useProductStore from "@/store/product";
 import { Box, Button, Grid, Stack, Typography, useTheme } from "@mui/material";
 import React, { useState } from "react";
 import { IProductVariant } from "../../../model/productModel";
+import ImageFromCloudinary from "@/component/ImageFromCloudinary";
 
 interface VariantListProps {
   previewImage: string;
@@ -123,54 +124,61 @@ export default function ProductVariant({
             spacing={2}
             sx={{ p: { xs: "0 0 0 .5rem", sm: "0" } }}
           >
-            {arrayOfGroupedVariants?.map((groupedVariants) => (
-              <Grid item key={""}>
-                {groupedVariants.slice(-1).map((groupedVariant) => (
-                  <Box
-                    key={groupedVariant._id.toString()}
-                    width={{ xs: "40px", sm: "70px" }}
-                    height={{ xs: "40px", sm: "70px" }}
-                    borderRadius={{ xs: "50%", sm: "4px" }}
-                    position={"relative"}
-                    sx={{
-                      "&:hover": {
-                        border: "1px solid",
-                        borderColor: "dark.main",
-                      },
-                    }}
-                    onClick={() => {
-                      setVariantName(
-                        groupedVariant.stockVarieties
-                          .map((stockVariant) => {
-                            if (stockVariant.class == "Main") {
-                              return stockVariant.value;
-                            }
-                          })
-                          .join("")
-                      );
-                      setPreviewImage(groupedVariant.imageUrl);
-                    }}
-                  >
+            {arrayOfGroupedVariants?.map((groupedVariants) => {
+              return (
+                <Grid item key={""}>
+                  {groupedVariants.slice(-1).map((groupedVariant) => (
                     <Box
-                      component="img"
-                      src={groupedVariant.imageUrl}
-                      width={1}
-                      height={1}
+                      key={groupedVariant._id.toString()}
+                      width={{ xs: "40px", sm: "70px" }}
+                      height={{ xs: "40px", sm: "70px" }}
                       borderRadius={{ xs: "50%", sm: "4px" }}
-                    />
-                    <Box
-                      position={"absolute"}
-                      width={1}
-                      height={1}
-                      borderRadius={{ xs: "50%", sm: "4px" }}
-                      top={0}
-                      left={0}
-                      sx={{ bgcolor: "background.productBg" }}
-                    ></Box>
-                  </Box>
-                ))}
-              </Grid>
-            ))}
+                      position={"relative"}
+                      sx={{
+                        "&:hover": {
+                          border: "1px solid",
+                          borderColor: "dark.main",
+                        },
+                      }}
+                      onClick={() => {
+                        setVariantName(
+                          groupedVariant.stockVarieties
+                            .map((stockVariant) => {
+                              if (stockVariant.class == "Main") {
+                                return stockVariant.value;
+                              }
+                            })
+                            .join("")
+                        );
+                        setPreviewImage(groupedVariant.imageUrl);
+                      }}
+                    >
+                      <ImageFromCloudinary
+                        publicId={groupedVariant.imageUrl}
+                        width={1}
+                        height={1}
+                      />
+                      {/* <Box
+                        component="img"
+                        src={groupedVariant.imageUrl}
+                        width={1}
+                        height={1}
+                        borderRadius={{ xs: "50%", sm: "4px" }}
+                      /> */}
+                      <Box
+                        position={"absolute"}
+                        width={1}
+                        height={1}
+                        borderRadius={{ xs: "50%", sm: "4px" }}
+                        top={0}
+                        left={0}
+                        sx={{ bgcolor: "background.productBg" }}
+                      ></Box>
+                    </Box>
+                  ))}
+                </Grid>
+              );
+            })}
           </Grid>
         </Box>
       )}

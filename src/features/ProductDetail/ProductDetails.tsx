@@ -1,4 +1,4 @@
-import { Box, Divider, Grid, Stack, Typography } from "@mui/material";
+import { Box, Divider, Grid } from "@mui/material";
 import Contents from "./containers/contents/Contents";
 import RelatedItemListing from "./containers/relatedItemCard/RelatedItemListing";
 import { useState } from "react";

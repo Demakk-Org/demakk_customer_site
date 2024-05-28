@@ -21,13 +21,20 @@ export default function DescriptionAndRatingDetail() {
         <Typography color={"text.primary"}>Customer Reviews</Typography>
         <Typography color={"text.primary"}>You may also like</Typography>
       </Stack>
-      <Box display={{ xs: "none", sm: "flex" }}>
+      <Stack direction={{ xs: "column-reverse", sm: "column" }}>
         <DescriptionDetail />
         <Divider />
         <ProductSpecification />
-        <Divider />
+        <Divider
+          variant="fullWidth"
+          sx={{
+            my: 2, // Margin top and bottom
+            borderBottomWidth: 8, // Custom thickness
+            borderColor: "demakk.dark", // Custom color
+          }}
+        />
         <CustomerReviewDetail />
-      </Box>
+      </Stack>
     </div>
   );
 }

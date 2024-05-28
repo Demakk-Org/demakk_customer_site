@@ -3,21 +3,18 @@ import { CloudinaryImage } from "@cloudinary/url-gen";
 import { fill } from "@cloudinary/url-gen/actions/resize";
 import { Box } from "@mui/material";
 
-import {
-  lazyload,
-  accessibility,
-  responsive,
-  placeholder,
-} from "@cloudinary/react";
+import { responsive } from "@cloudinary/react";
 
 function ImageFromCloudinary({
   publicId,
   width,
   height,
+  onMouseEnter,
 }: {
   publicId: string;
   width: number | string;
   height: number | string;
+  onMouseEnter?: () => void;
 }) {
   const image = new CloudinaryImage(publicId, {
     cloudName: "dov9kdlci",
@@ -27,6 +24,7 @@ function ImageFromCloudinary({
     <Box
       width={width}
       height={height}
+      onMouseEnter={onMouseEnter}
       // sx={{
       //   aspectRatio: 1,
       // }}

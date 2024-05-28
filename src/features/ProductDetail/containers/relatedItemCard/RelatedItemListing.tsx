@@ -18,6 +18,7 @@ export default function RelatedItemListing() {
 
   return (
     <Grid
+      display={{ xs: "none", sm: "grid" }}
       item
       container
       spacing={2}

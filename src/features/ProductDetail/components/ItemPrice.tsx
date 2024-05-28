@@ -84,9 +84,9 @@ export default function ItemPrice({
       alignItems={"baseline"}
       position={"relative"}
       m={{ xs: "-.5rem 0rem", sm: "0rem" }}
-      p={{ xs: ".5rem", sm: "0rem" }}
+      p={{ xs: ".5rem .75rem 0", sm: "0rem" }}
       sx={{
-        pl: { xs: ".5rem", sm: "none" },
+        // pl: { xs: ".5rem", sm: "none" },
         bgcolor: (theme) =>
           theme.palette.mode === "dark"
             ? "dark.lightOpaque"
@@ -103,7 +103,7 @@ export default function ItemPrice({
             alignItems: "baseline",
             color: { xs: "text.primary", sm: "error.light" },
             ".currency": {
-              fontSize: { xs: ".9rem", sm: "1.4rem" },
+              fontSize: { xs: "1rem", sm: "1.4rem" },
               fontWeight: "bold",
             },
             ".price-int": {

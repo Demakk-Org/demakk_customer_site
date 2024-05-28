@@ -6,8 +6,6 @@ import { Breakpoints } from "@/data/carouselBreakPoints";
 import { Stack, Typography } from "@mui/material";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import ImageFromCloudinary from "../../../component/ImageFromCloudinary";
-import { fill } from "@cloudinary/url-gen/actions/resize";
-import { CloudinaryImage } from "@cloudinary/url-gen";
 
 interface ItemImageProps {
   previewImage: string;
@@ -88,7 +86,12 @@ const ItemImages = ({ previewImage, setPreviewImage }: ItemImageProps) => {
         borderRadius={".5rem"}
         sx={{ aspectRatio: 1, mb: "1rem" }}
       >
-        <Box
+        <ImageFromCloudinary
+          publicId={product?.images.imageUrls[product.images.primary] ?? ""}
+          width={1}
+          height={1}
+        />
+        {/* <Box
           component={"img"}
           className="imgElem"
           position={"absolute"}
@@ -107,7 +110,7 @@ const ItemImages = ({ previewImage, setPreviewImage }: ItemImageProps) => {
               cursor: "pointer",
             },
           }}
-        />
+        /> */}
 
         <Box
           position={"absolute"}
@@ -126,11 +129,16 @@ const ItemImages = ({ previewImage, setPreviewImage }: ItemImageProps) => {
               return (
                 <Box
                   width={1}
-                  key={image}
+                  key={index}
                   position={"relative"}
                   onMouseEnter={() => setPreviewImage(image)}
                 >
-                  <ImageFromCloudinary publicId={image} width={1} height={1} />
+                  <ImageFromCloudinary
+                    publicId={image}
+                    width={1}
+                    height={1}
+                    onMouseEnter={() => setPreviewImage(image)}
+                  />
                   {/* <Box
                     component="img"
                     width={1}
@@ -176,23 +184,36 @@ const ItemImages = ({ previewImage, setPreviewImage }: ItemImageProps) => {
               beautiful (5 answers)
             </Typography>
           </Box>
-          <Box
+          <Stack
             position={"absolute"}
+            direction={"row"}
+            spacing={2}
             bottom="30px"
             left="10px"
-            sx={{
-              bgcolor: "background.transparent",
-              borderRadius: "16px",
-            }}
           >
             <Typography
               color={"text.primary"}
               p={"4px 16px"}
               fontSize={".8rem"}
+              sx={{
+                bgcolor: "background.transparent",
+                borderRadius: "16px",
+              }}
             >
               {}/{product?.images.imageUrls.length}
             </Typography>
-          </Box>
+            <Typography
+              color={"text.primary"}
+              p={"4px 16px"}
+              fontSize={".8rem"}
+              sx={{
+                bgcolor: "background.transparent",
+                borderRadius: "16px",
+              }}
+            >
+              gray
+            </Typography>
+          </Stack>
           <Stack
             position={"absolute"}
             alignItems={"center"}

@@ -8,6 +8,7 @@ import HoveringButtons from "./components/HoveringButtons";
 import useDiscountStore from "@/store/discount";
 import { IReturnedProductForCard } from "@/model/productModel";
 import ShippingChoice from "./components/ShippingChoice";
+import ImageFromCloudinary from "@/component/ImageFromCloudinary";
 
 export default function ProductCard({
   product,
@@ -53,13 +54,18 @@ export default function ProductCard({
           }}
         >
           <Box width={1} position={"relative"} zIndex={2}>
-            <CardMedia
+            <ImageFromCloudinary
+              publicId={product?.images?.imageUrls[0]}
+              width={1}
+              height={1}
+            />
+            {/* <CardMedia
               component="img"
               width={1}
               image={product?.images?.imageUrls[0]}
               alt={product.images?.description}
-              sx={{ borderRadius: ".5rem", aspectRatio: 1 }}
-            />
+              sx={{ borderRadius: ".5rem", aspectRatio: 1 }} */}
+            {/* /> */}
             <Box
               position="absolute"
               top="0px"

@@ -1,13 +1,53 @@
-import { Box, Container, Rating, Stack, Typography } from "@mui/material";
+import {
+  Box,
+  Button,
+  Container,
+  Rating,
+  Stack,
+  Typography,
+} from "@mui/material";
 import useProductStore from "@/store/product";
 import React from "react";
 import LinearProgress from "@mui/material/LinearProgress";
+import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 
 export default function CustomerReviewDetail() {
   const { product } = useProductStore();
   return (
     <>
-      <Typography
+      <Container sx={{ padding: "0 .75rem" }}>
+        <Stack
+          direction={"row"}
+          justifyContent={"space-between"}
+          alignItems={"center"}
+          p={".75rem 0"}
+        >
+          <Typography
+            color={"text.primary"}
+            fontSize={"1.2rem"}
+            fontWeight={"bold"}
+          >
+            Reviews
+          </Typography>
+          <Stack direction={"row"} alignItems={"center"} spacing={"4px"}>
+            <Typography>
+              {product?.getProductForPage().rating?.average}
+            </Typography>
+            <Rating
+              size="small"
+              value={product?.getProductForPage().rating?.average}
+              // defaultValue={2.5}
+              precision={0.5}
+              readOnly
+            />
+            {/* <Button> */}
+            <ArrowForwardIosIcon fontSize="small" />
+            {/* </Button> */}
+          </Stack>
+        </Stack>
+      </Container>
+
+      {/* <Typography
         variant="h6"
         component={"h1"}
         color={"text.primary"}
@@ -107,7 +147,7 @@ export default function CustomerReviewDetail() {
             </Stack>
           </Stack>
         </Box>
-      </Box>
+      </Box> */}
     </>
   );
 }

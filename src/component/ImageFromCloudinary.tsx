@@ -1,34 +1,27 @@
 import { AdvancedImage } from "@cloudinary/react";
 import { CloudinaryImage } from "@cloudinary/url-gen";
 import { fill } from "@cloudinary/url-gen/actions/resize";
-import { Box } from "@mui/material";
+import { Box, BoxProps, SxProps, Theme } from "@mui/material";
 
 import { responsive } from "@cloudinary/react";
+import { byRadius } from "@cloudinary/url-gen/actions/roundCorners";
 
-function ImageFromCloudinary({
-  publicId,
-  width,
-  height,
-  onMouseEnter,
-}: {
+interface ImageFromCloudinaryProps extends BoxProps {
   publicId: string;
-  width: number | string;
-  height: number | string;
-  onMouseEnter?: () => void;
-}) {
+  qualityWidth: number | string;
+  borderRadius: number;
+}
+
+function ImageFromCloudinary(props: ImageFromCloudinaryProps) {
+  const { publicId, qualityWidth, borderRadius } = props;
   const image = new CloudinaryImage(publicId, {
     cloudName: "dov9kdlci",
-  }).resize(fill().width(150).height(150));
+  })
+    .resize(fill().width(qualityWidth).height(qualityWidth))
+    .roundCorners(byRadius(borderRadius));
 
   return (
-    <Box
-      width={width}
-      height={height}
-      onMouseEnter={onMouseEnter}
-      // sx={{
-      //   aspectRatio: 1,
-      // }}
-    >
+    <Box {...props}>
       <AdvancedImage
         cldImg={image}
         width={"inherit"}

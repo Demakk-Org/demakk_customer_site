@@ -56,16 +56,12 @@ export default function ProductCard({
           <Box width={1} position={"relative"} zIndex={2}>
             <ImageFromCloudinary
               publicId={product?.images?.imageUrls[0]}
+              qualityWidth={500}
+              borderRadius={8}
               width={1}
               height={1}
             />
-            {/* <CardMedia
-              component="img"
-              width={1}
-              image={product?.images?.imageUrls[0]}
-              alt={product.images?.description}
-              sx={{ borderRadius: ".5rem", aspectRatio: 1 }} */}
-            {/* /> */}
+
             <Box
               position="absolute"
               top="0px"
@@ -113,13 +109,6 @@ export default function ProductCard({
                       <></>
                     )}
                   </Stack>
-                  {/* {!product.topSelling?.status && (
-                    <TopSellingCard
-                      // topSoldItem={product.topSoldItem}
-                      days={product.topSelling?.days}
-                      // numOfSold={product.numberOfSold}
-                    />
-                  )} */}
                 </Stack>
 
                 <Stack

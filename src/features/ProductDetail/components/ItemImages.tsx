@@ -56,20 +56,8 @@ const ItemImages = ({ previewImage, setPreviewImage }: ItemImageProps) => {
     }
   };
 
-  const changeHeight = () => {
-    const imgContElem = document.querySelector(".img-cont");
-
-    // if (imgContElem) {
-    //   imgContElem.height = imgContElem.clientHeight + 'px';
-    // }
-  };
-
   React.useEffect(() => {
-    changeHeight();
-    window.addEventListener("resize", changeHeight);
-    return () => {
-      window.removeEventListener("resize", changeHeight);
-    };
+    handleMouseEnter;
   }, []);
 
   return (
@@ -88,29 +76,23 @@ const ItemImages = ({ previewImage, setPreviewImage }: ItemImageProps) => {
       >
         <ImageFromCloudinary
           publicId={product?.images.imageUrls[product.images.primary] ?? ""}
-          width={1}
-          height={1}
-        />
-        {/* <Box
-          component={"img"}
+          // width={1}
+          // height={1}
+          width={zoomWidth ? `${zoomWidth}%` : "100%"}
+          height={zoomWidth ? `${zoomWidth}%` : "100%"}
+          qualityWidth={500}
+          borderRadius={5}
           className="imgElem"
           position={"absolute"}
-          width={1}
           display={"block"}
-          src={
-            previewImage || product?.images.imageUrls[product.images.primary]
-          }
-          alt={"image of the product"}
           sx={{
-            width: zoomWidth ? `${zoomWidth}%` : "100%",
-            position: "relative",
             top: `${imgPosition.top}px`,
             left: `${imgPosition.left}px`,
             "&:hover": {
               cursor: "pointer",
             },
           }}
-        /> */}
+        />
 
         <Box
           position={"absolute"}
@@ -132,18 +114,21 @@ const ItemImages = ({ previewImage, setPreviewImage }: ItemImageProps) => {
                   key={index}
                   position={"relative"}
                   onMouseEnter={() => setPreviewImage(image)}
+                  sx={{
+                    sm: {
+                      "&:hover": {
+                        border: ".1rem solid black",
+                      },
+                    },
+                    aspectRatio: 1,
+                  }}
                 >
                   <ImageFromCloudinary
                     publicId={image}
                     width={1}
+                    qualityWidth={150}
+                    borderRadius={5}
                     height={1}
-                    onMouseEnter={() => setPreviewImage(image)}
-                  />
-                  {/* <Box
-                    component="img"
-                    width={1}
-                    src={image}
-                    key={image}
                     sx={{
                       sm: {
                         "&:hover": {
@@ -151,10 +136,10 @@ const ItemImages = ({ previewImage, setPreviewImage }: ItemImageProps) => {
                         },
                       },
                       aspectRatio: 1,
-                      // bgcolor: "background.productBg",
                     }}
                     onMouseEnter={() => setPreviewImage(image)}
-                  /> */}
+                  />
+
                   <Box
                     position={"absolute"}
                     width={1}
@@ -173,7 +158,6 @@ const ItemImages = ({ previewImage, setPreviewImage }: ItemImageProps) => {
             position={"absolute"}
             top="10px"
             left="10px"
-            // width="200px"
             sx={{ bgcolor: "background.transparent", borderRadius: "16px" }}
           >
             <Typography

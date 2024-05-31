@@ -132,11 +132,12 @@ export default function ProductVariant({
                       key={groupedVariant._id.toString()}
                       width={{ xs: "40px", sm: "70px" }}
                       height={{ xs: "40px", sm: "70px" }}
+                      overflow={"hidden"}
                       borderRadius={{ xs: "50%", sm: "4px" }}
                       position={"relative"}
                       sx={{
                         "&:hover": {
-                          border: "1px solid",
+                          border: "2px solid",
                           borderColor: "dark.main",
                         },
                       }}
@@ -156,15 +157,11 @@ export default function ProductVariant({
                       <ImageFromCloudinary
                         publicId={groupedVariant.imageUrl}
                         width={1}
+                        qualityWidth={70}
+                        borderRadius={2}
                         height={1}
                       />
-                      {/* <Box
-                        component="img"
-                        src={groupedVariant.imageUrl}
-                        width={1}
-                        height={1}
-                        borderRadius={{ xs: "50%", sm: "4px" }}
-                      /> */}
+
                       <Box
                         position={"absolute"}
                         width={1}

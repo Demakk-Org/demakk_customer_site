@@ -1,5 +1,6 @@
 import IconFromReactIcons from "@/component/IconFromReactIcons";
 import useUserStore from "@/store/user";
+import getLanguage from "@/utils/getLanguage";
 import { Box, Button, Divider, Grid, Stack, Typography } from "@mui/material";
 import { useEffect } from "react";
 import { AiOutlineMedicineBox } from "react-icons/ai";
@@ -24,13 +25,13 @@ const cardsImageList = [
 ];
 
 function PaymentTabContent() {
-  const { setBreadcrumbs } = useUserStore();
+  const { setBreadcrumbs, lang } = useUserStore();
 
   useEffect(() => {
     setBreadcrumbs([
-      { name: "Home", url: "/" },
-      { name: "Account", url: "/account" },
-      { name: "Payment", url: "/payment" },
+      { name: "home", url: "/" },
+      { name: "account", url: "/account" },
+      { name: "payment", url: "/payment" },
     ]);
   }, []);
 
@@ -43,7 +44,9 @@ function PaymentTabContent() {
         bgcolor={"background.light"}
         p={"0.25rem 1rem"}
       >
-        <Typography fontSize={"1.2rem"}>Payment</Typography>
+        <Typography fontSize={"1.2rem"}>
+          {getLanguage("payment", lang)}
+        </Typography>
         <Button
           color="primaryButton"
           endIcon={
@@ -55,7 +58,7 @@ function PaymentTabContent() {
           }
         >
           <Typography fontSize={"1.3rem"} fontWeight={300}>
-            Settings
+            {getLanguage("settings", lang)}
           </Typography>
         </Button>
       </Stack>
@@ -69,7 +72,7 @@ function PaymentTabContent() {
               color="text.secondary"
               icon={<AiOutlineMedicineBox />}
             />
-            <Typography>My Bonus</Typography>
+            <Typography>{getLanguage("myBonus", lang)}</Typography>
           </Stack>
           <Button
             color="primaryButton"
@@ -82,7 +85,7 @@ function PaymentTabContent() {
             }
           >
             <Typography fontSize={"1rem"} fontWeight={300}>
-              Records
+              {getLanguage("records", lang)}
             </Typography>
           </Button>
         </Stack>
@@ -90,7 +93,9 @@ function PaymentTabContent() {
         <Stack divider={<Divider flexItem />} p={"0 3rem"}>
           <Stack alignItems={"center"} spacing={1.5} p={"1.5rem 0"}>
             <Stack direction={"row"} spacing={1} alignItems={"center"}>
-              <Typography fontSize={"1.1rem"}>Total</Typography>
+              <Typography fontSize={"1.1rem"}>
+                {getLanguage("total", lang)}
+              </Typography>
               <IconFromReactIcons icon={<HiOutlineEye />} />
             </Stack>
             <Typography fontWeight={"bold"} letterSpacing={1}>
@@ -109,7 +114,7 @@ function PaymentTabContent() {
                 fontSize={"1.1rem"}
                 fontWeight={300}
               >
-                Available
+                {getLanguage("available", lang)}
               </Typography>
               <Stack direction={"row"} spacing={3} alignItems={"center"}>
                 <Typography fontWeight={"bold"} fontSize={"1.2rem"}>
@@ -124,7 +129,7 @@ function PaymentTabContent() {
             </Stack>
             <Stack width={"50%"} alignItems={"center"} gap={1}>
               <Typography letterSpacing={1} fontSize={"1rem"} fontWeight={300}>
-                Pending
+                {getLanguage("pending", lang)}
               </Typography>
               <Stack direction={"row"} spacing={3} alignItems={"center"}>
                 <Typography fontWeight={"bold"} fontSize={"1.2rem"}>
@@ -141,9 +146,9 @@ function PaymentTabContent() {
 
           <Stack pt={"1rem"} pb={"0.5rem"}>
             <Typography textAlign={"center"}>
-              You can use Bonus towards purchases.
-              <Typography color={"blue"} component={"a"} href="#">
-                Learn more
+              {getLanguage("youCanUseBonusTowardsPurchases", lang)}
+              <Typography color={"blue"} component={"a"} href="#" ml={0.5}>
+                {getLanguage("learnMore", lang)}
               </Typography>
             </Typography>
           </Stack>
@@ -151,21 +156,17 @@ function PaymentTabContent() {
       </Stack>
 
       <Stack bgcolor={"background.light"} p={"1rem"} gap={"1rem"}>
-        <Typography fontWeight={"bold"}>Cards</Typography>
+        <Typography fontWeight={"bold"}>
+          {getLanguage("cards", lang)}
+        </Typography>
         <Grid container spacing={2}>
           {[...cardList, { name: "addNew" }].map((cardList, index) => {
             if (cardList.name == "addNew") {
               return (
                 <Grid item key={index} xs={6}>
-                  <Stack
-                    width={1}
-                    borderRadius={4}
-                    p={"3rem 0"}
-                    justifyContent={"center"}
-                    alignItems={"center"}
-                    bgcolor={"background.paper"}
-                  >
+                  <Stack width={1}>
                     <Button
+                      fullWidth
                       startIcon={
                         <IconFromReactIcons
                           width={30}
@@ -174,13 +175,15 @@ function PaymentTabContent() {
                         />
                       }
                       sx={{
-                        "&:focus": { bgcolor: "transparent" },
-                        "&:hover": { bgcolor: "transparent" },
+                        bgcolor: "background.paper",
+                        "&:hover": { bgcolor: "background.paper" },
                         color: "text.primary",
                         fontSize: "1.1rem",
+                        p: "5rem 0",
+                        borderRadius: "1rem",
                       }}
                     >
-                      Add new card
+                      {getLanguage("addNewCard", lang)}
                     </Button>
                   </Stack>
                 </Grid>
@@ -230,7 +233,8 @@ function PaymentTabContent() {
 
         {!cardList.length && (
           <Typography fontSize={"0.9rem"}>
-            No cards saved. Add one below to get started.
+            {getLanguage("noCardsSaved", lang)}{" "}
+            {getLanguage("addOneBelowToGetStarted", lang)}
           </Typography>
         )}
       </Stack>

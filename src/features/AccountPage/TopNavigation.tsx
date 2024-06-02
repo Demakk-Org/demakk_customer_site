@@ -1,15 +1,55 @@
-import AppBar from "@mui/material/AppBar";
-import Box from "@mui/material/Box";
-import Toolbar from "@mui/material/Toolbar";
-import Typography from "@mui/material/Typography";
-import Button from "@mui/material/Button";
-import IconButton from "@mui/material/IconButton";
-import MenuIcon from "@mui/icons-material/Menu";
+import {
+  AppBar,
+  Box,
+  Typography,
+  IconButton,
+  Toolbar,
+  Stack,
+} from "@mui/material";
 import { IoChevronBackOutline, IoHomeOutline } from "react-icons/io5";
-import { IoIosSearch } from "react-icons/io";
-import { Stack } from "@mui/material";
+import { signOut } from "firebase/auth";
+import { auth } from "@/firebase/firebase";
+import { Login, Logout } from "@mui/icons-material";
+import { Dispatch, SetStateAction } from "react";
+import useOrderStore from "@/store/order";
+import getLanguage from "@/utils/getLanguage";
+import useUserStore from "@/store/user";
 
-export default function TopNavigationBar() {
+interface ITopNavigationBar {
+  setSnackBar: Dispatch<
+    SetStateAction<{
+      type: "success" | "error";
+      open: boolean;
+      message: string;
+    }>
+  >;
+  pageType: string;
+  setOpenAccountModal: Dispatch<SetStateAction<boolean>>;
+}
+
+export default function TopNavigationBar({
+  setSnackBar,
+  setOpenAccountModal,
+  pageType,
+}: ITopNavigationBar) {
+  const { emptyOrderList } = useOrderStore();
+  const { lang, setRefresh } = useUserStore();
+
+  const handleLogOut = () => {
+    emptyOrderList();
+    signOut(auth);
+    setSnackBar({
+      type: "success",
+      open: true,
+      message: getLanguage("loggedOutSuccessfully", lang),
+    });
+    setRefresh();
+  };
+
+  const handleLogIn = () => {
+    setOpenAccountModal(true);
+  };
+
   return (
     <Box
       sx={{ flexGrow: 1 }}
@@ -50,26 +90,43 @@ export default function TopNavigationBar() {
               component="div"
               sx={{ fontSize: { xs: "1rem" } }}
             >
-              Demakk
+              {getLanguage("demakk", lang)}
             </Typography>
             <Typography
               variant="h6"
               component="div"
               sx={{ fontSize: { xs: "1rem" } }}
             >
-              Account
+              {pageType}
             </Typography>
           </Stack>
-          <IconButton
-            size="large"
-            edge="start"
-            color="inherit"
-            aria-label="search"
-          >
-            <Box height={25} sx={{ aspectRatio: 1 }}>
-              <IoIosSearch style={{ height: "inherit", width: "inherit" }} />
-            </Box>
-          </IconButton>
+          {auth?.currentUser?.uid ? (
+            <IconButton
+              title={"Log out"}
+              size="large"
+              edge="start"
+              color="inherit"
+              aria-label="log out"
+              onClick={handleLogOut}
+            >
+              <Box height={25} sx={{ aspectRatio: 1 }}>
+                <Logout style={{ height: "inherit", width: "inherit" }} />
+              </Box>
+            </IconButton>
+          ) : (
+            <IconButton
+              title={"Log in"}
+              size="large"
+              edge="start"
+              color="inherit"
+              aria-label="log in"
+              onClick={handleLogIn}
+            >
+              <Box height={25} sx={{ aspectRatio: 1 }}>
+                <Login style={{ height: "inherit", width: "inherit" }} />
+              </Box>
+            </IconButton>
+          )}
         </Toolbar>
       </AppBar>
     </Box>

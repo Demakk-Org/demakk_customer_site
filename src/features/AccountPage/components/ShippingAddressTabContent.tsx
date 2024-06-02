@@ -30,21 +30,16 @@ const style = {
   left: "50%",
   transform: "translate(-50%, -50%)",
   width: 400,
-  bgcolor: "background.paper",
+  bgcolor: "background.lightOpaque",
+  color: "text.primary",
   boxShadow: 24,
   p: 4,
   borderRadius: 2,
 };
 
 function ShippingAddressTabContent() {
-  const {
-    lang,
-    user,
-    token,
-    shippingAddress,
-    setShippingAddress,
-    setBreadcrumbs,
-  } = useUserStore();
+  const { lang, user, shippingAddress, setShippingAddress, setBreadcrumbs } =
+    useUserStore();
   const [localAddress, setLocalAddress] = useState<string>("addis-ababa");
   const [addShippingAddress, setAddShippingAddress] = useState<boolean>(false);
   const [openDeleteAddressModal, setOpenDeleteAddressModal] =
@@ -54,12 +49,12 @@ function ShippingAddressTabContent() {
   console.log(shippingAddress);
 
   useEffect(() => {
-    setShippingAddress(token);
+    setShippingAddress();
     setBreadcrumbs([
-      { name: "Home", url: "/" },
-      { name: "Account", url: "/account" },
+      { name: "home", url: "/" },
+      { name: "account", url: "/account" },
       {
-        name: "Shipping address",
+        name: "shippingAddress",
         url: "/account/addressList",
       },
     ]);
@@ -67,7 +62,9 @@ function ShippingAddressTabContent() {
 
   return (
     <Stack gap={2}>
-      <Typography fontSize={"1.25rem"}>Shipping Address</Typography>
+      <Typography color={"text.primary"} fontSize={"1.25rem"}>
+        {getLanguage("shippingAddress", lang)}
+      </Typography>
 
       {addShippingAddress ? (
         <Stack
@@ -79,7 +76,9 @@ function ShippingAddressTabContent() {
           <Grid container>
             <Grid item xs={4}>
               <Stack gap={1}>
-                <Typography fontWeight={"bold"}>Country/region</Typography>
+                <Typography color={"text.primary"} fontWeight={"bold"}>
+                  {getLanguage("countryRegion", lang)}
+                </Typography>
                 <FormControl>
                   <Select
                     name="addresses"
@@ -206,19 +205,21 @@ function ShippingAddressTabContent() {
           </Grid>
 
           <Stack gap={1}>
-            <Typography fontWeight={"bold"}>Contact information</Typography>
+            <Typography color={"text.primary"} fontWeight={"bold"}>
+              {getLanguage("contactInformation", lang)}
+            </Typography>
             <Grid container spacing={2}>
               <Grid item xs={6}>
                 <Stack gap={1}>
                   <TextField
-                    placeholder="Contact name*"
+                    placeholder={getLanguage("contactName", lang)}
                     id="outlined-basic"
                     variant="outlined"
                     color="error"
                     size="small"
                   />
                   <Typography fontSize={"0.8rem"} color={"error"}>
-                    Please enter a Contact Name.{" "}
+                    {getLanguage("pleaseEnterContactName", lang)}{" "}
                   </Typography>
                 </Stack>
               </Grid>
@@ -239,7 +240,7 @@ function ShippingAddressTabContent() {
                 <Grid item xs>
                   <Stack gap={1}>
                     <OutlinedInput
-                      placeholder="Mobile number*"
+                      placeholder={getLanguage("mobileNumber", lang)}
                       size="small"
                       sx={{
                         borderTopLeftRadius: 0,
@@ -251,7 +252,7 @@ function ShippingAddressTabContent() {
 
                 <Grid item xs={12}>
                   <Typography fontSize={"0.8rem"} color={"error"}>
-                    Please enter mobile phone number.
+                    {getLanguage("pleaseEnterMobilePhoneNumber", lang)}
                   </Typography>
                 </Grid>
               </Grid>
@@ -259,19 +260,21 @@ function ShippingAddressTabContent() {
           </Stack>
 
           <Stack gap={1}>
-            <Typography fontWeight={"bold"}>Address</Typography>
+            <Typography color={"text.primary"} fontWeight={"bold"}>
+              {getLanguage("address", lang)}
+            </Typography>
             <Grid container spacing={2}>
               <Grid item xs={6}>
                 <Stack gap={1}>
                   <TextField
-                    placeholder="Street, house/apartment/unit*"
+                    placeholder={getLanguage("streetHouseApartmentUnit", lang)}
                     id="outlined-basic"
                     variant="outlined"
                     color="error"
                     size="small"
                   />
                   <Typography fontSize={"0.8rem"} color={"error"}>
-                    Please enter an address
+                    {getLanguage("pleaseEnterAddress", lang)}
                   </Typography>
                 </Stack>
               </Grid>
@@ -279,7 +282,7 @@ function ShippingAddressTabContent() {
                 <Grid item xs>
                   <Stack gap={1}>
                     <TextField
-                      placeholder="Apt, suite, unit, etc (optional)"
+                      placeholder={getLanguage("aptSuiteUnitEtc", lang)}
                       id="outlined-basic"
                       variant="outlined"
                       color="error"
@@ -298,10 +301,10 @@ function ShippingAddressTabContent() {
                       color="error"
                       size="small"
                       value={"Ethiopia"}
-                      placeholder="State/Province*"
+                      placeholder={getLanguage("stateProvince", lang)}
                     />
                     <Typography fontSize={"0.8rem"} color={"error"}>
-                      Please enter state/Province/Region
+                      {getLanguage("pleaseEnterStateProvinceRegion", lang)}
                     </Typography>
                   </Stack>
                 </Grid>
@@ -311,7 +314,7 @@ function ShippingAddressTabContent() {
                 <Grid item xs>
                   <Stack gap={1}>
                     <TextField
-                      placeholder="City*"
+                      placeholder={getLanguage("city", lang)}
                       id="outlined-basic"
                       variant="outlined"
                       color="error"
@@ -319,7 +322,7 @@ function ShippingAddressTabContent() {
                       value={"Addis Ababa"}
                     />
                     <Typography fontSize={"0.8rem"} color={"error"}>
-                      Please enter a city
+                      {getLanguage("pleaseEnterCity", lang)}
                     </Typography>
                   </Stack>
                 </Grid>
@@ -330,14 +333,14 @@ function ShippingAddressTabContent() {
                   <Stack gap={1}>
                     <OutlinedInput
                       size="small"
-                      placeholder="ZIP code*"
+                      placeholder={getLanguage("zipCode", lang)}
                       sx={{
                         borderTopRightRadius: 0,
                         borderBottomRightRadius: 0,
                       }}
                     />
                     <Typography fontSize={"0.8rem"} color={"error"}>
-                      Please enter a ZIP/Postal Code
+                      {getLanguage("pleaseEnterZipPostalCode", lang)}
                     </Typography>
                   </Stack>
                 </Grid>
@@ -347,8 +350,9 @@ function ShippingAddressTabContent() {
 
           <FormGroup>
             <FormControlLabel
+              sx={{ color: "text.primary" }}
               control={<Checkbox defaultChecked color="error" />}
-              label="Set as default shipping address"
+              label={getLanguage("setAsDefaultShippingAddress", lang)}
             />
           </FormGroup>
 
@@ -359,10 +363,10 @@ function ShippingAddressTabContent() {
               sx={{
                 borderRadius: "2rem",
                 p: "0.75rem 3.5rem",
-                color: "text.teritiary",
+                color: "text.primary",
               }}
             >
-              Confirm
+              {getLanguage("confirm", lang)}
             </Button>
 
             <Button
@@ -375,7 +379,7 @@ function ShippingAddressTabContent() {
                 color: "text.primary",
               }}
             >
-              Cancel
+              {getLanguage("cancel", lang)}
             </Button>
           </Stack>
         </Stack>
@@ -385,12 +389,12 @@ function ShippingAddressTabContent() {
             variant="contained"
             onClick={() => setAddShippingAddress((p) => !p)}
             sx={{
-              color: "text.teritiary",
+              color: "text.primary",
               alignSelf: "flex-start",
               px: "2.5rem",
             }}
           >
-            Add new
+            {getLanguage("addNew", lang)}
           </Button>
           <Grid container spacing={2}>
             {shippingAddress.map((address, index) => {
@@ -399,10 +403,11 @@ function ShippingAddressTabContent() {
                   <Stack
                     p={"0.5rem"}
                     bgcolor={"background.reddish"}
+                    color={"text.primary"}
                     sx={{ border: "1px solid", borderColor: "text.price" }}
                   >
                     <Typography textAlign={"right"} fontSize={"0.8rem"}>
-                      Default address
+                      {getLanguage("defaultAddress", lang)}
                     </Typography>
                     <Stack p={1} gap={1}>
                       <Grid container>
@@ -475,7 +480,9 @@ function ShippingAddressTabContent() {
                                 <Typography>1000</Typography>
                               </Stack>
                             </Stack>
-                            <Typography>Default</Typography>
+                            <Typography>
+                              {getLanguage("default", lang)}
+                            </Typography>
 
                             <Stack direction={"row"} gap={2} mt={2}>
                               <Button
@@ -483,14 +490,15 @@ function ShippingAddressTabContent() {
                                 variant="text"
                                 sx={{
                                   p: "0",
+                                  color: "text.primary",
                                   minWidth: "unset",
                                   "&:hover": {
                                     bgcolor: "transparent",
-                                    color: "text.secondary",
+                                    // color: "text.secondary",
                                   },
                                 }}
                               >
-                                Edit
+                                {getLanguage("edit", lang)}
                               </Button>
                               <Button
                                 onClick={() => setOpenDeleteAddressModal(true)}
@@ -505,7 +513,7 @@ function ShippingAddressTabContent() {
                                   },
                                 }}
                               >
-                                Delete
+                                {getLanguage("delete", lang)}
                               </Button>
                             </Stack>
                           </Stack>
@@ -527,26 +535,26 @@ function ShippingAddressTabContent() {
       >
         <Box position={"relative"} sx={style}>
           <Typography id="modal-modal-title" fontSize={"1.4rem"}>
-            Delete shipping address
+            {getLanguage("deleteShippingAddress", lang)}
           </Typography>
           <Typography id="modal-modal-description">
-            Confirm deletion of shipping address
+            {getLanguage("confirmDeletionOfShippingAddress", lang)}
           </Typography>
           <Stack direction={"row"} gap={2} mt={2}>
             <Button
               color="primary"
               variant="contained"
-              sx={{ color: "text.teritiary", flex: 1 }}
+              sx={{ color: "text.primary", flex: 1 }}
             >
-              OK
+              {getLanguage("ok", lang)}
             </Button>
             <Button
               variant="contained"
               color="secondaryButton"
-              sx={{ color: "text.contrast", flex: 1 }}
+              sx={{ color: "text.primary", flex: 1 }}
               onClick={() => setOpenDeleteAddressModal(false)}
             >
-              Cancel
+              {getLanguage("cancel", lang)}
             </Button>
           </Stack>
           <IconButton

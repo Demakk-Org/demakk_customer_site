@@ -1,19 +1,20 @@
 import useUserStore from "@/store/user";
+import getLanguage from "@/utils/getLanguage";
 import { Button, Stack, Typography } from "@mui/material";
 import { useEffect } from "react";
 
 function SettingTabContent() {
-  const { setBreadcrumbs } = useUserStore();
+  const { setBreadcrumbs, lang } = useUserStore();
 
   useEffect(() => {
     setBreadcrumbs([
-      { name: "Home", url: "/" },
+      { name: "home", url: "/" },
       {
-        name: "Account",
+        name: "account",
         url: "/account",
       },
       {
-        name: "Settings",
+        name: "settings",
         url: "/account/settings",
       },
     ]);
@@ -22,16 +23,16 @@ function SettingTabContent() {
     <Stack color={"text.primary"} spacing={2}>
       <Stack p={"1rem"} bgcolor={"background.light"}>
         <Typography fontSize={"1.2rem"} fontWeight={"bold"} letterSpacing={1}>
-          Settings
+          {getLanguage("settings", lang)}
         </Typography>
       </Stack>
 
       <Stack p={"2rem 1rem"} bgcolor={"background.light"} gap={6}>
         <Stack gap={2}>
-          <Typography>Personal Information</Typography>
+          <Typography>{getLanguage("personalInformation", lang)}</Typography>
           <Stack direction={"row"} gap={"4rem"}>
             <Button
-              color="primaryButton"
+              color="demakkPrimary"
               sx={{
                 "&:hover": { color: "demakkPrimary.main" },
                 px: "2rem",
@@ -39,10 +40,10 @@ function SettingTabContent() {
                 fontWeight: 400,
               }}
             >
-              Upload picture
+              {getLanguage("uploadPicture", lang)}
             </Button>
             <Button
-              color="primaryButton"
+              color="demakkPrimary"
               sx={{
                 "&:hover": { color: "demakkPrimary.main" },
                 px: "2rem",
@@ -50,10 +51,10 @@ function SettingTabContent() {
                 fontWeight: 400,
               }}
             >
-              Edit profile
+              {getLanguage("editProfile", lang)}
             </Button>
             <Button
-              color="primaryButton"
+              color="demakkPrimary"
               sx={{
                 "&:hover": { color: "demakkPrimary.main" },
                 px: "2rem",
@@ -61,16 +62,16 @@ function SettingTabContent() {
                 fontWeight: 400,
               }}
             >
-              Country/Region
+              {getLanguage("countryRegion", lang)}
             </Button>
           </Stack>
         </Stack>
 
         <Stack gap={2}>
-          <Typography>Security Information</Typography>
+          <Typography>{getLanguage("securityInformation", lang)}</Typography>
           <Stack direction={"row"} gap={"4rem"}>
             <Button
-              color="primaryButton"
+              color="demakkPrimary"
               sx={{
                 "&:hover": { color: "demakkPrimary.main" },
                 px: "2rem",
@@ -78,10 +79,10 @@ function SettingTabContent() {
                 fontWeight: 400,
               }}
             >
-              Change email address
+              {getLanguage("changeEmailAddress", lang)}
             </Button>
             <Button
-              color="primaryButton"
+              color="demakkPrimary"
               sx={{
                 "&:hover": { color: "demakkPrimary.main" },
                 px: "2rem",
@@ -89,10 +90,10 @@ function SettingTabContent() {
                 fontWeight: 400,
               }}
             >
-              Change password
+              {getLanguage("changePassword", lang)}
             </Button>
             <Button
-              color="primaryButton"
+              color="demakkPrimary"
               sx={{
                 "&:hover": { color: "demakkPrimary.main" },
                 px: "2rem",
@@ -100,16 +101,18 @@ function SettingTabContent() {
                 fontWeight: 400,
               }}
             >
-              Set security question
+              {getLanguage("setSecurityQuestion", lang)}
             </Button>
           </Stack>
         </Stack>
 
         <Stack gap={2}>
-          <Typography>Activate email notifications</Typography>
+          <Typography>
+            {getLanguage("activateEmailNotifications", lang)}
+          </Typography>
           <Stack direction={"row"} gap={"4rem"}>
             <Button
-              color="primaryButton"
+              color="demakkPrimary"
               sx={{
                 "&:hover": { color: "demakkPrimary.main" },
                 px: "2rem",
@@ -117,16 +120,16 @@ function SettingTabContent() {
                 fontWeight: 400,
               }}
             >
-              Activate
+              {getLanguage("activate", lang)}
             </Button>
           </Stack>
         </Stack>
 
         <Stack gap={2}>
-          <Typography>Social media accounts</Typography>
+          <Typography>{getLanguage("socialMediaAccounts", lang)}</Typography>
           <Stack direction={"row"} gap={"4rem"}>
             <Button
-              color="primaryButton"
+              color="demakkPrimary"
               sx={{
                 "&:hover": { color: "demakkPrimary.main" },
                 px: "2rem",
@@ -134,7 +137,7 @@ function SettingTabContent() {
                 fontWeight: 400,
               }}
             >
-              Activate
+              {getLanguage("activate", lang)}
             </Button>
           </Stack>
         </Stack>

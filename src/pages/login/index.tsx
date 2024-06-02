@@ -1,15 +1,16 @@
 import {
   Alert,
-  Avatar,
   Box,
   Button,
   Divider,
+  FormControl,
   IconButton,
   InputAdornment,
+  MenuItem,
   OutlinedInput,
+  Select,
   Snackbar,
   Stack,
-  TextField,
   Typography,
 } from "@mui/material";
 import Head from "next/head";
@@ -19,121 +20,33 @@ import { CiLock } from "react-icons/ci";
 import { MdOutlineHandshake } from "react-icons/md";
 import { IoShieldCheckmark } from "react-icons/io5";
 import getLanguage from "@/utils/getLanguage";
-import useUserStore from "@/store/user";
+import useUserStore, { LANG } from "@/store/user";
 import { Cancel, Circle, Visibility, VisibilityOff } from "@mui/icons-material";
 import { useState } from "react";
-import { textValidator } from "@/utils/emailValidator";
-import axios from "axios";
-import { local } from "@/hooks/getProducts";
+import IconFromReactIcons from "@/component/IconFromReactIcons";
+import LoginIconComponents from "@/features/Login/components/LoginIconComponents";
+import handleClearEmailInput from "@/features/Login/libs/handleClearEmailInput";
+import handleEmailChange from "@/features/Login/libs/handleEmailChange";
+import handlePasswordChange from "@/features/Login/libs/handlePasswordChange";
 import { useRouter } from "next/router";
+import Loading from "@/component/Loading";
+import handleContinueButton from "@/features/Login/libs/handleContinueButton";
 
 function SignIn() {
-  const { token, setToken, lang } = useUserStore();
+  const { lang, setLang } = useUserStore();
   const router = useRouter();
 
   const [showPass, setShowPass] = useState(false);
   const [continueStage, setContinueStage] = useState(false);
   const [userExists, setUserExists] = useState<boolean>(false);
   const [continueButton, setContinueButton] = useState<boolean>(false);
+  const [loading, setLoading] = useState(false);
   const [snackBar, setSnackBar] = useState<{
     type: "success" | "error";
     open: boolean;
     message: string;
   }>({ type: "success", message: "Hello World!", open: false });
 
-  const handleEmailChange = (value: string): void => {
-    const buttonState = textValidator(value, "email");
-
-    if (buttonState !== continueButton) setContinueButton((prev) => !prev);
-    if (!buttonState && continueStage) {
-      setContinueStage(false);
-      setUserExists(false);
-    }
-  };
-
-  const handlePasswordChange = (value: string): void => {
-    if (userExists) {
-      setContinueButton(true);
-      if (!value) setContinueButton(false);
-      return;
-    }
-
-    const buttonState = textValidator(value, "email");
-
-    if (buttonState !== continueButton) setContinueButton((prev) => !prev);
-    if (!buttonState && continueStage) {
-      setContinueStage(false);
-      setUserExists(false);
-    }
-  };
-
-  const handleClearEmailInput = (): void => {
-    const component = document.getElementById(
-      "login--email"
-    ) as HTMLInputElement;
-
-    component.value = "";
-    handleEmailChange("");
-  };
-
-  const handleContinueButton = (): void => {
-    const emailComponent = document.getElementById(
-      "login--email"
-    ) as HTMLInputElement;
-    const phoneOrEmail = emailComponent.value;
-
-    if (!continueStage) {
-      axios.post(`${local}/user/exists`, { phoneOrEmail }).then((response) => {
-        console.log(response.data);
-        if (response.data.data.exists) {
-          setUserExists(true);
-          setContinueStage(true);
-          setContinueButton(false);
-        } else {
-          setUserExists(false);
-          setContinueStage(true);
-          setSnackBar({
-            type: "error",
-            message: "User does not exist, Register first!",
-            open: true,
-          });
-        }
-      });
-    } else {
-      if (userExists) {
-        const passwordComponent = document.getElementById(
-          "login--password"
-        ) as HTMLInputElement;
-
-        console.log(passwordComponent);
-
-        console.log("try logging in here...");
-        axios
-          .post(`${local}/auth/login`, {
-            account: phoneOrEmail,
-            password: passwordComponent.value,
-          })
-          .then((response) => {
-            console.log(response.data);
-            if (!response.data.error) {
-              setSnackBar({
-                type: "success",
-                message: "Logged in successfully!",
-                open: true,
-              });
-              setToken(response.data.token);
-              router.push("/account");
-            } else {
-              setSnackBar({
-                type: "error",
-                message: response.data.message,
-                open: true,
-              });
-            }
-          });
-      }
-    }
-  };
   return (
     <>
       <Head>
@@ -151,46 +64,91 @@ function SignIn() {
           minHeight={"100vh"}
           bgcolor={"background.paper"}
           position={"relative"}
+          pb={2}
         >
           <Stack
             bgcolor={"darken.main"}
-            p={"1rem 12rem"}
+            p={{ xs: "1rem", sm: "1rem 4rem", md: "1rem 12rem" }}
             alignItems={"center"}
             direction={"row"}
             color={"brighten.main"}
             justifyContent={"space-between"}
+            flexDirection={{ xs: "column", sm: "row" }}
+            gap={2}
           >
             <Typography
-              fontSize={"2.5rem"}
+              fontSize={{ xs: "1.75rem", sm: "2.5rem" }}
               fontWeight={"bold"}
               letterSpacing={1}
             >
-              Demakk
+              {getLanguage("demakk", lang)}
             </Typography>
-            <Stack direction={"row"} alignItems={"center"} gap={2}>
-              <Stack direction={"row"} gap={1} alignItems={"center"}>
-                <GoShieldCheck fontSize={"2rem"} />
-                <Typography sx={{ userSelect: "none" }}>
-                  Safe payment
+            <Stack
+              direction={"row"}
+              alignItems={"center"}
+              gap={{ xs: 4, sm: 2 }}
+            >
+              <Stack
+                direction={{ xs: "column", sm: "row" }}
+                gap={{ xs: 0, sm: 1 }}
+                alignItems={"center"}
+              >
+                <IconFromReactIcons
+                  width={20}
+                  strokeWidth="0.5px"
+                  color="inherit"
+                  icon={<GoShieldCheck />}
+                />
+
+                <Typography
+                  sx={{ userSelect: "none" }}
+                  fontSize={{ xs: "0.7rem", sm: "1rem" }}
+                >
+                  {getLanguage("safePayments", lang)}
                 </Typography>
               </Stack>
 
-              <Stack direction={"row"} gap={1} alignItems={"center"}>
-                <CiLock fontSize={"2rem"} />
-                <Typography sx={{ userSelect: "none" }}>
-                  Security & privacy
+              <Stack
+                direction={{ xs: "column", sm: "row" }}
+                gap={{ xs: 0, sm: 1 }}
+                alignItems={"center"}
+              >
+                <IconFromReactIcons
+                  width={20}
+                  strokeWidth="0.5px"
+                  icon={<CiLock />}
+                  color="inherit"
+                />
+                <Typography
+                  sx={{ userSelect: "none" }}
+                  fontSize={{ xs: "0.7rem", sm: "1rem" }}
+                >
+                  {getLanguage("securityAndPrivacy", lang)}
                 </Typography>
               </Stack>
 
-              <Stack direction={"row"} gap={1} alignItems={"center"}>
-                <MdOutlineHandshake fontSize={"2rem"} />
-                <Typography sx={{ userSelect: "none" }}>
-                  Safe payment
+              <Stack
+                direction={{ xs: "column", sm: "row" }}
+                gap={{ xs: 0, sm: 1 }}
+                alignItems={"center"}
+              >
+                <IconFromReactIcons
+                  width={20}
+                  strokeWidth="0.5px"
+                  icon={<MdOutlineHandshake />}
+                  color="inherit"
+                />
+                <Typography
+                  sx={{ userSelect: "none" }}
+                  fontSize={{ xs: "0.7rem", sm: "1rem" }}
+                >
+                  {getLanguage("buyerProtection", lang)}
                 </Typography>
               </Stack>
             </Stack>
           </Stack>
 
+          {/* login and register section */}
           <Stack
             color={"text.primary"}
             maxWidth={"500px"}
@@ -204,8 +162,16 @@ function SignIn() {
               fontSize={"1.25rem"}
               fontWeight={"bold"}
             >
-              Register/Sing in
+              {userExists && continueStage
+                ? getLanguage("logIn", lang)
+                : !userExists && continueStage
+                ? getLanguage("register", lang)
+                : `${getLanguage("register", lang)} / ${getLanguage(
+                    "logIn",
+                    lang
+                  )}`}
             </Typography>
+
             <Stack
               direction={"row"}
               alignItems={"center"}
@@ -218,23 +184,47 @@ function SignIn() {
                 <IoShieldCheckmark color="inherit" />
               </Box>
               <Typography fontSize={"0.8rem"}>
-                Your information is protected
+                {getLanguage("yourInformationIsProtected", lang)}
               </Typography>
             </Stack>
-            <Stack px={"3rem"} py={"2rem"} gap={3}>
+
+            <Stack
+              px={{ xs: "1.5rem", sm: "3rem" }}
+              py={{ xs: "1.5rem", sm: "2rem" }}
+              gap={{ xs: 2, sm: 3 }}
+            >
               <OutlinedInput
                 id="login--email"
-                onChange={({ target }) => handleEmailChange(target.value)}
+                onChange={({ target }) =>
+                  handleEmailChange({
+                    value: target.value,
+                    requestFrom: "page",
+                    continueButton,
+                    setUserExists,
+                    continueStage,
+                    setContinueButton,
+                    setContinueStage,
+                  })
+                }
                 size="medium"
                 fullWidth
                 sx={{ m: "0.5rem 0" }}
-                placeholder="Email or Phone Number"
+                placeholder={getLanguage("emailOrPhoneNumber", lang)}
                 endAdornment={
                   <InputAdornment position="end">
                     <IconButton
                       aria-label="toggle password visibility"
                       edge="end"
-                      onClick={() => handleClearEmailInput()}
+                      onClick={() =>
+                        handleClearEmailInput({
+                          requestFrom: "page",
+                          continueStage,
+                          setUserExists,
+                          setContinueButton,
+                          continueButton,
+                          setContinueStage,
+                        })
+                      }
                     >
                       <Cancel fontSize="small" />
                     </IconButton>
@@ -247,7 +237,14 @@ function SignIn() {
                   size="medium"
                   fullWidth
                   type={showPass ? "text" : "password"}
-                  onChange={({ target }) => handlePasswordChange(target.value)}
+                  onChange={({ target }) =>
+                    handlePasswordChange({
+                      value: target.value,
+                      requestForm: "page",
+                      setContinueStage,
+                      setContinueButton,
+                    })
+                  }
                   placeholder="Password"
                   endAdornment={
                     <InputAdornment position="end">
@@ -295,7 +292,20 @@ function SignIn() {
                   color: "text.primary",
                   fontSize: "1.25rem",
                 }}
-                onClick={() => handleContinueButton()}
+                onClick={() =>
+                  handleContinueButton({
+                    requestFrom: "page",
+                    setLoading,
+                    setSnackBar,
+
+                    userExists,
+                    continueStage,
+                    setUserExists,
+                    setContinueButton,
+                    setContinueStage,
+                    router,
+                  })
+                }
               >
                 {!continueStage
                   ? getLanguage("continue", lang)
@@ -306,13 +316,17 @@ function SignIn() {
               <Box
                 component={"a"}
                 href="#"
-                fontSize={"0.9rem"}
+                fontSize={{ xs: "0.75rem", sm: "0.9rem" }}
                 sx={{ color: "text.links" }}
               >
                 {getLanguage("troubleSigningIn", lang)}
               </Box>
               <Divider>
-                <Typography p={"0 1rem"} fontSize={"1rem"} fontWeight={300}>
+                <Typography
+                  p={"0 1rem"}
+                  fontSize={{ xs: "0.85rem", sm: "1rem" }}
+                  fontWeight={300}
+                >
                   {getLanguage("orContinueWith", lang)}
                 </Typography>
               </Divider>
@@ -323,46 +337,90 @@ function SignIn() {
                 gap="1rem"
                 justifyContent={"center"}
               >
-                <Box display={"flex"} width={"fit-content"} borderRadius="50%">
-                  <IconButton color="primary">
-                    <Avatar
-                      sx={{ width: "50px", height: "50px" }}
-                      src="/social/google.png"
-                    />
-                  </IconButton>
-                </Box>
-                <Box display={"flex"} width={"fit-content"} borderRadius="50%">
-                  <IconButton color="primary">
-                    <Avatar
-                      sx={{ width: "50px", height: "50px" }}
-                      src="/social/facebook.png"
-                    />
-                  </IconButton>
-                </Box>
-
-                <Box display={"flex"} width={"fit-content"} borderRadius="50%">
-                  <IconButton color="primary">
-                    <Avatar
-                      sx={{ width: "50px", height: "50px" }}
-                      src="/social/twitter.png"
-                    />
-                  </IconButton>
-                </Box>
-                <Box display={"flex"} width={"fit-content"} borderRadius="50%">
-                  <IconButton color="primary">
-                    <Avatar
-                      sx={{ width: "50px", height: "50px", bgcolor: "white" }}
-                      src="/social/apple.png"
-                    />
-                  </IconButton>
-                </Box>
+                <LoginIconComponents
+                  imageUrl="/social/google.png"
+                  loginFn={() => {}}
+                />
+                <LoginIconComponents
+                  imageUrl="/social/facebook.png"
+                  loginFn={() => {}}
+                />
+                <LoginIconComponents
+                  imageUrl="/social/twitter.png"
+                  loginFn={() => {}}
+                />
+                <LoginIconComponents
+                  imageUrl="/social/apple.png"
+                  loginFn={() => {}}
+                  bgcolor
+                />
               </Box>
-              <Typography fontSize={"0.8rem"}>
+              <Typography fontSize={"0.8rem"} textAlign={"center"}>
                 {getLanguage("registerPolicy", lang)}
               </Typography>
             </Stack>
           </Stack>
+
+          {/* select language component */}
+          <Stack alignItems={"center"}>
+            <Box
+              className="language--container"
+              display={"flex"}
+              flexDirection={"column"}
+              alignItems={"center"}
+              width={0.4}
+              gap={1}
+            >
+              <Typography
+                color={"text.primary"}
+                fontSize={{ xs: "0.85rem", sm: "1rem" }}
+                fontWeight={600}
+              >
+                {getLanguage("language", lang)}
+              </Typography>
+              <FormControl sx={{}}>
+                <Select
+                  name="language"
+                  size="small"
+                  color={"primary"}
+                  value={lang}
+                  onChange={({ target }) => {
+                    console.log("target", target.value);
+                    setLang(target.value as LANG);
+                  }}
+                  sx={{
+                    borderRadius: "0.5rem",
+                    minWidth: 120,
+                    bgcolor: "background.lighter",
+                  }}
+                >
+                  <MenuItem value={LANG.en} sx={{ minHeight: "unset" }}>
+                    <Typography fontSize={"0.8rem"}>
+                      {getLanguage("english", lang)}
+                    </Typography>
+                  </MenuItem>
+                  <MenuItem value={LANG.or} sx={{ minHeight: "unset" }}>
+                    <Typography fontSize={"0.8rem"}>
+                      {getLanguage("afanOromo", lang)}
+                    </Typography>
+                  </MenuItem>
+                  <MenuItem value={LANG.am} sx={{ minHeight: "unset" }}>
+                    <Typography fontSize={"0.8rem"}>
+                      {getLanguage("amharic", lang)}
+                    </Typography>
+                  </MenuItem>
+                </Select>
+              </FormControl>
+            </Box>
+          </Stack>
+
+          {loading && (
+            <Box position={"absolute"} top={0} left={0} width={1} height={1}>
+              <Loading />
+            </Box>
+          )}
         </Box>
+
         <Snackbar
           autoHideDuration={2500}
           open={snackBar?.open}

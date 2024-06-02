@@ -2,16 +2,16 @@ import Breadcrumbs from "@mui/material/Breadcrumbs";
 import Link from "@mui/material/Link";
 import { Box, Typography } from "@mui/material";
 import useUserStore from "@/store/user";
+import getLanguage from "@/utils/getLanguage";
 
 export default function AccountPageBreadcrumbs() {
-  const { breadcrumbs } = useUserStore();
+  const { breadcrumbs, lang } = useUserStore();
 
   return (
     <Box
       component={"div"}
       display={{ xs: "none", sm: "block" }}
       role="presentation"
-      // p={{ sm: "1rem" }}
     >
       <Breadcrumbs aria-label="breadcrumb" separator={">"}>
         {breadcrumbs.map((breadcrumb, index) => {
@@ -23,7 +23,7 @@ export default function AccountPageBreadcrumbs() {
               p={"0 0.5rem"}
               key={index}
             >
-              <Typography>{breadcrumb.name}</Typography>
+              <Typography>{getLanguage(breadcrumb.name, lang)}</Typography>
             </Link>
           );
         })}

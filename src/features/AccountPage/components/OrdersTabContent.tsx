@@ -1,67 +1,65 @@
-import { Search } from "@mui/icons-material";
 import {
   Box,
   Button,
-  Divider,
-  FormControl,
-  IconButton,
-  InputAdornment,
   MenuItem,
   OutlinedInput,
   Select,
   Stack,
 } from "@mui/material";
-import SelectInput, {
-  SelectChangeEvent,
-} from "@mui/material/Select/SelectInput";
-import { Dispatch, SetStateAction, useEffect, useState } from "react";
+import { SelectChangeEvent } from "@mui/material/Select/SelectInput";
+import { useEffect, useState } from "react";
 import { IoTrashBin } from "react-icons/io5";
 import OrdersTabDisplayContainer from "./OrdersTabDisplayContainer";
 import { CiSearch } from "react-icons/ci";
 import IconFromReactIcons from "@/component/IconFromReactIcons";
 import useOrderStore from "@/store/order";
 import useUserStore from "@/store/user";
-import OrderDetailTabContent from "./OrderDetailTabContent";
+import { auth } from "@/firebase/firebase";
+import getLanguage from "@/utils/getLanguage";
 
-const timeFrames = [
-  "All / Last year",
-  "Last 6 months",
-  "Last 1 year",
-  "Last 2 years",
+const timeFrames = ["allOrLastYear", "lastMonth", "last3Months", "last6Months"];
+const orderType = [
+  { type: "order", placeholder: "orderIdOrProduct" },
+  { type: "track", placeholder: "trackingNumber" },
 ];
-const orderType = ["Order", "Track"];
+
+export const orderStatus = [
+  { name: "completed", orderIndex: 0 },
+  { name: "shipped", orderIndex: 1 },
+  { name: "pending", orderIndex: 2 },
+  { name: "cancelled", orderIndex: 3 },
+];
 
 function OrdersTabContent() {
-  const { orderStatus, setOrderStatus, setOrderList } = useOrderStore();
-  const { setBreadcrumbs, token } = useUserStore();
-  console.log(token);
+  const { setOrderStatus, setOrderList, orderList } = useOrderStore();
+  const { setBreadcrumbs, lang, refresh } = useUserStore();
 
-  const [selectedTab, setSelectedTab] = useState(0);
+  const [selectedOrderStatusType, setSelectedOrderStatusType] = useState(0);
   const [selectedTimeFrame, setSelectedTimeFrame] = useState(0);
   const [selectedOrderType, setSelectedOrderType] = useState(0);
-  const [orderDetail, setOrderDetail] = useState(false);
+  console.log(orderList);
 
   const handleTimeFrameChange = (event: SelectChangeEvent) => {
     setSelectedTimeFrame(timeFrames.indexOf(event.target.value as string));
   };
 
   const handleOrderTypeChange = (event: SelectChangeEvent) => {
-    setSelectedOrderType(orderType.indexOf(event.target.value as string));
+    setSelectedOrderType(
+      orderType.findIndex(
+        (order) => order.type == (event.target.value as string)
+      )
+    );
   };
 
   useEffect(() => {
     setBreadcrumbs([
-      { name: "Home", url: "/" },
-      { name: "Account", url: "/account" },
-      { name: "Orders", url: "/orders" },
+      { name: "home", url: "/" },
+      { name: "account", url: "/account" },
+      { name: "orders", url: "/order" },
     ]);
-    setOrderStatus({ token });
-    setOrderList(token);
-  }, []);
-
-  if (orderDetail) {
-    return <OrderDetailTabContent />;
-  }
+    setOrderStatus();
+    setOrderList();
+  }, [refresh]);
 
   if (!orderStatus.length) return <></>;
 
@@ -69,27 +67,36 @@ function OrdersTabContent() {
     <Stack gap={2}>
       <Stack p={2} bgcolor={"background.light"} gap={2}>
         <Stack direction={"row"} justifyContent={"space-between"}>
-          <Stack direction={"row"} gap={"0.5rem"}>
-            {[{ name: "View All", orderIndex: -1 }, ...orderStatus]
+          <Stack
+            direction={"row"}
+            gap={{ xs: "0.5rem", sm: "1.5rem" }}
+            sx={{ overflowX: "auto" }}
+            py={"0.5rem"}
+          >
+            {[{ name: "viewAll", orderIndex: -1 }, ...orderStatus]
               .sort((a, b) => a.orderIndex - b.orderIndex)
               .map((tab, ind) => (
                 <Box key={ind} position="relative">
                   <Button
                     disableRipple
                     sx={{
-                      fontSize: "1rem",
-                      fontWeight: selectedTab === ind ? "bold" : "normal",
+                      p: { xs: "0rem" },
+                      fontSize: { xs: "0.85rem", sm: "1rem" },
+                      fontWeight:
+                        selectedOrderStatusType === ind ? "bold" : "normal",
                       color: "text.primary",
                       "&:hover": {
                         color:
-                          selectedTab !== ind ? "text.price" : "text.primary",
+                          selectedOrderStatusType !== ind
+                            ? "text.price"
+                            : "text.primary",
                       },
                     }}
-                    onClick={() => setSelectedTab(ind)}
+                    onClick={() => setSelectedOrderStatusType(ind)}
                   >
-                    {tab.name}
+                    {getLanguage(tab.name, lang)}
                   </Button>
-                  {selectedTab === ind && (
+                  {selectedOrderStatusType === ind && (
                     <Box
                       position="absolute"
                       width="30px"
@@ -106,21 +113,30 @@ function OrdersTabContent() {
             size="small"
             disableRipple
             startIcon={<IoTrashBin fontSize={"0.8rem"} />}
-            sx={{ color: "text.primary", "&:hover": { fontWeight: "bold" } }}
+            sx={{
+              color: "text.primary",
+              "&:hover": { fontWeight: "bold" },
+              display: { xs: "none", sm: "flex" },
+            }}
           >
-            Deleted Orders
+            {getLanguage("deletedOrders", lang)}
           </Button>
         </Stack>
 
-        <Stack direction={"row"} justifyContent={"space-between"}>
+        <Stack
+          direction={{ xs: "column", sm: "row" }}
+          justifyContent={"space-between"}
+          gap={2}
+        >
           <Stack direction={"row"}>
             <Select
-              labelId="demo-simple-select-label"
-              id="demo-simple-select"
-              value={orderType[selectedOrderType]}
+              labelId="order type select bar"
+              id="order type select bar"
+              value={orderType[selectedOrderType].type}
               onChange={handleOrderTypeChange}
               size="small"
               sx={{
+                p: "0rem",
                 width: "100px",
                 borderTopRightRadius: "0",
                 borderBottomRightRadius: "0",
@@ -128,14 +144,19 @@ function OrdersTabContent() {
               }}
             >
               {orderType.map((order, ind) => (
-                <MenuItem key={ind} value={orderType[ind]}>
-                  {order}
+                <MenuItem key={ind} value={orderType[ind].type}>
+                  {getLanguage(order.type, lang)}
                 </MenuItem>
               ))}
             </Select>
             <OutlinedInput
+              id="order search bar"
+              placeholder={getLanguage(
+                orderType[selectedOrderType].placeholder,
+                lang
+              )}
               sx={{
-                width: "300px",
+                minWidth: { xs: "100px", sm: "300px", md: "400px" },
                 borderRadius: "0",
                 "&:hover": {
                   borderColor: "",
@@ -145,17 +166,22 @@ function OrdersTabContent() {
             />
             <Button
               variant="contained"
+              size="small"
               sx={{
+                p: "0rem",
                 borderTopLeftRadius: "0",
                 borderBottomLeftRadius: "0",
               }}
             >
-              <IconFromReactIcons icon={<CiSearch />}></IconFromReactIcons>
+              <IconFromReactIcons
+                width={20}
+                icon={<CiSearch />}
+              ></IconFromReactIcons>
             </Button>
           </Stack>
           <Select
-            labelId="demo-simple-select-label"
-            id="demo-simple-select"
+            labelId="time frame select bar"
+            id="time frame select bar"
             value={timeFrames[selectedTimeFrame]}
             onChange={handleTimeFrameChange}
             size="small"
@@ -163,7 +189,7 @@ function OrdersTabContent() {
           >
             {timeFrames.map((timeFrame, ind) => (
               <MenuItem key={ind} value={timeFrames[ind]}>
-                {timeFrame}
+                {getLanguage(timeFrame, lang)}
               </MenuItem>
             ))}
           </Select>
@@ -171,8 +197,7 @@ function OrdersTabContent() {
       </Stack>
 
       <OrdersTabDisplayContainer
-        selectedTab={selectedTab}
-        setDetail={setOrderDetail}
+        selectedOrderStatusType={selectedOrderStatusType}
       />
     </Stack>
   );

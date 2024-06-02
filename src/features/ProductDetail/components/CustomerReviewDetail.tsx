@@ -24,7 +24,7 @@ export default function CustomerReviewDetail() {
         >
           <Typography
             color={"text.primary"}
-            fontSize={"1.2rem"}
+            fontSize={".9rem"}
             fontWeight={"bold"}
           >
             Reviews

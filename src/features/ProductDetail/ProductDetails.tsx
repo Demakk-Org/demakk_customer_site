@@ -6,7 +6,11 @@ import SideNav from "./components/SideNav";
 import ItemImages from "./components/ItemImages";
 import DescriptionAndRatingDetail from "./containers/contents/DescriptionAndRatingDetail";
 
-export default function ProductDetails() {
+interface ProductDetailProps {
+  currentSlide: number;
+}
+
+export default function ProductDetails({ currentSlide }: ProductDetailProps) {
   const [previewImage, setPreviewImage] = useState("");
   const [itemSize, setItemSize] = useState("");
 
@@ -37,6 +41,7 @@ export default function ProductDetails() {
               <ItemImages
                 previewImage={previewImage}
                 setPreviewImage={setPreviewImage}
+                currentSlide={currentSlide}
               />
             </Grid>
             <Grid item xs={12} sm={7}>

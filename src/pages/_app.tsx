@@ -241,7 +241,7 @@ const lightTheme = createTheme(lTheme, {
       price: "#ff0000",
       dealHeader: "#ff0000",
       contrast: "#191919cc",
-      oldPrice: "#666",
+      blurred: "#666",
     },
     background: {
       lightOpaque: "#d0d0d0",

@@ -1,32 +1,26 @@
-import { List, ListItemText, Stack, Typography } from "@mui/material";
+import {
+  Container,
+  List,
+  ListItemText,
+  Stack,
+  Typography,
+} from "@mui/material";
 
 export default function DescriptionDetail() {
   return (
-    <>
+    <Container sx={{ p: "10px 12px" }}>
       <Stack width={1} direction={"row"} justifyContent={"space-between"}>
         <Typography
-          variant="h6"
-          component={"h1"}
           color={"text.primary"}
+          fontSize={".9rem"}
           fontWeight={"bold"}
         >
-          Description
+          Item description
         </Typography>
-        <Typography fontWeight={"bold"}>Report Item</Typography>
+        <Typography fontWeight={"bold"} display={{ xs: "none", sm: "block" }}>
+          Report Item
+        </Typography>
       </Stack>
-
-      <List component={"dl"}>
-        <ListItemText primary={"specifications:"}></ListItemText>
-        <List component={"ul"}>
-          <ListItemText
-            primary={"specifications"}
-            secondary={"Awesome Product"}
-          />
-        </List>
-        <ListItemText primary={"Features:"}></ListItemText>
-
-        <ListItemText primary={"specifications"} />
-      </List>
-    </>
+    </Container>
   );
 }

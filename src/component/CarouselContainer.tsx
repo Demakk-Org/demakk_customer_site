@@ -4,8 +4,9 @@ import carouselBreakPoints, {
   getBreakpoint,
 } from "@/data/carouselBreakPoints";
 import "react-multi-carousel/lib/styles.css";
-import React, { ReactNode } from "react";
+import React, { ReactNode, useState } from "react";
 import "../styles/Home.module.css";
+import { Typography } from "@mui/material";
 
 interface CarouselContainerProps {
   children: ReactNode;
@@ -20,6 +21,12 @@ function CarouselContainer({
   animate,
   infinite,
 }: CarouselContainerProps) {
+  const [currentSlide, setCurrentSlide] = useState(1);
+
+  const handleSlideChange = (nextSlide: number) => {
+    setCurrentSlide(nextSlide);
+  };
+
   return (
     <Carousel
       swipeable={true}
@@ -35,6 +42,7 @@ function CarouselContainer({
       removeArrowOnDeviceType={["tablet", "mobile"]}
       dotListClass="custom-dot-list-style"
       itemClass="carousel-item"
+      afterChange={handleSlideChange}
     >
       {children}
     </Carousel>

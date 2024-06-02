@@ -10,9 +10,14 @@ import ImageFromCloudinary from "../../../component/ImageFromCloudinary";
 interface ItemImageProps {
   previewImage: string;
   setPreviewImage: Function;
+  currentSlide: number;
 }
 
-const ItemImages = ({ previewImage, setPreviewImage }: ItemImageProps) => {
+const ItemImages = ({
+  previewImage,
+  setPreviewImage,
+  currentSlide,
+}: ItemImageProps) => {
   const { product } = useProductStore();
 
   const [zoomWidth, setZoomWidth] = useState<number | null>(null);
@@ -126,7 +131,7 @@ const ItemImages = ({ previewImage, setPreviewImage }: ItemImageProps) => {
                   <ImageFromCloudinary
                     publicId={image}
                     width={1}
-                    qualityWidth={150}
+                    qualityWidth={500}
                     borderRadius={5}
                     height={1}
                     sx={{
@@ -184,7 +189,7 @@ const ItemImages = ({ previewImage, setPreviewImage }: ItemImageProps) => {
                 borderRadius: "16px",
               }}
             >
-              {}/{product?.images.imageUrls.length}
+              {currentSlide}/{product?.images.imageUrls.length}
             </Typography>
             <Typography
               color={"text.primary"}

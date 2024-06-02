@@ -3,10 +3,11 @@ import DescriptionDetail from "../../components/DescriptionDetail";
 import { Box, Divider, Stack, Typography } from "@mui/material";
 import ProductSpecification from "../../components/ProductSpecification";
 import CustomerReviewDetail from "../../components/CustomerReviewDetail";
+import PaymentMethods from "../../components/PaymentMethods";
 
 export default function DescriptionAndRatingDetail() {
   return (
-    <div>
+    <>
       <Stack
         display={{ xs: "none", sm: "flex" }}
         width={1}
@@ -21,7 +22,7 @@ export default function DescriptionAndRatingDetail() {
         <Typography color={"text.primary"}>Customer Reviews</Typography>
         <Typography color={"text.primary"}>You may also like</Typography>
       </Stack>
-      <Stack direction={{ xs: "column-reverse", sm: "column" }}>
+      <Stack width={1} direction={{ xs: "column-reverse", sm: "column" }}>
         <DescriptionDetail />
         <Divider />
         <ProductSpecification />
@@ -34,7 +35,16 @@ export default function DescriptionAndRatingDetail() {
           }}
         />
         <CustomerReviewDetail />
+        <Divider
+          variant="fullWidth"
+          sx={{
+            my: 2, // Margin top and bottom
+            borderBottomWidth: 8, // Custom thickness
+            borderColor: "demakk.dark", // Custom color
+          }}
+        />
+        <PaymentMethods />
       </Stack>
-    </div>
+    </>
   );
 }

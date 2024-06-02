@@ -1,25 +1,37 @@
 import { textValidator } from "@/utils/emailValidator";
 
-interface HandlePasswordChangeProps {
+type HandlePasswordChangeProps = {
   value: string;
-  type?: string;
   setContinueStage: React.Dispatch<React.SetStateAction<boolean>>;
-}
+} & (
+  | {
+      requestForm: "modal";
+      type: "log-in" | "register";
+    }
+  | {
+      requestForm: "page";
+      setContinueButton: React.Dispatch<React.SetStateAction<boolean>>;
+    }
+);
 
-export default function handlePasswordChange({
-  value,
-  type,
-  setContinueStage,
-}: HandlePasswordChangeProps) {
-  const buttonState = textValidator(value, "password");
+export default function handlePasswordChange(props: HandlePasswordChangeProps) {
+  const buttonState = textValidator(props.value, "password");
   const email = (document.getElementById("login--email") as HTMLInputElement)
     .value;
 
   const emailState = textValidator(email, "email");
 
-  if ((buttonState || type) && emailState) {
-    setContinueStage(true);
-  } else {
-    setContinueStage(false);
+  if (props.requestForm == "modal") {
+    if ((buttonState || props.type) && emailState) {
+      props.setContinueStage(true);
+    } else {
+      props.setContinueStage(false);
+    }
+  }
+
+  if (props.requestForm == "page") {
+    if (buttonState && emailState) {
+      props.setContinueButton(true);
+    }
   }
 }

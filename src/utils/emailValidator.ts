@@ -9,7 +9,8 @@ export const textValidator = (value: string, type: string): boolean => {
 
   if (type == "password") {
     if (value.length < 6) return false;
-    const rgxPassword = /^(?=.*\d)(?=.*[a-zA-Z])(?=.*\W).+$/;
+    const rgxPassword = /^(?=.*\d)(?=.*[a-zA-Z]).+$/;
+
     return rgxPassword.test(value);
   }
 

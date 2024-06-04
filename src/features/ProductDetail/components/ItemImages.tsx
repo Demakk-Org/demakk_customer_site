@@ -6,19 +6,16 @@ import { Breakpoints } from "@/data/carouselBreakPoints";
 import { Stack, Typography } from "@mui/material";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import ImageFromCloudinary from "../../../component/ImageFromCloudinary";
+import carouselBreakPoints from "../../../data/carouselBreakPoints";
 
 interface ItemImageProps {
   previewImage: string;
   setPreviewImage: Function;
-  currentSlide: number;
 }
 
-const ItemImages = ({
-  previewImage,
-  setPreviewImage,
-  currentSlide,
-}: ItemImageProps) => {
+const ItemImages = ({ previewImage, setPreviewImage }: ItemImageProps) => {
   const { product } = useProductStore();
+  const [currentSlide, setCurrentSlide] = useState(0);
 
   const [zoomWidth, setZoomWidth] = useState<number | null>(null);
   const [imgPosition, setImgPosition] = useState({ top: 0, left: 0 });
@@ -111,7 +108,10 @@ const ItemImages = ({
 
       <Box position={"relative"} width={1}>
         {product?.getProductForPage().images.imageUrls && (
-          <CarouselContainer type={Breakpoints.productItemImagesCarousel}>
+          <CarouselContainer
+            type={Breakpoints.productItemImagesCarousel}
+            currentSlide={currentSlide}
+          >
             {product?.images.imageUrls.map((image, index) => {
               return (
                 <Box

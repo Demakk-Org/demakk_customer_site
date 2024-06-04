@@ -27,12 +27,8 @@ export default function ItemDescription() {
             <Typography
               className="product-title"
               sx={{
-                // m: { xs: ".5rem", sm: ".5rem 0" },
                 lineHeight: 1.25,
                 color: "text.primary",
-                // whiteSpace: { xs: "nowrap", sm: "normal" },
-                // textOverflow: { xs: "ellipsis", sm: "normal" },
-                // overflow: { xs: "hidden", sm: "visible" },
               }}
             >
               {product?.getProductForPage().description}

@@ -13,6 +13,8 @@ interface CarouselContainerProps {
   type: Breakpoints;
   animate?: boolean;
   infinite?: boolean;
+  currentSlide: number;
+  setCurrentSlide: Function;
 }
 
 function CarouselContainer({
@@ -20,9 +22,9 @@ function CarouselContainer({
   type,
   animate,
   infinite,
+  setCurrentSlide,
+  currentSlide,
 }: CarouselContainerProps) {
-  const [currentSlide, setCurrentSlide] = useState(1);
-
   const handleSlideChange = (nextSlide: number) => {
     setCurrentSlide(nextSlide);
   };

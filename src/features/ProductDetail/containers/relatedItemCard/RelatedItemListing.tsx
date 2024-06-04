@@ -29,7 +29,12 @@ export default function RelatedItemListing() {
       //   mt="1.5rem"
       //   mb={'2.5rem'}
     >
-      <Typography sx={{ m: "1rem" }} fontWeight={"bold"} fontSize={"1.5rem"}>
+      <Typography
+        color="text.primary"
+        fontWeight={"bold"}
+        fontSize={"1.5rem"}
+        sx={{ m: "1rem" }}
+      >
         Related items
       </Typography>
       <Grid item container direction={"row"} spacing={"1rem"}>
@@ -39,7 +44,7 @@ export default function RelatedItemListing() {
             <Grid
               item
               width={1}
-              height={"375px"}
+              // height={"375px"}
               overflow={"hidden"}
               xs={6}
               sm={4}

@@ -1,4 +1,5 @@
-import { Card, CardMedia, Typography, Box, Stack } from "@mui/material";
+import { Card, CardMedia, Typography, Box, Stack, Button } from "@mui/material";
+import React, { useEffect, useRef, useState } from "react";
 import SoldQuantity from "./components/SoldQuantity";
 import ProductRating from "./components/ProductRating";
 import AddToCartButton from "./components/AddToCartButton";
@@ -17,14 +18,39 @@ export default function ProductCard({
 }) {
   const { discount } = useDiscountStore();
 
+  const [isOverflowing, setIsOverflowing] = useState(false);
+  const buttonContainerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const buttonContainer = buttonContainerRef.current;
+    const checkOverflow = () => {
+      if (
+        buttonContainer &&
+        buttonContainer.scrollWidth > buttonContainer.clientWidth
+      ) {
+        setIsOverflowing(true);
+      } else {
+        setIsOverflowing(false);
+      }
+    };
+
+    checkOverflow();
+    window.addEventListener("resize", checkOverflow);
+
+    return () => {
+      window.removeEventListener("resize", checkOverflow);
+    };
+  }, []);
+
   return (
-    <Box position="relative">
+    <Box width={1} position="relative">
       <Box
         display="flex"
         width={1}
         sx={{
           "&:hover .buttons": {
             display: { xs: "none", sm: "flex" },
+            flexDirection: { xs: "none", sm: isOverflowing ? "column" : "row" },
           },
           "&:hover div .hovered-container": {
             display: { xs: "none", sm: "block" },
@@ -139,11 +165,60 @@ export default function ProductCard({
             </Stack>
           </Stack>
 
-          <HoveringButtons />
+          {/* <HoveringButtons /> */}
+          <Box
+            ref={buttonContainerRef}
+            // container
+            className="buttons"
+            // spacing={1}
+            // direction={"row"}
+            // useFlexGap
+
+            // display={"flex"}
+            // flexDirection={isOverflowing ? "column" : "row"}
+            width={1}
+            gap={2}
+            display="none"
+            // justifyContent="space-between"
+            alignItems={"center"}
+            mt={"1rem"}
+            zIndex={2}
+          >
+            <Button
+              variant="contained"
+              color="primaryButton"
+              sx={{
+                fontSize: ".75rem",
+                fontWeight: "bold",
+                borderRadius: "24px",
+                minWidth: "max-content",
+                width: 1,
+              }}
+            >
+              See preview
+            </Button>
+
+            <Box width={1}>
+              <Button
+                variant="contained"
+                color="primaryButton"
+                sx={{
+                  fontSize: ".8rem",
+                  fontWeight: "bold",
+                  borderRadius: "24px",
+                  width: 1,
+                  minWidth: "max-content",
+                }}
+              >
+                Similar items
+              </Button>
+            </Box>
+          </Box>
           <Box
             className="hovered-container"
             display="none"
             position="absolute"
+            width={1}
             sx={{
               height: "calc(100% + 2rem)",
               width: "calc(100% + 2rem)",

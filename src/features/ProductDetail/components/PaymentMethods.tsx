@@ -3,7 +3,11 @@ import React from "react";
 
 export default function PaymentMethods() {
   return (
-    <Box width={1} sx={{ p: "0  .75rem" }}>
+    <Box
+      width={1}
+      sx={{ p: "0  .75rem" }}
+      display={{ xs: "block", sm: "none" }}
+    >
       <Typography color={"text.primary"} fontSize={".9rem"} fontWeight={"bold"}>
         Payment methods
       </Typography>

@@ -1,10 +1,11 @@
 import {
   Box,
-  Button,
   Container,
   Rating,
   Stack,
   Typography,
+  useMediaQuery,
+  useTheme,
 } from "@mui/material";
 import useProductStore from "@/store/product";
 import React from "react";
@@ -13,23 +14,32 @@ import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 
 export default function CustomerReviewDetail() {
   const { product } = useProductStore();
+
+  const theme = useTheme();
+  const isSmallScreen = useMediaQuery(theme.breakpoints.down("sm"));
+
   return (
     <>
-      <Container sx={{ padding: "0 .75rem" }}>
+      <Container sx={{ padding: { xs: "0 .75rem", sm: "0" } }}>
         <Stack
           direction={"row"}
           justifyContent={"space-between"}
           alignItems={"center"}
-          p={".75rem 0"}
+          p={{ xs: ".75rem 0", sm: "0" }}
         >
           <Typography
             color={"text.primary"}
-            fontSize={".9rem"}
+            fontSize={{ xs: ".9rem", sm: "1.25rem" }}
             fontWeight={"bold"}
           >
-            Reviews
+            {isSmallScreen ? "Reviews" : `Customer Reviews(${2})`}
           </Typography>
-          <Stack direction={"row"} alignItems={"center"} spacing={"4px"}>
+          <Stack
+            direction={"row"}
+            alignItems={"center"}
+            spacing={"4px"}
+            display={{ xs: "block", sm: "none" }}
+          >
             <Typography>
               {product?.getProductForPage().rating?.average}
             </Typography>
@@ -45,109 +55,100 @@ export default function CustomerReviewDetail() {
             {/* </Button> */}
           </Stack>
         </Stack>
-      </Container>
-
-      {/* <Typography
-        variant="h6"
-        component={"h1"}
-        color={"text.primary"}
-        fontWeight={"bold"}
-      >
-        Customer Reviews
-      </Typography>
-      <Box>
-        <Box>
-          <Stack
-            direction={"row"}
-            justifyContent={"space-between"}
-            spacing={2}
-            margin={"2rem 0 0 0"}
-          >
-            <Stack>
-              <Typography
-                color={"text.primary"}
-                fontSize={"3rem"}
-                fontWeight={"bold"}
-                margin={"0 0 0 .5rem"}
-              >
-                {product?.getProductForPage().rating?.average}
-              </Typography>
-              <Rating
-                sx={{ fontSize: "2rem", color: "black", fontWeight: "bold" }}
-                value={product?.getProductForPage().rating?.average}
-                // defaultValue={2.5}
-                precision={0.5}
-                readOnly
-              />
-              <Typography color={"text.primary"} margin={"0 0 0 .5rem"}>
-                all from verified purcheases
-              </Typography>
-            </Stack>
-            <Stack>
-              <Stack direction={"row"}>
-                <Typography>5 star</Typography>
-                <LinearProgress
-                  sx={{
-                    display: "block",
-                    height: "5px",
-                    width: "400px",
-                    m: ".8rem  .5rem 0 .5rem",
-                  }}
+        <Box display={{ xs: "none", sm: "block" }}>
+          <Box>
+            <Stack
+              direction={"row"}
+              justifyContent={"space-between"}
+              spacing={2}
+              margin={"2rem 0 0 0"}
+            >
+              <Stack>
+                <Typography
+                  color={"text.primary"}
+                  fontSize={"3rem"}
+                  fontWeight={"bold"}
+                  margin={"0 0 0 .5rem"}
+                >
+                  {product?.getProductForPage().rating?.average}
+                </Typography>
+                <Rating
+                  sx={{ fontSize: "2rem", color: "black", fontWeight: "bold" }}
+                  value={product?.getProductForPage().rating?.average}
+                  // defaultValue={2.5}
+                  precision={0.5}
+                  readOnly
                 />
-                <Typography>50</Typography>
+                <Typography color={"text.primary"} margin={"0 0 0 .5rem"}>
+                  all from verified purcheases
+                </Typography>
               </Stack>
-              <Stack direction={"row"}>
-                <Typography>5 star</Typography>
-                <LinearProgress
-                  sx={{
-                    display: "block",
-                    height: "5px",
-                    width: "400px",
-                    m: ".8rem  .5rem 0 .5rem",
-                  }}
-                />
-                <Typography>50</Typography>
-              </Stack>
-              <Stack direction={"row"}>
-                <Typography>5 star</Typography>
-                <LinearProgress
-                  sx={{
-                    display: "block",
-                    height: "5px",
-                    width: "400px",
-                    m: ".8rem  .5rem 0 .5rem",
-                  }}
-                />
-                <Typography>50</Typography>
-              </Stack>
-              <Stack direction={"row"}>
-                <Typography>5 star</Typography>
-                <LinearProgress
-                  sx={{
-                    display: "block",
-                    height: "5px",
-                    width: "400px",
-                    m: ".8rem  .5rem 0 .5rem",
-                  }}
-                />
-                <Typography>50</Typography>
-              </Stack>
-              <Stack direction={"row"}>
-                <Typography>5 star</Typography>
-                <LinearProgress
-                  sx={{
-                    display: "block",
-                    height: "5px",
-                    width: "400px",
-                    m: ".8rem  .5rem 0 .5rem",
-                  }}
-                />
-                <Typography>50</Typography>
+              <Stack>
+                <Stack direction={"row"}>
+                  <Typography>5 star</Typography>
+                  <LinearProgress
+                    sx={{
+                      display: "block",
+                      height: "5px",
+                      width: "400px",
+                      m: ".8rem  .5rem 0 .5rem",
+                    }}
+                  />
+                  <Typography>50</Typography>
+                </Stack>
+                <Stack direction={"row"}>
+                  <Typography>5 star</Typography>
+                  <LinearProgress
+                    sx={{
+                      display: "block",
+                      height: "5px",
+                      width: "400px",
+                      m: ".8rem  .5rem 0 .5rem",
+                    }}
+                  />
+                  <Typography>50</Typography>
+                </Stack>
+                <Stack direction={"row"}>
+                  <Typography>5 star</Typography>
+                  <LinearProgress
+                    sx={{
+                      display: "block",
+                      height: "5px",
+                      width: "400px",
+                      m: ".8rem  .5rem 0 .5rem",
+                    }}
+                  />
+                  <Typography>50</Typography>
+                </Stack>
+                <Stack direction={"row"}>
+                  <Typography>5 star</Typography>
+                  <LinearProgress
+                    sx={{
+                      display: "block",
+                      height: "5px",
+                      width: "400px",
+                      m: ".8rem  .5rem 0 .5rem",
+                    }}
+                  />
+                  <Typography>50</Typography>
+                </Stack>
+                <Stack direction={"row"}>
+                  <Typography>5 star</Typography>
+                  <LinearProgress
+                    sx={{
+                      display: "block",
+                      height: "5px",
+                      width: "400px",
+                      m: ".8rem  .5rem 0 .5rem",
+                    }}
+                  />
+                  <Typography>50</Typography>
+                </Stack>
               </Stack>
             </Stack>
-          </Stack>
+          </Box>
         </Box>
-      </Box> */}
+      </Container>
     </>
   );
 }

@@ -17,8 +17,7 @@ export default function ProductListing() {
   }, [page]);
 
   return (
-    <Grid
-      container
+    <Stack
       direction={"column"}
       spacing={2}
       padding={{ xs: ".6rem .75rem", sm: "1.5rem 3rem", md: "1rem 9rem" }}
@@ -58,6 +57,6 @@ export default function ProductListing() {
           );
         })}
       </Grid>
-    </Grid>
+    </Stack>
   );
 }

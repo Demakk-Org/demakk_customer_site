@@ -37,22 +37,22 @@ export default function RelatedItemListing() {
       >
         Related items
       </Typography>
-      <Grid item container direction={"row"} spacing={"1rem"}>
-        {products?.slice(0, 6).map((productData) => {
+      <Grid item container spacing={2}>
+        {products?.map((productData) => {
           const product = productData.getProductForCard();
           return (
             <Grid
               item
               width={1}
-              // height={"375px"}
-              overflow={"hidden"}
+              height={"500px"}
+              // overflow={"hidden"}
               xs={6}
               sm={4}
               md={2}
               key={product.id.toString()}
             >
               {/* <RelatedItemCard /> */}
-              {/* <ProductCard product={product} /> */}
+              <ProductCard product={product} />
             </Grid>
           );
         })}

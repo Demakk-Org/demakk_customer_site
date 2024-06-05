@@ -1,36 +1,65 @@
-import { Button, Grid } from "@mui/material";
-import React from "react";
+import { Box, Button, Grid, Stack } from "@mui/material";
+import React, { useEffect, useRef, useState } from "react";
 
 export default function HoveringButtons() {
+  const [isOverflowing, setIsOverflowing] = useState(false);
+  const buttonContainerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const buttonContainer = buttonContainerRef.current;
+    const checkOverflow = () => {
+      if (
+        buttonContainer &&
+        buttonContainer.scrollWidth > buttonContainer.clientWidth
+      ) {
+        setIsOverflowing(true);
+      } else {
+        setIsOverflowing(false);
+      }
+    };
+
+    checkOverflow();
+    window.addEventListener("resize", checkOverflow);
+
+    return () => {
+      window.removeEventListener("resize", checkOverflow);
+    };
+  }, []);
+
   return (
-    <Grid
-      container
+    <Box
       className="buttons"
-      spacing={1}
-      direction={"row"}
+      ref={buttonContainerRef}
+      // container
+      // spacing={1}
+      // direction={"row"}
+      // useFlexGap
+
+      // display={"flex"}
+      // flexDirection={isOverflowing ? "column" : "row"}
       width={1}
+      gap={2}
       display="none"
-      justifyContent="space-between"
+      // justifyContent="space-between"
       alignItems={"center"}
       mt={"1rem"}
       zIndex={2}
     >
-      <Grid item xs={6} width={1} height={1}>
-        <Button
-          variant="contained"
-          color="primaryButton"
-          sx={{
-            fontSize: ".75rem",
-            fontWeight: "bold",
-            borderRadius: "24px",
-            width: 1,
-            height: 1,
-          }}
-        >
-          See preview
-        </Button>
-      </Grid>
-      <Grid item xs={6} width={1} height={1}>
+      <Button
+        variant="contained"
+        color="primaryButton"
+        sx={{
+          fontSize: ".75rem",
+          fontWeight: "bold",
+          borderRadius: "24px",
+          minWidth: "max-content",
+          width: 1,
+        }}
+      >
+        See preview
+      </Button>
+
+      <Box width={1}>
         <Button
           variant="contained"
           color="primaryButton"
@@ -38,13 +67,13 @@ export default function HoveringButtons() {
             fontSize: ".8rem",
             fontWeight: "bold",
             borderRadius: "24px",
-            height: 1,
-            lineHeight: 1,
+            width: 1,
+            minWidth: "max-content",
           }}
         >
           Similar items
         </Button>
-      </Grid>
-    </Grid>
+      </Box>
+    </Box>
   );
 }

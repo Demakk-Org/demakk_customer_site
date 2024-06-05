@@ -1,4 +1,5 @@
 import {
+  Box,
   Button,
   Collapse,
   Container,
@@ -34,14 +35,16 @@ export default function ProductSpecification() {
       </Stack>
       <Divider sx={{ display: { xs: "none", sm: "block" } }} />
       <Stack
-        spacing={{ xs: 1, sm: 0 }}
-        p={{ xs: ".75rem", sm: "0" }}
+        direction={"column"}
+        alignItems={"center"}
+        spacing={{ xs: 1, sm: 2 }}
+        p={{ xs: ".75rem", sm: "1rem" }}
         sx={{
           background: { xs: "#f0f0f0", sm: "none" },
-          display: { xs: "none", sm: "block" },
+          display: { xs: "none", sm: "grid" },
         }}
       >
-        <Collapse in={expand} collapsedSize={40}>
+        <Collapse in={expand} orientation="vertical" collapsedSize={45}>
           <Grid container direction={"row"} spacing={{ xs: 0, sm: 2 }}>
             <Grid
               item
@@ -125,7 +128,35 @@ export default function ProductSpecification() {
           </Grid>
           <Divider sx={{ display: { xs: "none", sm: "block" } }} />
         </Collapse>
-        <Button onClick={handleToggle}>View more</Button>
+        {/* <Button
+          // variant="contained"
+          // sx={{ color: "text.primary", bgcolor: "background.blurred" }}
+          onClick={handleToggle}
+        > */}
+        <Box
+          display={"flex"}
+          alignItems={"center"}
+          justifyContent={"center"}
+          // marginTop={".5rem"}
+        >
+          <Box
+            component={"button"}
+            p={".5rem 1.5rem"}
+            color={"text.primary"}
+            sx={{
+              fontSize: "1rem",
+              fontWeight: "bold",
+              bgcolor: "background.blurred",
+              border: "none",
+              borderRadius: "1rem",
+            }}
+            onClick={handleToggle}
+          >
+            View more
+          </Box>
+        </Box>
+
+        {/* </Button> */}
       </Stack>
       <Stack
         spacing={{ xs: 1, sm: 0 }}

@@ -30,7 +30,7 @@ export default function DescriptionAndRatingDetail() {
           variant="fullWidth"
           sx={{
             my: 2, // Margin top and bottom
-            borderBottomWidth: 8, // Custom thickness
+            borderBottomWidth: { xs: 8, sm: 1 }, // Custom thickness
             borderColor: "demakk.dark", // Custom color
           }}
         />
@@ -39,7 +39,7 @@ export default function DescriptionAndRatingDetail() {
           variant="fullWidth"
           sx={{
             my: 2, // Margin top and bottom
-            borderBottomWidth: 8, // Custom thickness
+            borderBottomWidth: { xs: 8, sm: 1 }, // Custom thickness
             borderColor: "demakk.dark", // Custom color
           }}
         />

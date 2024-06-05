@@ -111,6 +111,7 @@ const ItemImages = ({ previewImage, setPreviewImage }: ItemImageProps) => {
           <CarouselContainer
             type={Breakpoints.productItemImagesCarousel}
             currentSlide={currentSlide}
+            setCurrentSlide={setCurrentSlide}
           >
             {product?.images.imageUrls.map((image, index) => {
               return (
@@ -189,7 +190,7 @@ const ItemImages = ({ previewImage, setPreviewImage }: ItemImageProps) => {
                 borderRadius: "16px",
               }}
             >
-              {currentSlide}/{product?.images.imageUrls.length}
+              {Math.floor(currentSlide + 1)}/{product?.images.imageUrls.length}
             </Typography>
             <Typography
               color={"text.primary"}

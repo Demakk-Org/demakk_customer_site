@@ -1,46 +1,21 @@
-import { Box, Button, Grid, Stack } from "@mui/material";
-import React, { useEffect, useRef, useState } from "react";
+import { Box, Button } from "@mui/material";
+import React, { MouseEventHandler, RefObject } from "react";
 
-export default function HoveringButtons() {
-  const [isOverflowing, setIsOverflowing] = useState(false);
-  const buttonContainerRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const buttonContainer = buttonContainerRef.current;
-    const checkOverflow = () => {
-      if (
-        buttonContainer &&
-        buttonContainer.scrollWidth > buttonContainer.clientWidth
-      ) {
-        setIsOverflowing(true);
-      } else {
-        setIsOverflowing(false);
-      }
-    };
-
-    checkOverflow();
-    window.addEventListener("resize", checkOverflow);
-
-    return () => {
-      window.removeEventListener("resize", checkOverflow);
-    };
-  }, []);
-
+interface ButtonProps {
+  checkOverflowOnhover: MouseEventHandler<HTMLDivElement>;
+  buttonContainerRef: RefObject<HTMLDivElement>;
+}
+export default function HoveringButtons({
+  checkOverflowOnhover,
+  buttonContainerRef,
+}: ButtonProps) {
   return (
     <Box
       className="buttons"
       ref={buttonContainerRef}
-      // container
-      // spacing={1}
-      // direction={"row"}
-      // useFlexGap
-
-      // display={"flex"}
-      // flexDirection={isOverflowing ? "column" : "row"}
-      width={1}
+      onMouseEnter={checkOverflowOnhover}
       gap={2}
       display="none"
-      // justifyContent="space-between"
       alignItems={"center"}
       mt={"1rem"}
       zIndex={2}

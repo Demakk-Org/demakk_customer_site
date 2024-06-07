@@ -1,5 +1,4 @@
-import { Card, CardMedia, Typography, Box, Stack, Button } from "@mui/material";
-import React, { useEffect, useRef, useState } from "react";
+import { Card, Typography, Box, Stack } from "@mui/material";
 import SoldQuantity from "./components/SoldQuantity";
 import ProductRating from "./components/ProductRating";
 import AddToCartButton from "./components/AddToCartButton";
@@ -10,6 +9,7 @@ import useDiscountStore from "@/store/discount";
 import { IReturnedProductForCard } from "@/model/productModel";
 import ShippingChoice from "./components/ShippingChoice";
 import ImageFromCloudinary from "@/component/ImageFromCloudinary";
+import { useEffect, useRef, useState } from "react";
 
 export default function ProductCard({
   product,
@@ -21,37 +21,39 @@ export default function ProductCard({
   const [isOverflowing, setIsOverflowing] = useState(false);
   const buttonContainerRef = useRef<HTMLDivElement>(null);
 
-  useEffect(() => {
+  const handleCheckOverflow = () => {
     const buttonContainer = buttonContainerRef.current;
-    const checkOverflow = () => {
-      if (
-        buttonContainer &&
-        buttonContainer.scrollWidth > buttonContainer.clientWidth
-      ) {
-        setIsOverflowing(true);
-      } else {
-        setIsOverflowing(false);
-      }
-    };
+    if (buttonContainer) {
+      const isContentOverflowing =
+        buttonContainer.scrollWidth > buttonContainer.clientWidth;
+      setIsOverflowing(isContentOverflowing);
+    }
+  };
 
-    checkOverflow();
-    window.addEventListener("resize", checkOverflow);
-
+  useEffect(() => {
+    handleCheckOverflow();
+    window.addEventListener("resize", handleCheckOverflow);
     return () => {
-      window.removeEventListener("resize", checkOverflow);
+      window.removeEventListener("resize", handleCheckOverflow);
     };
   }, []);
 
   return (
-    <Box width={1} position="relative">
+    <Box
+      width={1}
+      position="relative"
+      sx={{
+        "&:hover .buttons": {
+          display: "flex",
+          flexDirection: isOverflowing ? "column" : "row",
+        },
+      }}
+    >
       <Box
+        className="wrapper-box"
         display="flex"
         width={1}
         sx={{
-          "&:hover .buttons": {
-            display: { xs: "none", sm: "flex" },
-            flexDirection: { xs: "none", sm: isOverflowing ? "column" : "row" },
-          },
           "&:hover div .hovered-container": {
             display: { xs: "none", sm: "block" },
             bgcolor: (theme) =>
@@ -165,55 +167,11 @@ export default function ProductCard({
             </Stack>
           </Stack>
 
-          {/* <HoveringButtons /> */}
-          <Box
-            ref={buttonContainerRef}
-            // container
-            className="buttons"
-            // spacing={1}
-            // direction={"row"}
-            // useFlexGap
+          <HoveringButtons
+            checkOverflowOnhover={handleCheckOverflow}
+            buttonContainerRef={buttonContainerRef}
+          />
 
-            // display={"flex"}
-            // flexDirection={isOverflowing ? "column" : "row"}
-            width={1}
-            gap={2}
-            display="none"
-            // justifyContent="space-between"
-            alignItems={"center"}
-            mt={"1rem"}
-            zIndex={2}
-          >
-            <Button
-              variant="contained"
-              color="primaryButton"
-              sx={{
-                fontSize: ".75rem",
-                fontWeight: "bold",
-                borderRadius: "24px",
-                minWidth: "max-content",
-                width: 1,
-              }}
-            >
-              See preview
-            </Button>
-
-            <Box width={1}>
-              <Button
-                variant="contained"
-                color="primaryButton"
-                sx={{
-                  fontSize: ".8rem",
-                  fontWeight: "bold",
-                  borderRadius: "24px",
-                  width: 1,
-                  minWidth: "max-content",
-                }}
-              >
-                Similar items
-              </Button>
-            </Box>
-          </Box>
           <Box
             className="hovered-container"
             display="none"

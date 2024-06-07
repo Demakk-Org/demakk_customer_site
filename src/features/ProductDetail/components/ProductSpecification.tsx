@@ -34,110 +34,105 @@ export default function ProductSpecification() {
         />
       </Stack>
       <Divider sx={{ display: { xs: "none", sm: "block" } }} />
-      <Stack
-        direction={"column"}
-        alignItems={"center"}
-        spacing={{ xs: 1, sm: 2 }}
-        p={{ xs: ".75rem", sm: "1rem" }}
-        sx={{
-          background: { xs: "#f0f0f0", sm: "none" },
-          display: { xs: "none", sm: "grid" },
-        }}
-      >
+      <Stack display={{ xs: "none", sm: "flex" }} spacing={2}>
         <Collapse in={expand} orientation="vertical" collapsedSize={45}>
-          <Grid container direction={"row"} spacing={{ xs: 0, sm: 2 }}>
-            <Grid
-              item
-              xs={6}
-              sm={2}
-              sx={{ background: { xs: "none", sm: "#f0f0f0" } }}
-            >
-              <Typography
-                color={{ xs: "text.blurred", sm: "text.primary" }}
-                fontSize={{ xs: ".75rem", sm: "1rem" }}
-                p={{ xs: "0", sm: "0 0 1rem 0" }}
+          <Stack
+            direction={"column"}
+            alignItems={"center"}
+            p={{ xs: ".75rem", sm: "1rem" }}
+            sx={{
+              background: { xs: "#f0f0f0", sm: "none" },
+              display: { xs: "none", sm: "grid" },
+            }}
+          >
+            <Grid container direction={"row"} spacing={{ xs: 0, sm: 2 }}>
+              <Grid
+                item
+                xs={6}
+                sm={2}
+                sx={{ background: { xs: "none", sm: "#f0f0f0" } }}
               >
-                Product Type
-              </Typography>
-            </Grid>
+                <Typography
+                  color={{ xs: "text.blurred", sm: "text.primary" }}
+                  fontSize={{ xs: ".75rem", sm: "1rem" }}
+                  p={{ xs: "0", sm: "0 0 1rem 0" }}
+                >
+                  Product Type
+                </Typography>
+              </Grid>
 
-            <Grid item xs={6} sm={4}>
-              <Typography fontSize={{ xs: ".75rem", sm: "1rem" }}>
-                basic
-              </Typography>
-            </Grid>
-            <Grid
-              item
-              xs={6}
-              sm={2}
-              sx={{ background: { xs: "none", sm: "#f0f0f0" } }}
-            >
-              <Typography
-                color={{ xs: "text.blurred", sm: "text.primary" }}
-                fontSize={{ xs: ".75rem", sm: "1rem" }}
+              <Grid item xs={6} sm={4}>
+                <Typography fontSize={{ xs: ".75rem", sm: "1rem" }}>
+                  basic
+                </Typography>
+              </Grid>
+              <Grid
+                item
+                xs={6}
+                sm={2}
+                sx={{ background: { xs: "none", sm: "#f0f0f0" } }}
               >
-                Fit
-              </Typography>
+                <Typography
+                  color={{ xs: "text.blurred", sm: "text.primary" }}
+                  fontSize={{ xs: ".75rem", sm: "1rem" }}
+                >
+                  Fit
+                </Typography>
+              </Grid>
+              <Grid item xs={6} sm={4}>
+                <Typography fontSize={{ xs: ".75rem", sm: "1rem" }}>
+                  fit for your size just select your size
+                </Typography>
+              </Grid>
             </Grid>
-            <Grid item xs={6} sm={4}>
-              <Typography fontSize={{ xs: ".75rem", sm: "1rem" }}>
-                fit for your size just select your size
-              </Typography>
-            </Grid>
-          </Grid>
-          <Divider sx={{ display: { xs: "none", sm: "block" } }} />
-          <Grid container direction={"row"} spacing={{ xs: 0, sm: 2 }}>
-            <Grid
-              item
-              xs={6}
-              sm={2}
-              sx={{ background: { xs: "none", sm: "#f0f0f0" } }}
-            >
-              <Typography
-                color={{ xs: "text.blurred", sm: "text.primary" }}
-                fontSize={{ xs: ".75rem", sm: "1rem" }}
-                p={{ xs: "0", sm: "0 0 1rem 0" }}
+            <Divider sx={{ display: { xs: "none", sm: "block" } }} />
+            <Grid container direction={"row"} spacing={{ xs: 0, sm: 2 }}>
+              <Grid
+                item
+                xs={6}
+                sm={2}
+                sx={{ background: { xs: "none", sm: "#f0f0f0" } }}
               >
-                Product Type
-              </Typography>
-            </Grid>
+                <Typography
+                  color={{ xs: "text.blurred", sm: "text.primary" }}
+                  fontSize={{ xs: ".75rem", sm: "1rem" }}
+                  p={{ xs: "0", sm: "0 0 1rem 0" }}
+                >
+                  Product Type
+                </Typography>
+              </Grid>
 
-            <Grid item xs={6} sm={4}>
-              <Typography fontSize={{ xs: ".75rem", sm: "1rem" }}>
-                basic
-              </Typography>
-            </Grid>
-            <Grid
-              item
-              xs={6}
-              sm={2}
-              sx={{ background: { xs: "none", sm: "#f0f0f0" } }}
-            >
-              <Typography
-                color={{ xs: "text.blurred", sm: "text.primary" }}
-                fontSize={{ xs: ".75rem", sm: "1rem" }}
+              <Grid item xs={6} sm={4}>
+                <Typography fontSize={{ xs: ".75rem", sm: "1rem" }}>
+                  basic
+                </Typography>
+              </Grid>
+              <Grid
+                item
+                xs={6}
+                sm={2}
+                sx={{ background: { xs: "none", sm: "#f0f0f0" } }}
               >
-                Fit
-              </Typography>
+                <Typography
+                  color={{ xs: "text.blurred", sm: "text.primary" }}
+                  fontSize={{ xs: ".75rem", sm: "1rem" }}
+                >
+                  Fit
+                </Typography>
+              </Grid>
+              <Grid item xs={6} sm={4}>
+                <Typography fontSize={{ xs: ".75rem", sm: "1rem" }}>
+                  fit for your size just select your size
+                </Typography>
+              </Grid>
             </Grid>
-            <Grid item xs={6} sm={4}>
-              <Typography fontSize={{ xs: ".75rem", sm: "1rem" }}>
-                fit for your size just select your size
-              </Typography>
-            </Grid>
-          </Grid>
-          <Divider sx={{ display: { xs: "none", sm: "block" } }} />
+            <Divider sx={{ display: { xs: "none", sm: "block" } }} />
+          </Stack>
         </Collapse>
-        {/* <Button
-          // variant="contained"
-          // sx={{ color: "text.primary", bgcolor: "background.blurred" }}
-          onClick={handleToggle}
-        > */}
         <Box
-          display={"flex"}
+          display={{ xs: "none", sm: "flex" }}
           alignItems={"center"}
           justifyContent={"center"}
-          // marginTop={".5rem"}
         >
           <Box
             component={"button"}
@@ -155,8 +150,6 @@ export default function ProductSpecification() {
             View more
           </Box>
         </Box>
-
-        {/* </Button> */}
       </Stack>
       <Stack
         spacing={{ xs: 1, sm: 0 }}

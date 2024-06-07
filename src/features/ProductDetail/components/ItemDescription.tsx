@@ -1,4 +1,4 @@
-import { Button, Collapse, Container, Stack, Typography } from "@mui/material";
+import { Collapse, Container, Stack, Typography } from "@mui/material";
 import useProductStore from "@/store/product";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import ArrowUpwardIcon from "@mui/icons-material/ArrowUpward";
@@ -25,9 +25,10 @@ export default function ItemDescription() {
             sx={{ display: { xs: "block", sm: "none" } }}
           >
             <Typography
-              className="product-title"
+              fontSize={".85rem"}
+              // className="product-title"
               sx={{
-                lineHeight: 1.25,
+                // lineHeight: 1.25,
                 color: "text.primary",
               }}
             >

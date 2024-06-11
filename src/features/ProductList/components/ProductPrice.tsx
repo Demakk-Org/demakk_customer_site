@@ -8,31 +8,32 @@ interface PriceProps {
   price: number;
 }
 
-export default function SellingPrice({ price, discountedPrice }: PriceProps) {
+export default function ProductgPrice({ price, discountedPrice }: PriceProps) {
   return (
     <>
       <Stack
         direction={"row"}
         alignItems={"baseline"}
+        spacing={1}
         sx={{ flexWrap: "wrap" }}
       >
         {discountedPrice.afterDiscount ? (
           <Typography
-            mr={".5rem"}
             sx={{
               display: "flex",
               alignItems: "baseline",
               color: "main",
               ".currency": {
-                fontSize: ".875rem",
+                fontSize: ".8rem",
                 fontWeight: "bold",
+                mr: "4px",
               },
               ".price-int": {
                 fontSize: "1.5rem",
                 fontWeight: "bold",
               },
               ".price-dec": {
-                fontSize: ".875rem",
+                fontSize: ".8rem",
                 fontWeight: "bold",
               },
             }}
@@ -47,21 +48,21 @@ export default function SellingPrice({ price, discountedPrice }: PriceProps) {
           </Typography>
         ) : (
           <Typography
-            mr={".5rem"}
             sx={{
               display: "flex",
               alignItems: "baseline",
               color: "main",
               ".currency": {
-                fontSize: ".875rem",
+                fontSize: ".8rem",
                 fontWeight: "bold",
+                mr: "4px",
               },
               ".price-int": {
                 fontSize: "1.5rem",
                 fontWeight: "bold",
               },
               ".price-dec": {
-                fontSize: ".875rem",
+                fontSize: ".8rem",
                 fontWeight: "bold",
               },
             }}
@@ -76,8 +77,8 @@ export default function SellingPrice({ price, discountedPrice }: PriceProps) {
           <Typography
             sx={{
               textDecoration: "line-through",
-              color: "text.oldPrice",
-              fontSize: ".875rem",
+              color: "text.blurred",
+              fontSize: ".8rem",
             }}
           >
             ETB{getPrice(price).int}.{getPrice(price).dec}

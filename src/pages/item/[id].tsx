@@ -42,7 +42,7 @@ export default function ProductsDetail({ item }: { item: IProductForPage }) {
 
 export async function getStaticPaths() {
   const res = await fetch(
-    "https://demakk-backend.vercel.app/api/v1/product?page=4"
+    "https://demakk-backend.vercel.app/api/v1/product?page=1"
   );
   const products = await res.json();
   const paths = products.data.data.map((product: any) => {

@@ -1,20 +1,16 @@
 import React, { useEffect } from "react";
-import { Box, Grid, Stack, Typography } from "@mui/material";
+import { Grid, Stack, Typography } from "@mui/material";
 import ProductCard from "./ProductCard";
 import useProductStore from "@/store/product";
 import { LANG } from "@/store/user";
-import useDiscountStore from "@/store/discount";
 import Link from "next/link";
 
 export default function ProductListing() {
-  const { products, setProducts, page, limit, nextPage, prevPage } =
-    useProductStore();
-  const { discount, setDiscount } = useDiscountStore();
+  const { products, setProducts, page, limit } = useProductStore();
 
   useEffect(() => {
     setProducts({ limit, lang: LANG.en, page });
-    setDiscount();
-  }, [page]);
+  }, []);
 
   return (
     <Stack

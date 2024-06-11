@@ -189,7 +189,7 @@ export default function ProductVariant({
           >
             <Typography
               sx={{
-                color: { xs: "text.oldPrice", sm: "text.primary" },
+                color: { xs: "text.blurred", sm: "text.primary" },
                 fontWeight: { xs: "", sm: "bold" },
                 fontSize: ".8rem",
               }}
@@ -232,7 +232,7 @@ export default function ProductVariant({
                         }}
                         sx={{
                           color: "text.primary",
-                          padding: "4px 1rem",
+                          padding: ".5rem 1rem",
                           border: {
                             xs: "none",
                             sm: "1px solid  ",

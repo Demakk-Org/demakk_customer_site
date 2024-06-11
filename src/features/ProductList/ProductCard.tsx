@@ -3,7 +3,7 @@ import SoldQuantity from "./components/SoldQuantity";
 import ProductRating from "./components/ProductRating";
 import AddToCartButton from "./components/AddToCartButton";
 import DealsContainer from "./containers/DealsContainer";
-import SellingPrice from "./components/SellingPrice";
+import SellingPrice from "./components/ProductPrice";
 import HoveringButtons from "./components/HoveringButtons";
 import useDiscountStore from "@/store/discount";
 import { IReturnedProductForCard } from "@/model/productModel";
@@ -23,28 +23,29 @@ export default function ProductCard({
 
   const handleCheckOverflow = () => {
     const buttonContainer = buttonContainerRef.current;
+
     if (buttonContainer) {
       const isContentOverflowing =
         buttonContainer.scrollWidth > buttonContainer.clientWidth;
-      setIsOverflowing(isContentOverflowing);
+      if (!isOverflowing) {
+        setIsOverflowing(isContentOverflowing);
+      }
     }
   };
 
   useEffect(() => {
     handleCheckOverflow();
     window.addEventListener("resize", handleCheckOverflow);
-    return () => {
-      window.removeEventListener("resize", handleCheckOverflow);
-    };
   }, []);
 
   return (
     <Box
       width={1}
       position="relative"
+      onMouseEnter={handleCheckOverflow}
       sx={{
         "&:hover .buttons": {
-          display: "flex",
+          display: { xs: "none", sm: "flex" },
           flexDirection: isOverflowing ? "column" : "row",
         },
       }}
@@ -81,7 +82,7 @@ export default function ProductCard({
             background: "none",
           }}
         >
-          <Box width={1} position={"relative"} zIndex={2}>
+          <Box width={1} height={"233px"} position={"relative"} zIndex={2}>
             <ImageFromCloudinary
               publicId={product?.images?.imageUrls[0]}
               qualityWidth={500}
@@ -91,6 +92,8 @@ export default function ProductCard({
             />
 
             <Box
+              width={1}
+              height={1}
               position="absolute"
               top="0px"
               left="0px"
@@ -111,7 +114,7 @@ export default function ProductCard({
             zIndex={2}
           >
             <Stack direction={{ xs: "column-reverse", sm: "column" }}>
-              <Typography noWrap title={product.name} fontSize={"1.1rem"}>
+              <Typography noWrap title={product.name} fontSize={"1rem"}>
                 {product.name}
               </Typography>
               <Stack direction={{ xs: "column-reverse", sm: "column" }}>
@@ -126,15 +129,11 @@ export default function ProductCard({
                     spacing={1}
                     alignItems={"center"}
                   >
-                    {product.rating.average ? (
+                    {product.rating.average > 0 && (
                       <ProductRating ratingValue={product.rating.average} />
-                    ) : (
-                      <></>
                     )}
-                    {product.sold ? (
+                    {product.sold > 0 && (
                       <SoldQuantity numOfSold={product.sold} />
-                    ) : (
-                      <></>
                     )}
                   </Stack>
                 </Stack>
@@ -167,10 +166,7 @@ export default function ProductCard({
             </Stack>
           </Stack>
 
-          <HoveringButtons
-            checkOverflowOnhover={handleCheckOverflow}
-            buttonContainerRef={buttonContainerRef}
-          />
+          <HoveringButtons buttonContainerRef={buttonContainerRef} />
 
           <Box
             className="hovered-container"

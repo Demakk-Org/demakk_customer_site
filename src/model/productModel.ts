@@ -306,7 +306,6 @@ export class GetProductForPage extends GetProduct {
       deals: this.getDeals,
       productCategory: this.productCategory,
       productVariants: this.productVariants,
-      productCategory: this.productCategory,
       reviews: this.reviews,
       sold: this.sold,
       stockVarietyTypeList: this.stockVarietyTypeList,

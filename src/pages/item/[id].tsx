@@ -9,7 +9,7 @@ import Head from "next/head";
 import { Box } from "@mui/material";
 import NavBar from "@/features/Navbar";
 
-export default function ProductsDetail({ item }: { item: IProductForPage }) {
+export default function ProductDetail({ item }: { item: IProductForPage }) {
   const { setDiscount } = useDiscountStore();
   const { setProduct, page, limit, nextPage, prevPage } = useProductStore();
   useEffect(() => {
@@ -42,7 +42,7 @@ export default function ProductsDetail({ item }: { item: IProductForPage }) {
 
 export async function getStaticPaths() {
   const res = await fetch(
-    "https://demakk-backend.vercel.app/api/v1/product?page=1"
+    "https://demakk-backend.vercel.app/api/v1/product?page=4"
   );
   const products = await res.json();
   const paths = products.data.data.map((product: any) => {

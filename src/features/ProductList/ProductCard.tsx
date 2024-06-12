@@ -11,11 +11,17 @@ import ShippingChoice from "./components/ShippingChoice";
 import ImageFromCloudinary from "@/component/ImageFromCloudinary";
 import { useEffect, useRef, useState } from "react";
 
-export default function ProductCard({
-  product,
-}: {
+interface ProductCardProps {
   product: IReturnedProductForCard;
-}) {
+}
+
+export default function ProductCard({ product }: ProductCardProps) {
+  //   {
+  //   product,
+  // }
+  // : {
+  //   product: IReturnedProductForCard;
+  // }
   const { discount } = useDiscountStore();
 
   const [isOverflowing, setIsOverflowing] = useState(false);

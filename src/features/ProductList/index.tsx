@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { MutableRefObject, useEffect, useRef } from "react";
 import { Grid, Stack, Typography } from "@mui/material";
 import ProductCard from "./ProductCard";
 import useProductStore from "@/store/product";
@@ -7,6 +7,7 @@ import Link from "next/link";
 
 export default function ProductListing() {
   const { products, setProducts, page, limit } = useProductStore();
+  const cardRefs = useRef<MutableRefObject<HTMLDivElement>[]>([]);
 
   useEffect(() => {
     setProducts({ limit, lang: LANG.en, page });
@@ -30,13 +31,13 @@ export default function ProductListing() {
         </Typography>
       </Stack>
       <Grid item container spacing={2}>
-        {products?.map((productData) => {
+        {products?.map((productData, index) => {
           const product = productData.getProductForCard();
 
           return (
             <Grid
               item
-              height={{ md: "375px" }}
+              height={{ md: "360px" }}
               xs={6}
               sm={4}
               md={2.4}
@@ -47,7 +48,7 @@ export default function ProductListing() {
                 style={{ textDecoration: "none" }}
                 target="_blank"
               >
-                <ProductCard product={product} />
+              <ProductCard product={product}  />
               </Link>
             </Grid>
           );

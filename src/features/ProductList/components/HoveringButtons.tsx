@@ -31,7 +31,7 @@ export default function HoveringButtons({ buttonContainerRef }: ButtonProps) {
           fontWeight={"bold"}
           sx={{
             "&:hover": {
-              opacity: 0.8,
+              opacity: 0.7,
             },
           }}
         >

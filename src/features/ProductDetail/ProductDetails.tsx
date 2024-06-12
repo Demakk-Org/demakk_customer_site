@@ -41,7 +41,7 @@ export default function ProductDetails({ currentSlide }: ProductDetailProps) {
               <ItemImages
                 previewImage={previewImage}
                 setPreviewImage={setPreviewImage}
-                currentSlide={currentSlide}
+                // currentSlide={currentSlide}
               />
             </Grid>
             <Grid item xs={12} sm={7}>

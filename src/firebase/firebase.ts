@@ -2,6 +2,7 @@
 import { initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
 import { GoogleAuthProvider } from "firebase/auth";
+import { getStorage } from "firebase/storage";
 
 export const googleProvider = new GoogleAuthProvider();
 
@@ -18,3 +19,8 @@ const firebaseConfig = {
 // Initialize Firebase
 export const app = initializeApp(firebaseConfig);
 export const auth = getAuth(app);
+
+export const imageStorage = getStorage(
+  app,
+  "gs://demakk-customer-site.appspot.com"
+);

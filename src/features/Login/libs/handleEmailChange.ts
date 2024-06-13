@@ -1,26 +1,45 @@
 import { textValidator } from "@/utils/emailValidator";
 
-interface HandleEmailChangeProps {
+type HandleEmailChangeProps = {
   value: string;
-  type?: string;
   setContinueStage: React.Dispatch<React.SetStateAction<boolean>>;
-}
+} & (
+  | {
+      requestFrom: "page";
+      continueButton: boolean;
+      setContinueButton: React.Dispatch<React.SetStateAction<boolean>>;
+      setUserExists: React.Dispatch<React.SetStateAction<boolean>>;
+      continueStage: boolean;
+    }
+  | {
+      requestFrom: "modal";
+      type: "log-in" | "register";
+    }
+);
 
-export default function handleEmailChange({
-  value,
-  type,
-  setContinueStage,
-}: HandleEmailChangeProps) {
-  const buttonState = textValidator(value, "email");
-  const password = (
-    document.getElementById("login--password") as HTMLInputElement
-  ).value;
+export default function handleEmailChange(props: HandleEmailChangeProps) {
+  const buttonState = textValidator(props.value, "email");
 
-  const passwordState = textValidator(password, "password");
+  if (props.requestFrom == "modal") {
+    const password = (
+      document.getElementById("login--password") as HTMLInputElement
+    ).value;
 
-  if (buttonState && (passwordState || type)) {
-    setContinueStage(true);
-  } else {
-    setContinueStage(false);
+    const passwordState = textValidator(password, "password");
+
+    if (buttonState && passwordState) {
+      props.setContinueStage(true);
+    } else {
+      props.setContinueStage(false);
+    }
+  }
+
+  if (props.requestFrom == "page") {
+    if (buttonState !== props.continueButton)
+      props.setContinueButton((prev) => !prev);
+    if (!buttonState && props.continueStage) {
+      props.setContinueStage(false);
+      props.setUserExists(false);
+    }
   }
 }

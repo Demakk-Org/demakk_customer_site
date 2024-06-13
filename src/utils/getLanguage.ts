@@ -1,22 +1,22 @@
 import { default as language } from "@/data/dictionary";
 import { LANG } from "@/store/user";
 
-const getLanguage = (type: string, lang: LANG): string => {
+const getLanguage = (type: string, lang?: LANG): string => {
   const defaultLang: LANG = LANG.en;
 
-  var choosenLanguage: any = language.am;
+  var chosenLanguage: any = language.am;
 
   switch (lang) {
     case LANG.en:
-      choosenLanguage = language.en;
+      chosenLanguage = language.en;
       break;
     case LANG.am:
-      choosenLanguage = language.am;
-      if (!choosenLanguage[type]) choosenLanguage = language.en;
+      chosenLanguage = language.am;
+      if (!chosenLanguage[type]) chosenLanguage = language.en;
       break;
   }
 
-  return choosenLanguage[type];
+  return chosenLanguage[type];
 };
 
 export default getLanguage;

@@ -15,9 +15,6 @@ export default function getMonths({ lang, index }: GetMonthsProps) {
     case LANG.am:
       month = calendar.months["am"];
       break;
-    // case LANG.or:
-    //   if ("or" in calendar.months) months = calendar.months["or"];
   }
-  console.log(month, lang);
   return month[index];
 }

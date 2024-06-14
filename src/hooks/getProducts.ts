@@ -8,8 +8,8 @@ export interface GetProductProps {
   lang: LANG;
 }
 
-const local = "http://localhost:8080/api/v1";
-const server = "https://demakk-backend.vercel.app/api/v1";
+export const local = "http://localhost:8080/api/v1";
+export const server = "https://demakk-backend.vercel.app/api/v1";
 
 const getProducts = async ({ limit, page, lang }: GetProductProps) => {
   try {

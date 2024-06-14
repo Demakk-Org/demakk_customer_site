@@ -8,20 +8,14 @@ import HoveringButtons from "./components/HoveringButtons";
 import useDiscountStore from "@/store/discount";
 import { IReturnedProductForCard } from "@/model/productModel";
 import ShippingChoice from "./components/ShippingChoice";
-import ImageFromCloudinary from "@/component/ImageFromCloudinary";
 import { useEffect, useRef, useState } from "react";
+import ImageFromFirebase from "@/component/ImageFromFirebase";
 
 interface ProductCardProps {
   product: IReturnedProductForCard;
 }
 
 export default function ProductCard({ product }: ProductCardProps) {
-  //   {
-  //   product,
-  // }
-  // : {
-  //   product: IReturnedProductForCard;
-  // }
   const { discount } = useDiscountStore();
 
   const [isOverflowing, setIsOverflowing] = useState(false);
@@ -89,13 +83,7 @@ export default function ProductCard({ product }: ProductCardProps) {
           }}
         >
           <Box width={1} height={"233px"} position={"relative"} zIndex={2}>
-            <ImageFromCloudinary
-              publicId={product?.images?.imageUrls[0]}
-              qualityWidth={500}
-              borderRadius={8}
-              width={1}
-              height={1}
-            />
+            <ImageFromFirebase name={product?.images?.imageUrls[0]} width={1} />
 
             <Box
               width={1}

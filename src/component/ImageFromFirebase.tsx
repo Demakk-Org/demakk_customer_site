@@ -31,6 +31,7 @@ function ImageFromFirebase({
   }, [name, quality]);
 
   return (
+  
     <Avatar
       variant={"rounded"}
       sx={{ width, aspectRatio: 1, height: "auto" }}

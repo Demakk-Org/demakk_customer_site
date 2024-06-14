@@ -5,8 +5,7 @@ import CarouselContainer from "@/component/CarouselContainer";
 import { Breakpoints } from "@/data/carouselBreakPoints";
 import { Stack, Typography } from "@mui/material";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
-import ImageFromCloudinary from "../../../component/ImageFromCloudinary";
-import carouselBreakPoints from "../../../data/carouselBreakPoints";
+import ImageFromFirebase from "@/component/ImageFromFirebase";
 
 interface ItemImageProps {
   previewImage: string;
@@ -21,7 +20,7 @@ const ItemImages = ({ previewImage, setPreviewImage }: ItemImageProps) => {
   const [imgPosition, setImgPosition] = useState({ top: 0, left: 0 });
 
   const handleMouseEnter = () => {
-    setZoomWidth(200);
+    setZoomWidth(150);
   };
 
   const handleMouseLeave = () => {
@@ -76,14 +75,9 @@ const ItemImages = ({ previewImage, setPreviewImage }: ItemImageProps) => {
         borderRadius={".5rem"}
         sx={{ aspectRatio: 1, mb: "1rem" }}
       >
-        <ImageFromCloudinary
-          publicId={product?.images.imageUrls[product.images.primary] ?? ""}
-          // width={1}
-          // height={1}
+        <Box
           width={zoomWidth ? `${zoomWidth}%` : "100%"}
           height={zoomWidth ? `${zoomWidth}%` : "100%"}
-          qualityWidth={500}
-          borderRadius={5}
           className="imgElem"
           position={"absolute"}
           display={"block"}
@@ -94,7 +88,15 @@ const ItemImages = ({ previewImage, setPreviewImage }: ItemImageProps) => {
               cursor: "pointer",
             },
           }}
-        />
+        >
+          <ImageFromFirebase
+            name={
+              previewImage ||
+              (product?.images.imageUrls[product.images.primary] ?? "")
+            }
+            width={1}
+          />
+        </Box>
 
         <Box
           position={"absolute"}
@@ -129,12 +131,7 @@ const ItemImages = ({ previewImage, setPreviewImage }: ItemImageProps) => {
                     aspectRatio: 1,
                   }}
                 >
-                  <ImageFromCloudinary
-                    publicId={image}
-                    width={1}
-                    qualityWidth={500}
-                    borderRadius={5}
-                    height={1}
+                  <Box
                     sx={{
                       sm: {
                         "&:hover": {
@@ -144,7 +141,13 @@ const ItemImages = ({ previewImage, setPreviewImage }: ItemImageProps) => {
                       aspectRatio: 1,
                     }}
                     onMouseEnter={() => setPreviewImage(image)}
-                  />
+                  >
+                    <ImageFromFirebase
+                      name={image}
+                      width={1}
+                      
+                    />
+                  </Box>
 
                   <Box
                     position={"absolute"}

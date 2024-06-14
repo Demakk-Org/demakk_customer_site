@@ -22,7 +22,6 @@ export default function AddToCartButton({ id }: AddToCartButton) {
           right: "10%",
           backgroundColor: (theme) =>
             theme.palette.mode === "dark" ? "bright.main" : "background.paper",
-          // theme.palette.mode === "dark" ? "bright.main" : "background.paper",
           ".cart-icon": {
             color: "dark.main",
           },

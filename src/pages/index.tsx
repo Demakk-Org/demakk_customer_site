@@ -31,6 +31,7 @@ export default function Home(): ReactElement {
           <Recommendation />
           <DealsContainer />
           <DiscountSale />
+          <ProductListing />
           {/* <Footer /> */}
         </Box>
       </main>

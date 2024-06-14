@@ -2,7 +2,7 @@ import useProductStore from "@/store/product";
 import { Box, Button, Grid, Stack, Typography, useTheme } from "@mui/material";
 import React, { useState } from "react";
 import { IProductVariant } from "../../../model/productModel";
-import ImageFromCloudinary from "@/component/ImageFromCloudinary";
+import ImageFromFirebase from "@/component/ImageFromFirebase";
 
 interface VariantListProps {
   previewImage: string;
@@ -32,6 +32,7 @@ export default function ProductVariant({
             const imageUrl = productVariant.imageUrl;
             if (!acc[imageUrl]) acc[imageUrl] = [];
             acc[imageUrl].push({
+              product: productVariant.product,
               _id: productVariant._id,
               stockVarieties: productVariant.stockVarieties,
               imageIndex: productVariant.imageIndex,
@@ -154,12 +155,9 @@ export default function ProductVariant({
                         setPreviewImage(groupedVariant.imageUrl);
                       }}
                     >
-                      <ImageFromCloudinary
-                        publicId={groupedVariant.imageUrl}
+                      <ImageFromFirebase
+                        name={groupedVariant.imageUrl}
                         width={1}
-                        qualityWidth={70}
-                        borderRadius={2}
-                        height={1}
                       />
 
                       <Box

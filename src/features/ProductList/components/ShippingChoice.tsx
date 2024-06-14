@@ -1,4 +1,4 @@
-import { Stack, Typography } from "@mui/material";
+import { Typography } from "@mui/material";
 
 interface ShippingChoiceProps {
   choice?: boolean;

@@ -2,7 +2,7 @@ import AddToCartButton from "@/features/ProductList/components/AddToCartButton";
 import { Card, CardMedia, Typography, Box, Stack } from "@mui/material";
 import SellingPriceOfItem from "../../components/fromProductCard/SellingPriceOfItem";
 import useProductStore from "@/store/product";
-import HoveringButtons from "@/features/ProductList/components/HoveringButtons";
+import HoveringButtons from "@/features/ProductList/components/ProductCardActionButtons";
 
 export default function RelatedItemCard() {
   const { product } = useProductStore();
@@ -115,19 +115,12 @@ export default function RelatedItemCard() {
                 </Stack>
               </Stack>
             </Stack>
-            <Stack direction={"row"} spacing={0.5} alignItems={"center"}>
-              {/* <DealsContainer
-                deal={product.dealType || 'welcome deal'}
-                extraDiscount={product.extraDiscount || 25}
-                discountPercent={product.discountPercent || 50}
-              /> */}
-            </Stack>
-            <Stack>
-              {/* <ShippingChoice
-                choice={product.choice || true}
-                freeShippingPrice={product.shipping(discount).above}
-              /> */}
-            </Stack>
+            <Stack
+              direction={"row"}
+              spacing={0.5}
+              alignItems={"center"}
+            ></Stack>
+            <Stack></Stack>
           </Stack>
 
           <HoveringButtons />

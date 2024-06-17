@@ -29,8 +29,8 @@ export default function ProductListing() {
           More to love
         </Typography>
       </Stack>
-      <Grid item container spacing={2}>
-        {products?.map((productData, index) => {
+      <Grid container spacing={2}>
+        {products?.map((productData) => {
           const product = productData.getProductForCard();
 
           return (

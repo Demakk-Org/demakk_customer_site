@@ -1,5 +1,4 @@
-import { Box, Stack, Typography } from "@mui/material";
-import React from "react";
+import { Box, Divider, Stack, Typography } from "@mui/material";
 
 interface DealProps {
   deal: string;
@@ -12,13 +11,14 @@ export default function DealsContainer({ deal }: DealProps) {
       direction={"row"}
       alignItems={"center"}
       divider={
-        <Box
-          height={".3rem"}
-          minWidth={".3rem"}
-          m={"0 .25rem 0 .25rem"}
-          borderRadius={"50%"}
-          sx={{ backgroundColor: "error.loght" }}
-        ></Box>
+        <Divider>
+          <Box
+            height={"4px"}
+            minWidth={"4px"}
+            borderRadius={"50%"}
+            sx={{ backgroundColor: "error.light" }}
+          ></Box>
+        </Divider>
       }
     >
       <Typography
@@ -26,7 +26,7 @@ export default function DealsContainer({ deal }: DealProps) {
         fontSize={".6rem"}
         fontWeight={"bold"}
         color={"bright.main"}
-        p={"0rem .4rem .2rem .4rem "}
+        p={"0rem .4rem .2rem"}
         borderRadius={".2rem"}
         sx={{ backgroundColor: "error.light" }}
       >

@@ -52,11 +52,7 @@ export default function SideNav() {
           </>
         )}
 
-        <Stack
-          direction={"row"}
-          justifyContent={"space-between"}
-          // sx={{ bgcolor: "brighten.main" }}
-        >
+        <Stack direction={"row"} justifyContent={"space-between"}>
           <Typography fontWeight={"bold"} sx={{ color: "text.primary" }}>
             Ship to
           </Typography>

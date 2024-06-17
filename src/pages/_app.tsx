@@ -201,12 +201,14 @@ const darkTheme = createTheme(dTheme, {
       links: "#ffffffcc",
       price: "#ff0000",
       dealHeader: "#ff0000",
+      blurred: "rgb(153, 153, 153)",
     },
     background: {
       lightOpaque: "#414141",
       light: "#63636344",
       lighter: "#63636322",
       reddish: "#ff795b99",
+      productBg: "rgba(0, 0, 0, 0.04)",
     },
     demakkPrimary: dTheme.palette.augmentColor({
       color: {

@@ -28,7 +28,6 @@ const getProduct = async ({
     const product = data.data;
     return product;
   } catch (err: any) {
-    console.log(err.message);
     return null;
   }
 };

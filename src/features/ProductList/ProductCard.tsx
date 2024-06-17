@@ -4,7 +4,7 @@ import ProductRating from "./components/ProductRating";
 import AddToCartButton from "./components/AddToCartButton";
 import DealsContainer from "./containers/DealsContainer";
 import SellingPrice from "./components/ProductPrice";
-import HoveringButtons from "./components/HoveringButtons";
+import HoveringButtons from "./components/ProductCardActionButtons";
 import useDiscountStore from "@/store/discount";
 import { IReturnedProductForCard } from "@/model/productModel";
 import ShippingChoice from "./components/ShippingChoice";
@@ -91,8 +91,6 @@ export default function ProductCard({ product }: ProductCardProps) {
               position="absolute"
               top="0px"
               left="0px"
-              right="0px"
-              bottom="0px"
               sx={{
                 borderRadius: ".5rem",
                 backgroundColor: "background.productBg",

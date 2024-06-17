@@ -4,7 +4,9 @@ import React, { RefObject } from "react";
 interface ButtonProps {
   buttonContainerRef: RefObject<HTMLDivElement>;
 }
-export default function HoveringButtons({ buttonContainerRef }: ButtonProps) {
+export default function ProductCardActionButtons({
+  buttonContainerRef,
+}: ButtonProps) {
   return (
     <Box
       className="buttons"

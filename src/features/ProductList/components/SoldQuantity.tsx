@@ -1,5 +1,4 @@
 import { Typography } from "@mui/material";
-import React from "react";
 
 interface numberOfSoldProps {
   numOfSold?: number;
@@ -7,12 +6,10 @@ interface numberOfSoldProps {
 
 export default function SoldQuantity({ numOfSold = 0 }: numberOfSoldProps) {
   return (
-    <>
-      <Typography minWidth={"max-content"} fontSize={".75rem"}>
-        {numOfSold > 100
-          ? `${Math.floor(numOfSold / 100) * 100}+ sold`
-          : `${numOfSold} sold`}
-      </Typography>
-    </>
+    <Typography minWidth={"max-content"} fontSize={".75rem"}>
+      {numOfSold > 100
+        ? `${Math.floor(numOfSold / 100) * 100}+ sold`
+        : `${numOfSold} sold`}
+    </Typography>
   );
 }

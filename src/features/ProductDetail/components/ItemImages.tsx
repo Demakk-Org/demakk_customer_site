@@ -95,6 +95,7 @@ const ItemImages = ({ previewImage, setPreviewImage }: ItemImageProps) => {
               (product?.images.imageUrls[product.images.primary] ?? "")
             }
             width={1}
+            quality={"720p"}
           />
         </Box>
 
@@ -142,11 +143,7 @@ const ItemImages = ({ previewImage, setPreviewImage }: ItemImageProps) => {
                     }}
                     onMouseEnter={() => setPreviewImage(image)}
                   >
-                    <ImageFromFirebase
-                      name={image}
-                      width={1}
-                      
-                    />
+                    <ImageFromFirebase name={image} width={1} />
                   </Box>
 
                   <Box

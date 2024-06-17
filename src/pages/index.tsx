@@ -32,7 +32,7 @@ export default function Home(): ReactElement {
           <DealsContainer />
           <DiscountSale />
           <ProductListing />
-          {/* <Footer /> */}
+          <Footer />
         </Box>
       </main>
     </>

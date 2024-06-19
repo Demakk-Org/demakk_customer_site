@@ -29,6 +29,7 @@ const useProductStore = create<ProductStoreProps>((set) => ({
     set({ products: productList });
   },
   setProduct: (value) => {
+    console.log("product value", value);
     const product = new GetProductForPage(
       value,
       value.reviews,

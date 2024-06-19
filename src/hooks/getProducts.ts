@@ -19,8 +19,6 @@ const getProducts = async ({ limit, page, lang }: GetProductProps) => {
       }&${lang && `lang=${lang}`}`
     );
 
-    console.log("products from axios", products);
-
     const list: GetProductForCard[] = products.data.data.data.map(
       (product: IProductForCard) => {
         const newProduct = new GetProductForCard(

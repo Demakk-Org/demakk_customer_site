@@ -1,16 +1,12 @@
 import { Box, Divider, Grid } from "@mui/material";
-import Contents from "./containers/contents/Contents";
+import Contents from "./containers/productInformation/Contents";
 import RelatedItemListing from "./containers/relatedItemCard/RelatedItemListing";
 import { useState } from "react";
 import SideNav from "./components/SideNav";
 import ItemImages from "./components/ItemImages";
-import DescriptionAndRatingDetail from "./containers/contents/DescriptionAndRatingDetail";
+import DescriptionAndRatingDetail from "./containers/productInformation/DescriptionAndRatingDetail";
 
-interface ProductDetailProps {
-  currentSlide: number;
-}
-
-export default function ProductDetails({ currentSlide }: ProductDetailProps) {
+export default function ProductDetails() {
   const [previewImage, setPreviewImage] = useState("");
   const [itemSize, setItemSize] = useState("");
 
@@ -18,10 +14,6 @@ export default function ProductDetails({ currentSlide }: ProductDetailProps) {
     <Box
       sx={{
         bgcolor: "background.paper",
-        // theme) =>
-        //   theme.palette.mode === "dark"
-        //     ? "background.paper"
-        //     : "background.paper",
       }}
     >
       {/* container for image description and side nav */}
@@ -41,7 +33,6 @@ export default function ProductDetails({ currentSlide }: ProductDetailProps) {
               <ItemImages
                 previewImage={previewImage}
                 setPreviewImage={setPreviewImage}
-                // currentSlide={currentSlide}
               />
             </Grid>
             <Grid item xs={12} sm={7}>

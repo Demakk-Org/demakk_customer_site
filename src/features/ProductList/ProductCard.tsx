@@ -4,7 +4,7 @@ import ProductRating from "./components/ProductRating";
 import AddToCartButton from "./components/AddToCartButton";
 import DealsContainer from "./containers/DealsContainer";
 import SellingPrice from "./components/ProductPrice";
-import HoveringButtons from "./components/ProductCardActionButtons";
+import ProductCardActionButtons from "./components/ProductCardActionButtons";
 import useDiscountStore from "@/store/discount";
 import { IReturnedProductForCard } from "@/model/productModel";
 import ShippingChoice from "./components/ShippingChoice";
@@ -44,6 +44,10 @@ export default function ProductCard({ product }: ProductCardProps) {
       position="relative"
       onMouseEnter={handleCheckOverflow}
       sx={{
+        "&:hover": {
+          position: "ralative",
+          zIndex: 5,
+        },
         "&:hover .buttons": {
           display: { xs: "none", sm: "flex" },
           flexDirection: isOverflowing ? "column" : "row",
@@ -57,10 +61,11 @@ export default function ProductCard({ product }: ProductCardProps) {
         sx={{
           "&:hover div .hovered-container": {
             display: { xs: "none", sm: "block" },
-            bgcolor: (theme) =>
-              theme.palette.mode === "dark"
-                ? "background.lightOpaque"
-                : "background.paper",
+            // bgcolor: (theme) =>
+            //   theme.palette.mode === "dark"
+            //     ? "background.lightOpaque"
+            //     : "background.paper",
+            bgcolor: "cardBg",
           },
           "&:hover > div > div": { zIndex: { sm: 4 } },
           "&:hover > div": {
@@ -82,9 +87,12 @@ export default function ProductCard({ product }: ProductCardProps) {
             background: "none",
           }}
         >
-          <Box width={1} height={"233px"} position={"relative"} zIndex={2}>
-            <ImageFromFirebase name={product?.images?.imageUrls[0]} width={1} />
-
+          <Box width={1} position={"relative"} zIndex={2}>
+            <ImageFromFirebase
+              name={product?.images?.imageUrls[0]}
+              width={1}
+              borderRadius={"1rem"}
+            />
             <Box
               width={1}
               height={1}
@@ -92,7 +100,7 @@ export default function ProductCard({ product }: ProductCardProps) {
               top="0px"
               left="0px"
               sx={{
-                borderRadius: ".5rem",
+                borderRadius: "1rem",
                 backgroundColor: "background.productBg",
               }}
             ></Box>
@@ -158,7 +166,7 @@ export default function ProductCard({ product }: ProductCardProps) {
             </Stack>
           </Stack>
 
-          <HoveringButtons buttonContainerRef={buttonContainerRef} />
+          <ProductCardActionButtons buttonContainerRef={buttonContainerRef} />
 
           <Box
             className="hovered-container"
@@ -175,7 +183,7 @@ export default function ProductCard({ product }: ProductCardProps) {
               zIndex: "3 !important",
               borderRadius: "1rem",
             }}
-          ></Box>
+          />
         </Card>
       </Box>
     </Box>

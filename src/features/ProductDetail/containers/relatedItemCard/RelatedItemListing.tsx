@@ -3,7 +3,6 @@ import { Grid, Typography } from "@mui/material";
 import useProductStore from "@/store/product";
 import { LANG } from "@/store/user";
 import useDiscountStore from "@/store/discount";
-import RelatedItemCard from "./RelatedItemCard";
 import ProductCard from "../../../ProductList/ProductCard";
 
 export default function RelatedItemListing() {
@@ -23,11 +22,6 @@ export default function RelatedItemListing() {
       container
       spacing={2}
       sx={{ overflow: "hidden", mt: "3rem" }}
-      direction={"column"}
-      //   overflow-x={'hidden'}
-      //   padding={{ md: '3rem 3rem', xs: '.6rem .6rem', sm: '1.5rem 3rem' }}
-      //   mt="1.5rem"
-      //   mb={'2.5rem'}
     >
       <Typography
         color="text.primary"
@@ -44,14 +38,11 @@ export default function RelatedItemListing() {
             <Grid
               item
               width={1}
-              height={"500px"}
-              // overflow={"hidden"}
               xs={6}
               sm={4}
               md={2}
               key={product.id.toString()}
             >
-              {/* <RelatedItemCard /> */}
               <ProductCard product={product} />
             </Grid>
           );

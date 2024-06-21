@@ -5,10 +5,12 @@ import { useEffect, useState } from "react";
 
 function ImageFromFirebase({
   width,
+  borderRadius,
   name,
   quality,
 }: {
   width: number | string;
+  borderRadius: number | string;
   name: string;
   quality?: "240p" | "480p" | "720p" | "1080p";
 }) {
@@ -31,10 +33,9 @@ function ImageFromFirebase({
   }, [name, quality]);
 
   return (
-  
     <Avatar
       variant={"rounded"}
-      sx={{ width, aspectRatio: 1, height: "auto" }}
+      sx={{ width, aspectRatio: 1, height: "auto", borderRadius }}
       src={imageUrl}
     />
   );

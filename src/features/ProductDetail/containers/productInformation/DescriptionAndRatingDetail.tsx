@@ -1,6 +1,6 @@
 import React from "react";
 import DescriptionDetail from "../../components/DescriptionDetail";
-import { Box, Divider, Stack, Typography } from "@mui/material";
+import { Divider, Stack, Typography } from "@mui/material";
 import ProductSpecification from "../../components/ProductSpecification";
 import CustomerReviewDetail from "../../components/CustomerReviewDetail";
 import PaymentMethods from "../../components/PaymentMethods";
@@ -16,6 +16,7 @@ export default function DescriptionAndRatingDetail() {
         position={"sticky"}
         spacing={3}
         alignItems={"center"}
+        zIndex={0}
       >
         <Typography color={"text.primary"}>Description</Typography>
         <Typography color={"text.primary"}>Specification</Typography>
@@ -29,18 +30,18 @@ export default function DescriptionAndRatingDetail() {
         <Divider
           variant="fullWidth"
           sx={{
-            my: 2, // Margin top and bottom
-            borderBottomWidth: { xs: 8, sm: 1 }, // Custom thickness
-            borderColor: "demakk.dark", // Custom color
+            my: 2,
+            borderBottomWidth: { xs: 8, sm: 1 },
+            borderColor: "demakk.dark",
           }}
         />
         <CustomerReviewDetail />
         <Divider
           variant="fullWidth"
           sx={{
-            my: 2, // Margin top and bottom
-            borderBottomWidth: { xs: 8, sm: 1 }, // Custom thickness
-            borderColor: "demakk.dark", // Custom color
+            my: 2,
+            borderBottomWidth: { xs: 8, sm: 1 },
+            borderColor: "demakk.dark",
           }}
         />
         <PaymentMethods />

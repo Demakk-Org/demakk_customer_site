@@ -15,7 +15,6 @@ export default function ProductCardActionButtons({
       display="none"
       alignItems={"center"}
       mt={"1rem"}
-      zIndex={2}
     >
       <Button
         variant="contained"

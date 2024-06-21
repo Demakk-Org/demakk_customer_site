@@ -5,6 +5,7 @@ import { useState } from "react";
 import SideNav from "./components/SideNav";
 import ItemImages from "./components/ItemImages";
 import DescriptionAndRatingDetail from "./containers/productInformation/DescriptionAndRatingDetail";
+import zIndex from "@mui/material/styles/zIndex";
 
 export default function ProductDetails() {
   const [previewImage, setPreviewImage] = useState("");
@@ -49,7 +50,7 @@ export default function ProductDetails() {
             orientation="horizontal"
           />
           <RelatedItemListing />
-          <Divider />
+          {/* <Divider /> */}
           <DescriptionAndRatingDetail />
         </Grid>
         {/* for side scrollable nav */}

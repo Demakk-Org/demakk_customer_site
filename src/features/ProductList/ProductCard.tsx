@@ -3,7 +3,7 @@ import SoldQuantity from "./components/SoldQuantity";
 import ProductRating from "./components/ProductRating";
 import AddToCartButton from "./components/AddToCartButton";
 import DealsContainer from "./containers/DealsContainer";
-import SellingPrice from "./components/ProductPrice";
+import SellingPrice from "./components/ProductSellingPrice";
 import ProductCardActionButtons from "./components/ProductCardActionButtons";
 import useDiscountStore from "@/store/discount";
 import { IReturnedProductForCard } from "@/model/productModel";
@@ -65,7 +65,7 @@ export default function ProductCard({ product }: ProductCardProps) {
             //   theme.palette.mode === "dark"
             //     ? "background.lightOpaque"
             //     : "background.paper",
-            bgcolor: "cardBg",
+            bgcolor: "background.cardBg",
           },
           "&:hover > div > div": { zIndex: { sm: 4 } },
           "&:hover > div": {

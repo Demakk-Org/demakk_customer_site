@@ -204,7 +204,7 @@ const darkTheme = createTheme(dTheme, {
       blurred: "rgb(153, 153, 153)",
     },
     background: {
-      cardBg: "#a5adae",
+      cardBg: "#272a2a",
       light: "#63636344",
       lighter: "#63636322",
       reddish: "#ff795b99",

@@ -4,6 +4,7 @@ import getPrice from "@/utils/getPrice";
 import { Stack, Typography } from "@mui/material";
 import React from "react";
 import { IProductVariant } from "@/model/productModel";
+import { IProduct } from "../../../model/productModel";
 
 interface VariantProps {
   itemSize: string;

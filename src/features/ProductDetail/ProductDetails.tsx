@@ -2,7 +2,7 @@ import { Box, Divider, Grid } from "@mui/material";
 import Contents from "./containers/productInformation/Contents";
 import RelatedItemListing from "./containers/relatedItemCard/RelatedItemListing";
 import { useState } from "react";
-import SideNav from "./components/SideNav";
+import SideNav from "./components/SideBar";
 import ItemImages from "./components/ItemImages";
 import DescriptionAndRatingDetail from "./containers/productInformation/DescriptionAndRatingDetail";
 import zIndex from "@mui/material/styles/zIndex";

@@ -61,10 +61,6 @@ export default function ProductCard({ product }: ProductCardProps) {
         sx={{
           "&:hover div .hovered-container": {
             display: { xs: "none", sm: "block" },
-            // bgcolor: (theme) =>
-            //   theme.palette.mode === "dark"
-            //     ? "background.lightOpaque"
-            //     : "background.paper",
             bgcolor: "background.cardBg",
           },
           "&:hover > div > div": { zIndex: { sm: 4 } },

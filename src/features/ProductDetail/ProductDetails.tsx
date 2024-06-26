@@ -5,7 +5,6 @@ import { useState } from "react";
 import SideNav from "./components/SideBar";
 import ItemImages from "./components/ItemImages";
 import DescriptionAndRatingDetail from "./containers/productInformation/DescriptionAndRatingDetail";
-import zIndex from "@mui/material/styles/zIndex";
 
 export default function ProductDetails() {
   const [previewImage, setPreviewImage] = useState("");

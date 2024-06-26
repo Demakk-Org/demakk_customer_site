@@ -11,7 +11,6 @@ import NavBar from "@/features/Navbar";
 import axios from "axios";
 
 export default function ProductDetail({ item }: { item: any }) {
-  console.log("product items", item);
   const { setDiscount } = useDiscountStore();
   const { setProduct, page, limit, nextPage, prevPage } = useProductStore();
   useEffect(() => {

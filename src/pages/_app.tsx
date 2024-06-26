@@ -291,7 +291,7 @@ const lightTheme = createTheme(lTheme, {
       blurred: "rgb(153, 153, 153)",
     },
     background: {
-      cardBg: "#d0d0d0",
+      cardBg: "#fafafa",
       light: "#d0d0d044 ",
       lighter: "#d0d0d022",
       reddish: "#ffc7b899",

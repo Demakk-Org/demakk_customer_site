@@ -1,20 +1,25 @@
 import React, { useState } from "react";
 import Box from "@mui/material/Box";
-import useProductStore from "@/store/product";
 import CarouselContainer from "@/component/CarouselContainer";
 import { Breakpoints } from "@/data/carouselBreakPoints";
 import { Stack, Typography } from "@mui/material";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import ImageFromFirebase from "@/component/ImageFromFirebase";
+import { GetProductForPage, IProductForPage } from "@/model/productModel";
 
 interface ItemImageProps {
   previewImage: string;
   setPreviewImage: Function;
+  product: GetProductForPage | null;
 }
 
-const ItemImages = ({ previewImage, setPreviewImage }: ItemImageProps) => {
-  const { product } = useProductStore();
+const ProductItemImages = ({
+  previewImage,
+  setPreviewImage,
+  product,
+}: ItemImageProps) => {
   const [currentSlide, setCurrentSlide] = useState(0);
+  const [isCarouselImageSelected, setIsCarouselImageSelected] = useState(0);
 
   const [zoomWidth, setZoomWidth] = useState<number | null>(null);
   const [imgPosition, setImgPosition] = useState({ top: 0, left: 0 });
@@ -60,6 +65,11 @@ const ItemImages = ({ previewImage, setPreviewImage }: ItemImageProps) => {
   React.useEffect(() => {
     handleMouseEnter;
   }, []);
+
+  function handleCarouselImageSelection(image: string, index: any) {
+    setPreviewImage(image);
+    setIsCarouselImageSelected(index);
+  }
 
   return (
     <Box width={1}>
@@ -123,33 +133,26 @@ const ItemImages = ({ previewImage, setPreviewImage }: ItemImageProps) => {
                   width={1}
                   key={index}
                   position={"relative"}
-                  onMouseEnter={() => setPreviewImage(image)}
+                  // onMouseEnter={() => setPreviewImage(image)}
+                  onMouseEnter={() =>
+                    handleCarouselImageSelection(image, index)
+                  }
                   sx={{
-                    sm: {
-                      "&:hover": {
-                        border: ".1rem solid black",
-                      },
-                    },
+                    border:
+                      isCarouselImageSelected === index
+                        ? "1px solid black"
+                        : "none",
+                    borderRadius:
+                      isCarouselImageSelected === index ? "4px" : "none",
+
                     aspectRatio: 1,
                   }}
                 >
-                  <Box
-                    sx={{
-                      sm: {
-                        "&:hover": {
-                          border: ".1rem solid black",
-                        },
-                      },
-                      aspectRatio: 1,
-                    }}
-                    onMouseEnter={() => setPreviewImage(image)}
-                  >
-                    <ImageFromFirebase
-                      name={image}
-                      width={1}
-                      borderRadius={".5rem"}
-                    />
-                  </Box>
+                  <ImageFromFirebase
+                    name={image}
+                    width={1}
+                    borderRadius={".5rem"}
+                  />
 
                   <Box
                     position={"absolute"}
@@ -157,7 +160,10 @@ const ItemImages = ({ previewImage, setPreviewImage }: ItemImageProps) => {
                     height={1}
                     top={0}
                     left={0}
-                    sx={{ bgcolor: "background.productBg" }}
+                    sx={{
+                      bgcolor: "background.productBg",
+                      borderRadius: ".5rem",
+                    }}
                   ></Box>
                 </Box>
               );
@@ -235,4 +241,4 @@ const ItemImages = ({ previewImage, setPreviewImage }: ItemImageProps) => {
   );
 };
 
-export default ItemImages;
+export default ProductItemImages;

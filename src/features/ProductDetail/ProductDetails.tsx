@@ -3,10 +3,14 @@ import Contents from "./containers/productInformation/Contents";
 import RelatedItemListing from "./containers/relatedItemCard/RelatedItemListing";
 import { useState } from "react";
 import SideNav from "./components/SideBar";
-import ItemImages from "./components/ItemImages";
+import ProductItemImages from "./components/ProductItemImages";
 import DescriptionAndRatingDetail from "./containers/productInformation/DescriptionAndRatingDetail";
+import { GetProductForPage } from "@/model/productModel";
 
-export default function ProductDetails() {
+interface ProductDetailsProps {
+  product: GetProductForPage | null;
+}
+export default function ProductDetails({ product }: ProductDetailsProps) {
   const [previewImage, setPreviewImage] = useState("");
   const [itemSize, setItemSize] = useState("");
 
@@ -30,9 +34,10 @@ export default function ProductDetails() {
 
           <Grid item direction={"row"} container spacing={2}>
             <Grid item xs={12} sm={5}>
-              <ItemImages
+              <ProductItemImages
                 previewImage={previewImage}
                 setPreviewImage={setPreviewImage}
+                product={product}
               />
             </Grid>
             <Grid item xs={12} sm={7}>
@@ -41,6 +46,7 @@ export default function ProductDetails() {
                 setPreviewImage={setPreviewImage}
                 itemSize={itemSize}
                 setItemSize={setItemSize}
+                product={product}
               />
             </Grid>
           </Grid>

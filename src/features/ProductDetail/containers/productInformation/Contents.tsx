@@ -6,13 +6,14 @@ import FreeshipingChoice from "../../components/FreeshipingChoice";
 import ItemDescription from "../../components/ItemDescription";
 import RatingAndReview from "../../components/RatingAndReview";
 import ProductVariant from "../../components/ProductVariant";
-import useProductStore from "@/store/product";
+import { GetProductForPage } from "../../../../model/productModel";
 
 interface VariantProps {
   previewImage: string;
   setPreviewImage: Function;
   itemSize: string;
   setItemSize: Function;
+  product: GetProductForPage | null;
 }
 
 export default function Contents({
@@ -20,8 +21,9 @@ export default function Contents({
   setPreviewImage,
   itemSize,
   setItemSize,
+  product,
 }: VariantProps) {
-  const { product } = useProductStore();
+  // const { product } = useProductStore();
   return (
     <Box position={"relative"} zIndex={5}>
       <Stack>

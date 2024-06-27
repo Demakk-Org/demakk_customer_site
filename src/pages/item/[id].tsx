@@ -3,16 +3,17 @@ import styles from "@/styles/Home.module.css";
 import React, { useEffect } from "react";
 import type { GetStaticProps } from "next";
 import useDiscountStore from "@/store/discount";
-import { IProductForPage } from "@/model/productModel";
+import { GetProductForPage, IProductForPage } from "@/model/productModel";
 import useProductStore from "@/store/product";
 import Head from "next/head";
 import { Box } from "@mui/material";
 import NavBar from "@/features/Navbar";
 import axios from "axios";
 
-export default function ProductDetail({ item }: { item: any }) {
+export default function ProductDetail({ item }: { item: IProductForPage }) {
   const { setDiscount } = useDiscountStore();
-  const { setProduct, page, limit, nextPage, prevPage } = useProductStore();
+  const { product, setProduct, page, limit, nextPage, prevPage } =
+    useProductStore();
   useEffect(() => {
     setProduct(item);
     setDiscount();
@@ -33,7 +34,7 @@ export default function ProductDetail({ item }: { item: any }) {
       <main className={`${styles.main}`}>
         <Box width={"100%"} minHeight={"100vh"} bgcolor={"background.paper"}>
           <NavBar />
-          <ProductDetails />
+          <ProductDetails product={product} />
         </Box>
       </main>
     </>
@@ -65,7 +66,6 @@ export const getStaticProps = (async (context: any) => {
       `https://demakk-backend.vercel.app/api/v1/product/${id}`
     );
     item = res.data.data;
-
     return { props: { item } };
   } catch (err) {
     item = null;

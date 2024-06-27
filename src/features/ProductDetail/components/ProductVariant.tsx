@@ -19,6 +19,7 @@ export default function ProductVariant({
 }: VariantListProps) {
   const { product } = useProductStore();
   const [variantName, setVariantName] = useState("");
+  const [isImageVariantSelected, setIsImageVariantSelected] = useState(0);
 
   const theme = useTheme();
 
@@ -89,6 +90,10 @@ export default function ProductVariant({
     )
   );
 
+  function handleVariantImageSelected(index: number) {
+    setIsImageVariantSelected(index);
+  }
+
   return (
     <>
       {mainVariantType && (
@@ -128,7 +133,7 @@ export default function ProductVariant({
             {arrayOfGroupedVariants?.map((groupedVariants) => {
               return (
                 <Grid item key={""}>
-                  {groupedVariants.slice(-1).map((groupedVariant) => (
+                  {groupedVariants.slice(-1).map((groupedVariant, index) => (
                     <Box
                       key={groupedVariant._id.toString()}
                       width={{ xs: "40px", sm: "70px" }}
@@ -136,12 +141,6 @@ export default function ProductVariant({
                       overflow={"hidden"}
                       borderRadius={{ xs: "50%", sm: "4px" }}
                       position={"relative"}
-                      sx={{
-                        "&:hover": {
-                          border: "2px solid",
-                          borderColor: "dark.main",
-                        },
-                      }}
                       onClick={() => {
                         setVariantName(
                           groupedVariant.stockVarieties
@@ -153,11 +152,27 @@ export default function ProductVariant({
                             .join("")
                         );
                         setPreviewImage(groupedVariant.imageUrl);
+                        handleVariantImageSelected(index);
+                      }}
+                      sx={{
+                        "&:hover": {
+                          border: "2px solid",
+                          borderColor: "dark.main",
+                        },
+                        border:
+                          isImageVariantSelected === index
+                            ? "2px solid"
+                            : "none",
+                        borderColor:
+                          isImageVariantSelected === index
+                            ? "dark.main"
+                            : "none",
                       }}
                     >
                       <ImageFromFirebase
                         name={groupedVariant.imageUrl}
                         width={1}
+                        borderRadius={"5px"}
                       />
 
                       <Box

@@ -49,6 +49,7 @@ export type IProductForCard = IProduct & {
   productCategory: ObjectId;
   productVariants: ObjectId[];
   reviews: ObjectId[];
+  stockVarietyTypeList: string[];
 };
 
 export interface IReturnedProduct {
@@ -74,6 +75,7 @@ export type IReturnedProductForCard = {
 } & IReturnedProduct;
 
 export type IReturnedProductForPage = {
+  description: String;
   reviews: IReview[];
   productVariants: IProductVariant[];
   productCategory: IProductCategory;
@@ -214,6 +216,7 @@ export class GetProduct {
           };
       }
     });
+
     return returnPriceAndPercent;
   }
 
@@ -255,7 +258,7 @@ export class GetProductForCard extends GetProduct {
     this.productVariants = productVariants;
   }
 
-  getProductForCard(): Omit<IReturnedProductForCard, "stockVarietyTypeList"> {
+  getProductForCard(): IReturnedProductForCard {
     return {
       id: this.id,
       name: this.name,
@@ -267,6 +270,7 @@ export class GetProductForCard extends GetProduct {
       deals: this.getDeals,
       productCategory: this.productCategory,
       productVariants: this.productVariants,
+      stockVarietyTypeList: this.stockVarietyTypeList,
       reviews: this.reviews,
       sold: this.sold,
     };
@@ -294,6 +298,7 @@ export class GetProductForPage extends GetProduct {
     return {
       id: this.id,
       name: this.name,
+      description: this.description,
       price: this.price,
       discountedPrice: this.getDiscountedPriceAndPercent,
       rating: this.rating,

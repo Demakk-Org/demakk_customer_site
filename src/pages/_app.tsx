@@ -201,12 +201,14 @@ const darkTheme = createTheme(dTheme, {
       links: "#ffffffcc",
       price: "#ff0000",
       dealHeader: "#ff0000",
+      blurred: "rgb(153, 153, 153)",
     },
     background: {
-      lightOpaque: "#414141",
+      cardBg: "#272a2a",
       light: "#63636344",
       lighter: "#63636322",
       reddish: "#ff795b99",
+      productBg: "rgba(0, 0, 0, 0.04)",
     },
     demakkPrimary: dTheme.palette.augmentColor({
       color: {
@@ -286,12 +288,18 @@ const lightTheme = createTheme(lTheme, {
       price: "#ff0000",
       dealHeader: "#ff0000",
       contrast: "#191919cc",
+      blurred: "rgb(153, 153, 153)",
     },
     background: {
-      lightOpaque: "#d0d0d0",
+      cardBg: "#fafafa",
       light: "#d0d0d044 ",
       lighter: "#d0d0d022",
       reddish: "#ffc7b899",
+      gray: "rgba(210, 204, 204, 0.6)",
+      productBg: "rgba(0, 0, 0, 0.04)",
+      transparent: "hsla(0, 0%, 100%, .7)",
+      shipping: "rgb(255, 244, 222)",
+      deal: "rgba(245, 199, 107, 0.97)",
     },
     demakkPrimary: lTheme.palette.augmentColor({
       color: {

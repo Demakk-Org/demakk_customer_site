@@ -2,15 +2,20 @@ import { imageStorage } from "@/firebase/firebase";
 import { Avatar } from "@mui/material";
 import { getDownloadURL, ref } from "firebase/storage";
 import { useEffect, useState } from "react";
+import { ImageType } from "./FirebaseImageUploadComponent";
 
 function ImageFromFirebase({
   width,
   name,
   quality,
+  type,
+  shape,
 }: {
   width: number | string;
   name: string;
   quality?: "240p" | "480p" | "720p" | "1080p";
+  type?: ImageType;
+  shape?: "circular" | "rounded" | "square";
 }) {
   const [imageUrl, setImageUrl] = useState("");
 
@@ -20,7 +25,11 @@ function ImageFromFirebase({
       return;
     }
 
-    const storageRef = ref(imageStorage, `images/${quality || "480p"}/${name}`);
+    const storageRef = ref(
+      imageStorage,
+      `images/${type ? type + "/" : ""}${quality || "480p"}/${name}`
+    );
+
     getDownloadURL(storageRef)
       .then((downloadURL) => {
         setImageUrl(downloadURL);
@@ -28,11 +37,11 @@ function ImageFromFirebase({
       .catch((error) => {
         console.error(error);
       });
-  }, [name, quality]);
+  }, [name, quality, type]);
 
   return (
     <Avatar
-      variant={"rounded"}
+      variant={shape || "rounded"}
       sx={{ width, aspectRatio: 1, height: "auto" }}
       src={imageUrl}
     />

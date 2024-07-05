@@ -1,8 +1,5 @@
 import Carousel from "react-multi-carousel";
-import carouselBreakPoints, {
-  Breakpoints,
-  getBreakpoint,
-} from "@/data/carouselBreakPoints";
+import { Breakpoints, getBreakpoint } from "@/data/carouselBreakPoints";
 import "react-multi-carousel/lib/styles.css";
 import React, { ReactNode } from "react";
 
@@ -21,7 +18,7 @@ function CarouselContainer({
 }: CarouselContainerProps) {
   return (
     <Carousel
-      swipeable={false}
+      swipeable={true}
       draggable={true}
       showDots={false}
       responsive={getBreakpoint(type)}

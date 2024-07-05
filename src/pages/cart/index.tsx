@@ -9,9 +9,11 @@ import Loading from "@/component/Loading";
 import useCartStore from "@/store/cart";
 import useTokenStore from "@/store/token";
 import Footer from "@/features/Footer";
+import usePageStore from "@/store/page";
 
 function CartPage() {
-  const { loading, setCart } = useCartStore();
+  const { loading } = usePageStore();
+  const { setCart } = useCartStore();
   const { token } = useTokenStore();
 
   useEffect(() => {

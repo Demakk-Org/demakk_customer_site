@@ -3,18 +3,18 @@ import { LANG } from "@/store/user";
 
 interface GetMonthsProps {
   lang: LANG;
-  index: number;
 }
 
-export default function getMonths({ lang, index }: GetMonthsProps) {
-  let month: string[] = [];
+export default function getMonths({ lang }: GetMonthsProps) {
+  let months: { name: string; abbr: string }[] = [];
   switch (lang) {
     case LANG.en:
-      month = calendar.months["en"];
+      months = calendar.months["en"];
       break;
     case LANG.am:
-      month = calendar.months["am"];
+      months = calendar.months["am"];
       break;
   }
-  return month[index];
+
+  return months;
 }

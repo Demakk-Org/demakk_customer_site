@@ -1,6 +1,7 @@
 import { ObjectId } from "mongoose";
 import { Image } from "./imageModel";
 import { IProductVariant } from "./productModel";
+import { IAddress } from "./addressModel";
 
 export interface IOrderStatus {
   _id?: ObjectId;
@@ -21,6 +22,7 @@ export interface IOrderItem {
   productVariant: IProductVariant;
   quantity: number;
   couponCode?: ICoupon;
+  isChecked: boolean;
 }
 
 export interface IOrder {
@@ -29,6 +31,7 @@ export interface IOrder {
   orderDate: Date;
   deliverDate: Date;
   orderStatus: String;
+  deliveryAddress: IAddress;
 }
 
 export class GetOrder {
@@ -37,6 +40,7 @@ export class GetOrder {
   private orderDate: Date;
   private deliveryDate: Date;
   private orderStatus: String;
+  private deliveryAddress: IAddress;
 
   constructor(order: IOrder) {
     this.id = order._id;
@@ -44,6 +48,7 @@ export class GetOrder {
     this.orderDate = order.orderDate;
     this.deliveryDate = order.deliverDate;
     this.orderStatus = order.orderStatus;
+    this.deliveryAddress = order.deliveryAddress;
   }
 
   getOrder() {
@@ -53,6 +58,7 @@ export class GetOrder {
       orderDate: this.orderDate,
       deliveryDate: this.deliveryDate,
       orderStatus: this.orderStatus,
+      deliveryAddress: this.deliveryAddress,
     };
   }
 }

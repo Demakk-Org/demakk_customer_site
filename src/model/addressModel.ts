@@ -1,5 +1,7 @@
 export interface IAddress {
   _id: string;
+  contactName: string;
+  phoneNumber: string;
   country: string;
   region?: string;
   city: string;
@@ -8,10 +10,13 @@ export interface IAddress {
   uniqueIdentifier?: string;
   streetAddress?: string;
   postalCode?: string;
+  asDefault: boolean;
 }
 
 export class GetAddress {
   private _id: string;
+  private contactName: string;
+  private phoneNumber: string;
   private country: string;
   private region?: string;
   private city: string;
@@ -20,9 +25,12 @@ export class GetAddress {
   private uniqueIdentifier?: string;
   private streetAddress?: string;
   private postalCode?: string;
+  private asDefault: boolean;
 
   constructor(address: IAddress) {
     this._id = address._id;
+    this.contactName = address.contactName;
+    this.phoneNumber = address.phoneNumber;
     this.country = address.country;
     this.region = address.region;
     this.city = address.city;
@@ -31,11 +39,14 @@ export class GetAddress {
     this.uniqueIdentifier = address.uniqueIdentifier;
     this.streetAddress = address.streetAddress;
     this.postalCode = address.postalCode;
+    this.asDefault = address.asDefault;
   }
 
   getAddress() {
     return {
       _id: this._id,
+      contactName: this.contactName,
+      phoneNumber: this.phoneNumber,
       country: this.country,
       region: this.region,
       city: this.city,
@@ -44,6 +55,7 @@ export class GetAddress {
       uniqueIdentifier: this.uniqueIdentifier,
       streetAddress: this.streetAddress,
       postalCode: this.postalCode,
+      asDefault: this.asDefault,
     };
   }
 }

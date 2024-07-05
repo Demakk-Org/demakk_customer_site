@@ -1,7 +1,8 @@
 const singleToDouble = (num: number) => {
   let number = num * 100;
-  if (number < 10) return "0" + number;
-  return number.toString().slice(0, 2);
+  let numberToString = number.toString();
+  if (number < 10) numberToString = "0" + number;
+  return numberToString.slice(0, 2);
 };
 
 const getPrice = (price: number | string): { int: string; dec: string } => {

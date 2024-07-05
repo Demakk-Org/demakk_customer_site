@@ -1,42 +1,44 @@
-import getOrders from "@/hooks/getOrders";
-import { GetOrder, IOrderStatus } from "@/model/orderModel";
 import { create } from "zustand";
+import getOrders from "@/api/order/getOrders";
+import { GetOrder, IOrderStatus } from "@/model/orderModel";
 import { LANG } from "./user";
-import getOrderStatuses from "@/hooks/getOrderStatuses";
-import getOrder from "@/hooks/getOrder";
+import getOrderStatuses from "@/api/orderStatus/getOrderStatuses";
+import getOrder from "@/api/order/getOrder";
 
 interface OrderStoreProps {
   order: GetOrder | null;
-  orderList: GetOrder[];
+  orderList: GetOrder[] | null;
   orderStatus: IOrderStatus[];
   ordersTabIndex: number;
 
-  setOrder: (id: string) => void;
-  setOrderList: (token: string) => void;
+  setOrder: ({ id, token }: { id: string; token: string | null }) => void;
+  setOrderList: (token: string | null) => void;
   setOrderStatus: (lang?: LANG) => void;
   setOrdersTabIndex: (value: number) => void;
+  emptyOrderList: () => void;
 }
 
 const useOrderStore = create<OrderStoreProps>((set) => ({
   order: null,
-  orderList: [],
+  orderList: null,
   orderStatus: [],
   ordersTabIndex: 0,
 
-  setOrder: async (id: string) => {
-    ///get the orders from the database and set to the store
-    const order = await getOrder(id);
+  setOrder: async ({ id, token }) => {
+
+    const order = await getOrder({ id, token });
     set({ order });
   },
 
-  setOrderList: async (token: string) => {
-    ///get the orders from the database and set to the store
+  setOrderList: async (token) => {
     const orderList = await getOrders(token);
-    console.log(orderList, "from store");
+    console.log(orderList);
     set({ orderList });
   },
+  emptyOrderList: () => {
+    set({ orderList: null });
+  },
   setOrderStatus: async (lang?: LANG) => {
-    ///get the order statuses from the database and set to the store
     const orderStatusList = await getOrderStatuses(lang);
     set({ orderStatus: orderStatusList });
   },

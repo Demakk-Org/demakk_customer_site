@@ -1,11 +1,22 @@
-import getAddresses from "@/hooks/getAddresses";
-import { GetAddress, IAddress } from "@/model/addressModel";
+import getAddresses from "@/api/address/getAddresses";
+import getUser from "@/api/user/getUser";
+import { GetAddress } from "@/model/addressModel";
+import GetUser from "@/model/userModel";
 import { create } from "zustand";
 
-interface User {
-  name: string;
-  img?: string;
-  address?: string[];
+export enum backendUrls {
+  local = "http://localhost:8080/api/v1",
+  server = "https://demakk-backend.vercel.app/api/v1",
+}
+
+export const chosenBackendUrl = backendUrls.server;
+
+export enum Providers {
+  password = "password",
+  google = "google",
+  twitter = "twitter",
+  facebook = "facebook",
+  apple = "apple",
 }
 
 export enum LANG {
@@ -29,37 +40,40 @@ interface IBreadcrumb {
 }
 
 interface StoreInterface {
-  token: string;
+  refresh: boolean;
   lang: LANG;
-  user: User | null;
+  user: GetUser | null;
   address: Addresses;
   breadcrumbs: IBreadcrumb[];
   shippingAddress: GetAddress[];
 
-  setToken: (value: string) => void;
+  setRefresh: () => void;
   setLang: (lang: LANG) => void;
   setAddress: (address: Addresses) => void;
-  setUser: (user: User) => void;
+  setUser: (token?: string) => void;
   signOut: () => void;
   setBreadcrumbs: (breadcrumbs: IBreadcrumb[]) => void;
   setShippingAddress: (token: string) => void;
 }
 
 const useUserStore = create<StoreInterface>((set) => ({
-  token: "",
+  refresh: false,
   lang: LANG.en,
   user: null,
   address: Addresses["addis-ababa"],
   breadcrumbs: [],
   shippingAddress: [],
 
-  setToken: (token: string) => set({ token }),
+  setRefresh: () => set((state) => ({ refresh: !state.refresh })),
   setLang: (lang) => {
     console.log(lang, "store");
     set({ lang });
   },
   setAddress: (address) => set({ address: Addresses[address] }),
-  setUser: (user) => set({ user }),
+  setUser: async (token) => {
+    const user = await getUser(token);
+    set({ user });
+  },
   signOut: () => set({ user: null }),
   setBreadcrumbs: (breadcrumbs: IBreadcrumb[]) => set({ breadcrumbs }),
   setShippingAddress: async (token) => {

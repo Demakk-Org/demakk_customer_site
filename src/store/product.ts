@@ -1,5 +1,5 @@
 import { create } from "zustand";
-import getProducts, { GetProductProps } from "@/hooks/getProducts";
+import getProducts, { GetProductProps } from "@/api/product/getProducts";
 import {
   GetProductForPage,
   GetProductForCard,
@@ -24,7 +24,6 @@ const useProductStore = create<ProductStoreProps>((set) => ({
   page: 1,
   limit: 5,
   setProducts: async (value) => {
-    ///get from the database and set to the store
     const productList: GetProductForCard[] = await getProducts(value);
     set({ products: productList });
   },
@@ -37,9 +36,6 @@ const useProductStore = create<ProductStoreProps>((set) => ({
     );
     set({ product });
   },
-  /**
-   * next set of products
-   */
   nextPage: () => set((state) => ({ page: state.page + 1 })),
   prevPage: () => set((state) => ({ page: state.page - 1 })),
 }));

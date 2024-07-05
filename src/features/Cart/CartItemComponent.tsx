@@ -26,6 +26,7 @@ import handleOrderItemQuantity from "../../api/orderItem/handleOrderItemUpdate";
 import handleLikeProduct from "../Product/ProductsCard/utils/handleLikeProduct";
 import handleOrderItemUpdate from "../../api/orderItem/handleOrderItemUpdate";
 import { t } from "i18next";
+import usePageStore from "@/store/page";
 
 interface CartItemComponentProps {
   orderItem: IOrderItem;
@@ -33,7 +34,8 @@ interface CartItemComponentProps {
 
 function CartItemComponent({ orderItem }: CartItemComponentProps) {
   const { lang, user, setUser } = useUserStore();
-  const { setCart, setLoading, setOpenModal } = useCartStore();
+  const { setCart, setOpenModal } = useCartStore();
+  const { setLoading } = usePageStore();
   const { token } = useTokenStore();
 
   return (

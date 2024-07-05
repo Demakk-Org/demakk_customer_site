@@ -17,9 +17,11 @@ import useUserStore from "@/store/user";
 import handleSelectAllOrderItems from "./utils/handleSelectAllOrderItems";
 import CartSectionModal from "./CartSectionModal";
 import { t } from "i18next";
+import usePageStore from "@/store/page";
 
 function CartItemListComponent() {
-  const { cart, setCart, setLoading, openModal, setOpenModal } = useCartStore();
+  const { cart, setCart, openModal, setOpenModal } = useCartStore();
+  const { setLoading } = usePageStore();
 
   const { lang } = useUserStore();
   const { token } = useTokenStore();

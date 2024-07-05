@@ -1,7 +1,7 @@
 import { ReactElement } from "react";
 import styles from "@/styles/Home.module.css";
 import Head from "next/head";
-import AccountPageLayout from "@/layout/AccoutPageLayout";
+import AccountPageLayout from "@/layout/AccountPageLayout";
 import SettingTabContent from "@/features/AccountPage/components/SettingTabContent";
 
 export default function Home(): ReactElement {

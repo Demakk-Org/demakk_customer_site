@@ -31,21 +31,20 @@ import handlePasswordChange from "@/features/Login/libs/handlePasswordChange";
 import { useRouter } from "next/router";
 import Loading from "@/component/Loading";
 import handleContinueButton from "@/features/Login/libs/handleContinueButton";
+import useTokenStore from "@/store/token";
+import handleGoogleSignUp from "@/features/Login/libs/handleGoogleSignUp";
+import usePageStore from "@/store/page";
 
 function SignIn() {
   const { lang, setLang } = useUserStore();
+  const { setToken } = useTokenStore();
+  const { loading, snackBar, setLoading, setSnackBar } = usePageStore();
   const router = useRouter();
 
-  const [showPass, setShowPass] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
   const [continueStage, setContinueStage] = useState(false);
   const [userExists, setUserExists] = useState<boolean>(false);
   const [continueButton, setContinueButton] = useState<boolean>(false);
-  const [loading, setLoading] = useState(false);
-  const [snackBar, setSnackBar] = useState<{
-    type: "success" | "error";
-    open: boolean;
-    message: string;
-  }>({ type: "success", message: "Hello World!", open: false });
 
   return (
     <>
@@ -236,7 +235,9 @@ function SignIn() {
                   id="login--password"
                   size="medium"
                   fullWidth
-                  type={showPass ? "text" : "password"}
+                  name={userExists ? "password" : "new-password"}
+                  autoComplete={userExists ? "password" : "new-password"}
+                  type={showPassword ? "text" : "password"}
                   onChange={({ target }) =>
                     handlePasswordChange({
                       value: target.value,
@@ -251,9 +252,9 @@ function SignIn() {
                       <IconButton
                         aria-label="toggle password visibility"
                         edge="end"
-                        onClick={() => setShowPass((p) => !p)}
+                        onClick={() => setShowPassword((p) => !p)}
                       >
-                        {showPass ? <VisibilityOff /> : <Visibility />}
+                        {showPassword ? <VisibilityOff /> : <Visibility />}
                       </IconButton>
                     </InputAdornment>
                   }
@@ -304,6 +305,8 @@ function SignIn() {
                     setContinueButton,
                     setContinueStage,
                     router,
+                    lang,
+                    setToken,
                   })
                 }
               >
@@ -339,17 +342,29 @@ function SignIn() {
               >
                 <LoginIconComponents
                   imageUrl="/social/google.png"
-                  loginFn={() => {}}
+                  loginFn={() =>
+                    handleGoogleSignUp({
+                      setSnackBar,
+                      setToken,
+                      lang,
+                      setLoading,
+                      requestFrom: "page",
+                      router,
+                    })
+                  }
                 />
                 <LoginIconComponents
+                  disabled
                   imageUrl="/social/facebook.png"
                   loginFn={() => {}}
                 />
                 <LoginIconComponents
+                  disabled
                   imageUrl="/social/twitter.png"
                   loginFn={() => {}}
                 />
                 <LoginIconComponents
+                  disabled
                   imageUrl="/social/apple.png"
                   loginFn={() => {}}
                   bgcolor
@@ -424,16 +439,11 @@ function SignIn() {
         <Snackbar
           autoHideDuration={2500}
           open={snackBar?.open}
-          onClose={() =>
-            setSnackBar((p) => ({
-              ...p,
-              open: false,
-            }))
-          }
+          onClose={() => setSnackBar(null)}
           anchorOrigin={{ horizontal: "center", vertical: "top" }}
         >
           <Alert
-            onClose={() => setSnackBar((p) => ({ ...p, open: false }))}
+            onClose={() => setSnackBar(null)}
             severity={snackBar?.type}
             variant="filled"
             sx={{ width: "100%" }}

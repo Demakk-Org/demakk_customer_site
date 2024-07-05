@@ -10,27 +10,37 @@ import DealsContainer from "@/features/DealsContainer";
 
 import { Box } from "@mui/material";
 import { ReactElement } from "react";
+import RootLayout from "@/layout/RootLayout";
+import Loading from "@/component/Loading";
+import useCartStore from "@/store/cart";
 
 export default function Home(): ReactElement {
+  const { loading } = useCartStore();
   return (
     <>
       <Head>
-        <title>Demakk Ecommerce site</title>
+        <title>Demakk E-commerce site</title>
         <meta
           name="description"
-          content="The best ecommerce to shop with custom design"
+          content="The best e-commerce to shop with custom design"
         />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main className={`${styles.main}`}>
+      <main
+        className={`${styles.main}`}
+        style={{ overflow: loading ? "hidden" : "auto" }}
+      >
         <Box width={"100%"} minHeight={"100vh"} bgcolor={"background.paper"}>
-          <Navbar />
-          {/* <PinLocation /> */}
-          <Recommendation />
-          <DealsContainer />
-          <DiscountSale />
-          {/* <Footer /> */}
+          <RootLayout>
+            <Navbar />
+            <PinLocation />
+            <Recommendation />
+            {/* <DealsContainer /> */}
+            <DiscountSale />
+            <Footer />
+          </RootLayout>
+          {loading && <Loading />}
         </Box>
       </main>
     </>

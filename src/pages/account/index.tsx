@@ -1,10 +1,9 @@
-import { ReactElement } from "react";
 import styles from "@/styles/Home.module.css";
 import Head from "next/head";
-import AccountPageLayout from "@/layout/AccoutPageLayout";
+import AccountPageLayout from "@/layout/AccountPageLayout";
 import OverviewTabContent from "@/features/AccountPage/components/OverviewTabContent";
 
-export default function Home(): ReactElement {
+export default function Home() {
   return (
     <>
       <Head>

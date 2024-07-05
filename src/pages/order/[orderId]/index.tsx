@@ -1,13 +1,12 @@
 import { ReactElement } from "react";
 import styles from "@/styles/Home.module.css";
 import Head from "next/head";
-import AccountPageLayout from "@/layout/AccoutPageLayout";
+import AccountPageLayout from "@/layout/AccountPageLayout";
 import OrderDetailTabContent from "@/features/AccountPage/components/OrderDetailTabContent";
 import { GetStaticPaths, GetStaticProps } from "next";
 import axios from "axios";
-import { local } from "@/hooks/getProducts";
-import { IOrder } from "@/model/orderModel";
 import { ObjectId } from "mongoose";
+import { chosenBackendUrl } from "@/store/user";
 
 export default function Home({ orderId }: { orderId: string }): ReactElement {
   return (
@@ -31,9 +30,7 @@ export default function Home({ orderId }: { orderId: string }): ReactElement {
 }
 
 export const getStaticPaths = (async () => {
-  let orders = await axios.get(`${local}/order/ids`);
-
-  console.log(orders.data.data);
+  let orders = await axios.get(`${chosenBackendUrl}/order/ids`);
 
   let paths = orders.data.data.map((order: { _id: ObjectId }) => {
     return {
@@ -42,8 +39,6 @@ export const getStaticPaths = (async () => {
       },
     };
   });
-
-  console.log(paths);
 
   return {
     paths,

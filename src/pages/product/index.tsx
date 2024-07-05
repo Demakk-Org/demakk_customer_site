@@ -9,7 +9,8 @@ import useProductStore from "@/store/product";
 import { LANG } from "@/store/user";
 import useDiscountStore from "@/store/discount";
 import { IProductForPage } from "@/model/productModel";
-import getProduct from "@/hooks/getProduct";
+import getProduct from "@/api/product/getProduct";
+import ImageFromFirebase from "@/component/ImageFromFirebase";
 
 function Product({ item }: { item: IProductForPage }) {
   const {
@@ -57,10 +58,10 @@ function Product({ item }: { item: IProductForPage }) {
                     flexDirection={"column"}
                     alignItems={"center"}
                   >
-                    <Avatar
-                      variant="square"
-                      src={p?.images && p?.images.imageUrls[0]}
-                      sx={{ width: 80, height: 80 }}
+                    <ImageFromFirebase
+                      quality="480p"
+                      name={p?.images?.imageUrls[1]}
+                      width={"150px"}
                     />
                     <Typography color={"text.primary"}>
                       {p.id.toString()}

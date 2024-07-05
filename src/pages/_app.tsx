@@ -4,6 +4,10 @@ import { ThemeProvider, createTheme } from "@mui/material/styles";
 import { outlinedInputClasses } from "@mui/material/OutlinedInput";
 import { useEffect } from "react";
 import { AppProps } from "next/app";
+import { Montserrat } from "next/font/google";
+import useUserStore, { LANG } from "@/store/user";
+
+export const demakkFont = Montserrat({ subsets: ["cyrillic"] });
 
 declare module "@mui/material/styles" {
   interface Palette {
@@ -203,6 +207,7 @@ const darkTheme = createTheme(dTheme, {
       dealHeader: "#ff0000",
     },
     background: {
+      dark: "#111111cc",
       lightOpaque: "#414141",
       light: "#63636344",
       lighter: "#63636322",
@@ -288,6 +293,7 @@ const lightTheme = createTheme(lTheme, {
       contrast: "#191919cc",
     },
     background: {
+      dark: "#666666cc",
       lightOpaque: "#d0d0d0",
       light: "#d0d0d044 ",
       lighter: "#d0d0d022",
@@ -301,7 +307,7 @@ const lightTheme = createTheme(lTheme, {
     }),
     demakkSecondary: lTheme.palette.augmentColor({
       color: {
-        main: "#fef06b",
+        main: "#ff0000",
       },
       name: "demakkSecondary",
     }),
@@ -334,8 +340,11 @@ const lightTheme = createTheme(lTheme, {
 
 export default function App({ Component, pageProps }: AppProps) {
   const { darkMode, setTheme } = useThemeProvider();
+  const { user, setLang } = useUserStore();
 
   useEffect(() => {
+    if (user) setLang(user.getUser().lang);
+
     if (window) {
       let deviceDarkMode = window.matchMedia("(prefers-color-scheme:dark)");
       if (deviceDarkMode.matches) {
@@ -346,12 +355,10 @@ export default function App({ Component, pageProps }: AppProps) {
       window
         .matchMedia("(prefers-color-scheme: dark)")
         .addEventListener("change", (e) => {
-          console.log(e.matches);
-          console.log("theme", e.matches ? dTheme : lTheme);
           setTheme(e.matches);
         });
     }
-  }, []);
+  }, [user]);
 
   return (
     <ThemeProvider theme={darkMode ? darkTheme : lightTheme}>

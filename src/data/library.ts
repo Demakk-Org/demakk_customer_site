@@ -1,5 +1,4 @@
 const data = {
-  users: ["melka@gmail.com", "demakk@gmail.com"],
   region: [
     {
       code: "addis-ababa",

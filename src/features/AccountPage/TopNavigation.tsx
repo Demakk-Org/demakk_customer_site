@@ -7,43 +7,38 @@ import {
   Stack,
 } from "@mui/material";
 import { IoChevronBackOutline, IoHomeOutline } from "react-icons/io5";
-import { signOut } from "firebase/auth";
-import { auth } from "@/firebase/firebase";
 import { Login, Logout } from "@mui/icons-material";
 import { Dispatch, SetStateAction } from "react";
 import useOrderStore from "@/store/order";
-import getLanguage from "@/utils/getLanguage";
 import useUserStore from "@/store/user";
+import useTokenStore from "@/store/token";
+import usePageStore from "@/store/page";
+import "@/language/translation";
+import { t } from "i18next";
 
 interface ITopNavigationBar {
-  setSnackBar: Dispatch<
-    SetStateAction<{
-      type: "success" | "error";
-      open: boolean;
-      message: string;
-    }>
-  >;
   pageType: string;
   setOpenAccountModal: Dispatch<SetStateAction<boolean>>;
 }
 
 export default function TopNavigationBar({
-  setSnackBar,
   setOpenAccountModal,
   pageType,
 }: ITopNavigationBar) {
   const { emptyOrderList } = useOrderStore();
-  const { lang, setRefresh } = useUserStore();
+  const { lang, setUser } = useUserStore();
+  const { token, setToken } = useTokenStore();
+  const { setSnackBar } = usePageStore();
 
   const handleLogOut = () => {
     emptyOrderList();
-    signOut(auth);
     setSnackBar({
       type: "success",
       open: true,
-      message: getLanguage("loggedOutSuccessfully", lang),
+      message: t("loggedOutSuccessfully"),
     });
-    setRefresh();
+    setToken(null);
+    setUser();
   };
 
   const handleLogIn = () => {
@@ -90,7 +85,7 @@ export default function TopNavigationBar({
               component="div"
               sx={{ fontSize: { xs: "1rem" } }}
             >
-              {getLanguage("demakk", lang)}
+              {t("demakk")}
             </Typography>
             <Typography
               variant="h6"
@@ -100,7 +95,7 @@ export default function TopNavigationBar({
               {pageType}
             </Typography>
           </Stack>
-          {auth?.currentUser?.uid ? (
+          {token ? (
             <IconButton
               title={"Log out"}
               size="large"

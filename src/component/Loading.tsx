@@ -5,11 +5,14 @@ function Loading({ type }: { type?: LoadingType }) {
     <Box
       width={1}
       height={1}
+      maxHeight={"100vh"}
       display={"flex"}
       alignItems={"center"}
       justifyContent={"center"}
-      zIndex={1}
-      position={"relative"}
+      zIndex={100000}
+      position={"absolute"}
+      top={0}
+      left={0}
     >
       <ReactLoading type={type || "spin"} />
     </Box>

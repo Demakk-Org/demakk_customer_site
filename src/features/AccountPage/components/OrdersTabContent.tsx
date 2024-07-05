@@ -14,8 +14,8 @@ import { CiSearch } from "react-icons/ci";
 import IconFromReactIcons from "@/component/IconFromReactIcons";
 import useOrderStore from "@/store/order";
 import useUserStore from "@/store/user";
-import { auth } from "@/firebase/firebase";
 import getLanguage from "@/utils/getLanguage";
+import useTokenStore from "@/store/token";
 
 const timeFrames = ["allOrLastYear", "lastMonth", "last3Months", "last6Months"];
 const orderType = [
@@ -31,13 +31,13 @@ export const orderStatus = [
 ];
 
 function OrdersTabContent() {
-  const { setOrderStatus, setOrderList, orderList } = useOrderStore();
-  const { setBreadcrumbs, lang, refresh } = useUserStore();
+  const { setOrderList } = useOrderStore();
+  const { setBreadcrumbs, lang } = useUserStore();
+  const { token } = useTokenStore();
 
   const [selectedOrderStatusType, setSelectedOrderStatusType] = useState(0);
   const [selectedTimeFrame, setSelectedTimeFrame] = useState(0);
   const [selectedOrderType, setSelectedOrderType] = useState(0);
-  console.log(orderList);
 
   const handleTimeFrameChange = (event: SelectChangeEvent) => {
     setSelectedTimeFrame(timeFrames.indexOf(event.target.value as string));
@@ -57,9 +57,9 @@ function OrdersTabContent() {
       { name: "account", url: "/account" },
       { name: "orders", url: "/order" },
     ]);
-    setOrderStatus();
-    setOrderList();
-  }, [refresh]);
+
+    setOrderList(token);
+  }, [token, setBreadcrumbs, setOrderList]);
 
   if (!orderStatus.length) return <></>;
 

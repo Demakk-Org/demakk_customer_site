@@ -1,10 +1,9 @@
 import IconFromReactIcons from "@/component/IconFromReactIcons";
-import ImageFromCloudinary from "@/component/ImageFromCloudinary";
+import ImageFromFirebase from "@/component/ImageFromFirebase";
 import Loading from "@/component/Loading";
-import { auth } from "@/firebase/firebase";
 import useOrderStore from "@/store/order";
+import useTokenStore from "@/store/token";
 import useUserStore from "@/store/user";
-import getMonths from "@/utils/getMonths";
 import getPrice from "@/utils/getPrice";
 import { ChevronLeft } from "@mui/icons-material";
 import {
@@ -21,9 +20,12 @@ import { useEffect, useState } from "react";
 import { CiLocationOn } from "react-icons/ci";
 import { LiaClipboardListSolid } from "react-icons/lia";
 import { MdOutlineExpandLess, MdOutlineExpandMore } from "react-icons/md";
+import "@/language/translation";
+import { t } from "i18next";
 
 function OrderDetailTabContent({ orderId }: { orderId: string }) {
-  const { setBreadcrumbs, lang } = useUserStore();
+  const { setBreadcrumbs } = useUserStore();
+  const { token } = useTokenStore();
   const { order, setOrder } = useOrderStore();
 
   const router = useRouter();
@@ -31,23 +33,23 @@ function OrderDetailTabContent({ orderId }: { orderId: string }) {
   const [more, setMore] = useState(false);
 
   useEffect(() => {
+    if (!token) router.back();
     setBreadcrumbs([
-      { name: "Home", url: "/" },
+      { name: "home", url: "/" },
       {
-        name: "Order",
+        name: "order",
         url: "/order",
       },
       {
-        name: "Order details",
-        url: "#", //`/order/${order?.getOrder().id}`,
+        name: "orderDetails",
+        url: "",
       },
     ]);
 
-    setOrder({ id: orderId });
-  }, [order, auth?.currentUser]);
+    setOrder({ id: orderId, token });
+  }, [token]);
 
   if (!order) {
-    router.push("/login");
     return (
       <Stack
         bgcolor={"background.light"}
@@ -75,18 +77,17 @@ function OrderDetailTabContent({ orderId }: { orderId: string }) {
           alignItems={"center"}
         >
           <Typography fontSize={"1.2rem"} fontWeight={"bold"} letterSpacing={1}>
-            {order.getOrder().orderStatus}
+            {t(order.getOrder().orderStatus.toString().toLowerCase())}
           </Typography>
           <Button
             onClick={() => router.back()}
             startIcon={<ChevronLeft sx={{ color: "text.primary" }} />}
           >
-            <Typography color={"text.primary"}>Back</Typography>
+            <Typography color={"text.primary"}>{t("back")}</Typography>
           </Button>
         </Stack>
         <Typography fontSize={{ xs: "0.85rem", sm: "1rem" }}>
-          If the item you received is defective or not as described, you can
-          open a dispute within 15 days of receipt.
+          {t("defectiveReceiptNotice")}
         </Typography>
         <Stack direction={"row"} gap={{ xs: 0.5, sm: 2 }}>
           <Button
@@ -95,7 +96,7 @@ function OrderDetailTabContent({ orderId }: { orderId: string }) {
             sx={{ borderRadius: { xs: "0.5rem", sm: "2rem" } }}
           >
             <Typography fontSize={{ xs: "0.8rem", sm: "1rem" }}>
-              Write a review
+              {t("writeReview")}
             </Typography>
           </Button>
           <Button
@@ -105,7 +106,7 @@ function OrderDetailTabContent({ orderId }: { orderId: string }) {
             sx={{ borderRadius: { xs: "0.5rem", sm: "2rem" } }}
           >
             <Typography fontSize={{ xs: "0.8rem", sm: "1rem" }}>
-              Add to cart
+              {t("addToCart")}
             </Typography>
           </Button>
           <Button
@@ -115,7 +116,7 @@ function OrderDetailTabContent({ orderId }: { orderId: string }) {
             sx={{ borderRadius: { xs: "0.5rem", sm: "2rem" } }}
           >
             <Typography fontSize={{ xs: "0.8rem", sm: "1rem" }}>
-              Track order
+              {t("trackOrder")}
             </Typography>
           </Button>
           <Button
@@ -125,7 +126,7 @@ function OrderDetailTabContent({ orderId }: { orderId: string }) {
             sx={{ borderRadius: { xs: "0.5rem", sm: "2rem" } }}
           >
             <Typography fontSize={{ xs: "0.8rem", sm: "1rem" }}>
-              Receipt
+              {t("receipt")}
             </Typography>
           </Button>
         </Stack>
@@ -143,15 +144,61 @@ function OrderDetailTabContent({ orderId }: { orderId: string }) {
                 </Grid>
                 <Grid item xs={10.5}>
                   <Stack gap={1} position={"relative"}>
-                    <Typography fontWeight={300}>Solen Tolessa</Typography>
-                    <Typography fontWeight={300}>+251 973387519</Typography>
+                    <Typography fontWeight={300}>
+                      {order.getOrder().deliveryAddress.contactName}
+                    </Typography>
+                    <Typography fontWeight={300}>
+                      {order.getOrder().deliveryAddress.phoneNumber}
+                    </Typography>
                     {more && (
                       <Typography fontWeight={300}>
-                        Keta, Burayu, Oromia
+                        <Stack
+                          direction={"row"}
+                          divider={
+                            <Typography component={"span"}>,&nbsp;</Typography>
+                          }
+                        >
+                          {order.getOrder().deliveryAddress.woreda && (
+                            <Typography component={"span"}>
+                              {order.getOrder().deliveryAddress.woreda}
+                            </Typography>
+                          )}
+                          {order.getOrder().deliveryAddress.subCity && (
+                            <Typography component={"span"}>
+                              {order.getOrder().deliveryAddress.subCity}
+                            </Typography>
+                          )}
+                          {order.getOrder().deliveryAddress.city && (
+                            <Typography component={"span"}>
+                              {order.getOrder().deliveryAddress.city}
+                            </Typography>
+                          )}
+                        </Stack>
                       </Typography>
                     )}
                     <Typography fontWeight={300}>
-                      Orimia, Ethiopia, 1000
+                      <Stack
+                        direction={"row"}
+                        divider={
+                          <Typography component={"span"}>,&nbsp;</Typography>
+                        }
+                      >
+                        {order.getOrder().deliveryAddress.region && (
+                          <Typography component={"span"}>
+                            {order.getOrder().deliveryAddress.region}
+                          </Typography>
+                        )}
+                        {order.getOrder().deliveryAddress.country && (
+                          <Typography component={"span"}>
+                            {order.getOrder().deliveryAddress.country}
+                          </Typography>
+                        )}
+                        {order.getOrder().deliveryAddress.postalCode && (
+                          <Typography component={"span"}>
+                            {order.getOrder().deliveryAddress.postalCode}
+                          </Typography>
+                        )}
+                      </Stack>
                     </Typography>
 
                     <IconButton
@@ -189,28 +236,15 @@ function OrderDetailTabContent({ orderId }: { orderId: string }) {
                   <Stack gap={1}>
                     <Stack direction={"row"}>
                       <Typography fontWeight={300}>
-                        Order ID: {order.getOrder().id}
+                        {t("orderId")}: {order.getOrder().id}
                       </Typography>
-                      {/* <Button sx={{ p: 0, minHeight: "unset" }}>Copy</Button> */}
                     </Stack>
                     <Typography fontWeight={300}>
-                      Order placed on:{" "}
-                      {getMonths({
-                        lang,
-                        index: new Date(
-                          order.getOrder().orderDate.toString()
-                        ).getMonth(),
-                      })}{" "}
-                      {new Date(
-                        order.getOrder().orderDate.toString()
-                      ).getDate()}
-                      ,{" "}
-                      {new Date(
-                        order.getOrder().orderDate.toString()
-                      ).getFullYear()}
+                      {t("orderPlacedOn")}:{" "}
+                      {new Date(order.getOrder().orderDate).toDateString()}
                     </Typography>
                     <Typography fontWeight={300}>
-                      Payment method: Credit/Debit card
+                      {t("paymentMethod")}: Credit/Debit card
                     </Typography>
                   </Stack>
                 </Grid>
@@ -232,10 +266,11 @@ function OrderDetailTabContent({ orderId }: { orderId: string }) {
               {order.getOrder().orderItems.map((orderItem, index) => {
                 return (
                   <Stack direction={"row"} key={index} gap={2}>
-                    <Box width={"30%"}>
-                      <ImageFromCloudinary
-                        publicId={orderItem.productVariant.imageUrl}
-                        width="100%"
+                    <Box width={"20%"}>
+                      <ImageFromFirebase
+                        width={"100%"}
+                        quality="480p"
+                        name={orderItem.productVariant.imageUrl}
                       />
                     </Box>
                     <Stack gap={{ xs: 0.5, sm: 2 }} flex={1}>
@@ -255,7 +290,7 @@ function OrderDetailTabContent({ orderId }: { orderId: string }) {
                             fontSize={{ xs: "0.9rem", sm: "1rem" }}
                             pr={"0.25rem"}
                           >
-                            ,{" "}
+                            ,&nbsp;
                           </Typography>
                         }
                       >
@@ -311,7 +346,7 @@ function OrderDetailTabContent({ orderId }: { orderId: string }) {
                   "&:hover": { color: "demakkPrimary.main" },
                 }}
               >
-                Add to cart
+                {t("addToCart")}
               </Button>
               <Button
                 variant="outlined"
@@ -322,7 +357,7 @@ function OrderDetailTabContent({ orderId }: { orderId: string }) {
                   "&:hover": { color: "demakkPrimary.main" },
                 }}
               >
-                Returns/refunds
+                {t("returnsRefunds")}
               </Button>
             </Stack>
           </Grid>
@@ -330,13 +365,13 @@ function OrderDetailTabContent({ orderId }: { orderId: string }) {
 
         <Stack>
           <Grid container justifyContent={"flex-end"}>
-            <Grid item xs={6}>
+            <Grid item xs={3}>
               <Stack gap={1} alignItems={{ xs: "flex-end", sm: "unset" }}>
-                <Typography fontWeight={300}>Subtotal</Typography>
-                <Typography fontWeight={"bold"}>Total</Typography>
+                <Typography fontWeight={300}>{t("subTotal")}</Typography>
+                <Typography fontWeight={"bold"}>{t("total")}</Typography>
               </Stack>
             </Grid>
-            <Grid item xs={6}>
+            <Grid item xs={3}>
               <Stack gap={1} alignItems={"flex-end"}>
                 <Typography fontWeight={300}>
                   ETB {getPrice(totalPrice).int}.{getPrice(totalPrice).dec}

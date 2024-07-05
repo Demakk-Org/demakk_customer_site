@@ -1,7 +1,3 @@
-import { auth } from "@/firebase/firebase";
-import { accountTabList } from "@/layout/AccoutPageLayout";
-import useUserStore from "@/store/user";
-import getLanguage from "@/utils/getLanguage";
 import {
   Avatar,
   Box,
@@ -11,16 +7,21 @@ import {
   Stack,
   Typography,
 } from "@mui/material";
+import { ImageType } from "@/component/FirebaseImageUploadComponent";
+import ImageFromFirebase from "@/component/ImageFromFirebase";
+import { accountTabList } from "@/layout/AccountPageLayout";
+import useUserStore from "@/store/user";
 import { useRouter } from "next/router";
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import { BiDollarCircle } from "react-icons/bi";
 import { CiViewList } from "react-icons/ci";
 import { IoIosArrowForward, IoIosHeartEmpty } from "react-icons/io";
 import { PiClockCountdown, PiUserList } from "react-icons/pi";
 import { RiCoupon2Line } from "react-icons/ri";
+import { t } from "i18next";
 
 function OverviewTabContent() {
-  const { setBreadcrumbs, lang } = useUserStore();
+  const { setBreadcrumbs, user } = useUserStore();
   const router = useRouter();
 
   useEffect(() => {
@@ -28,7 +29,8 @@ function OverviewTabContent() {
       { name: "home", url: "/" },
       { name: "account", url: "/account" },
     ]);
-  }, []);
+  }, [setBreadcrumbs]);
+
   return (
     <Stack width={1} gap={{ xs: 3, md: 4 }}>
       <Box
@@ -39,13 +41,27 @@ function OverviewTabContent() {
         flexDirection={"column"}
         gap={2}
       >
-        <Avatar
-          src={auth?.currentUser?.photoURL || "/assets/images/profile.webp"}
-          sx={{
-            width: { xs: 50, sm: 50, md: 60 },
-            height: { xs: 50, sm: 50, md: 60 },
-          }}
-        />
+        <Stack direction={"row"} alignItems={"center"} spacing={3}>
+          <Box width={{ xs: 50, md: 60 }} height={{ xs: 50, md: 60 }}>
+            <ImageFromFirebase
+              name={user?.getUser().image?.imageUrls[0] || ""}
+              width={"100%"}
+              quality={"240p"}
+              type={ImageType.user}
+              shape="circular"
+            />
+          </Box>
+          {(user?.getUser().firstName || user?.getUser().lastName) && (
+            <Typography
+              fontSize={"1.35rem"}
+              fontWeight={600}
+              color={"text.primary"}
+              letterSpacing={"1px"}
+            >
+              {user?.getUser().firstName} {user?.getUser().lastName}
+            </Typography>
+          )}
+        </Stack>
         <Grid container>
           <Grid item xs={4} sm={3}>
             <Box
@@ -67,7 +83,7 @@ function OverviewTabContent() {
                 letterSpacing={1}
                 fontWeight={{ xs: 300, sm: 400 }}
               >
-                {getLanguage("wishList", lang)}
+                {t("wishList")}
               </Typography>
             </Box>
           </Grid>
@@ -90,7 +106,7 @@ function OverviewTabContent() {
                 letterSpacing={1}
                 fontWeight={{ xs: 300, sm: 400 }}
               >
-                {getLanguage("following", lang)}
+                {t("following")}
               </Typography>
             </Box>
           </Grid>
@@ -115,7 +131,7 @@ function OverviewTabContent() {
                 letterSpacing={1}
                 fontWeight={{ xs: 300, sm: 400 }}
               >
-                {getLanguage("viewed", lang)}
+                {t("viewed")}
               </Typography>
             </Box>
           </Grid>
@@ -140,7 +156,7 @@ function OverviewTabContent() {
                 letterSpacing={1}
                 fontWeight={{ xs: 300, sm: 400 }}
               >
-                {getLanguage("coupons", lang)}
+                {t("coupons")}
               </Typography>
             </Box>
           </Grid>
@@ -159,7 +175,7 @@ function OverviewTabContent() {
             fontSize={{ xs: "1rem", sm: "1.4rem" }}
             fontWeight={{ xs: 300, sm: 500 }}
           >
-            {getLanguage("myOrders", lang)}
+            {t("myOrders")}
           </Typography>
           <Button
             onClick={() => router.push(accountTabList[1].link)}
@@ -175,7 +191,7 @@ function OverviewTabContent() {
             }
           >
             <Typography fontSize={{ xs: "0.8rem", sm: "1rem" }}>
-              {getLanguage("viewAll", lang)}
+              {t("viewAll")}
             </Typography>
           </Button>
         </Box>
@@ -205,7 +221,7 @@ function OverviewTabContent() {
                 letterSpacing={1}
                 sx={{ textWrap: "wrap" }}
               >
-                {getLanguage("unpaid", lang)}
+                {t("unpaid")}
               </Typography>
             </Box>
           </Grid>
@@ -223,7 +239,7 @@ function OverviewTabContent() {
               <Box width={{ xs: 35, sm: 45 }} height={{ xs: 35, sm: 45 }}>
                 <Avatar
                   variant={"rounded"}
-                  src="/assets/images/tobeshipped.webp"
+                  src="/assets/images/toBeShipped.webp"
                   sx={{ width: "inherit", height: "inherit" }}
                 />
               </Box>
@@ -233,7 +249,7 @@ function OverviewTabContent() {
                 sx={{ textWrap: "wrap" }}
                 textAlign={"center"}
               >
-                {getLanguage("toBeShipped", lang)}
+                {t("toBeShipped")}
               </Typography>
             </Box>
           </Grid>
@@ -251,7 +267,7 @@ function OverviewTabContent() {
               <Box width={{ xs: 35, sm: 45 }} height={{ xs: 35, sm: 45 }}>
                 <Avatar
                   variant={"rounded"}
-                  src="/assets/images/shippment.webp"
+                  src="/assets/images/shipment.webp"
                   sx={{ width: "inherit", height: "inherit" }}
                 />
               </Box>
@@ -261,7 +277,7 @@ function OverviewTabContent() {
                 textAlign={"center"}
                 sx={{ textWrap: "wrap" }}
               >
-                {getLanguage("shipped", lang)}
+                {t("shipped")}
               </Typography>
             </Box>
           </Grid>
@@ -279,7 +295,7 @@ function OverviewTabContent() {
               <Box width={{ xs: 35, sm: 45 }} height={{ xs: 35, sm: 45 }}>
                 <Avatar
                   variant={"rounded"}
-                  src="/assets/images/underreview.webp"
+                  src="/assets/images/underReview.webp"
                   sx={{ width: "inherit", height: "inherit" }}
                 />
               </Box>
@@ -289,7 +305,7 @@ function OverviewTabContent() {
                 textAlign={"center"}
                 sx={{ textWrap: "wrap" }}
               >
-                {getLanguage("toBeReviewed", lang)}
+                {t("toBeReviewed")}
               </Typography>
             </Box>
           </Grid>
@@ -319,7 +335,7 @@ function OverviewTabContent() {
           }
         >
           <Typography flex={1} textAlign={"left"} lineHeight={1}>
-            {getLanguage("myAppeal", lang)}
+            {t("myAppeal")}
           </Typography>
         </Button>
 
@@ -349,7 +365,7 @@ function OverviewTabContent() {
             flex={1}
             textAlign={"left"}
           >
-            {getLanguage("inDispute", lang)}
+            {t("inDispute")}
           </Typography>
         </Button>
       </Stack>
@@ -366,7 +382,7 @@ function OverviewTabContent() {
             fontSize={{ xs: "1rem", sm: "1.4rem" }}
             fontWeight={{ xs: 400, sm: 500 }}
           >
-            {getLanguage("moreToLove", lang)}
+            {t("moreToLove")}
           </Typography>
         </Box>
       </Stack>
@@ -401,7 +417,7 @@ function OverviewTabContent() {
             letterSpacing={0.5}
             fontSize={{ xs: "1rem", sm: "1.1rem" }}
           >
-            Settings
+            {t("settings")}
           </Typography>
         </Button>
 
@@ -427,7 +443,7 @@ function OverviewTabContent() {
             letterSpacing={0.5}
             fontSize={{ xs: "1rem", sm: "1.1rem" }}
           >
-            Help Center
+            {t("helpCenter")}
           </Typography>
         </Button>
 
@@ -453,7 +469,7 @@ function OverviewTabContent() {
             letterSpacing={0.5}
             fontSize={{ xs: "1rem", sm: "1.1rem" }}
           >
-            Suggestion
+            {t("suggestion")}
           </Typography>
         </Button>
       </Stack>

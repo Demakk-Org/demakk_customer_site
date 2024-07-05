@@ -12,21 +12,21 @@ import { LuClipboardList } from "react-icons/lu";
 import IconFromReactIcons from "@/component/IconFromReactIcons";
 import useOrderStore from "@/store/order";
 import getPrice from "@/utils/getPrice";
-import { useState } from "react";
-import getMonths from "@/utils/getMonths";
+import { Fragment, useState } from "react";
 import useUserStore from "@/store/user";
-import ImageFromCloudinary from "@/component/ImageFromCloudinary";
 import { GetOrder } from "@/model/orderModel";
 import Loading from "@/component/Loading";
 import getLanguage from "@/utils/getLanguage";
 import { orderStatus } from "./OrdersTabContent";
+import { useRouter } from "next/router";
+import ImageFromFirebase from "@/component/ImageFromFirebase";
+import orderStockVarietiesByMainFirst from "@/utils/orderStockVarieties";
 
 interface OrdersTabDisplayContainerProps {
   selectedOrderStatusType: number;
 }
 
 const copyToClipboard = (text: string, openSnackBar: Function) => {
-  console.log("text", text);
   var textField = document.createElement("textarea");
   textField.innerText = text;
   document.body.appendChild(textField);
@@ -42,6 +42,8 @@ function OrdersTabDisplayContainer({
   const { orderList, setOrder } = useOrderStore();
   const { lang } = useUserStore();
   const [copySnackBar, setCopySnackBar] = useState(false);
+
+  const router = useRouter();
 
   let OrderList: GetOrder[] | null =
     orderList &&
@@ -89,7 +91,7 @@ function OrdersTabDisplayContainer({
             fontWeight={300}
             textAlign={"center"}
           >
-            {getLanguage("noOrdersYet", lang)}, {getLanguage("please", lang)}{" "}
+            {getLanguage("noOrdersYet", lang)}, {getLanguage("please", lang)}
             <Typography
               component={"a"}
               color={"demakkPrimary.main"}
@@ -123,9 +125,8 @@ function OrdersTabDisplayContainer({
         });
 
         return (
-          <>
+          <Fragment key={index}>
             <Stack
-              key={index}
               bgcolor={"background.light"}
               p={"1.5rem"}
               gap={2}
@@ -165,19 +166,7 @@ function OrdersTabDisplayContainer({
                       fontSize={{ xs: "0.75rem", sm: "0.8rem" }}
                     >
                       {getLanguage("orderDate", lang)}:{" "}
-                      {getMonths({
-                        lang,
-                        index: new Date(
-                          order.getOrder().orderDate.toString()
-                        ).getMonth(),
-                      })}{" "}
-                      {new Date(
-                        order.getOrder().orderDate.toString()
-                      ).getDate()}
-                      ,{" "}
-                      {new Date(
-                        order.getOrder().orderDate.toString()
-                      ).getFullYear()}
+                      {new Date(order.getOrder().orderDate).toDateString()}
                     </Typography>
                     <Typography
                       color={"text.primary"}
@@ -216,7 +205,7 @@ function OrdersTabDisplayContainer({
                       px: { xs: "0.25rem", sm: "1rem" },
                     }}
                     onClick={() => {
-                      setOrder({ id: order.getOrder().id });
+                      router.push(`/order/${order.getOrder().id}`);
                     }}
                     endIcon={
                       <IconFromReactIcons
@@ -246,12 +235,13 @@ function OrdersTabDisplayContainer({
                     return (
                       <Stack direction={"row"} key={index} gap={2}>
                         <Box width={{ xs: "30%", md: "20%" }}>
-                          <ImageFromCloudinary
-                            publicId={orderItem.productVariant.imageUrl}
-                            width="100%"
+                          <ImageFromFirebase
+                            width={"100%"}
+                            quality="480p"
+                            name={orderItem.productVariant.imageUrl}
                           />
                         </Box>
-                        <Stack gap={{ xs: 0.25, sm: 1, md: 2 }} flex={1}>
+                        <Stack gap={{ xs: 0.25, sm: 1, md: 1.5 }} flex={1}>
                           <Typography
                             noWrap
                             color={"text.primary"}
@@ -272,17 +262,17 @@ function OrdersTabDisplayContainer({
                               </Typography>
                             }
                           >
-                            {orderItem.productVariant.stockVarieties.map(
-                              (stockVariety, index) => (
-                                <Typography
-                                  key={index}
-                                  component={"span"}
-                                  fontSize={{ xs: "0.85rem", md: "1rem" }}
-                                >
-                                  {stockVariety.value}
-                                </Typography>
-                              )
-                            )}
+                            {orderStockVarietiesByMainFirst(
+                              orderItem.productVariant.stockVarieties
+                            ).map((stockVariety, index) => (
+                              <Typography
+                                key={index}
+                                component={"span"}
+                                fontSize={{ xs: "0.85rem", md: "1rem" }}
+                              >
+                                {stockVariety.value}
+                              </Typography>
+                            ))}
                           </Stack>
                           <Stack direction={"row"} gap={2}>
                             <Typography
@@ -354,10 +344,10 @@ function OrdersTabDisplayContainer({
                 severity="success"
                 variant="filled"
               >
-                Copied to clipboard
+                {getLanguage("copiedToClipboard", lang)}
               </Alert>
             </Snackbar>
-          </>
+          </Fragment>
         );
       })}
     </>

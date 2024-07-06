@@ -1,7 +1,3 @@
-import useUserStore, { LANG } from "@/store/user";
-import getAddress from "@/utils/getAddress";
-import getLanguage from "@/utils/getLanguage";
-import { Close } from "@mui/icons-material";
 import {
   Avatar,
   Box,
@@ -17,12 +13,18 @@ import {
   Stack,
   Typography,
 } from "@mui/material";
-import { Dispatch, SetStateAction, useEffect, useState } from "react";
+import useUserStore, { LANG } from "@/store/user";
+import { Close } from "@mui/icons-material";
+import { useEffect, useState } from "react";
 import handleGoogleSignUp from "./libs/handleGoogleSignUp";
 import Loading from "@/component/Loading";
 import LoginComponent from "./components/LoginComponent";
 import RegisterComponent from "./components/RegisterComponent";
 import { demakkFont } from "@/pages/_app";
+import { AuthMethodTypes } from "./libs/handleContinueButton";
+import useTokenStore from "@/store/token";
+import usePageStore from "@/store/page";
+import { t } from "i18next";
 
 const style = {
   position: "absolute",
@@ -43,32 +45,27 @@ interface SmallDeviceLoginProps {
   open: boolean;
   handleClose: () => void;
   localAddress?: string;
-  setSnackBar: Dispatch<
-    SetStateAction<{
-      type: "success" | "error";
-      open: boolean;
-      message: string;
-    }>
-  >;
 }
 
 function SmallDeviceLogin({
   open,
   handleClose,
   localAddress,
-  setSnackBar,
 }: SmallDeviceLoginProps) {
   const { lang, address, setAddress, setLang } = useUserStore();
+  const { token, setToken } = useTokenStore();
+  const { setSnackBar } = usePageStore();
 
-  const [showPass, setShowPass] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
   const [continueStage, setContinueStage] = useState(false);
-  const [type, setType] = useState<"login" | "register">("login");
+  const [type, setType] = useState<AuthMethodTypes>(AuthMethodTypes.logIn);
   const [loading, setLoading] = useState(false);
-  console.log(continueStage);
 
   useEffect(() => {
     setContinueStage(false);
-  }, [type]);
+
+    if (token) handleClose();
+  }, [type, token, handleClose]);
 
   return (
     <Modal
@@ -89,7 +86,7 @@ function SmallDeviceLogin({
             color={"demakkPrimary.dark"}
             display={{ sm: "none" }}
           >
-            {getLanguage("demakk", lang)}
+            {t("demakk")}
           </Typography>
           <Box
             display={"flex"}
@@ -107,8 +104,8 @@ function SmallDeviceLogin({
                 gap: "0.25rem",
               }}
               onClick={() => {
-                setType("register");
-                setShowPass(false);
+                setType(AuthMethodTypes.register);
+                setShowPassword(false);
               }}
             >
               <Typography
@@ -116,7 +113,7 @@ function SmallDeviceLogin({
                 textTransform={"capitalize"}
                 fontWeight={type == "register" ? "bold" : "initial"}
               >
-                {getLanguage("register", lang)}
+                {t("register")}
               </Typography>
               <Grow in={type == "register"} timeout={500}>
                 <Box
@@ -136,8 +133,8 @@ function SmallDeviceLogin({
                 justifyContent: "center",
               }}
               onClick={() => {
-                setType("login");
-                setShowPass(false);
+                setType(AuthMethodTypes.logIn);
+                setShowPassword(false);
               }}
             >
               <Typography
@@ -145,7 +142,7 @@ function SmallDeviceLogin({
                 textTransform={"capitalize"}
                 fontWeight={type == "login" ? "bolder" : "initial"}
               >
-                {getLanguage("logIn", lang)}
+                {t("logIn")}
               </Typography>
               <Grow in={type == "login"} timeout={500}>
                 <Box
@@ -166,13 +163,12 @@ function SmallDeviceLogin({
               mt: "1rem",
             }}
           >
-            {type == "register" && (
+            {type == AuthMethodTypes.register && (
               <Slide in={true} direction={"right"}>
                 <Box>
                   <RegisterComponent
                     setContinueStage={setContinueStage}
                     handleClose={handleClose}
-                    setSnackBar={setSnackBar}
                     setLoading={setLoading}
                     continueStage={continueStage}
                   />
@@ -180,13 +176,12 @@ function SmallDeviceLogin({
               </Slide>
             )}
 
-            {type == "login" && (
+            {type == AuthMethodTypes.logIn && (
               <Slide in={true} direction={"left"}>
                 <Box>
                   <LoginComponent
                     setContinueStage={setContinueStage}
                     handleClose={handleClose}
-                    setSnackBar={setSnackBar}
                     setLoading={setLoading}
                     continueStage={continueStage}
                   />
@@ -201,7 +196,7 @@ function SmallDeviceLogin({
                 fontSize={"0.85rem"}
                 color={"text.primary"}
               >
-                {getLanguage("orContinueWith", lang)}
+                {t("orContinueWith")}
               </Typography>
             </Divider>
             <Box
@@ -218,10 +213,12 @@ function SmallDeviceLogin({
                 color="primary"
                 onClick={() =>
                   handleGoogleSignUp({
+                    requestFrom: "modal",
                     setSnackBar,
                     handleClose,
                     lang,
                     setLoading,
+                    setToken,
                   })
                 }
               >
@@ -241,12 +238,11 @@ function SmallDeviceLogin({
                 textAlign={"center"}
                 mt={{ xs: "0.5rem", sm: "1.5rem" }}
               >
-                {getLanguage("registerPolicy", lang)}
+                {t("registerPolicy")}
               </Typography>
             )}
           </Box>
 
-          {/* select language component */}
           <Stack alignItems={"center"} mt={4}>
             <Box
               className="language--container"
@@ -261,7 +257,7 @@ function SmallDeviceLogin({
                 fontSize={{ xs: "0.85rem", sm: "1rem" }}
                 fontWeight={600}
               >
-                {getLanguage("language", lang)}
+                {t("language")}
               </Typography>
               <FormControl sx={{}}>
                 <Select
@@ -280,19 +276,15 @@ function SmallDeviceLogin({
                   }}
                 >
                   <MenuItem value={LANG.en} sx={{ minHeight: "unset" }}>
-                    <Typography fontSize={"0.8rem"}>
-                      {getLanguage("english", lang)}
-                    </Typography>
+                    <Typography fontSize={"0.8rem"}>{t("english")}</Typography>
                   </MenuItem>
                   <MenuItem value={LANG.or} sx={{ minHeight: "unset" }}>
                     <Typography fontSize={"0.8rem"}>
-                      {getLanguage("afanOromo", lang)}
+                      {t("afanOromo")}
                     </Typography>
                   </MenuItem>
                   <MenuItem value={LANG.am} sx={{ minHeight: "unset" }}>
-                    <Typography fontSize={"0.8rem"}>
-                      {getLanguage("amharic", lang)}
-                    </Typography>
+                    <Typography fontSize={"0.8rem"}>{t("amharic")}</Typography>
                   </MenuItem>
                 </Select>
               </FormControl>

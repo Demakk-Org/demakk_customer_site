@@ -16,7 +16,7 @@ function FooterLink({ name, url }: FooterLinkInterface) {
         sx={{
           color: "text.links",
           "&:hover": {
-            color: "demakkPrimary.main",
+            color: "demakkSecondary.main",
           },
         }}
       >

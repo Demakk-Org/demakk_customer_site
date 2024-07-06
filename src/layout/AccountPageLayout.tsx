@@ -1,9 +1,9 @@
 import AccountPageBreadcrumbs from "@/features/AccountPage/Breadcrumbs";
 import TopNavigationBar from "@/features/AccountPage/TopNavigation";
 import SmallDeviceLogin from "@/features/Login/smallDeviceLogin";
-import { auth } from "@/firebase/firebase";
+import usePageStore from "@/store/page";
+import useTokenStore from "@/store/token";
 import useUserStore from "@/store/user";
-import getLanguage from "@/utils/getLanguage";
 import {
   Alert,
   Box,
@@ -14,8 +14,9 @@ import {
   Stack,
   Typography,
 } from "@mui/material";
+import { t } from "i18next";
 import { useRouter } from "next/router";
-import React, { ReactElement, useEffect, useState } from "react";
+import { ReactElement, useEffect, useState } from "react";
 
 export const accountTabList = [
   { name: "overview", link: "/account" },
@@ -43,23 +44,21 @@ function AccountPageLayout({
   pageType,
   selectedTab,
 }: IAccountPageLayout) {
-  const { lang } = useUserStore();
-
   const router = useRouter();
+  const { lang, setUser } = useUserStore();
+  const { token } = useTokenStore();
+  const { snackBar, setSnackBar } = usePageStore();
+
   const [openAccountModal, setOpenAccountModal] = useState(false);
-  const [snackBar, setSnackBar] = useState<{
-    type: "success" | "error";
-    open: boolean;
-    message: string;
-  }>({ type: "success", message: "Hello World!", open: false });
-  console.log(auth?.currentUser);
 
   useEffect(() => {
-    if (auth?.currentUser) {
+    if (token) {
+      setUser(token);
       return;
     }
+
     setOpenAccountModal(true);
-  }, []);
+  }, [token, setUser]);
 
   return (
     <Box
@@ -69,9 +68,8 @@ function AccountPageLayout({
       position={"relative"}
     >
       <TopNavigationBar
-        setSnackBar={setSnackBar}
         setOpenAccountModal={setOpenAccountModal}
-        pageType={getLanguage(pageType, lang)}
+        pageType={t(pageType)}
       />
 
       <Box
@@ -94,7 +92,7 @@ function AccountPageLayout({
                 pb={"0.5rem"}
                 fontSize={{ sm: "0.9rem", md: "1.1rem" }}
               >
-                {getLanguage("account", lang)}
+                {t("account")}
               </Typography>
 
               {accountTabList.map((button, index) => {
@@ -123,7 +121,7 @@ function AccountPageLayout({
                         },
                       }}
                     >
-                      {getLanguage(button.name, lang)}
+                      {t(button.name)}
                     </Button>
                   );
                 } else {
@@ -144,23 +142,16 @@ function AccountPageLayout({
       <SmallDeviceLogin
         open={openAccountModal}
         handleClose={() => setOpenAccountModal(false)}
-        setSnackBar={setSnackBar}
       />
 
-      {/* {snackBar?.open && ( */}
       <Snackbar
         autoHideDuration={2500}
         open={snackBar?.open}
-        onClose={() =>
-          setSnackBar((p) => ({
-            ...p,
-            open: false,
-          }))
-        }
+        onClose={() => setSnackBar(null)}
         anchorOrigin={{ horizontal: "center", vertical: "top" }}
       >
         <Alert
-          onClose={() => setSnackBar((p) => ({ ...p, open: false }))}
+          onClose={() => setSnackBar(null)}
           severity={snackBar?.type}
           variant="filled"
           sx={{ width: "100%" }}
@@ -168,7 +159,6 @@ function AccountPageLayout({
           {snackBar?.message}
         </Alert>
       </Snackbar>
-      {/* )} */}
     </Box>
   );
 }

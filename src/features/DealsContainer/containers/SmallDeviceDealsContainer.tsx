@@ -1,19 +1,18 @@
 import { Box, Button, Typography } from "@mui/material";
-
 import CarouselContainer from "@/component/CarouselContainer";
 import DealsComponentForMobile from "../components/DealsComponentForMobile";
 import { ArrowForwardIos } from "@mui/icons-material";
 import { Breakpoints } from "@/data/carouselBreakPoints";
-import getLanguage from "@/utils/getLanguage";
 import useUserStore from "@/store/user";
 import useDiscountStore from "@/store/discount";
 import { Fragment } from "react";
+import { t } from "i18next";
 
 function SmallDeviceDealsContainer() {
   const { lang } = useUserStore();
-  const { deal, discount } = useDiscountStore();
+  const { deals, discount } = useDiscountStore();
 
-  if (!deal) return <></>;
+  if (!deals.length) return <></>;
 
   return (
     <Box
@@ -29,7 +28,7 @@ function SmallDeviceDealsContainer() {
         color={"text.primary"}
         letterSpacing={"1.5px"}
       >
-        {deal[0].getDeal().dealType.name}
+        {deals[0].getDeal().dealType.name}
       </Typography>
       <Typography
         pl={{ sm: "1rem" }}
@@ -38,7 +37,7 @@ function SmallDeviceDealsContainer() {
         letterSpacing={0.5}
         color={"text.primary"}
       >
-        {deal[0].getDeal().dealType.subTitle}
+        {deals[0].getDeal().dealType.subTitle}
       </Typography>
       <Box width={1} mt={1}>
         <CarouselContainer
@@ -46,7 +45,7 @@ function SmallDeviceDealsContainer() {
           infinite={false}
           animate={false}
         >
-          {deal[0]
+          {deals[0]
             .getAllProductsForDeal()
             .slice(0, 5)
             .map((product) => (
@@ -68,7 +67,7 @@ function SmallDeviceDealsContainer() {
               endIcon={<ArrowForwardIos />}
               sx={{ color: "text.primary" }}
             >
-              {getLanguage("more", lang)}
+              {t("more")}
             </Button>
           </Box>
         </CarouselContainer>

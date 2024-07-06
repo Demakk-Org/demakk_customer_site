@@ -1,5 +1,3 @@
-import data from "@/data/library";
-import getAddress from "@/utils/getAddress";
 import {
   Box,
   Button,
@@ -12,27 +10,26 @@ import {
   Select,
   Typography,
 } from "@mui/material";
+import { Cancel, Circle, Visibility, VisibilityOff } from "@mui/icons-material";
+import data from "@/data/library";
+import getAddress from "@/utils/getAddress";
 import LoginMenuItems from "./LoginMenuItems";
 import handleEmailChange from "../libs/handleEmailChange";
-import getLanguage from "@/utils/getLanguage";
 import handleClearEmailInput from "../libs/handleClearEmailInput";
-import { Cancel, Circle, Visibility, VisibilityOff } from "@mui/icons-material";
 import handlePasswordChange from "../libs/handlePasswordChange";
-import useUserStore from "@/store/user";
 import { useState } from "react";
-import handleContinueButton from "../libs/handleContinueButton";
+import handleContinueButton, {
+  AuthMethodTypes,
+} from "../libs/handleContinueButton";
 import { demakkFont } from "@/pages/_app";
+import useTokenStore from "@/store/token";
+import useUserStore from "@/store/user";
+import usePageStore from "@/store/page";
+import { t } from "i18next";
 
 interface IRegisterComponent {
   setContinueStage: React.Dispatch<React.SetStateAction<boolean>>;
   continueStage: boolean;
-  setSnackBar: React.Dispatch<
-    React.SetStateAction<{
-      type: "success" | "error";
-      open: boolean;
-      message: string;
-    }>
-  >;
   handleClose: () => void;
   setLoading: React.Dispatch<React.SetStateAction<boolean>>;
 }
@@ -40,12 +37,15 @@ interface IRegisterComponent {
 function RegisterComponent({
   setContinueStage,
   continueStage,
-  setSnackBar,
   handleClose,
   setLoading,
 }: IRegisterComponent) {
   const { lang, address, setAddress } = useUserStore();
+  const { setToken } = useTokenStore();
+  const { setSnackBar } = usePageStore();
+
   const [showPass, setShowPass] = useState(false);
+  console.log(continueStage);
 
   return (
     <Box display={"flex"} flexDirection={"column"} gap={"1rem"}>
@@ -67,7 +67,7 @@ function RegisterComponent({
             variant={"standard"}
             id="demo-simple-select-label"
           >
-            {getLanguage("yourLocation", lang)}:
+            {t("yourLocation")}:
           </InputLabel>
           <Select
             name="address"
@@ -114,7 +114,7 @@ function RegisterComponent({
         size="small"
         fullWidth
         sx={{ m: "0.5rem 0", bgcolor: "background.paper" }}
-        placeholder={getLanguage("email", lang)}
+        placeholder={t("email")}
         endAdornment={
           <InputAdornment position="end">
             <IconButton
@@ -140,7 +140,7 @@ function RegisterComponent({
               value: target.value,
               setContinueStage,
               requestForm: "modal",
-              type: "register",
+              type: AuthMethodTypes.register,
             })
           }
           name="new-password"
@@ -148,7 +148,7 @@ function RegisterComponent({
           size="small"
           fullWidth
           type={showPass ? "text" : "password"}
-          placeholder={getLanguage("password", lang)}
+          placeholder={t("password")}
           sx={{ bgcolor: "background.paper" }}
           endAdornment={
             <InputAdornment position="end">
@@ -170,14 +170,12 @@ function RegisterComponent({
         >
           <Box display={"flex"} gap={"0.5rem"} alignItems={"center"}>
             <Circle sx={{ fontSize: "6px" }} />
-            <Typography fontSize={"0.7rem"}>
-              6-20 {getLanguage("characters", lang)}
-            </Typography>
+            <Typography fontSize={"0.7rem"}>6-20 {t("characters")}</Typography>
           </Box>
           <Box display={"flex"} gap={"0.5rem"} alignItems={"center"}>
             <Circle sx={{ fontSize: "6px" }} />
             <Typography fontSize={"0.7rem"}>
-              {getLanguage("containsNumberLetterOrSymbol", lang)}
+              {t("containsNumberLetterOrSymbol")}
             </Typography>
           </Box>
         </Box>
@@ -202,14 +200,15 @@ function RegisterComponent({
             handleContinueButton({
               setSnackBar,
               handleClose,
-              type: "register",
+              type: AuthMethodTypes.register,
               setLoading,
               requestFrom: "modal",
               lang,
+              setToken,
             })
           }
         >
-          {getLanguage("createAccount", lang)}
+          {t("createAccount")}
         </Button>
       </span>
       <Box
@@ -219,7 +218,7 @@ function RegisterComponent({
         fontSize={"0.75rem"}
         sx={{ color: "text.secondary" }}
       >
-        {getLanguage("troubleSigningIn", lang)}
+        {t("troubleSigningIn")}
       </Box>
     </Box>
   );

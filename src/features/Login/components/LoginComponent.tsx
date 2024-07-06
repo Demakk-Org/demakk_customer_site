@@ -1,6 +1,6 @@
-import useUserStore from "@/store/user";
-import getLanguage from "@/utils/getLanguage";
+import { useState } from "react";
 import { Cancel, Visibility, VisibilityOff } from "@mui/icons-material";
+import { demakkFont } from "@/pages/_app";
 import {
   Box,
   Button,
@@ -8,23 +8,22 @@ import {
   InputAdornment,
   OutlinedInput,
 } from "@mui/material";
-import React, { useState } from "react";
+
 import handleEmailChange from "../libs/handleEmailChange";
 import handleClearEmailInput from "../libs/handleClearEmailInput";
 import handlePasswordChange from "../libs/handlePasswordChange";
-import { demakkFont } from "@/pages/_app";
-import handleContinueButton from "../libs/handleContinueButton";
+import handleContinueButton, {
+  AuthMethodTypes,
+} from "../libs/handleContinueButton";
+
+import useUserStore from "@/store/user";
+import useTokenStore from "@/store/token";
+import usePageStore from "@/store/page";
+import { t } from "i18next";
 
 interface ILoginComponent {
   setContinueStage: React.Dispatch<React.SetStateAction<boolean>>;
   continueStage: boolean;
-  setSnackBar: React.Dispatch<
-    React.SetStateAction<{
-      type: "success" | "error";
-      open: boolean;
-      message: string;
-    }>
-  >;
   handleClose: () => void;
   setLoading: React.Dispatch<React.SetStateAction<boolean>>;
 }
@@ -32,11 +31,13 @@ interface ILoginComponent {
 const LoginComponent = ({
   setContinueStage,
   continueStage,
-  setSnackBar,
   handleClose,
   setLoading,
 }: ILoginComponent) => {
   const { lang, setRefresh } = useUserStore();
+  const { setToken } = useTokenStore();
+  const { setSnackBar } = usePageStore();
+
   const [showPass, setShowPass] = useState(false);
   return (
     <Box display={"flex"} flexDirection={"column"} gap={"1rem"}>
@@ -52,7 +53,7 @@ const LoginComponent = ({
         }
         size={"small"}
         fullWidth
-        placeholder={getLanguage("email", lang)}
+        placeholder={t("email")}
         sx={{ bgcolor: "background.paper" }}
         endAdornment={
           <InputAdornment position="end">
@@ -78,13 +79,13 @@ const LoginComponent = ({
         onChange={({ target }) =>
           handlePasswordChange({
             value: target.value,
-            type: "log-in",
+            type: AuthMethodTypes.logIn,
             setContinueStage,
             requestForm: "modal",
           })
         }
         type={showPass ? "text" : "password"}
-        placeholder={getLanguage("password", lang)}
+        placeholder={t("password")}
         sx={{ bgcolor: "background.paper" }}
         endAdornment={
           <InputAdornment position="end">
@@ -105,7 +106,7 @@ const LoginComponent = ({
         fontSize={"0.75rem"}
         sx={{ color: "primary.dark" }}
       >
-        {getLanguage("forgotPassword", lang)}
+        {t("forgotPassword")}
       </Box>
       <span
         style={{
@@ -127,15 +128,15 @@ const LoginComponent = ({
             handleContinueButton({
               setSnackBar,
               handleClose,
-              type: "log-in",
+              type: AuthMethodTypes.logIn,
               setLoading,
               requestFrom: "modal",
               lang,
-              setRefresh: () => setRefresh(),
+              setToken,
             })
           }
         >
-          {getLanguage("signIn", lang)}
+          {t("signIn")}
         </Button>
       </span>
     </Box>

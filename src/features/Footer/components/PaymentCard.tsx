@@ -2,14 +2,17 @@ import { Box, Grid } from "@mui/material";
 
 interface PaymentCardInterface {
   url: string;
+  xs?: number;
+  sm?: number;
+  lg?: number;
 }
 
-function PaymentCard({ url }: PaymentCardInterface) {
+function PaymentCard({ url, xs, sm, lg }: PaymentCardInterface) {
   return (
-    <Grid item xs={1.5} sm={3} lg={2}>
+    <Grid item xs={xs || 1.5} sm={sm || 3} lg={lg || 2}>
       <Box
-        borderRadius={"0.5rem"}
-        bgcolor={"background.lighter"}
+        borderRadius={"0.25rem"}
+        bgcolor={"background.lightOpaque"}
         width={1}
         component={"img"}
         src={url || "/assets/images/pay5.webp"}

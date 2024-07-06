@@ -1,54 +1,119 @@
-import { auth } from "@/firebase/firebase";
-import { local, server } from "@/hooks/getProducts";
-import useUserStore, { LANG } from "@/store/user";
-import getLanguage from "@/utils/getLanguage";
 import axios from "axios";
-import {
-  createUserWithEmailAndPassword,
-  signInWithEmailAndPassword,
-} from "firebase/auth";
+import { ISnackBar } from "@/store/page";
+import { LANG, Providers, chosenBackendUrl } from "@/store/user";
 import { NextRouter } from "next/router";
 import { Dispatch, SetStateAction } from "react";
+import { t } from "i18next";
+
+export enum AuthMethodTypes {
+  logIn = "login",
+  register = "register",
+  mixed = "mixed",
+}
 
 type IHandleContinueButtonProps = {
-  setSnackBar: Dispatch<
-    SetStateAction<{
-      type: "success" | "error";
-      open: boolean;
-      message: string;
-    }>
-  >;
-  setLoading: Dispatch<SetStateAction<boolean>>;
+  setSnackBar: (snackBar: ISnackBar) => void;
+  setLoading: (value: boolean) => void;
   lang: LANG;
-  setRefresh: () => void;
+  setToken: (token: string) => void;
 } & (
   | {
       requestFrom: "modal";
-      type: "log-in" | "register";
+      type: AuthMethodTypes;
       handleClose: () => void;
     }
-  | {
-      requestFrom: "page";
+  | ({
       continueStage: boolean;
-      router: NextRouter;
       setContinueStage: Dispatch<SetStateAction<boolean>>;
       userExists: boolean;
       setUserExists: Dispatch<SetStateAction<boolean>>;
       setContinueButton: Dispatch<SetStateAction<boolean>>;
-    }
+    } & (
+      | {
+          requestFrom: "page";
+          router: NextRouter;
+        }
+      | {
+          requestFrom: "mixed";
+          handleClose: () => void;
+        }
+    ))
 );
+interface HandleAuthProps {
+  account: string;
+  password: string;
+  setSnackBar: (snackBar: ISnackBar) => void;
+  lang: LANG;
+  provider: Providers;
+  setToken: (token: string) => void;
+  setLoading: (value: boolean) => void;
+  handleClose?: () => void;
+  type: AuthMethodTypes;
+  router?: NextRouter;
+}
+
+const handleAuth = ({
+  account,
+  password,
+  lang,
+  provider,
+
+  type,
+  setSnackBar,
+  setToken,
+  setLoading,
+  handleClose,
+  router,
+}: HandleAuthProps) => {
+  axios
+    .post(
+      `${chosenBackendUrl}/auth${
+        type == AuthMethodTypes.logIn ? "/login" : ""
+      }`,
+      {
+        account,
+        password,
+        provider,
+        lang,
+      }
+    )
+    .then((res) => {
+      setSnackBar({
+        type: "success",
+        message: t(
+          type == AuthMethodTypes.logIn
+            ? "loggedInSuccessfully"
+            : "userCreatedSuccessfully"
+        ),
+        open: true,
+      });
+      setToken(res.data.data);
+      setLoading(false);
+      handleClose && handleClose();
+      router && router.back();
+    })
+    .catch((error) => {
+      console.log(error);
+      setLoading(false);
+      setSnackBar({
+        type: "error",
+        message:
+          error?.response?.data?.message || "Server error, please try again!",
+        open: true,
+      });
+    });
+};
 
 const handleContinueButton = (props: IHandleContinueButtonProps) => {
   const account = (document.getElementById("login--email") as HTMLInputElement)
     .value;
 
-  if (props.requestFrom == "page") {
+  if (props.requestFrom !== "modal") {
     props.setLoading(true);
     if (!props.continueStage) {
       axios
-        .post(`${server}/user/exists`, { phoneOrEmail: account })
+        .post(`${chosenBackendUrl}/user/exists`, { phoneOrEmail: account })
         .then(({ data }) => {
-          console.log(data.data.exists);
           props.setUserExists(data.data.exists);
           props.setContinueStage(true);
           props.setContinueButton(false);
@@ -58,7 +123,7 @@ const handleContinueButton = (props: IHandleContinueButtonProps) => {
           props.setContinueStage(true);
           props.setSnackBar({
             type: "error",
-            message: getLanguage("userDoesNotExistRegisterFirst", props.lang),
+            message: t("userDoesNotExistRegisterFirst"),
             open: true,
           });
         })
@@ -72,59 +137,35 @@ const handleContinueButton = (props: IHandleContinueButtonProps) => {
 
       if (props.userExists) {
         props.setLoading(true);
-        signInWithEmailAndPassword(auth, account, password)
-          .then(async (userCredential) => {
-            props.setSnackBar({
-              type: "success",
-              message: getLanguage("loggedInSuccessfully", props.lang),
-              open: true,
-            });
-            props.setRefresh();
-          })
-          .catch((error) => {
-            props.setSnackBar({
-              type: "error",
-              message: error.message,
-              open: true,
-            });
-          })
-          .finally(() => {
-            props.router.push("/account");
-          });
-      } else {
-        createUserWithEmailAndPassword(auth, account, password)
-          .then(async (userCredential) => {
-            console.log(userCredential);
-            let { email, displayName } = userCredential.user;
-            let [firstName, lastName] = displayName?.split(" ") || [];
 
-            return axios
-              .post(`${server}/auth/`, {
-                account: email,
-                password,
-                confirmPassword: password,
-                firstName,
-                lastName,
-                firebaseId: userCredential.user.uid,
-              })
-              .then((response) => {
-                props.setSnackBar({
-                  type: "success",
-                  message: getLanguage("userCreatedSuccessfully", props.lang),
-                  open: true,
-                });
-              });
-          })
-          .catch((error) => {
-            props.setSnackBar({
-              type: "error",
-              message: error.message,
-              open: true,
-            });
-          })
-          .finally(() => {
-            props.router.push("/account");
-          });
+        handleAuth({
+          account,
+          password,
+          type: AuthMethodTypes.logIn,
+
+          provider: Providers.password,
+          lang: props.lang,
+          setSnackBar: props.setSnackBar,
+          setToken: props.setToken,
+          setLoading: props.setLoading,
+          handleClose:
+            props.requestFrom == "mixed" ? props.handleClose : undefined,
+          router: props.requestFrom == "page" ? props.router : undefined,
+        });
+      } else {
+        handleAuth({
+          account,
+          password,
+          type: AuthMethodTypes.register,
+
+          setSnackBar: props.setSnackBar,
+          lang: props.lang,
+          provider: Providers.password,
+          setToken: props.setToken,
+          setLoading: props.setLoading,
+          handleClose:
+            props.requestFrom == "mixed" ? props.handleClose : undefined,
+        });
       }
     }
   }
@@ -136,27 +177,34 @@ const handleContinueButton = (props: IHandleContinueButtonProps) => {
       document.getElementById("login--password") as HTMLInputElement
     ).value;
 
-    if (props.type == "log-in") {
-      signInWithEmailAndPassword(auth, account, password)
-        .then(async (userCredential) => {
-          props.setSnackBar({
-            type: "success",
-            message: getLanguage("loggedInSuccessfully", props.lang),
-            open: true,
-          });
-          props.handleClose();
-          props.setRefresh();
-        })
-        .catch((error) => {
-          props.setSnackBar({
-            type: "error",
-            message: error.message,
-            open: true,
-          });
-        })
-        .finally(() => {
-          props.setLoading(false);
-        });
+    if (props.type == AuthMethodTypes.logIn) {
+      handleAuth({
+        account,
+        password,
+        type: AuthMethodTypes.logIn,
+
+        provider: Providers.password,
+        lang: props.lang,
+        setSnackBar: props.setSnackBar,
+        setToken: props.setToken,
+        setLoading: props.setLoading,
+        handleClose: props.handleClose,
+      });
+    }
+
+    if (props.type == "register") {
+      handleAuth({
+        account,
+        password,
+        type: AuthMethodTypes.register,
+
+        provider: Providers.password,
+        lang: props.lang,
+        setSnackBar: props.setSnackBar,
+        setToken: props.setToken,
+        setLoading: props.setLoading,
+        handleClose: props.handleClose,
+      });
     }
   }
 };

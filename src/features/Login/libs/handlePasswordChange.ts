@@ -1,4 +1,5 @@
 import { textValidator } from "@/utils/emailValidator";
+import { AuthMethodTypes } from "./handleContinueButton";
 
 type HandlePasswordChangeProps = {
   value: string;
@@ -6,7 +7,7 @@ type HandlePasswordChangeProps = {
 } & (
   | {
       requestForm: "modal";
-      type: "log-in" | "register";
+      type: AuthMethodTypes;
     }
   | {
       requestForm: "page";
@@ -15,14 +16,18 @@ type HandlePasswordChangeProps = {
 );
 
 export default function handlePasswordChange(props: HandlePasswordChangeProps) {
-  const buttonState = textValidator(props.value, "password");
+  const isPasswordValidated = textValidator(props.value, "password");
   const email = (document.getElementById("login--email") as HTMLInputElement)
     .value;
 
-  const emailState = textValidator(email, "email");
+  const isEmailValidated = textValidator(email, "email");
+  console.log(
+    textValidator("r3CdPcZ6b4Ev2gf-", "password"),
+    isPasswordValidated
+  );
 
   if (props.requestForm == "modal") {
-    if ((buttonState || props.type) && emailState) {
+    if (isPasswordValidated && isEmailValidated) {
       props.setContinueStage(true);
     } else {
       props.setContinueStage(false);
@@ -30,7 +35,7 @@ export default function handlePasswordChange(props: HandlePasswordChangeProps) {
   }
 
   if (props.requestForm == "page") {
-    if (buttonState && emailState) {
+    if (isPasswordValidated && isEmailValidated) {
       props.setContinueButton(true);
     }
   }

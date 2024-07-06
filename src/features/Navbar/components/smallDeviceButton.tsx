@@ -4,12 +4,14 @@ interface SmallDeviceButtonProps {
   title: string;
   startImage?: string | JSX.Element;
   endImage?: string | JSX.Element;
+  action?: Function;
 }
 
 function SmallDeviceButton({
   title,
   startImage,
   endImage,
+  action,
 }: SmallDeviceButtonProps) {
   return (
     <Button
@@ -24,6 +26,7 @@ function SmallDeviceButton({
           bgcolor: "action.hover",
         },
       }}
+      onClick={() => action && action()}
     >
       {startImage && (
         <Avatar
@@ -69,15 +72,13 @@ function SmallDeviceButton({
             ml: "auto",
           }}
         >
-          {typeof endImage !== "string" ? (
+          {typeof endImage !== "string" && (
             <Box
               display={"flex"}
               sx={{ fontSize: { xs: "1.5rem", sm: "2.5rem", md: "1.25rem" } }}
             >
               {endImage}
             </Box>
-          ) : (
-            <></>
           )}
         </Avatar>
       )}

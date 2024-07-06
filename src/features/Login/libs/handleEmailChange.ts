@@ -18,7 +18,9 @@ type HandleEmailChangeProps = {
 );
 
 export default function handleEmailChange(props: HandleEmailChangeProps) {
-  const buttonState = textValidator(props.value, "email");
+  const email = (document.getElementById("login--email") as HTMLInputElement)
+    .value;
+  const buttonState = textValidator(email, "email");
 
   if (props.requestFrom == "modal") {
     const password = (

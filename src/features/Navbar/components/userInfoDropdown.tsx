@@ -1,4 +1,4 @@
-import { Avatar, Box, Button, Divider, Grid, Typography } from "@mui/material";
+import { Box, Button, Divider, Grid, Typography } from "@mui/material";
 import { LuClipboardList } from "react-icons/lu";
 import { RiCopperCoinLine } from "react-icons/ri";
 import { AiOutlineMessage } from "react-icons/ai";
@@ -11,14 +11,20 @@ import {
 import useUserStore from "@/store/user";
 
 import SmallDeviceButton from "./smallDeviceButton";
-import getLanguage from "@/utils/getLanguage";
+import { useRouter } from "next/router";
+import useTokenStore from "@/store/token";
+import ImageFromFirebase from "@/component/ImageFromFirebase";
+import { ImageType } from "@/component/FirebaseImageUploadComponent";
+import { t } from "i18next";
 
 interface UserInfoDropdownProps {
   openLogin: () => void;
 }
 
 function UserInfoDropdown({ openLogin }: UserInfoDropdownProps) {
-  const { user, setUser, signOut, lang } = useUserStore();
+  const { lang, user, signOut } = useUserStore();
+  const { setToken } = useTokenStore();
+  const router = useRouter();
   return (
     <>
       <Box
@@ -51,7 +57,7 @@ function UserInfoDropdown({ openLogin }: UserInfoDropdownProps) {
               }}
               onClick={() => openLogin()}
             >
-              {getLanguage("logIn", lang)}
+              {t("logIn")}
             </Button>
             <Button
               variant="text"
@@ -63,9 +69,9 @@ function UserInfoDropdown({ openLogin }: UserInfoDropdownProps) {
                 color: "demakkPrimary.contrastText",
                 textTransform: "capitalize",
               }}
-              onClick={() => setUser({ name: "Solen" })}
+              onClick={() => router.push("/login")}
             >
-              {getLanguage("register", lang)}
+              {t("register")}
             </Button>
           </>
         ) : (
@@ -75,10 +81,16 @@ function UserInfoDropdown({ openLogin }: UserInfoDropdownProps) {
               container
               display={"flex"}
               alignItems={"center"}
-              gap={1}
+              spacing={1}
             >
-              <Grid item display={"flex"}>
-                <Avatar src={user?.img || "/assets/images/profile.webp"} />
+              <Grid item md={3} display={"flex"}>
+                <ImageFromFirebase
+                  name={user?.getUser().image.imageUrls[0]}
+                  quality="240p"
+                  shape="circular"
+                  width={"100%"}
+                  type={ImageType.user}
+                />
               </Grid>
               <Grid item md={9} display={"flex"}>
                 <Typography
@@ -87,16 +99,19 @@ function UserInfoDropdown({ openLogin }: UserInfoDropdownProps) {
                   fontWeight={400}
                   fontSize={"0.9rem"}
                 >
-                  {getLanguage("welcomeBack", lang)},{" "}
+                  {t("welcomeBack")},&nbsp;
                   <Box component={"span"} fontWeight={"bold"}>
-                    {user.name}
+                    {user?.getUser().firstName}
                   </Box>
                 </Typography>
               </Grid>
             </Grid>
             <Box width={1} display={"flex"} alignItems={"center"} gap={1}>
               <Button
-                onClick={() => signOut()}
+                onClick={() => {
+                  signOut();
+                  setToken(null);
+                }}
                 variant="text"
                 sx={{
                   ml: "48px",
@@ -104,7 +119,7 @@ function UserInfoDropdown({ openLogin }: UserInfoDropdownProps) {
                   color: "text.primary",
                 }}
               >
-                {getLanguage("signOut", lang)}
+                {t("signOut")}
               </Button>
             </Box>
           </>
@@ -114,34 +129,36 @@ function UserInfoDropdown({ openLogin }: UserInfoDropdownProps) {
 
         <SmallDeviceButton
           startImage={<LuClipboardList fontSize={"inherit"} />}
-          title={getLanguage("myOrders", lang)}
+          title={t("myOrders")}
+          action={() => router.push("/order")}
         />
         <SmallDeviceButton
           startImage={<RiCopperCoinLine fontSize={"inherit"} />}
-          title={getLanguage("myCoins", lang)}
+          title={t("myCoins")}
         />
         <SmallDeviceButton
           startImage={<AiOutlineMessage fontSize={"inherit"} />}
-          title={getLanguage("messageCenter", lang)}
+          title={t("messageCenter")}
         />
         <SmallDeviceButton
           startImage={<CreditCard fontSize={"inherit"} />}
-          title={getLanguage("payments", lang)}
+          title={t("payments")}
+          action={() => router.push("/payment")}
         />
         <SmallDeviceButton
           startImage={<FavoriteBorderOutlined fontSize={"inherit"} />}
-          title={getLanguage("wishList", lang)}
+          title={t("wishList")}
         />
         <SmallDeviceButton
           startImage={<ConfirmationNumberOutlined fontSize={"inherit"} />}
-          title={getLanguage("myCoupons", lang)}
+          title={t("myCoupons")}
         />
         <Divider flexItem />
-        <SmallDeviceButton title={getLanguage("dsCenter", lang)} />
-        <SmallDeviceButton title={getLanguage("buyerProtection", lang)} />
-        <SmallDeviceButton title={getLanguage("helpCenter", lang)} />
-        <SmallDeviceButton title={getLanguage("disputeAndReports", lang)} />
-        <SmallDeviceButton title={getLanguage("accessibility", lang)} />
+        <SmallDeviceButton title={t("dsCenter")} />
+        <SmallDeviceButton title={t("buyerProtection")} />
+        <SmallDeviceButton title={t("helpCenter")} />
+        <SmallDeviceButton title={t("disputeAndReports")} />
+        <SmallDeviceButton title={t("accessibility")} />
       </Box>
     </>
   );

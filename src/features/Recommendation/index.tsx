@@ -5,9 +5,9 @@ import { GoShieldCheck } from "react-icons/go";
 import { PiUsers } from "react-icons/pi";
 
 import BenefitListCard from "./components/BenefitListCard";
-import getLanguage from "@/utils/getLanguage";
 import useUserStore from "@/store/user";
 import { RiMoneyDollarCircleLine } from "react-icons/ri";
+import { t } from "i18next";
 
 const font = Montserrat({ subsets: ["cyrillic"] });
 function Recommendation() {
@@ -16,7 +16,10 @@ function Recommendation() {
     <Box
       className="recommendation--section"
       display={{ xs: "none", md: "flex" }}
-      p={{ md: "2rem 4rem 0.5rem 4rem", xl: "2rem 12rem 0.5rem 12rem" }}
+      p={{
+        md: "2rem 4rem 0.5rem 4rem",
+        xl: "2rem 12rem 0.5rem 12rem",
+      }}
       justifyContent={"space-between"}
       alignItems={"baseline"}
       bgcolor={"background.paper"}
@@ -29,32 +32,32 @@ function Recommendation() {
         className={font.className}
         color={"text.primary"}
       >
-        {getLanguage("betterChoicesBetterPrices", lang)}
+        {t("betterChoicesBetterPrices")}
       </Typography>
       <Box display={"flex"} gap={"1rem"}>
         <BenefitListCard
           icon={<RiMoneyDollarCircleLine />}
-          title={getLanguage("valueForMoney", lang)}
-          desc={getLanguage("weOfferCompetitivePrices", lang)}
+          title={t("valueForMoney")}
+          desc={t("weOfferCompetitivePrices")}
         />
         <BenefitListCard
-          title={getLanguage("shoppersWorldwide", lang)}
-          desc={getLanguage("shoppersWorldwideDescription", lang)}
+          title={t("shoppersWorldwide")}
+          desc={t("shoppersWorldwideDescription")}
           icon={<PiUsers />}
         />
         <BenefitListCard
-          title={getLanguage("fastDelivery", lang)}
-          desc={getLanguage("fastDeliveryDescription", lang)}
+          title={t("fastDelivery")}
+          desc={t("fastDeliveryDescription")}
           icon={<CiDeliveryTruck />}
         />
         <BenefitListCard
-          title={getLanguage("safePayments", lang)}
-          desc={getLanguage("safePaymentsDescription", lang)}
+          title={t("safePayments")}
+          desc={t("safePaymentsDescription")}
           icon={<CiCreditCard1 />}
         />
         <BenefitListCard
-          title={getLanguage("buyerProtection", lang)}
-          desc={getLanguage("buyerProtectionDescription", lang)}
+          title={t("buyerProtection")}
+          desc={t("buyerProtectionDescription")}
           icon={<GoShieldCheck />}
         />
       </Box>

@@ -10,7 +10,7 @@ import { Avatar, Box, Grid, IconButton, Typography } from "@mui/material";
 import { PiShoppingCartLight } from "react-icons/pi";
 import { SlUser } from "react-icons/sl";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import useUserStore from "@/store/user";
 import useThemeProvider from "@/store/theme";
 import data from "@/data/library";
@@ -20,11 +20,18 @@ import UserInfoDropdown from "../components/userInfoDropdown";
 import LanguageDropdown from "../components/languageDropdown";
 import LoginModal from "@/features/Login/loginModal";
 import SearchBar from "../components/SearchBar";
-import getLanguage from "@/utils/getLanguage";
+import useTokenStore from "@/store/token";
+import useCartStore from "@/store/cart";
+import { useRouter } from "next/router";
+import { t } from "i18next";
 
 function TopNavbar() {
+  const router = useRouter();
+
   const { darkMode, switchTheme } = useThemeProvider();
-  const { user, lang, address } = useUserStore();
+  const { user, setUser, lang, address } = useUserStore();
+  const { cart, setCart } = useCartStore();
+  const { token } = useTokenStore();
 
   const [openLanguage, setOpenLanguage] = useState(false);
   const [openUserInfo, setOpenUserInfo] = useState(false);
@@ -32,14 +39,22 @@ function TopNavbar() {
   const [open, setOpen] = useState(false);
 
   const handleOpen = () => setOpen(true);
-
   const handleClose = () => setOpen(false);
+
+  useEffect(() => {
+    if (token) {
+      setUser(token);
+      setCart({ token });
+    } else {
+      setCart({ token });
+    }
+  }, [token, setUser, setCart]);
 
   return (
     <>
       <Grid
         zIndex={1000}
-        position={"sticky"}
+        position={"relative"}
         top={0}
         left={0}
         container
@@ -65,7 +80,9 @@ function TopNavbar() {
           <Typography
             fontWeight={"bold"}
             pr={"1rem"}
+            onClick={() => router.push("/")}
             sx={{
+              cursor: "pointer",
               fontSize: {
                 xs: "1.2rem",
                 sm: "2rem",
@@ -76,7 +93,7 @@ function TopNavbar() {
               },
             }}
           >
-            {getLanguage("demakk", lang)}
+            {t("demakk")}
           </Typography>
         </Grid>
 
@@ -136,11 +153,11 @@ function TopNavbar() {
                   fontSize={"0.5rem"}
                 >
                   <Typography fontSize={"0.8rem"} color={"text.primary"}>
-                    {data.langs[lang]}/
+                    {t(data.langs[lang])}/
                   </Typography>
                   <Box display={"flex"} alignItems={"center"}>
                     <Typography fontSize={"0.8rem"} fontWeight={"bold"}>
-                      {getLanguage("birr", lang)}
+                      {t("birr")}
                     </Typography>
                     {!openLanguage ? (
                       <ExpandMore fontSize="small" color={"action"} />
@@ -196,8 +213,8 @@ function TopNavbar() {
                     sx={{ display: { xs: "none", xl: "flex" } }}
                   >
                     {user
-                      ? `${getLanguage("hi", lang)}, ${user.name}`
-                      : getLanguage("welcome", lang)}
+                      ? `${t("hi")}, ${user?.getUser().firstName}`
+                      : t("welcome")}
                   </Typography>
                   <Box
                     display={"flex"}
@@ -209,12 +226,7 @@ function TopNavbar() {
                       fontWeight={"bold"}
                       sx={{ display: { xs: "none", xl: "inline" } }}
                     >
-                      {user
-                        ? getLanguage("account", lang)
-                        : `${getLanguage("signIn", lang)}/${getLanguage(
-                            "register",
-                            lang
-                          )}`}
+                      {user ? t("account") : `${t("signIn")}/${t("register")}`}
                     </Typography>
                     {!openUserInfo ? (
                       <ExpandMore
@@ -245,12 +257,16 @@ function TopNavbar() {
                   },
                 }}
               >
-                <IconButton size="medium" sx={{ aspectRatio: 1 }}>
+                <IconButton
+                  size="medium"
+                  sx={{ aspectRatio: 1 }}
+                  onClick={() => router.push("/cart")}
+                >
                   <Box
                     display={"flex"}
                     sx={{
                       fontSize: { xs: 25, sm: 32.5, md: 37.5 },
-                      color: ({ palette }) => palette.text.primary,
+                      color: "text.primary",
                     }}
                   >
                     <PiShoppingCartLight style={{ fontSize: "inherit" }} />
@@ -275,11 +291,11 @@ function TopNavbar() {
                       textAlign: "center",
                     }}
                   >
-                    0
+                    {cart?.getCart().orderItems.length}
                   </Typography>
                   <Box display={"flex"} alignItems={"center"}>
                     <Typography fontSize={"0.8rem"} fontWeight={"bold"}>
-                      {getLanguage("cart", lang)}
+                      {t("cart")}
                     </Typography>
                   </Box>
                 </Box>

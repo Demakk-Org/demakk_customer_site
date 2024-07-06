@@ -10,16 +10,21 @@ import {
 
 import useUserStore, { LANG } from "@/store/user";
 import { useState } from "react";
-import getLanguage from "@/utils/getLanguage";
 import getLang from "@/utils/getLang";
 import getAddress from "@/utils/getAddress";
+import useTokenStore from "@/store/token";
+import handleUpdateUser from "@/api/user/handleUpdateUser";
+import usePageStore from "@/store/page";
+import { t } from "i18next";
 
 interface LanguageDropdownProps {
   setOpenLanguage: (value: boolean) => void;
 }
 
 function LanguageDropdown({ setOpenLanguage }: LanguageDropdownProps) {
+  const { token } = useTokenStore();
   const { lang, setLang, address, setAddress } = useUserStore();
+  const { setLoading } = usePageStore();
 
   const [localLang, setLocalLang] = useState<string>(lang);
   const [localAddress, setLocalAddress] = useState<string>(address);
@@ -37,6 +42,8 @@ function LanguageDropdown({ setOpenLanguage }: LanguageDropdownProps) {
 
     if (lang != language) setLang(getLang(language));
     if (address != location) setAddress(getAddress(location));
+
+    token && handleUpdateUser({ language: localLang, token, setLoading });
 
     setOpenLanguage(false);
   };
@@ -79,7 +86,7 @@ function LanguageDropdown({ setOpenLanguage }: LanguageDropdownProps) {
               fontSize={"1.3rem"}
               fontWeight={600}
             >
-              {getLanguage("shipTo", lang)}
+              {t("shipTo")}
             </Typography>
             <FormControl>
               <Select
@@ -106,7 +113,7 @@ function LanguageDropdown({ setOpenLanguage }: LanguageDropdownProps) {
                       }}
                     />
                     <Typography fontSize={"0.8rem"}>
-                      {getLanguage("addis-ababa", lang)}
+                      {t("addis-ababa")}
                     </Typography>
                   </Box>
                 </MenuItem>
@@ -117,9 +124,7 @@ function LanguageDropdown({ setOpenLanguage }: LanguageDropdownProps) {
                       src="/assets/images/afar-flag.png"
                       sx={{ width: 25, height: 20 }}
                     />
-                    <Typography fontSize={"0.8rem"}>
-                      {getLanguage("afar", lang)}
-                    </Typography>
+                    <Typography fontSize={"0.8rem"}>{t("afar")}</Typography>
                   </Box>
                 </MenuItem>
                 <MenuItem value={"gumuz"}>
@@ -129,9 +134,7 @@ function LanguageDropdown({ setOpenLanguage }: LanguageDropdownProps) {
                       src="/assets/images/gumuz-flag.png"
                       sx={{ width: 25, height: 20 }}
                     />
-                    <Typography fontSize={"0.8rem"}>
-                      {getLanguage("gumuz", lang)}
-                    </Typography>
+                    <Typography fontSize={"0.8rem"}>{t("gumuz")}</Typography>
                   </Box>
                 </MenuItem>
                 <MenuItem value={"amhara"}>
@@ -141,9 +144,7 @@ function LanguageDropdown({ setOpenLanguage }: LanguageDropdownProps) {
                       src="/assets/images/amhara-flag.png"
                       sx={{ width: 25, height: 20 }}
                     />
-                    <Typography fontSize={"0.8rem"}>
-                      {getLanguage("amhara", lang)}
-                    </Typography>
+                    <Typography fontSize={"0.8rem"}>{t("amhara")}</Typography>
                   </Box>
                 </MenuItem>
                 <MenuItem value={"harari"}>
@@ -153,9 +154,7 @@ function LanguageDropdown({ setOpenLanguage }: LanguageDropdownProps) {
                       src="/assets/images/harari-flag.png"
                       sx={{ width: 25, height: 20 }}
                     />
-                    <Typography fontSize={"0.8rem"}>
-                      {getLanguage("harari", lang)}
-                    </Typography>
+                    <Typography fontSize={"0.8rem"}>{t("harari")}</Typography>
                   </Box>
                 </MenuItem>
                 <MenuItem value={"oromia"}>
@@ -165,9 +164,7 @@ function LanguageDropdown({ setOpenLanguage }: LanguageDropdownProps) {
                       src="/assets/images/oromia-flag.png"
                       sx={{ width: 25, height: 20 }}
                     />
-                    <Typography fontSize={"0.8rem"}>
-                      {getLanguage("oromia", lang)}
-                    </Typography>
+                    <Typography fontSize={"0.8rem"}>{t("oromia")}</Typography>
                   </Box>
                 </MenuItem>
               </Select>
@@ -184,7 +181,7 @@ function LanguageDropdown({ setOpenLanguage }: LanguageDropdownProps) {
               fontSize={"1.3rem"}
               fontWeight={600}
             >
-              {getLanguage("language", lang)}
+              {t("language")}
             </Typography>
             <FormControl sx={{}}>
               <Select
@@ -200,19 +197,13 @@ function LanguageDropdown({ setOpenLanguage }: LanguageDropdownProps) {
                 }}
               >
                 <MenuItem value={LANG.en}>
-                  <Typography fontSize={"0.8rem"}>
-                    {getLanguage("english", lang)}
-                  </Typography>
+                  <Typography fontSize={"0.8rem"}>{t("english")}</Typography>
                 </MenuItem>
                 <MenuItem value={LANG.or}>
-                  <Typography fontSize={"0.8rem"}>
-                    {getLanguage("afanOromo", lang)}
-                  </Typography>
+                  <Typography fontSize={"0.8rem"}>{t("afanOromo")}</Typography>
                 </MenuItem>
                 <MenuItem value={LANG.am}>
-                  <Typography fontSize={"0.8rem"}>
-                    {getLanguage("amharic", lang)}
-                  </Typography>
+                  <Typography fontSize={"0.8rem"}>{t("amharic")}</Typography>
                 </MenuItem>
               </Select>
             </FormControl>
@@ -228,7 +219,7 @@ function LanguageDropdown({ setOpenLanguage }: LanguageDropdownProps) {
               color: "text.primary",
             }}
           >
-            {getLanguage("save", lang)}
+            {t("save")}
           </Button>
         </form>
       </Box>

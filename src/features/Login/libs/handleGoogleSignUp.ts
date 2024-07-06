@@ -1,70 +1,89 @@
+import axios from "axios";
+import { LANG, chosenBackendUrl } from "@/store/user";
 import { signInWithPopup } from "firebase/auth";
 import { auth, googleProvider } from "../../../firebase/firebase";
-import { Dispatch, SetStateAction } from "react";
-import axios from "axios";
-import { local, server } from "@/hooks/getProducts";
-import { LANG } from "@/store/user";
-import getLanguage from "@/utils/getLanguage";
+import { NextRouter } from "next/router";
+import { ISnackBar } from "@/store/page";
+import { t } from "i18next";
 
-interface IHandleGoogleSignUp {
-  setSnackBar: Dispatch<
-    SetStateAction<{
-      type: "success" | "error";
-      open: boolean;
-      message: string;
-    }>
-  >;
-  handleClose: () => void;
+type IHandleGoogleSignUp = {
+  setSnackBar: (snackBar: ISnackBar) => void;
   lang: LANG;
-  setLoading: Dispatch<SetStateAction<boolean>>;
-}
+  setLoading: (value: boolean) => void;
+  setToken: (token: string) => void;
+} & (
+  | {
+      requestFrom: "page";
+      router: NextRouter;
+    }
+  | {
+      requestFrom: "modal";
+      handleClose: () => void;
+    }
+  | {
+      requestFrom: "mixed";
+      handleClose: () => void;
+    }
+);
 
-const handleGoogleSignUp = ({
-  setSnackBar,
-  handleClose,
-  lang,
-  setLoading,
-}: IHandleGoogleSignUp) => {
-  setLoading(true);
+const handleGoogleSignUp = (props: IHandleGoogleSignUp) => {
+  props.setLoading(true);
 
   signInWithPopup(auth, googleProvider)
     .then(async (userCredential) => {
-      let token = await userCredential.user.getIdToken(true);
-
-      const { uid, email, displayName } = userCredential.user;
+      const { email, displayName } = userCredential.user;
       let [firstName, lastName] = displayName?.split(" ") || [];
 
       axios
-        .post(`${server}/user/exists`, {
+        .post(`${chosenBackendUrl}/user/exists`, {
           phoneOrEmail: email,
-          lang,
+          lang: props.lang,
         })
         .then((response) => {
           if (!response.data.data.exists) {
             axios
-              .post(`${server}/auth`, {
+              .post(`${chosenBackendUrl}/auth`, {
                 account: email,
                 firstName,
                 lastName,
-                firebaseId: uid,
-                lang,
+                provider: "google",
+                lang: props.lang,
               })
               .then((response) => {
-                setSnackBar({
+                props.setSnackBar({
                   type: "success",
-                  message: getLanguage("userCreatedSuccessfully", lang),
+                  message: t("userCreatedSuccessfully"),
                   open: true,
                 });
-                handleClose();
+                props.requestFrom !== "page" && props.handleClose();
+                props.setToken(response.data.data);
+                props.requestFrom == "page" && props.router.back();
               })
               .catch((error) => console.log(error));
           } else {
-            setSnackBar({
-              type: "success",
-              message: getLanguage("loggedInSuccessfully", lang),
-              open: true,
-            });
-            handleClose();
+            axios
+              .post(`${chosenBackendUrl}/auth/login`, {
+                account: email,
+                provider: "google",
+                lang: props.lang,
+              })
+              .then((response) => {
+                props.setSnackBar({
+                  type: "success",
+                  message: t("loggedInSuccessfully"),
+                  open: true,
+                });
+                props.requestFrom !== "page" && props.handleClose();
+                props.setToken(response.data.data);
+                props.requestFrom == "page" && props.router.back();
+              })
+              .catch((error) => {
+                props.setSnackBar({
+                  type: "error",
+                  message: error?.response?.data?.message || t("serverError"),
+                  open: true,
+                });
+              });
           }
         })
         .catch((error) => console.log(error));
@@ -72,14 +91,14 @@ const handleGoogleSignUp = ({
     .catch((error) => {
       const errorMessage = error.message;
 
-      setSnackBar({
+      props.setSnackBar({
         type: "error",
         open: true,
         message: errorMessage,
       });
     })
     .finally(() => {
-      setLoading(false);
+      props.setLoading(false);
     });
 };
 

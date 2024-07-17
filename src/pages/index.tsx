@@ -27,7 +27,7 @@ export default function Home(): ReactElement {
       <main className={`${styles.main}`}>
         <Box width={"100%"} minHeight={"100vh"} bgcolor={"background.paper"}>
           <Navbar />
-          {/* <PinLocation /> */}
+          <PinLocation />
           <Recommendation />
           <DealsContainer />
           <DiscountSale />

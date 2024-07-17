@@ -53,8 +53,6 @@ export default function ProductVariant({
   if (productVariantGroupedByImageUrls()) {
     arrayOfGroupedVariants = Object.values(productVariantGroupedByImageUrls());
   }
-  console.log("array of arrays", arrayOfGroupedVariants);
-
   //for main variant title ectract single value using map ant flat map over arryes of arrays
   let mainVariantTypes = arrayOfGroupedVariants?.map((groupedVariants) =>
     groupedVariants.map((groupedVariant) => {
@@ -91,7 +89,7 @@ export default function ProductVariant({
   );
 
   function handleVariantImageSelected(index: number) {
-    setIsImageVariantSelected(index);
+    setIsImageVariantSelected(() => index);
   }
 
   return (
@@ -130,10 +128,10 @@ export default function ProductVariant({
             spacing={2}
             sx={{ p: { xs: "0 0 0 .5rem", sm: "0" } }}
           >
-            {arrayOfGroupedVariants?.map((groupedVariants) => {
+            {arrayOfGroupedVariants?.map((groupedVariants, index) => {
               return (
                 <Grid item key={""}>
-                  {groupedVariants.slice(-1).map((groupedVariant, index) => (
+                  {groupedVariants.slice(-1).map((groupedVariant) => (
                     <Box
                       key={groupedVariant._id.toString()}
                       width={{ xs: "40px", sm: "70px" }}

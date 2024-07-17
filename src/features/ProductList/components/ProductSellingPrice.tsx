@@ -1,6 +1,5 @@
 import React from "react";
 import { Stack, Typography } from "@mui/material";
-
 import { IAfterDiscountAndPercent } from "@/model/productModel";
 import ProductPrice from "@/component/ProductPrice";
 import getPrice from "@/utils/getPrice";
@@ -22,15 +21,9 @@ export default function ProductSellingPrice({
       sx={{ flexWrap: "wrap" }}
     >
       {discountedPrice.afterDiscount ? (
-        <ProductPrice
-          prodctPriceInt={getPrice(discountedPrice.afterDiscount).int}
-          productPriceDec={getPrice(discountedPrice.afterDiscount).dec}
-        />
+        <ProductPrice productPrice={discountedPrice.afterDiscount} />
       ) : (
-        <ProductPrice
-          prodctPriceInt={getPrice(price).int}
-          productPriceDec={getPrice(price).dec}
-        />
+        <ProductPrice productPrice={price} />
       )}
 
       {discountedPrice.afterDiscount ? (

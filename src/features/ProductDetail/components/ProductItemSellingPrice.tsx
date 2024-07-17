@@ -3,24 +3,34 @@ import useProductStore from "@/store/product";
 import getPrice from "@/utils/getPrice";
 import { Stack, Typography } from "@mui/material";
 import React from "react";
-import { IProductVariant } from "@/model/productModel";
-import { IProduct } from "../../../model/productModel";
+import {
+  GetProductForPage,
+  IAfterDiscountAndPercent,
+  IProductVariant,
+} from "@/model/productModel";
+import ProductPrice from "@/component/ProductPrice";
 
 interface VariantProps {
   itemSize: string;
   setItemSize: Function;
   previewImage: string;
   setPreviewImage: Function;
+  product: GetProductForPage | null;
+  price: number;
+  discountedPrice: IAfterDiscountAndPercent;
 }
 
-export default function ItemPrice({
+export default function ProductItemSellingPrice({
   itemSize,
-  setItemSize,
+  // setItemSize,
   previewImage,
+  product,
+  price,
+  discountedPrice,
 }: VariantProps) {
-  const { product } = useProductStore();
-  const { discount } = useDiscountStore();
-  const item = product?.getProductForPage();
+  // const { product } = useProductStore();
+  // const { discount } = useDiscountStore();
+  // const item = product?.getProductForPage();
 
   const productVariantGroupedByImageUrls = () => {
     return (
@@ -96,7 +106,13 @@ export default function ItemPrice({
       }}
       zIndex={{ xs: 2, sm: 0 }}
     >
-      {item?.discountedPrice(discount).afterDiscount ? (
+      {discountedPrice.afterDiscount ? (
+        <ProductPrice productPrice={discountedPrice.afterDiscount} />
+      ) : (
+        <ProductPrice productPrice={price} />
+      )}
+
+      {/* {item?.discountedPrice(discount).afterDiscount ? (
         <Typography
           mr={".5rem"}
           sx={{
@@ -164,7 +180,7 @@ export default function ItemPrice({
             .{getPrice(item ? item.price : 0).dec}
           </span>
         </Typography>
-      )}
+      )} */}
 
       {/* {item?.discountedPrice(discount).afterDiscount ? ( */}
       {variantPrice !== undefined && (
@@ -183,9 +199,9 @@ export default function ItemPrice({
       {/* // ) : (
         // <></>
       // )} */}
-      {item?.discountedPrice(discount).discountPercent ? (
+      {discountedPrice.afterDiscount ? (
         <Typography color={"text.price"} m={"0rem 0rem 0rem .75rem"}>
-          -{item?.discountedPrice(discount).discountPercent}%
+          -{discountedPrice.afterDiscount}%
         </Typography>
       ) : (
         <></>

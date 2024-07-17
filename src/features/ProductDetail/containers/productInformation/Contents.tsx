@@ -1,12 +1,14 @@
 import React from "react";
 import Deal from "../../components/Deal";
 import { Box, Divider, Stack } from "@mui/material";
-import ItemPrice from "../../components/ItemPrice";
+import ItemPrice from "../../components/ProductItemSellingPrice";
 import FreeshipingChoice from "../../components/FreeshipingChoice";
 import ItemDescription from "../../components/ItemDescription";
 import RatingAndReview from "../../components/RatingAndReview";
 import ProductVariant from "../../components/ProductVariant";
 import { GetProductForPage } from "../../../../model/productModel";
+import ProductItemSellingPrice from "../../components/ProductItemSellingPrice";
+import useDiscountStore from "@/store/discount";
 
 interface VariantProps {
   previewImage: string;
@@ -23,17 +25,23 @@ export default function Contents({
   setItemSize,
   product,
 }: VariantProps) {
+  const { discount } = useDiscountStore();
   // const { product } = useProductStore();
   return (
     <Box position={"relative"} zIndex={5}>
       <Stack>
         <Deal />
       </Stack>
-      <ItemPrice
+      <ProductItemSellingPrice
         previewImage={previewImage}
         setPreviewImage={setPreviewImage}
         itemSize={itemSize}
         setItemSize={setItemSize}
+        product={product}
+        price={product?.price !== undefined ? product?.price : 0}
+        discountedPrice={product
+          ?.getProductForPage()
+          ?.discountedPrice(discount)}
       />
       {/* choice and freeshipping */}
       <FreeshipingChoice />

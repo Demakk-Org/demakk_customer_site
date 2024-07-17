@@ -3,7 +3,7 @@ import LocationOnIcon from "@mui/icons-material/LocationOn";
 import ShareIcon from "@mui/icons-material/Share";
 import React, { useEffect, useState } from "react";
 import Deal from "./Deal";
-import ItemPrice from "./ItemPrice";
+import ItemPrice from "./ProductItemSellingPrice";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 
 export default function SideNav() {

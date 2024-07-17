@@ -10,6 +10,7 @@ import { IReturnedProductForCard } from "@/model/productModel";
 import ShippingChoice from "./components/ShippingChoice";
 import { useEffect, useRef, useState } from "react";
 import ImageFromFirebase from "@/component/ImageFromFirebase";
+import ProductSellingPrice from "./components/ProductSellingPrice";
 
 interface ProductCardProps {
   product: IReturnedProductForCard;
@@ -140,7 +141,7 @@ export default function ProductCard({ product }: ProductCardProps) {
                   alignItems={"baseline"}
                   justifyContent={"flex-start"}
                 >
-                  <SellingPrice
+                  <ProductSellingPrice
                     price={product.price}
                     discountedPrice={product.discountedPrice(discount)}
                   />

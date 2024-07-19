@@ -3,24 +3,29 @@ import SoldQuantity from "./components/SoldQuantity";
 import ProductRating from "./components/ProductRating";
 import AddToCartButton from "./components/AddToCartButton";
 import DealsContainer from "./containers/DealsContainer";
-import SellingPrice from "./components/ProductSellingPrice";
 import ProductCardActionButtons from "./components/ProductCardActionButtons";
 import useDiscountStore from "@/store/discount";
 import { IReturnedProductForCard } from "@/model/productModel";
 import ShippingChoice from "./components/ShippingChoice";
-import { useEffect, useRef, useState } from "react";
+import { SetStateAction, useEffect, useRef, useState } from "react";
 import ImageFromFirebase from "@/component/ImageFromFirebase";
 import ProductSellingPrice from "./components/ProductSellingPrice";
 
 interface ProductCardProps {
   product: IReturnedProductForCard;
+  // setCardHeight: (value: SetStateAction<number>) => void;
+  setCardHeight: Function;
 }
 
-export default function ProductCard({ product }: ProductCardProps) {
+export default function ProductCard({
+  product,
+  setCardHeight,
+}: ProductCardProps) {
   const { discount } = useDiscountStore();
 
   const [isOverflowing, setIsOverflowing] = useState(false);
   const buttonContainerRef = useRef<HTMLDivElement>(null);
+  const cardContentHeightRef = useRef<HTMLDivElement>(null);
 
   const handleCheckOverflow = () => {
     const buttonContainer = buttonContainerRef.current;
@@ -38,6 +43,12 @@ export default function ProductCard({ product }: ProductCardProps) {
     handleCheckOverflow();
     window.addEventListener("resize", handleCheckOverflow);
   }, []);
+
+  useEffect(() => {
+    if (cardContentHeightRef.current) {
+      setCardHeight(cardContentHeightRef.current.offsetHeight);
+    }
+  }, [cardContentHeightRef]);
 
   return (
     <Box
@@ -72,6 +83,7 @@ export default function ProductCard({ product }: ProductCardProps) {
         }}
       >
         <Card
+          ref={cardContentHeightRef}
           sx={{
             width: "100%",
             position: "relative",

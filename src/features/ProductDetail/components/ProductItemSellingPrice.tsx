@@ -9,6 +9,7 @@ import {
   IProductVariant,
 } from "@/model/productModel";
 import ProductPrice from "@/component/ProductPrice";
+import { GetDiscount } from "@/model/discountModel";
 
 interface VariantProps {
   itemSize: string;
@@ -17,7 +18,11 @@ interface VariantProps {
   setPreviewImage: Function;
   product: GetProductForPage | null;
   price: number;
-  discountedPrice: IAfterDiscountAndPercent;
+  discountedPrice: IAfterDiscountAndPercent | undefined;
+  // discountedPrice: (
+  //   discounts: GetDiscount[],
+  //   price?: number
+  // ) => IAfterDiscountAndPercent;
 }
 
 export default function ProductItemSellingPrice({
@@ -36,11 +41,12 @@ export default function ProductItemSellingPrice({
     return (
       product
         ?.getProductForPage()
-        .productVariants.reduce<Record<string, IProductVariant[]>>(
+        .productVariants?.reduce<Record<string, IProductVariant[]>>(
           (acc, productVariant) => {
             const imageUrl = productVariant.imageUrl;
             if (!acc[imageUrl]) acc[imageUrl] = [];
             acc[imageUrl].push({
+              product: productVariant.product,
               _id: productVariant._id,
               stockVarieties: productVariant.stockVarieties,
               imageIndex: productVariant.imageIndex,
@@ -84,9 +90,6 @@ export default function ProductItemSellingPrice({
     )
   ).find((price) => price !== undefined);
 
-  console.log("prices", variantPrices);
-  console.log("price", variantPrice);
-
   return (
     <Stack
       useFlexGap
@@ -106,7 +109,7 @@ export default function ProductItemSellingPrice({
       }}
       zIndex={{ xs: 2, sm: 0 }}
     >
-      {discountedPrice.afterDiscount ? (
+      {discountedPrice?.afterDiscount ? (
         <ProductPrice productPrice={discountedPrice.afterDiscount} />
       ) : (
         <ProductPrice productPrice={price} />
@@ -199,7 +202,7 @@ export default function ProductItemSellingPrice({
       {/* // ) : (
         // <></>
       // )} */}
-      {discountedPrice.afterDiscount ? (
+      {discountedPrice?.afterDiscount ? (
         <Typography color={"text.price"} m={"0rem 0rem 0rem .75rem"}>
           -{discountedPrice.afterDiscount}%
         </Typography>

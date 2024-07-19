@@ -102,7 +102,8 @@ const ProductItemImages = ({
           <ImageFromFirebase
             name={
               previewImage ||
-              (product?.images.imageUrls[product.images.primary] ?? "")
+              // (product?.images.imageUrls[product.images.primary] ?? "")
+              (product?.images?.imageUrls[product.images.primary] ?? "")
             }
             width={1}
             quality={"720p"}
@@ -121,7 +122,7 @@ const ProductItemImages = ({
       </Box>
 
       <Box position={"relative"} width={1}>
-        {product?.getProductForPage().images.imageUrls && (
+        {product?.getProductForPage().images?.imageUrls && (
           <CarouselContainer
             type={Breakpoints.productItemImagesCarousel}
             currentSlide={currentSlide}
@@ -201,7 +202,7 @@ const ProductItemImages = ({
                 borderRadius: "16px",
               }}
             >
-              {Math.floor(currentSlide + 1)}/{product?.images.imageUrls.length}
+              {Math.floor(currentSlide + 1)}/{product?.images?.imageUrls.length}
             </Typography>
             <Typography
               color={"text.primary"}

@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Grid, Stack, Typography } from "@mui/material";
 import ProductCard from "./ProductCard";
 import useProductStore from "@/store/product";
@@ -6,6 +6,8 @@ import { LANG } from "@/store/user";
 import Link from "next/link";
 
 export default function ProductListing() {
+  const [cardHeight, setCardHeight] = useState(0);
+
   const { products, setProducts, page, limit } = useProductStore();
 
   useEffect(() => {
@@ -36,18 +38,19 @@ export default function ProductListing() {
           return (
             <Grid
               item
-              height={{ md: "360px" }}
+              height={cardHeight}
               xs={6}
               sm={4}
               md={2.4}
               key={product.id.toString()}
+              mb="1.5rem"
             >
               <Link
                 href={`/item/${product.id}`}
                 style={{ textDecoration: "none" }}
                 target="_blank"
               >
-                <ProductCard product={product} />
+                <ProductCard product={product} setCardHeight={setCardHeight} />
               </Link>
             </Grid>
           );

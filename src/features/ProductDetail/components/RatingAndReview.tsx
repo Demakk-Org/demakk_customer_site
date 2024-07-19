@@ -29,7 +29,7 @@ export default function RatingAndReview() {
         )}
         <Typography color={"text.primary"} fontSize={".75rem"}>
           {/* {45} Reviews */}
-          {product?.getProductForPage().reviews.length} Reviews
+          {product?.getProductForPage().reviews?.length} Reviews
         </Typography>
       </Stack>
     </>

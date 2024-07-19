@@ -30,9 +30,9 @@ const useProductStore = create<ProductStoreProps>((set) => ({
   setProduct: (value) => {
     const product = new GetProductForPage(
       value,
-      value.reviews,
-      value.productCategory,
-      value.productVariants
+      value?.reviews,
+      value?.productCategory,
+      value?.productVariants
     );
     set({ product });
   },

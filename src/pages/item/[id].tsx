@@ -42,19 +42,36 @@ export default function ProductDetail({ item }: { item: IProductForPage }) {
 }
 
 export async function getStaticPaths() {
+  // try {
+  //   const res = await axios.get(
+  //     "https://demakk-backend.vercel.app/api/v1/product?page=4"
+  //   );
+  //   const products = await res.data.data.data;
+  //   const paths = products.map((product: any) => {
+  //     return {
+  //       params: { id: `${product._id.toString()}` },
+  //     };
+  //   });
+
+  //   return { paths, fallback: false };
+  // } catch (err) {
+  //   return null;
+  // }
+
   try {
     const res = await axios.get(
       "https://demakk-backend.vercel.app/api/v1/product?page=4"
     );
-    const products = await res.data.data.data;
-    const paths = products.map((product: any) => {
-      return {
-        params: { id: `${product._id.toString()}` },
-      };
-    });
+    const products = res.data.data.data;
+
+    const paths = products.map((product: { _id: string }) => ({
+      params: { id: product._id },
+    }));
+
     return { paths, fallback: false };
   } catch (err) {
-    return null;
+    console.error("Error fetching products:", err);
+    return { paths: [], fallback: false };
   }
 }
 

@@ -125,16 +125,16 @@ export class GetProduct {
   public stockVarietyTypeList: string[];
 
   constructor(product: IProduct) {
-    this.id = product._id;
-    this.name = product.name;
-    this.description = product.description;
-    this.tags = product.tags;
-    this.price = product.price;
-    this.images = product.images;
-    this.rating = product.rating;
-    this.popularity = product.popularity;
-    this.sold = product.sold;
-    this.stockVarietyTypeList = product.stockVarietyTypeList;
+    this.id = product?._id;
+    this.name = product?.name;
+    this.description = product?.description;
+    this.tags = product?.tags;
+    this.price = product?.price;
+    this.images = product?.images;
+    this.rating = product?.rating;
+    this.popularity = product?.popularity;
+    this.sold = product?.sold;
+    this.stockVarietyTypeList = product?.stockVarietyTypeList;
   }
 
   getShippingDiscount(discounts: GetDiscount[]): ShippingState {

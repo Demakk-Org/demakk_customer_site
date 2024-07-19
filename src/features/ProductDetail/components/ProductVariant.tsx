@@ -28,7 +28,7 @@ export default function ProductVariant({
     return (
       product
         ?.getProductForPage()
-        .productVariants.reduce<Record<string, IProductVariant[]>>(
+        .productVariants?.reduce<Record<string, IProductVariant[]>>(
           (acc, productVariant) => {
             const imageUrl = productVariant.imageUrl;
             if (!acc[imageUrl]) acc[imageUrl] = [];

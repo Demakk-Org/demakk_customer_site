@@ -1,3 +1,4 @@
+import ProductSellingPrice from "@/features/ProductList/components/ProductSellingPrice";
 import { GetProductForCard, IProductForCard } from "@/model/productModel";
 import { LANG } from "@/store/user";
 import axios from "axios";
@@ -19,7 +20,7 @@ const getProducts = async ({ limit, page, lang }: GetProductProps) => {
       }&${lang && `lang=${lang}`}`
     );
 
-    const list: GetProductForCard[] = products.data.data.data.map(
+    const list: GetProductForCard[] = products.data.products.list.map(
       (product: IProductForCard) => {
         const newProduct = new GetProductForCard(
           product,

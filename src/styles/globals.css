@@ -9,3 +9,7 @@ body {
 .dark-mode {
   background-color: #191919;
 }
+
+.react-multi-carousel-track {
+  gap: .5rem;
+}

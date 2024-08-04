@@ -4,53 +4,69 @@ import useAddressStore from "@/store/address";
 import usePageStore from "@/store/page";
 import useTokenStore from "@/store/token";
 import useUserStore from "@/store/user";
-import getLanguage from "@/utils/getLanguage";
 import {
-  Avatar,
-  Box,
   Button,
   Checkbox,
-  FormControl,
   FormControlLabel,
   FormGroup,
   Grid,
-  MenuItem,
   OutlinedInput,
-  Select,
   Stack,
   TextField,
   Typography,
 } from "@mui/material";
-import { useState } from "react";
+import { useTranslation } from "next-i18next";
+import {
+  validateAddress1,
+  validateCity,
+  validateContactName,
+  validatePhoneNumber,
+  validateRegion,
+  validateZipCode,
+} from "@/utils/validate";
+import useAddressFormStates from "@/hooks/useAddressFormStates";
+import RegionDropdownSelect from "@/component/RegionDropdownSelect";
 
 export function ShippingAddressForm({ onClose }: { onClose: () => void }) {
+  const { t } = useTranslation(["actions", "addressForm"]);
   const { address } = useAddressStore();
-  const { loading, setLoading, snackBar, setSnackBar } = usePageStore();
-  const { lang, user, shippingAddress, setShippingAddress } = useUserStore();
+  const { setLoading, setSnackBar } = usePageStore();
+  const { setShippingAddress } = useUserStore();
   const { token } = useTokenStore();
-
-  const [localAddress, setLocalAddress] = useState<string>("addis-ababa");
-  const [contactName, setContactName] = useState(
-    address?.getAddress().contactName || ""
-  );
-  const [areaCode, setAreaCode] = useState("251");
-  const [phoneNumber, setPhoneNumber] = useState(
-    address?.getAddress().phoneNumber || ""
-  );
-
-  const [region, setRegion] = useState(address?.getAddress().region || "");
-  const [subCity, setSubCity] = useState(address?.getAddress().subCity || "");
-  const [country, setCountry] = useState(
-    address?.getAddress().country || "Ethiopia"
-  );
-  const [city, setCity] = useState(address?.getAddress().city || "Addis Ababa");
-  const [postalCode, setPostalCode] = useState(
-    address?.getAddress().postalCode || ""
-  );
-
-  const [asDefault, setAsDefault] = useState(
-    address?.getAddress().asDefault || false
-  );
+  const {
+    localAddress,
+    setLocalAddress,
+    contactName,
+    setContactName,
+    contactNameError,
+    setContactNameError,
+    areaCode,
+    setAreaCode,
+    phoneNumber,
+    setPhoneNumber,
+    phoneNumberError,
+    setPhoneNumberError,
+    address1,
+    setAddress1,
+    address1Error,
+    setAddress1Error,
+    address2,
+    setAddress2,
+    region,
+    setRegion,
+    regionError,
+    setRegionError,
+    subCity,
+    setSubCity,
+    cityError,
+    setCityError,
+    postalCode,
+    setPostalCode,
+    postalCodeError,
+    setPostalCodeError,
+    asDefault,
+    setAsDefault,
+  } = useAddressFormStates();
 
   return (
     <form
@@ -61,10 +77,10 @@ export function ShippingAddressForm({ onClose }: { onClose: () => void }) {
               addressId: address.getAddress()._id,
               address: localAddress,
               contactName,
-              phoneNumber: areaCode + phoneNumber,
+              phoneNumber: areaCode + "-" + phoneNumber,
               region,
-              country,
-              city,
+              country: address1,
+              city: address2,
               subCity,
               postalCode,
               asDefault,
@@ -78,10 +94,10 @@ export function ShippingAddressForm({ onClose }: { onClose: () => void }) {
           : handleAddAddress({
               address: localAddress,
               contactName,
-              phoneNumber: areaCode + phoneNumber,
+              phoneNumber: areaCode + "-" + phoneNumber,
               region,
-              country,
-              city,
+              country: address1,
+              city: address2,
               subCity,
               postalCode,
               asDefault,
@@ -104,155 +120,44 @@ export function ShippingAddressForm({ onClose }: { onClose: () => void }) {
           <Grid item xs={4}>
             <Stack gap={1}>
               <Typography color={"text.primary"} fontWeight={"bold"}>
-                {getLanguage("countryRegion", lang)}
+                {t("countryRegion", { ns: "addressForm" })}
               </Typography>
-              <FormControl>
-                <Select
-                  name="address"
-                  size="small"
-                  color={"primary"}
-                  value={localAddress}
-                  onChange={({ target }) => setLocalAddress(target.value)}
-                  sx={{
-                    borderRadius: "0.5rem",
-                    bgcolor: "background.lighter",
-                    minWidth: 120,
-                  }}
-                >
-                  <MenuItem value={"addis-ababa"}>
-                    <Box
-                      display={"flex"}
-                      gap={1}
-                      width={1}
-                      alignItems={"center"}
-                    >
-                      <Avatar
-                        variant="square"
-                        src="/assets/images/addis-ababa-flag.png"
-                        sx={{
-                          width: 25,
-                          height: 20,
-                          border: "1px solid lightgray",
-                        }}
-                      />
-                      <Typography fontSize={"0.8rem"}>
-                        {getLanguage("addis-ababa", lang)}
-                      </Typography>
-                    </Box>
-                  </MenuItem>
-                  <MenuItem value={"afar"}>
-                    <Box
-                      display={"flex"}
-                      gap={1}
-                      width={1}
-                      alignItems={"center"}
-                    >
-                      <Avatar
-                        variant="square"
-                        src="/assets/images/afar-flag.png"
-                        sx={{ width: 25, height: 20 }}
-                      />
-                      <Typography fontSize={"0.8rem"}>
-                        {getLanguage("afar", lang)}
-                      </Typography>
-                    </Box>
-                  </MenuItem>
-                  <MenuItem value={"gumuz"}>
-                    <Box
-                      display={"flex"}
-                      gap={1}
-                      width={1}
-                      alignItems={"center"}
-                    >
-                      <Avatar
-                        variant="square"
-                        src="/assets/images/gumuz-flag.png"
-                        sx={{ width: 25, height: 20 }}
-                      />
-                      <Typography fontSize={"0.8rem"}>
-                        {getLanguage("gumuz", lang)}
-                      </Typography>
-                    </Box>
-                  </MenuItem>
-                  <MenuItem value={"amhara"}>
-                    <Box
-                      display={"flex"}
-                      gap={1}
-                      width={1}
-                      alignItems={"center"}
-                    >
-                      <Avatar
-                        variant="square"
-                        src="/assets/images/amhara-flag.png"
-                        sx={{ width: 25, height: 20 }}
-                      />
-                      <Typography fontSize={"0.8rem"}>
-                        {getLanguage("amhara", lang)}
-                      </Typography>
-                    </Box>
-                  </MenuItem>
-                  <MenuItem value={"harari"}>
-                    <Box
-                      display={"flex"}
-                      gap={1}
-                      width={1}
-                      alignItems={"center"}
-                    >
-                      <Avatar
-                        variant="square"
-                        src="/assets/images/harari-flag.png"
-                        sx={{ width: 25, height: 20 }}
-                      />
-                      <Typography fontSize={"0.8rem"}>
-                        {getLanguage("harari", lang)}
-                      </Typography>
-                    </Box>
-                  </MenuItem>
-                  <MenuItem value={"oromia"}>
-                    <Box
-                      display={"flex"}
-                      gap={1}
-                      width={1}
-                      alignItems={"center"}
-                    >
-                      <Avatar
-                        variant="square"
-                        src="/assets/images/oromia-flag.png"
-                        sx={{ width: 25, height: 20 }}
-                      />
-                      <Typography fontSize={"0.8rem"}>
-                        {getLanguage("oromia", lang)}
-                      </Typography>
-                    </Box>
-                  </MenuItem>
-                </Select>
-              </FormControl>
+              <RegionDropdownSelect
+                value={localAddress}
+                setValue={setLocalAddress}
+              />
             </Stack>
           </Grid>
         </Grid>
 
         <Stack gap={1}>
           <Typography color={"text.primary"} fontWeight={"bold"}>
-            {getLanguage("contactInformation", lang)}
+            {t("addressForm:contactInformation")}
           </Typography>
           <Grid container spacing={2}>
             <Grid item xs={6}>
               <Stack gap={1}>
                 <TextField
-                  placeholder={getLanguage("contactName", lang)}
+                  placeholder={t("addressForm:contactName")}
                   id="outlined-basic"
                   variant="outlined"
                   color="error"
                   size="small"
                   name="contactName"
                   value={contactName}
-                  onChange={({ target }) => setContactName(target.value)}
+                  onChange={({ target }) => {
+                    setContactNameError(validateContactName(t, target.value));
+                    setContactName(target.value);
+                  }}
                 />
-                <Typography fontSize={"0.8rem"} color={"error"}>
-                  {getLanguage("pleaseEnterContactName", lang)}{" "}
-                </Typography>
+                {contactNameError.error && (
+                  <Typography fontSize={"0.8rem"} color={"error"}>
+                    {contactNameError.message}
+                  </Typography>
+                )}
               </Stack>
             </Grid>
+
             <Grid item xs={6} container rowGap={1}>
               <Grid item xs={2}>
                 <Stack gap={1}>
@@ -272,21 +177,32 @@ export function ShippingAddressForm({ onClose }: { onClose: () => void }) {
                 <Stack gap={1}>
                   <OutlinedInput
                     value={phoneNumber}
-                    onChange={({ target }) => setPhoneNumber(target.value)}
-                    placeholder={getLanguage("mobileNumber", lang)}
+                    onChange={({ target }) => {
+                      setPhoneNumberError(validatePhoneNumber(t, target.value));
+                      setPhoneNumber(target.value);
+                    }}
+                    placeholder={t("mobileNumber", { ns: "addressForm" })}
                     size="small"
+                    type="number"
                     sx={{
                       borderTopLeftRadius: 0,
                       borderBottomLeftRadius: 0,
+                      "& input::-webkit-outer-spin-button, & input::-webkit-inner-spin-button":
+                        {
+                          WebkitAppearance: "none",
+                          margin: 0,
+                        },
                     }}
                   />
                 </Stack>
               </Grid>
 
               <Grid item xs={12}>
-                <Typography fontSize={"0.8rem"} color={"error"}>
-                  {getLanguage("pleaseEnterMobilePhoneNumber", lang)}
-                </Typography>
+                {phoneNumberError.error && (
+                  <Typography fontSize={"0.8rem"} color={"error"}>
+                    {phoneNumberError.message}
+                  </Typography>
+                )}
               </Grid>
             </Grid>
           </Grid>
@@ -294,95 +210,121 @@ export function ShippingAddressForm({ onClose }: { onClose: () => void }) {
 
         <Stack gap={1}>
           <Typography color={"text.primary"} fontWeight={"bold"}>
-            {getLanguage("address", lang)}
+            {t("addressForm:countryRegion")}
           </Typography>
           <Grid container spacing={2}>
+            {/* address1 */}
             <Grid item xs={6}>
               <Stack gap={1}>
                 <TextField
-                  value={region}
-                  onChange={({ target }) => setRegion(target.value)}
-                  placeholder={getLanguage("streetHouseApartmentUnit", lang)}
+                  value={address1}
+                  onChange={({ target }) => {
+                    setAddress1Error(validateAddress1(t, target.value));
+                    setAddress1(target.value);
+                  }}
+                  placeholder={t("addressForm:streetHouseApartmentUnit")}
                   id="outlined-basic"
                   variant="outlined"
                   color="error"
                   size="small"
                 />
-                <Typography fontSize={"0.8rem"} color={"error"}>
-                  {getLanguage("pleaseEnterAddress", lang)}
-                </Typography>
+                {address1Error.error && (
+                  <Typography fontSize={"0.8rem"} color={"error"}>
+                    {address1Error.message}
+                  </Typography>
+                )}
               </Stack>
             </Grid>
+
+            {/* address2 */}
             <Grid item xs={6} container rowGap={1}>
               <Grid item xs>
                 <Stack gap={1}>
                   <TextField
+                    value={address2}
+                    onChange={({ target }) => setAddress2(target.value)}
+                    placeholder={t("addressForm:aptSuiteUnitEtc")}
+                    id="outlined-basic"
+                    variant="outlined"
+                    color="error"
+                    size="small"
+                  />
+                </Stack>
+              </Grid>
+            </Grid>
+
+            {/* Region */}
+            <Grid item xs={4} container rowGap={1}>
+              <Grid item xs>
+                <Stack gap={1}>
+                  <TextField
+                    id="outlined-basic"
+                    variant="outlined"
+                    color="error"
+                    size="small"
+                    value={region}
+                    onChange={({ target }) => {
+                      setRegionError(validateRegion(t, target.value));
+                      setRegion(target.value);
+                    }}
+                    placeholder={t("addressForm:stateProvince")}
+                  />
+                  {regionError.error && (
+                    <Typography fontSize={"0.8rem"} color={"error"}>
+                      {regionError.message}
+                    </Typography>
+                  )}
+                </Stack>
+              </Grid>
+            </Grid>
+
+            {/* city or sub city */}
+            <Grid item xs={4} container rowGap={1}>
+              <Grid item xs>
+                <Stack gap={1}>
+                  <TextField
+                    placeholder={t("addressForm:city")}
+                    id="outlined-basic"
+                    variant="outlined"
+                    color="error"
+                    size="small"
                     value={subCity}
-                    onChange={({ target }) => setSubCity(target.value)}
-                    placeholder={getLanguage("aptSuiteUnitEtc", lang)}
-                    id="outlined-basic"
-                    variant="outlined"
-                    color="error"
-                    size="small"
+                    onChange={({ target }) => {
+                      setCityError(validateCity(t, target.value));
+                      setSubCity(target.value);
+                    }}
                   />
+                  {cityError.error && (
+                    <Typography fontSize={"0.8rem"} color={"error"}>
+                      {cityError.message}
+                    </Typography>
+                  )}
                 </Stack>
               </Grid>
             </Grid>
 
-            <Grid item xs={4} container rowGap={1}>
-              <Grid item xs>
-                <Stack gap={1}>
-                  <TextField
-                    id="outlined-basic"
-                    variant="outlined"
-                    color="error"
-                    size="small"
-                    value={country}
-                    onChange={({ target }) => setCountry(target.value)}
-                    placeholder={getLanguage("stateProvince", lang)}
-                  />
-                  <Typography fontSize={"0.8rem"} color={"error"}>
-                    {getLanguage("pleaseEnterStateProvinceRegion", lang)}
-                  </Typography>
-                </Stack>
-              </Grid>
-            </Grid>
-
-            <Grid item xs={4} container rowGap={1}>
-              <Grid item xs>
-                <Stack gap={1}>
-                  <TextField
-                    placeholder={getLanguage("city", lang)}
-                    id="outlined-basic"
-                    variant="outlined"
-                    color="error"
-                    size="small"
-                    value={city}
-                    onChange={({ target }) => setCity(target.value)}
-                  />
-                  <Typography fontSize={"0.8rem"} color={"error"}>
-                    {getLanguage("pleaseEnterCity", lang)}
-                  </Typography>
-                </Stack>
-              </Grid>
-            </Grid>
-
+            {/* zip-code specific description */}
             <Grid item xs={4} container rowGap={1}>
               <Grid item xs>
                 <Stack gap={1}>
                   <OutlinedInput
                     size="small"
                     value={postalCode}
-                    onChange={({ target }) => setPostalCode(target.value)}
-                    placeholder={getLanguage("zipCode", lang)}
+                    onChange={({ target }) => {
+                      setPostalCodeError(validateZipCode(t, target.value));
+                      setPostalCode(target.value);
+                    }}
+                    placeholder={t("addressForm:zipCode")}
                     sx={{
                       borderTopRightRadius: 0,
                       borderBottomRightRadius: 0,
                     }}
                   />
-                  <Typography fontSize={"0.8rem"} color={"error"}>
-                    {getLanguage("pleaseEnterZipPostalCode", lang)}
-                  </Typography>
+                  {postalCodeError.error && (
+                    <Typography fontSize={"0.8rem"} color={"error"}>
+                      {postalCodeError.message}
+                    </Typography>
+                  )}
                 </Stack>
               </Grid>
             </Grid>
@@ -396,7 +338,7 @@ export function ShippingAddressForm({ onClose }: { onClose: () => void }) {
               <Checkbox onClick={() => setAsDefault((p) => !p)} color="error" />
             }
             checked={asDefault}
-            label={getLanguage("setAsDefaultShippingAddress", lang)}
+            label={t("setAsDefaultShippingAddress", { ns: "addressForm" })}
           />
         </FormGroup>
 
@@ -411,7 +353,7 @@ export function ShippingAddressForm({ onClose }: { onClose: () => void }) {
             }}
             type="submit"
           >
-            {getLanguage("confirm", lang)}
+            {t("confirm", { ns: "actions" })}
           </Button>
 
           <Button
@@ -424,7 +366,7 @@ export function ShippingAddressForm({ onClose }: { onClose: () => void }) {
             }}
             onClick={() => onClose()}
           >
-            {getLanguage("cancel", lang)}
+            {t("cancel", { ns: "actions" })}
           </Button>
         </Stack>
       </Stack>

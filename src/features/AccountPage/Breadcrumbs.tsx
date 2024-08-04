@@ -2,10 +2,9 @@ import Breadcrumbs from "@mui/material/Breadcrumbs";
 import Link from "@mui/material/Link";
 import { Box, Typography } from "@mui/material";
 import useUserStore from "@/store/user";
-import getLanguage from "@/utils/getLanguage";
 
 export default function AccountPageBreadcrumbs() {
-  const { breadcrumbs, lang } = useUserStore();
+  const { breadcrumbs } = useUserStore();
 
   return (
     <Box
@@ -23,7 +22,7 @@ export default function AccountPageBreadcrumbs() {
               p={"0 0.5rem"}
               key={index}
             >
-              <Typography>{getLanguage(breadcrumb.name, lang)}</Typography>
+              <Typography>{breadcrumb.name}</Typography>
             </Link>
           );
         })}

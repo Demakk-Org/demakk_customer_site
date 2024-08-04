@@ -20,28 +20,38 @@ import { useEffect, useState } from "react";
 import { CiLocationOn } from "react-icons/ci";
 import { LiaClipboardListSolid } from "react-icons/lia";
 import { MdOutlineExpandLess, MdOutlineExpandMore } from "react-icons/md";
-import "@/language/translation";
-import { t } from "i18next";
+import handleAddOrderItem from "@/api/orderItem/handleAddOrderItem";
+import useCartStore from "@/store/cart";
+import usePageStore from "@/store/page";
+import { ImageType } from "@/component/FirebaseImageUploadComponent";
+import { useTranslation } from "next-i18next";
+import { copyToClipboard } from "./OrdersTabDisplayContainer";
+import MoreToLoveComponent from "./MoreToLoveComponent";
+import { OrderItems } from "@/model/orderModel";
 
 function OrderDetailTabContent({ orderId }: { orderId: string }) {
+  const { t } = useTranslation(["order"]);
   const { setBreadcrumbs } = useUserStore();
   const { token } = useTokenStore();
-  const { order, setOrder } = useOrderStore();
+  const { order, setOrder, selectedOrderItem } = useOrderStore();
+  const { setCart } = useCartStore();
+  const { setLoading, setSnackBar } = usePageStore();
 
   const router = useRouter();
 
   const [more, setMore] = useState(false);
 
   useEffect(() => {
-    if (!token) router.back();
+    // if (!token) router.back();
+
     setBreadcrumbs([
-      { name: "home", url: "/" },
+      { name: t("home", { ns: "common" }), url: "/" },
       {
-        name: "order",
+        name: t("order_one"),
         url: "/order",
       },
       {
-        name: "orderDetails",
+        name: t("orderDetails"),
         url: "",
       },
     ]);
@@ -57,16 +67,21 @@ function OrderDetailTabContent({ orderId }: { orderId: string }) {
         alignItems={"center"}
         minHeight={"250px"}
       >
-        <Loading />
+        <Loading windowMode={true} />
       </Stack>
     );
   }
 
+  console.log(order.getOrder());
+
   let totalPrice = 0;
 
-  order.getOrder().orderItems.map((item) => {
-    totalPrice += item.productVariant.price * item.quantity;
-  });
+  let orderItemsFromOrder = new OrderItems(order.getOrder().orderItems);
+
+  totalPrice = orderItemsFromOrder
+    .getOrderItemsForOrderDetail(selectedOrderItem)
+    .getPriceForOrderDetail();
+  console.log(totalPrice);
 
   return (
     <Stack color={"text.primary"} gap={2}>
@@ -77,13 +92,15 @@ function OrderDetailTabContent({ orderId }: { orderId: string }) {
           alignItems={"center"}
         >
           <Typography fontSize={"1.2rem"} fontWeight={"bold"} letterSpacing={1}>
-            {t(order.getOrder().orderStatus.toString().toLowerCase())}
+            {t(order.getOrder().orderStatus.toLowerCase())}
           </Typography>
           <Button
-            onClick={() => router.back()}
+            onClick={() => router.push("/order")}
             startIcon={<ChevronLeft sx={{ color: "text.primary" }} />}
           >
-            <Typography color={"text.primary"}>{t("back")}</Typography>
+            <Typography color={"text.primary"}>
+              {t("back", { ns: "actions" })}
+            </Typography>
           </Button>
         </Stack>
         <Typography fontSize={{ xs: "0.85rem", sm: "1rem" }}>
@@ -92,40 +109,56 @@ function OrderDetailTabContent({ orderId }: { orderId: string }) {
         <Stack direction={"row"} gap={{ xs: 0.5, sm: 2 }}>
           <Button
             variant="contained"
-            size="small"
+            size="medium"
             sx={{ borderRadius: { xs: "0.5rem", sm: "2rem" } }}
           >
-            <Typography fontSize={{ xs: "0.8rem", sm: "1rem" }}>
-              {t("writeReview")}
+            <Typography
+              fontSize={{ xs: "0.8rem", sm: "0.85rem" }}
+              fontWeight={"bold"}
+              width={"150px"}
+            >
+              {t("writeReview", { ns: "actions" })}
             </Typography>
           </Button>
           <Button
-            size="small"
+            size="medium"
             color="primaryButton"
             variant="outlined"
             sx={{ borderRadius: { xs: "0.5rem", sm: "2rem" } }}
           >
-            <Typography fontSize={{ xs: "0.8rem", sm: "1rem" }}>
-              {t("addToCart")}
+            <Typography
+              fontSize={{ xs: "0.8rem", sm: "0.85rem" }}
+              fontWeight={"bold"}
+              width={"150px"}
+            >
+              {t("addToCart", { ns: "actions" })}
             </Typography>
           </Button>
           <Button
-            size="small"
+            size="medium"
             color="primaryButton"
             variant="outlined"
             sx={{ borderRadius: { xs: "0.5rem", sm: "2rem" } }}
           >
-            <Typography fontSize={{ xs: "0.8rem", sm: "1rem" }}>
+            <Typography
+              fontSize={{ xs: "0.8rem", sm: "0.85rem" }}
+              fontWeight={"bold"}
+              width={"150px"}
+            >
               {t("trackOrder")}
             </Typography>
           </Button>
           <Button
-            size="small"
+            size="medium"
             color="primaryButton"
             variant="outlined"
             sx={{ borderRadius: { xs: "0.5rem", sm: "2rem" } }}
           >
-            <Typography fontSize={{ xs: "0.8rem", sm: "1rem" }}>
+            <Typography
+              fontSize={{ xs: "0.8rem", sm: "0.85rem" }}
+              fontWeight={"bold"}
+              width={"150px"}
+            >
               {t("receipt")}
             </Typography>
           </Button>
@@ -135,7 +168,13 @@ function OrderDetailTabContent({ orderId }: { orderId: string }) {
       <Stack gap={2}>
         <Grid container spacing={2}>
           <Grid item xs={12} sm={6} container>
-            <Stack p={"1rem"} bgcolor={"background.light"} width={1}>
+            <Stack
+              p={"1rem"}
+              bgcolor={"background.light"}
+              width={1}
+              fontSize={{ xs: "0.8rem", md: "1rem" }}
+              sx={{ "& p": { fontSize: "inherit" } }}
+            >
               <Grid container spacing={2}>
                 <Grid item xs={1.5}>
                   <Stack alignItems={"center"}>
@@ -143,7 +182,7 @@ function OrderDetailTabContent({ orderId }: { orderId: string }) {
                   </Stack>
                 </Grid>
                 <Grid item xs={10.5}>
-                  <Stack gap={1} position={"relative"}>
+                  <Stack gap={{ xs: 0.5, md: 1 }} position={"relative"}>
                     <Typography fontWeight={300}>
                       {order.getOrder().deliveryAddress.contactName}
                     </Typography>
@@ -154,6 +193,8 @@ function OrderDetailTabContent({ orderId }: { orderId: string }) {
                       <Typography fontWeight={300}>
                         <Stack
                           direction={"row"}
+                          fontSize={{ xs: "0.8rem", md: "1rem" }}
+                          sx={{ "& span": { fontSize: "inherit" } }}
                           divider={
                             <Typography component={"span"}>,&nbsp;</Typography>
                           }
@@ -179,6 +220,8 @@ function OrderDetailTabContent({ orderId }: { orderId: string }) {
                     <Typography fontWeight={300}>
                       <Stack
                         direction={"row"}
+                        fontSize={{ xs: "0.8rem", md: "1rem" }}
+                        sx={{ "& span": { fontSize: "inherit" } }}
                         divider={
                           <Typography component={"span"}>,&nbsp;</Typography>
                         }
@@ -225,6 +268,8 @@ function OrderDetailTabContent({ orderId }: { orderId: string }) {
               bgcolor={"background.light"}
               width={1}
               height={"fit-content"}
+              fontSize={{ xs: "0.8rem", md: "1rem" }}
+              sx={{ "& p": { fontSize: "inherit" } }}
             >
               <Grid container spacing={2}>
                 <Grid item xs={1.5}>
@@ -234,17 +279,41 @@ function OrderDetailTabContent({ orderId }: { orderId: string }) {
                 </Grid>
                 <Grid item xs={10.5}>
                   <Stack gap={1}>
-                    <Stack direction={"row"}>
+                    <Stack direction={"row"} spacing={1}>
                       <Typography fontWeight={300}>
                         {t("orderId")}: {order.getOrder().id}
                       </Typography>
+
+                      <Button
+                        color={"primary"}
+                        onClick={() =>
+                          copyToClipboard(order.getOrder().id, () =>
+                            setSnackBar({
+                              open: true,
+                              message: t("copiedToClipboard", { ns: "common" }),
+                              type: "success",
+                            })
+                          )
+                        }
+                        sx={{
+                          textDecoration: "none",
+                          fontSize: "inherit",
+                          p: 0,
+                          maxWidth: "fit-content",
+                          minWidth: "unset",
+                        }}
+                      >
+                        <Typography fontSize={"0.8rem"}>
+                          {t("copy", { ns: "actions" })}
+                        </Typography>
+                      </Button>
                     </Stack>
                     <Typography fontWeight={300}>
                       {t("orderPlacedOn")}:{" "}
                       {new Date(order.getOrder().orderDate).toDateString()}
                     </Typography>
                     <Typography fontWeight={300}>
-                      {t("paymentMethod")}: Credit/Debit card
+                      {t("paymentMethod", { ns: "account" })}: Credit/Debit card
                     </Typography>
                   </Stack>
                 </Grid>
@@ -260,17 +329,18 @@ function OrderDetailTabContent({ orderId }: { orderId: string }) {
         gap={2}
         divider={<Divider flexItem />}
       >
-        <Grid container gap={2}>
-          <Grid item xs={12} sm={9}>
-            <Stack divider={<Divider flexItem />} gap={2}>
-              {order.getOrder().orderItems.map((orderItem, index) => {
-                return (
+        {orderItemsFromOrder.getOrderItems().map((orderItem, index) => {
+          return (
+            <Grid container gap={2} key={index}>
+              <Grid item xs={12} sm={9}>
+                <Stack divider={<Divider flexItem />} gap={2}>
                   <Stack direction={"row"} key={index} gap={2}>
-                    <Box width={"20%"}>
+                    <Box width={{ xs: "30%", md: "20%" }}>
                       <ImageFromFirebase
                         width={"100%"}
-                        quality="480p"
+                        quality="240p"
                         name={orderItem.productVariant.imageUrl}
+                        type={ImageType.product}
                       />
                     </Box>
                     <Stack gap={{ xs: 0.5, sm: 2 }} flex={1}>
@@ -312,7 +382,8 @@ function OrderDetailTabContent({ orderId }: { orderId: string }) {
                           fontWeight={300}
                           color={"text.primary"}
                         >
-                          ETB {getPrice(orderItem.productVariant.price).int}.
+                          {t("etb", { ns: "common" })}{" "}
+                          {getPrice(orderItem.productVariant.price).int}.
                           {getPrice(orderItem.productVariant.price).dec}
                         </Typography>
                         <Typography
@@ -325,65 +396,82 @@ function OrderDetailTabContent({ orderId }: { orderId: string }) {
                       </Stack>
                     </Stack>
                   </Stack>
-                );
-              })}
-            </Stack>
-          </Grid>
+                </Stack>
+              </Grid>
 
-          <Grid item xs>
-            <Stack
-              flex={1}
-              px={{ xs: "4rem", sm: "1rem" }}
-              gap={2}
-              sx={{ "&>button": { borderRadius: "2rem" } }}
-            >
-              <Button
-                variant="outlined"
-                color="primaryButton"
-                sx={{
-                  fontWeight: "bold",
-                  color: "text.primary",
-                  "&:hover": { color: "demakkPrimary.main" },
-                }}
-              >
-                {t("addToCart")}
-              </Button>
-              <Button
-                variant="outlined"
-                color="primaryButton"
-                sx={{
-                  fontWeight: "bold",
-                  color: "text.primary",
-                  "&:hover": { color: "demakkPrimary.main" },
-                }}
-              >
-                {t("returnsRefunds")}
-              </Button>
-            </Stack>
-          </Grid>
-        </Grid>
+              <Grid item xs>
+                <Stack
+                  flex={1}
+                  px={{ xs: "4rem", sm: "1rem" }}
+                  gap={2}
+                  sx={{ "&>button": { borderRadius: "2rem" } }}
+                >
+                  <Button
+                    variant="outlined"
+                    color="primaryButton"
+                    sx={{
+                      fontWeight: "bold",
+                      color: "text.primary",
+                      "&:hover": { color: "demakkPrimary.main" },
+                    }}
+                    onClick={() =>
+                      handleAddOrderItem({
+                        productVariantId: orderItem.productVariant._id,
+                        quantity: 1,
+                        token,
+                        setCart,
+                        setLoading,
+                      })
+                    }
+                  >
+                    {t("addToCart", { ns: "actions" })}
+                  </Button>
+                  <Button
+                    variant="outlined"
+                    color="primaryButton"
+                    sx={{
+                      fontWeight: "bold",
+                      color: "text.primary",
+                      "&:hover": { color: "demakkPrimary.main" },
+                    }}
+                  >
+                    {t("returnsRefunds", { ns: "actions" })}
+                  </Button>
+                </Stack>
+              </Grid>
+            </Grid>
+          );
+        })}
 
         <Stack>
           <Grid container justifyContent={"flex-end"}>
-            <Grid item xs={3}>
-              <Stack gap={1} alignItems={{ xs: "flex-end", sm: "unset" }}>
-                <Typography fontWeight={300}>{t("subTotal")}</Typography>
-                <Typography fontWeight={"bold"}>{t("total")}</Typography>
-              </Stack>
-            </Grid>
-            <Grid item xs={3}>
-              <Stack gap={1} alignItems={"flex-end"}>
+            <Grid item xs={6} md={3}>
+              <Stack gap={1} alignItems={{ xs: "flex-start", sm: "unset" }}>
                 <Typography fontWeight={300}>
-                  ETB {getPrice(totalPrice).int}.{getPrice(totalPrice).dec}
+                  {t("subTotal", { ns: "common" })}
                 </Typography>
                 <Typography fontWeight={"bold"}>
-                  ETB {getPrice(totalPrice).int}.{getPrice(totalPrice).dec}
+                  {t("total", { ns: "common" })}
+                </Typography>
+              </Stack>
+            </Grid>
+            <Grid item xs={6} md={3}>
+              <Stack gap={1} alignItems={"flex-end"}>
+                <Typography fontWeight={300}>
+                  {t("etb", { ns: "common" })} {getPrice(totalPrice).int}.
+                  {getPrice(totalPrice).dec}
+                </Typography>
+                <Typography fontWeight={"bold"}>
+                  {t("etb", { ns: "common" })} {getPrice(totalPrice).int}.
+                  {getPrice(totalPrice).dec}
                 </Typography>
               </Stack>
             </Grid>
           </Grid>
         </Stack>
       </Stack>
+
+      <MoreToLoveComponent />
     </Stack>
   );
 }

@@ -6,7 +6,8 @@ import { IoIosList } from "react-icons/io";
 import { BsCart3 } from "react-icons/bs";
 import { CiUser } from "react-icons/ci";
 import { useState } from "react";
-import { Typography } from "@mui/material";
+import { useRouter } from "next/router";
+import { useTranslation } from "next-i18next";
 
 export default function BottomNavigationBar({
   page,
@@ -15,6 +16,8 @@ export default function BottomNavigationBar({
   page: number;
   children: JSX.Element;
 }) {
+  const { t } = useTranslation(["common", "saleTerms"]);
+  const router = useRouter();
   const [value, setValue] = useState<number>(page);
 
   return (
@@ -45,12 +48,13 @@ export default function BottomNavigationBar({
             zIndex: 10,
             bgcolor: { xs: "background.paper", md: "background.light" },
           }}
-          label="Home"
+          label={t("home")}
           icon={
             <Box height={25} sx={{ aspectRatio: 1 }}>
               <IoHomeOutline style={{ height: "inherit", width: "inherit" }} />
             </Box>
           }
+          onClick={() => router.push("/")}
         />
         <BottomNavigationAction
           sx={{
@@ -59,7 +63,7 @@ export default function BottomNavigationBar({
             zIndex: 10,
             bgcolor: { xs: "background.paper", md: "background.light" },
           }}
-          label="Category"
+          label={t("saleTerms:category")}
           icon={
             <Box height={25} sx={{ aspectRatio: 1 }}>
               <IoIosList style={{ height: "inherit", width: "inherit" }} />
@@ -73,7 +77,7 @@ export default function BottomNavigationBar({
             zIndex: 10,
             bgcolor: { xs: "background.paper", md: "background.light" },
           }}
-          label="Cart"
+          label={t("cart")}
           icon={
             <Box height={25} sx={{ aspectRatio: 1 }}>
               <BsCart3 style={{ height: "inherit", width: "inherit" }} />
@@ -87,7 +91,7 @@ export default function BottomNavigationBar({
             zIndex: 10,
             bgcolor: { xs: "background.paper", md: "background.light" },
           }}
-          label="Account"
+          label={t("account", { ns: "account" })}
           icon={
             <Box height={25} sx={{ aspectRatio: 1 }}>
               <CiUser style={{ height: "inherit", width: "inherit" }} />

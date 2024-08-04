@@ -12,35 +12,38 @@ import { IoTrashBin } from "react-icons/io5";
 import OrdersTabDisplayContainer from "./OrdersTabDisplayContainer";
 import { CiSearch } from "react-icons/ci";
 import IconFromReactIcons from "@/component/IconFromReactIcons";
-import useOrderStore from "@/store/order";
+import useOrderStore, { orderStatus } from "@/store/order";
 import useUserStore from "@/store/user";
-import getLanguage from "@/utils/getLanguage";
 import useTokenStore from "@/store/token";
-
-const timeFrames = ["allOrLastYear", "lastMonth", "last3Months", "last6Months"];
-const orderType = [
-  { type: "order", placeholder: "orderIdOrProduct" },
-  { type: "track", placeholder: "trackingNumber" },
-];
-
-export const orderStatus = [
-  { name: "completed", orderIndex: 0 },
-  { name: "shipped", orderIndex: 1 },
-  { name: "pending", orderIndex: 2 },
-  { name: "cancelled", orderIndex: 3 },
-];
+import { useTranslation } from "next-i18next";
+import MoreToLoveComponent from "./MoreToLoveComponent";
+import { getTimeFrames } from "@/utils/filterOrder";
 
 function OrdersTabContent() {
-  const { setOrderList } = useOrderStore();
-  const { setBreadcrumbs, lang } = useUserStore();
+  const { t } = useTranslation(["order", "common"]);
+
+  const orderType = [
+    { type: t("order_one"), placeholder: t("orderIdOrProduct") },
+    { type: t("track"), placeholder: t("trackingNumber") },
+  ];
+
+  const {
+    setOrderList,
+    orderStatusType,
+    setOrderStatusType,
+    setDeletedOrderList,
+    emptyOrderList,
+  } = useOrderStore();
+  const { setBreadcrumbs } = useUserStore();
   const { token } = useTokenStore();
 
-  const [selectedOrderStatusType, setSelectedOrderStatusType] = useState(0);
-  const [selectedTimeFrame, setSelectedTimeFrame] = useState(0);
+  const [selectedTimeFrame, setSelectedTimeFrame] = useState("all");
   const [selectedOrderType, setSelectedOrderType] = useState(0);
 
+  const [viewDeletedOrders, setViewDeletedOrders] = useState(false);
+
   const handleTimeFrameChange = (event: SelectChangeEvent) => {
-    setSelectedTimeFrame(timeFrames.indexOf(event.target.value as string));
+    setSelectedTimeFrame(event.target.value as string);
   };
 
   const handleOrderTypeChange = (event: SelectChangeEvent) => {
@@ -53,15 +56,13 @@ function OrdersTabContent() {
 
   useEffect(() => {
     setBreadcrumbs([
-      { name: "home", url: "/" },
-      { name: "account", url: "/account" },
-      { name: "orders", url: "/order" },
+      { name: t("home", { ns: "common" }), url: "/" },
+      { name: t("account", { ns: "account" }), url: "/account" },
+      { name: t("orders"), url: "/order" },
     ]);
 
-    setOrderList(token);
-  }, [token, setBreadcrumbs, setOrderList]);
-
-  if (!orderStatus.length) return <></>;
+    !viewDeletedOrders ? setOrderList(token) : setDeletedOrderList(token);
+  }, [token, setBreadcrumbs, setOrderList, viewDeletedOrders]);
 
   return (
     <Stack gap={2}>
@@ -73,58 +74,68 @@ function OrdersTabContent() {
             sx={{ overflowX: "auto" }}
             py={"0.5rem"}
           >
-            {[{ name: "viewAll", orderIndex: -1 }, ...orderStatus]
-              .sort((a, b) => a.orderIndex - b.orderIndex)
-              .map((tab, ind) => (
-                <Box key={ind} position="relative">
-                  <Button
-                    disableRipple
-                    sx={{
-                      p: { xs: "0rem" },
-                      fontSize: { xs: "0.85rem", sm: "1rem" },
-                      fontWeight:
-                        selectedOrderStatusType === ind ? "bold" : "normal",
-                      color: "text.primary",
-                      "&:hover": {
-                        color:
-                          selectedOrderStatusType !== ind
-                            ? "text.price"
-                            : "text.primary",
-                      },
-                    }}
-                    onClick={() => setSelectedOrderStatusType(ind)}
-                  >
-                    {getLanguage(tab.name, lang)}
-                  </Button>
-                  {selectedOrderStatusType === ind && (
-                    <Box
-                      position="absolute"
-                      width="30px"
-                      height={"4px"}
-                      bgcolor={"text.price"}
-                      top={"100%"}
-                      left={"calc(50% - 15px)"}
-                    ></Box>
-                  )}
-                </Box>
-              ))}
+            {orderStatus.map((tab, ind) => (
+              <Box key={ind} position="relative">
+                <Button
+                  disableRipple
+                  sx={{
+                    p: { xs: "0rem" },
+                    fontSize: { xs: "0.85rem", sm: "1rem" },
+                    minWidth: "max-content",
+                    fontWeight:
+                      orderStatusType === tab.orderIndex && !viewDeletedOrders
+                        ? "bold"
+                        : "normal",
+                    color: "text.primary",
+                    "&:hover": {
+                      color:
+                        orderStatusType !== tab.orderIndex || viewDeletedOrders
+                          ? "text.price"
+                          : "text.primary",
+                    },
+                  }}
+                  onClick={() => {
+                    viewDeletedOrders && emptyOrderList();
+                    setViewDeletedOrders(false);
+                    setOrderStatusType(tab.orderIndex);
+                  }}
+                >
+                  {t(tab.name, { ns: "order" })}
+                </Button>
+                {orderStatusType === tab.orderIndex && !viewDeletedOrders && (
+                  <Box
+                    position="absolute"
+                    width="30px"
+                    height={"4px"}
+                    bgcolor={"text.price"}
+                    top={"100%"}
+                    left={"calc(50% - 15px)"}
+                  />
+                )}
+              </Box>
+            ))}
           </Stack>
           <Button
             size="small"
             disableRipple
             startIcon={<IoTrashBin fontSize={"0.8rem"} />}
+            onClick={() => {
+              !viewDeletedOrders && emptyOrderList();
+              setViewDeletedOrders(true);
+            }}
             sx={{
-              color: "text.primary",
+              color: viewDeletedOrders ? "demakkPrimary.main" : "text.primary",
               "&:hover": { fontWeight: "bold" },
               display: { xs: "none", sm: "flex" },
             }}
           >
-            {getLanguage("deletedOrders", lang)}
+            {t("deletedOrders")}
           </Button>
         </Stack>
 
         <Stack
           direction={{ xs: "column", sm: "row" }}
+          display={{ xs: "none", md: "flex" }}
           justifyContent={"space-between"}
           gap={2}
         >
@@ -145,16 +156,13 @@ function OrdersTabContent() {
             >
               {orderType.map((order, ind) => (
                 <MenuItem key={ind} value={orderType[ind].type}>
-                  {getLanguage(order.type, lang)}
+                  {order.type}
                 </MenuItem>
               ))}
             </Select>
             <OutlinedInput
               id="order search bar"
-              placeholder={getLanguage(
-                orderType[selectedOrderType].placeholder,
-                lang
-              )}
+              placeholder={orderType[selectedOrderType].placeholder}
               sx={{
                 minWidth: { xs: "100px", sm: "300px", md: "400px" },
                 borderRadius: "0",
@@ -179,17 +187,18 @@ function OrdersTabContent() {
               ></IconFromReactIcons>
             </Button>
           </Stack>
+
           <Select
             labelId="time frame select bar"
             id="time frame select bar"
-            value={timeFrames[selectedTimeFrame]}
+            value={selectedTimeFrame}
             onChange={handleTimeFrameChange}
             size="small"
             sx={{ width: "200px" }}
           >
-            {timeFrames.map((timeFrame, ind) => (
-              <MenuItem key={ind} value={timeFrames[ind]}>
-                {getLanguage(timeFrame, lang)}
+            {getTimeFrames(t).map((timeFrame, ind) => (
+              <MenuItem key={ind} value={timeFrame.name}>
+                {timeFrame.value}
               </MenuItem>
             ))}
           </Select>
@@ -197,8 +206,11 @@ function OrdersTabContent() {
       </Stack>
 
       <OrdersTabDisplayContainer
-        selectedOrderStatusType={selectedOrderStatusType}
+        filter={selectedTimeFrame}
+        viewDeletedOrders={viewDeletedOrders}
       />
+
+      <MoreToLoveComponent />
     </Stack>
   );
 }

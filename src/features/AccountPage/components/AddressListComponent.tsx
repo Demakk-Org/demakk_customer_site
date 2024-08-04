@@ -1,17 +1,28 @@
 import { Button, Grid, Stack, Typography } from "@mui/material";
 import IconFromReactIcons from "@/component/IconFromReactIcons";
 import { GetAddress } from "@/model/addressModel";
-import { t } from "i18next";
 import { FaRegUser } from "react-icons/fa";
 import { IoLocationSharp } from "react-icons/io5";
+import usePageStore from "@/store/page";
+import handleDeleteAddress from "@/api/address/handleDeleteAddress";
+import useTokenStore from "@/store/token";
+import useUserStore from "@/store/user";
+import useAddressStore from "@/store/address";
+import { useTranslation } from "next-i18next";
 
 function AddressListComponent({
   address,
-  setOpenDeleteAddressModal,
+  setAddAddress,
 }: {
   address: GetAddress;
-  setOpenDeleteAddressModal: () => void;
+  setAddAddress: () => void;
 }) {
+  const { t } = useTranslation("actions");
+  const { setOpenModal, setLoading, setSnackBar } = usePageStore();
+  const { token } = useTokenStore();
+  const { lang, setShippingAddress } = useUserStore();
+  const { setAddress } = useAddressStore();
+
   return (
     <Grid item xs={4}>
       <Stack
@@ -37,7 +48,7 @@ function AddressListComponent({
               right: "1rem",
             }}
           >
-            {t("defaultAddress")}
+            {t("defaultAddress", { ns: "addressForm" })}
           </Typography>
         )}
         <Stack p={1} gap={1} flex={1}>
@@ -135,7 +146,7 @@ function AddressListComponent({
                       </Stack>
                     </Stack>
                     {address.getAddress().asDefault && (
-                      <Typography>{t("default")}</Typography>
+                      <Typography>{t("default", { ns: "common" })}</Typography>
                     )}
                   </Stack>
 
@@ -151,11 +162,34 @@ function AddressListComponent({
                           bgcolor: "transparent",
                         },
                       }}
+                      onClick={() => {
+                        setAddress(address);
+                        setAddAddress();
+                      }}
                     >
                       {t("edit")}
                     </Button>
                     <Button
-                      onClick={() => setOpenDeleteAddressModal()}
+                      onClick={() => {
+                        setOpenModal({
+                          title: t("deleteShippingAddress", { ns: "modal" }),
+                          description: t("confirmDeletionOfShippingAddress", {
+                            ns: "modal",
+                          }),
+                          open: true,
+                          callBackFn: () => {
+                            console.log("delete this address");
+                            handleDeleteAddress({
+                              token,
+                              setShippingAddress,
+                              setLoading,
+                              setSnackBar,
+                              lang,
+                              addressId: address.getAddress()._id.toString(),
+                            });
+                          },
+                        });
+                      }}
                       color="primaryButton"
                       variant="text"
                       sx={{

@@ -1,8 +1,8 @@
+import { Box, Button, Divider, Grid, Stack, Typography } from "@mui/material";
 import IconFromReactIcons from "@/component/IconFromReactIcons";
 import useUserStore from "@/store/user";
-import getLanguage from "@/utils/getLanguage";
-import { Box, Button, Divider, Grid, Stack, Typography } from "@mui/material";
 import { useEffect } from "react";
+import { useTranslation } from "next-i18next";
 import { AiOutlineMedicineBox } from "react-icons/ai";
 import { FaChevronRight } from "react-icons/fa";
 import { HiOutlineEye } from "react-icons/hi2";
@@ -10,28 +10,29 @@ import { IoIosAddCircleOutline } from "react-icons/io";
 import { IoEllipsisHorizontalSharp } from "react-icons/io5";
 
 let cardList: { name: string; type?: string }[] = [
-  // { name: "**** 9898", type: "mastercard" },
+  { name: "**** 9898", type: "mastercard" },
 ];
 
 const cardsImageList = [
   {
     name: "mastercard",
-    imageUrl: "assets/images/pay2.webp",
+    imageUrl: "/assets/images/paymentCards/pay2.webp",
   },
   {
     name: "visa",
-    imageUrl: "assets/images/pay.png",
+    imageUrl: "/assets/images/paymentCards/pay.png",
   },
 ];
 
 function PaymentTabContent() {
-  const { setBreadcrumbs, lang } = useUserStore();
+  const { t } = useTranslation(["account"]);
+  const { setBreadcrumbs } = useUserStore();
 
   useEffect(() => {
     setBreadcrumbs([
-      { name: "home", url: "/" },
-      { name: "account", url: "/account" },
-      { name: "payment", url: "/payment" },
+      { name: t("home", { ns: "common" }), url: "/" },
+      { name: t("account"), url: "/account" },
+      { name: t("payment"), url: "/payment" },
     ]);
   }, []);
 
@@ -44,9 +45,7 @@ function PaymentTabContent() {
         bgcolor={"background.light"}
         p={"0.25rem 1rem"}
       >
-        <Typography fontSize={"1.2rem"}>
-          {getLanguage("payment", lang)}
-        </Typography>
+        <Typography fontSize={"1.2rem"}>{t("payment")}</Typography>
         <Button
           color="primaryButton"
           endIcon={
@@ -58,7 +57,7 @@ function PaymentTabContent() {
           }
         >
           <Typography fontSize={"1.3rem"} fontWeight={300}>
-            {getLanguage("settings", lang)}
+            {t("settings")}
           </Typography>
         </Button>
       </Stack>
@@ -72,7 +71,7 @@ function PaymentTabContent() {
               color="text.secondary"
               icon={<AiOutlineMedicineBox />}
             />
-            <Typography>{getLanguage("myBonus", lang)}</Typography>
+            <Typography>{t("myBonus")}</Typography>
           </Stack>
           <Button
             color="primaryButton"
@@ -85,7 +84,7 @@ function PaymentTabContent() {
             }
           >
             <Typography fontSize={"1rem"} fontWeight={300}>
-              {getLanguage("records", lang)}
+              {t("records")}
             </Typography>
           </Button>
         </Stack>
@@ -94,7 +93,7 @@ function PaymentTabContent() {
           <Stack alignItems={"center"} spacing={1.5} p={"1.5rem 0"}>
             <Stack direction={"row"} spacing={1} alignItems={"center"}>
               <Typography fontSize={"1.1rem"}>
-                {getLanguage("total", lang)}
+                {t("total", { ns: "common" })}
               </Typography>
               <IconFromReactIcons icon={<HiOutlineEye />} />
             </Stack>
@@ -114,7 +113,7 @@ function PaymentTabContent() {
                 fontSize={"1.1rem"}
                 fontWeight={300}
               >
-                {getLanguage("available", lang)}
+                {t("available", { ns: "common" })}
               </Typography>
               <Stack direction={"row"} spacing={3} alignItems={"center"}>
                 <Typography fontWeight={"bold"} fontSize={"1.2rem"}>
@@ -129,7 +128,7 @@ function PaymentTabContent() {
             </Stack>
             <Stack width={"50%"} alignItems={"center"} gap={1}>
               <Typography letterSpacing={1} fontSize={"1rem"} fontWeight={300}>
-                {getLanguage("pending", lang)}
+                {t("pending", { ns: "order" })}
               </Typography>
               <Stack direction={"row"} spacing={3} alignItems={"center"}>
                 <Typography fontWeight={"bold"} fontSize={"1.2rem"}>
@@ -146,9 +145,9 @@ function PaymentTabContent() {
 
           <Stack pt={"1rem"} pb={"0.5rem"}>
             <Typography textAlign={"center"}>
-              {getLanguage("youCanUseBonusTowardsPurchases", lang)}
+              {t("youCanUseBonusTowardsPurchases")}
               <Typography color={"blue"} component={"a"} href="#" ml={0.5}>
-                {getLanguage("learnMore", lang)}
+                {t("learnMore", { ns: "common" })}
               </Typography>
             </Typography>
           </Stack>
@@ -157,7 +156,7 @@ function PaymentTabContent() {
 
       <Stack bgcolor={"background.light"} p={"1rem"} gap={"1rem"}>
         <Typography fontWeight={"bold"}>
-          {getLanguage("cards", lang)}
+          {t("cards", { ns: "common" })}
         </Typography>
         <Grid container spacing={2}>
           {[...cardList, { name: "addNew" }].map((cardList, index) => {
@@ -183,7 +182,7 @@ function PaymentTabContent() {
                         borderRadius: "1rem",
                       }}
                     >
-                      {getLanguage("addNewCard", lang)}
+                      {t("addNewCard", { ns: "actions" })}
                     </Button>
                   </Stack>
                 </Grid>
@@ -196,7 +195,7 @@ function PaymentTabContent() {
                   height={1}
                   bgcolor={"background.paper"}
                   borderRadius={4}
-                  p={"1rem"}
+                  p={"1.5rem"}
                   justifyContent={"space-between"}
                 >
                   <Stack direction={"row"} justifyContent={"space-between"}>
@@ -209,7 +208,7 @@ function PaymentTabContent() {
                     </Typography>
                     <Box
                       component={"img"}
-                      height={"1.2rem"}
+                      height={"1.5rem"}
                       width={"auto"}
                       bgcolor={"white"}
                       borderRadius={1}
@@ -233,8 +232,7 @@ function PaymentTabContent() {
 
         {!cardList.length && (
           <Typography fontSize={"0.9rem"}>
-            {getLanguage("noCardsSaved", lang)}{" "}
-            {getLanguage("addOneBelowToGetStarted", lang)}
+            {t("noCardsSaved")} {t("addOneBelowToGetStarted")}
           </Typography>
         )}
       </Stack>

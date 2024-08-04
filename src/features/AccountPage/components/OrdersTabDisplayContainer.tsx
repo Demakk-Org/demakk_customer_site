@@ -1,32 +1,26 @@
-import {
-  Alert,
-  Box,
-  Button,
-  Divider,
-  Snackbar,
-  Stack,
-  Typography,
-} from "@mui/material";
+import { Box, Button, Divider, Stack, Typography } from "@mui/material";
 import { FaChevronRight } from "react-icons/fa";
 import { LuClipboardList } from "react-icons/lu";
 import IconFromReactIcons from "@/component/IconFromReactIcons";
-import useOrderStore from "@/store/order";
+import useOrderStore, { orderStatus } from "@/store/order";
 import getPrice from "@/utils/getPrice";
-import { Fragment, useState } from "react";
 import useUserStore from "@/store/user";
-import { GetOrder } from "@/model/orderModel";
-import Loading from "@/component/Loading";
-import getLanguage from "@/utils/getLanguage";
-import { orderStatus } from "./OrdersTabContent";
+import { GetOrder, Orders } from "@/model/orderModel";
 import { useRouter } from "next/router";
 import ImageFromFirebase from "@/component/ImageFromFirebase";
 import orderStockVarietiesByMainFirst from "@/utils/orderStockVarieties";
+import handleAddOrderItem from "@/api/orderItem/handleAddOrderItem";
+import useTokenStore from "@/store/token";
+import useCartStore from "@/store/cart";
+import usePageStore from "@/store/page";
+import handleDeleteOrderItem from "@/api/orderItem/handleDeleteOrderItem";
+import { ImageType } from "@/component/FirebaseImageUploadComponent";
+import { useTranslation } from "next-i18next";
+import Loading from "@/component/Loading";
+import { filterOrderByTime } from "@/utils/filterOrder";
+import handleRestoreOrderItem from "@/api/orderItem/restoreOrderItem";
 
-interface OrdersTabDisplayContainerProps {
-  selectedOrderStatusType: number;
-}
-
-const copyToClipboard = (text: string, openSnackBar: Function) => {
+export const copyToClipboard = (text: string, openSnackBar: () => void) => {
   var textField = document.createElement("textarea");
   textField.innerText = text;
   document.body.appendChild(textField);
@@ -37,11 +31,24 @@ const copyToClipboard = (text: string, openSnackBar: Function) => {
 };
 
 function OrdersTabDisplayContainer({
-  selectedOrderStatusType,
-}: OrdersTabDisplayContainerProps) {
-  const { orderList, setOrder } = useOrderStore();
+  filter,
+  viewDeletedOrders,
+}: {
+  filter?: string;
+  viewDeletedOrders: boolean;
+}) {
+  const { t } = useTranslation("order");
+  const {
+    orderList,
+    orderStatusType,
+    setOrderList,
+    setSelectedOrderItem,
+    setDeletedOrderList,
+  } = useOrderStore();
+  const { setCart } = useCartStore();
+  const { token } = useTokenStore();
   const { lang } = useUserStore();
-  const [copySnackBar, setCopySnackBar] = useState(false);
+  const { setLoading, setOpenModal, setSnackBar } = usePageStore();
 
   const router = useRouter();
 
@@ -50,29 +57,21 @@ function OrdersTabDisplayContainer({
     orderList.filter(
       (order) =>
         order.getOrder().orderStatus.toLowerCase() ==
-        [{ name: "viewAll", orderIndex: -1 }, ...orderStatus].sort(
-          (a, b) => a.orderIndex - b.orderIndex
-        )[selectedOrderStatusType].name
+        orderStatus.find((os) => os.orderIndex == orderStatusType)?.name
     );
 
-  if (selectedOrderStatusType == 0) {
+  if (orderStatusType == -1) {
     OrderList = orderList;
   }
 
   if (orderList == null) {
-    return (
-      <Stack
-        bgcolor={"background.light"}
-        justifyContent={"center"}
-        alignItems={"center"}
-        minHeight={"250px"}
-      >
-        <Loading />
-      </Stack>
-    );
+    return <Loading windowMode={true} />;
   }
 
-  if (!orderList?.length || !OrderList?.length) {
+  if (
+    !orderList?.length ||
+    !filterOrderByTime({ orders: OrderList, timeFrame: filter })?.length
+  ) {
     return (
       <Stack
         bgcolor={"background.light"}
@@ -91,23 +90,23 @@ function OrdersTabDisplayContainer({
             fontWeight={300}
             textAlign={"center"}
           >
-            {getLanguage("noOrdersYet", lang)}, {getLanguage("please", lang)}
+            {t("noOrdersYet")}, {t("please", { ns: "common" })}{" "}
             <Typography
               component={"a"}
               color={"demakkPrimary.main"}
               href="/login"
               sx={{ textDecoration: "none" }}
             >
-              {getLanguage("switchAccount", lang)}
+              {t("switchAccount", { ns: "auth" })}
             </Typography>{" "}
-            {getLanguage("or", lang)}{" "}
+            {t("or", { ns: "common" })}{" "}
             <Typography
               component={"a"}
               color={"demakkPrimary.main"}
               href="/feedback"
               sx={{ textDecoration: "none" }}
             >
-              {getLanguage("feedback", lang)}
+              {t("feedback", { ns: "account" })}
             </Typography>
           </Typography>
         </Stack>
@@ -117,239 +116,287 @@ function OrdersTabDisplayContainer({
 
   return (
     <>
-      {OrderList.map((order, index) => {
-        let totalPrice = 0;
-
-        order.getOrder().orderItems.map((item) => {
-          totalPrice += item.productVariant.price * item.quantity;
-        });
-
-        return (
-          <Fragment key={index}>
-            <Stack
-              bgcolor={"background.light"}
-              p={"1.5rem"}
-              gap={2}
-              divider={<Divider flexItem />}
-            >
+      {new Orders(orderList)
+        .filterOrderByTime({ timeFrame: filter })
+        .sort()
+        .getOrders()
+        .orders.map((order) => {
+          return order.getOrder().orderItems.map((orderItem) => {
+            let totalPrice =
+              orderItem.productVariant.price * orderItem.quantity;
+            return (
               <Stack
-                direction={{ sx: "column", sm: "row" }}
-                justifyContent={"space-between"}
-                alignItems={"center"}
-                color={"text.primary"}
-                gap={{ xs: 1, sm: 0 }}
+                key={orderItem._id.toString()}
+                bgcolor={"background.light"}
+                p={"1rem"}
+                gap={2}
+                divider={<Divider flexItem />}
               >
-                <Typography
-                  fontWeight={"bold"}
-                  fontSize={{ xs: "1rem", sm: "1.1rem" }}
-                  letterSpacing={1}
-                >
-                  {getLanguage(
-                    order.getOrder().orderStatus.toLowerCase(),
-                    lang
-                  )}
-                </Typography>
                 <Stack
-                  divider={
-                    <Divider
-                      flexItem
-                      orientation="vertical"
-                      sx={{ m: "0.25rem 0" }}
-                    />
-                  }
-                  direction={"row"}
-                  gap={1}
+                  direction={{ sx: "column", sm: "row" }}
+                  justifyContent={"space-between"}
+                  alignItems={"center"}
+                  color={"text.primary"}
+                  gap={{ xs: 1, sm: 0 }}
                 >
-                  <Stack>
-                    <Typography
-                      color={"text.primary"}
-                      fontSize={{ xs: "0.75rem", sm: "0.8rem" }}
-                    >
-                      {getLanguage("orderDate", lang)}:{" "}
-                      {new Date(order.getOrder().orderDate).toDateString()}
-                    </Typography>
-                    <Typography
-                      color={"text.primary"}
-                      fontWeight={300}
-                      fontSize={{ xs: "0.75rem", sm: "0.8rem" }}
-                      sx={{ textWrap: "nowrap" }}
-                    >
-                      {getLanguage("orderId", lang)}: {order.getOrder().id}{" "}
-                    </Typography>
-                    <Button
-                      color={"primary"}
-                      onClick={() =>
-                        copyToClipboard(order.getOrder().id, () =>
-                          setCopySnackBar(true)
-                        )
-                      }
-                      sx={{
-                        textDecoration: "none",
-                        fontSize: "inherit",
-                        p: 0,
-                        maxWidth: "fit-content",
-                        minWidth: "unset",
-                      }}
-                    >
-                      <Typography fontSize={"0.8rem"}>
-                        {getLanguage("copy", lang)}
-                      </Typography>
-                    </Button>
-                  </Stack>
-                  <Button
-                    color="primaryButton"
-                    sx={{
-                      display: "flex",
-                      alignItems: "center",
-                      borderRadius: { xs: "0.5rem", sm: "2rem" },
-                      px: { xs: "0.25rem", sm: "1rem" },
-                    }}
-                    onClick={() => {
-                      router.push(`/order/${order.getOrder().id}`);
-                    }}
-                    endIcon={
-                      <IconFromReactIcons
-                        width={15}
-                        height={15}
-                        icon={<FaChevronRight />}
+                  <Typography
+                    fontWeight={"bold"}
+                    fontSize={{ xs: "1rem", sm: "1.1rem" }}
+                    letterSpacing={1}
+                  >
+                    {t(order.getOrder().orderStatus.toLowerCase(), lang)}
+                  </Typography>
+                  <Stack
+                    divider={
+                      <Divider
+                        flexItem
+                        orientation="vertical"
+                        sx={{ m: "0.25rem 0" }}
                       />
                     }
+                    direction={"row"}
+                    gap={1}
                   >
-                    <Typography
-                      fontSize={{ xs: "0.7rem", sm: "1rem" }}
-                      color={"text.primary"}
-                    >
-                      {getLanguage("orderDetails", lang)}
-                    </Typography>
-                  </Button>
-                </Stack>
-              </Stack>
+                    <Stack>
+                      <Typography
+                        color={"text.primary"}
+                        fontSize={{ xs: "0.75rem", sm: "0.8rem" }}
+                      >
+                        {t("orderDate")}:{" "}
+                        {new Date(order.getOrder().orderDate).toDateString()}
+                      </Typography>
 
-              <Stack direction={{ xs: "column", sm: "row" }} gap={2}>
-                <Stack
-                  width={{ xs: 1, sm: "65%" }}
-                  gap={2}
-                  divider={<Divider flexItem />}
-                >
-                  {order.getOrder().orderItems.map((orderItem, index) => {
-                    return (
-                      <Stack direction={"row"} key={index} gap={2}>
-                        <Box width={{ xs: "30%", md: "20%" }}>
-                          <ImageFromFirebase
-                            width={"100%"}
-                            quality="480p"
-                            name={orderItem.productVariant.imageUrl}
-                          />
-                        </Box>
-                        <Stack gap={{ xs: 0.25, sm: 1, md: 1.5 }} flex={1}>
-                          <Typography
-                            noWrap
-                            color={"text.primary"}
-                            fontWeight={300}
-                            fontSize={{ xs: "1rem", md: "1rem" }}
-                          >
-                            {orderItem.productVariant.product.name}
+                      <Stack direction={"row"} spacing={1}>
+                        <Typography
+                          color={"text.primary"}
+                          fontWeight={300}
+                          fontSize={{ xs: "0.75rem", sm: "0.8rem" }}
+                          sx={{ textWrap: "nowrap" }}
+                        >
+                          {t("orderId")}: {order.getOrder().id}{" "}
+                        </Typography>
+                        <Button
+                          color={"primary"}
+                          onClick={() =>
+                            copyToClipboard(order.getOrder().id, () =>
+                              setSnackBar({
+                                open: true,
+                                message: t("copiedToClipboard", {
+                                  ns: "common",
+                                }),
+                                type: "success",
+                              })
+                            )
+                          }
+                          sx={{
+                            textDecoration: "none",
+                            fontSize: "inherit",
+                            p: 0,
+                            maxWidth: "fit-content",
+                            minWidth: "unset",
+                          }}
+                        >
+                          <Typography fontSize={"0.8rem"}>
+                            {t("copy", { ns: "actions" })}
                           </Typography>
-                          <Stack
-                            direction={"row"}
-                            color={"text.secondary"}
-                            divider={
-                              <Typography
-                                pr={"0.25rem"}
-                                fontSize={{ xs: "1rem", md: "1rem" }}
-                              >
-                                ,{" "}
-                              </Typography>
-                            }
+                        </Button>
+                      </Stack>
+                    </Stack>
+                    {!viewDeletedOrders && (
+                      <Button
+                        color="primaryButton"
+                        sx={{
+                          display: "flex",
+                          alignItems: "center",
+                          borderRadius: { xs: "0.5rem", sm: "2rem" },
+                          px: { xs: "0.25rem", sm: "1rem" },
+                        }}
+                        onClick={() => {
+                          setSelectedOrderItem(orderItem._id);
+                          router.push(`/order/${order.getOrder().id}`);
+                        }}
+                        endIcon={
+                          <IconFromReactIcons
+                            width={15}
+                            height={15}
+                            icon={<FaChevronRight />}
+                          />
+                        }
+                      >
+                        <Typography
+                          fontSize={{ xs: "0.7rem", sm: "1rem" }}
+                          color={"text.primary"}
+                        >
+                          {t("orderDetails")}
+                        </Typography>
+                      </Button>
+                    )}
+                  </Stack>
+                </Stack>
+
+                <Stack direction={{ xs: "column", sm: "row" }} gap={2}>
+                  <Stack
+                    width={{ xs: 1, sm: "65%" }}
+                    gap={2}
+                    divider={<Divider flexItem />}
+                  >
+                    <Stack direction={"row"} gap={2}>
+                      <Box width={{ xs: "30%", md: "20%" }}>
+                        <ImageFromFirebase
+                          width={"100%"}
+                          quality="480p"
+                          type={ImageType.product}
+                          name={orderItem.productVariant.imageUrl}
+                        />
+                      </Box>
+                      <Stack gap={{ xs: 0.25, sm: 1, md: 1.5 }} flex={1}>
+                        <Typography
+                          noWrap
+                          color={"text.primary"}
+                          fontWeight={300}
+                          fontSize={{ xs: "1rem", md: "1rem" }}
+                        >
+                          {orderItem.productVariant.product.name}
+                        </Typography>
+                        <Stack
+                          direction={"row"}
+                          color={"text.secondary"}
+                          divider={
+                            <Typography
+                              pr={"0.25rem"}
+                              fontSize={{ xs: "1rem", md: "1rem" }}
+                            >
+                              ,{" "}
+                            </Typography>
+                          }
+                        >
+                          {orderStockVarietiesByMainFirst(
+                            orderItem.productVariant.stockVarieties
+                          ).map((stockVariety, index) => (
+                            <Typography
+                              key={index}
+                              component={"span"}
+                              fontSize={{ xs: "0.85rem", md: "1rem" }}
+                            >
+                              {stockVariety.value}
+                            </Typography>
+                          ))}
+                        </Stack>
+                        <Stack direction={"row"} gap={2}>
+                          <Typography
+                            fontWeight={300}
+                            color={"text.primary"}
+                            fontSize={{ xs: "0.85rem", md: "1rem" }}
                           >
-                            {orderStockVarietiesByMainFirst(
-                              orderItem.productVariant.stockVarieties
-                            ).map((stockVariety, index) => (
-                              <Typography
-                                key={index}
-                                component={"span"}
-                                fontSize={{ xs: "0.85rem", md: "1rem" }}
-                              >
-                                {stockVariety.value}
-                              </Typography>
-                            ))}
-                          </Stack>
-                          <Stack direction={"row"} gap={2}>
-                            <Typography
-                              fontWeight={300}
-                              color={"text.primary"}
-                              fontSize={{ xs: "0.85rem", md: "1rem" }}
-                            >
-                              ETB {getPrice(orderItem.productVariant.price).int}
-                              .{getPrice(orderItem.productVariant.price).dec}
-                            </Typography>
-                            <Typography
-                              fontWeight={300}
-                              color={"text.secondary"}
-                              fontSize={{ xs: "0.85rem", md: "1rem" }}
-                            >
-                              x{orderItem.quantity}
-                            </Typography>
-                          </Stack>
+                            {t("etb", { ns: "common" })}{" "}
+                            {getPrice(orderItem.productVariant.price).int}.
+                            {getPrice(orderItem.productVariant.price).dec}
+                          </Typography>
+                          <Typography
+                            fontWeight={300}
+                            color={"text.secondary"}
+                            fontSize={{ xs: "0.85rem", md: "1rem" }}
+                          >
+                            x{orderItem.quantity}
+                          </Typography>
                         </Stack>
                       </Stack>
-                    );
-                  })}
-                </Stack>
-                <Stack
-                  flex={1}
-                  p={{ xs: "0 4rem", sm: "0 0rem", md: "0 2rem" }}
-                  gap={2}
-                  sx={{ "&>button": { borderRadius: "2rem" } }}
-                >
-                  <Typography textAlign={"center"} color={"text.primary"}>
-                    {getLanguage("total", lang)}: {getLanguage("etb", lang)}{" "}
-                    {getPrice(totalPrice).int}.{getPrice(totalPrice).dec}
-                  </Typography>
-                  <Button
+                    </Stack>
+                  </Stack>
+                  <Stack
+                    flex={1}
+                    p={{ xs: "0 4rem", sm: "0 0rem", md: "0 2rem" }}
+                    gap={2}
+                    sx={{ "&>button": { borderRadius: "2rem" } }}
+                  >
+                    <Typography textAlign={"center"} color={"text.primary"}>
+                      {t("total", { ns: "common" })}:{" "}
+                      {t("etb", { ns: "common" })} {getPrice(totalPrice).int}.
+                      {getPrice(totalPrice).dec}
+                    </Typography>
+                    {/* <Button
                     size="small"
                     variant="contained"
                     color="demakkPrimary"
                     sx={{ fontWeight: "bold" }}
                   >
-                    {getLanguage("writeReview", lang)}
-                  </Button>
-                  <Button
-                    size="small"
-                    variant="outlined"
-                    color="primaryButton"
-                    sx={{ fontWeight: "bold", color: "text.primary" }}
-                  >
-                    {getLanguage("addToCart", lang)}
-                  </Button>
-                  <Button
-                    size="small"
-                    variant="outlined"
-                    color="primaryButton"
-                    sx={{ fontWeight: "bold", color: "text.primary" }}
-                  >
-                    {getLanguage("remove", lang)}
-                  </Button>
+                    {t("writeReview", { ns: "actions" })}
+                  </Button> */}
+                    {!viewDeletedOrders && (
+                      <Button
+                        size="small"
+                        variant="contained"
+                        color={"demakkPrimary"}
+                        sx={{ fontWeight: "bold", color: "text.primary" }}
+                        onClick={() =>
+                          handleAddOrderItem({
+                            productVariantId: orderItem.productVariant._id,
+                            quantity: 1,
+                            token,
+                            setCart,
+                            setLoading,
+                          })
+                        }
+                      >
+                        {t("addToCart", { ns: "actions" })}
+                      </Button>
+                    )}
+                    <Button
+                      size="small"
+                      variant="outlined"
+                      color="primaryButton"
+                      sx={{ fontWeight: "bold", color: "text.primary" }}
+                      onClick={() =>
+                        setOpenModal({
+                          open: true,
+                          title: t("deleteTheOrder", { ns: "modal" }),
+                          description: t(
+                            viewDeletedOrders
+                              ? "cantUndoThisAction"
+                              : "deleteTheOrderDescription",
+                            {
+                              ns: "modal",
+                            }
+                          ),
+                          callBackFn: () =>
+                            handleDeleteOrderItem({
+                              token,
+                              orderItemId: orderItem._id,
+                              orderId: order.getOrder().id,
+                              setLoading,
+                              setOrderList: viewDeletedOrders
+                                ? setDeletedOrderList
+                                : setOrderList,
+                            }),
+                        })
+                      }
+                    >
+                      {t("remove", { ns: "actions" })}
+                    </Button>
+                    {viewDeletedOrders && (
+                      <Button
+                        size="small"
+                        variant="outlined"
+                        color="primaryButton"
+                        sx={{ fontWeight: "bold", color: "text.primary" }}
+                        onClick={() => {
+                          handleRestoreOrderItem({
+                            token,
+                            setDeletedOrderList,
+                            setLoading,
+                            orderItem,
+                          });
+                        }}
+                      >
+                        {t("restore", { ns: "actions" })}
+                      </Button>
+                    )}
+                  </Stack>
                 </Stack>
               </Stack>
-            </Stack>
-            <Snackbar
-              anchorOrigin={{ vertical: "top", horizontal: "right" }}
-              open={copySnackBar}
-              onClose={() => setCopySnackBar(false)}
-              autoHideDuration={3000}
-            >
-              <Alert
-                onClose={() => setCopySnackBar(false)}
-                severity="success"
-                variant="filled"
-              >
-                {getLanguage("copiedToClipboard", lang)}
-              </Alert>
-            </Snackbar>
-          </Fragment>
-        );
-      })}
+            );
+          });
+        })}
     </>
   );
 }

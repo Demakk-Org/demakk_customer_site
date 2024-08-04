@@ -9,7 +9,6 @@ import {
 } from "@mui/material";
 import { ImageType } from "@/component/FirebaseImageUploadComponent";
 import ImageFromFirebase from "@/component/ImageFromFirebase";
-import { accountTabList } from "@/layout/AccountPageLayout";
 import useUserStore from "@/store/user";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
@@ -18,16 +17,20 @@ import { CiViewList } from "react-icons/ci";
 import { IoIosArrowForward, IoIosHeartEmpty } from "react-icons/io";
 import { PiClockCountdown, PiUserList } from "react-icons/pi";
 import { RiCoupon2Line } from "react-icons/ri";
-import { t } from "i18next";
+import useOrderStore from "@/store/order";
+import { useTranslation } from "next-i18next";
+import MoreToLoveComponent from "./MoreToLoveComponent";
 
 function OverviewTabContent() {
+  const { t } = useTranslation(["account"]);
+  const { setOrderStatusType } = useOrderStore();
   const { setBreadcrumbs, user } = useUserStore();
   const router = useRouter();
 
   useEffect(() => {
     setBreadcrumbs([
-      { name: "home", url: "/" },
-      { name: "account", url: "/account" },
+      { name: t("home", { ns: "common" }), url: "/" },
+      { name: t("account", { ns: "account" }), url: "/account" },
     ]);
   }, [setBreadcrumbs]);
 
@@ -65,19 +68,21 @@ function OverviewTabContent() {
         <Grid container>
           <Grid item xs={4} sm={3}>
             <Box
-              component={"div"}
               display={"flex"}
               flexDirection={"column"}
               alignItems={"center"}
               gap={1}
               color={"text.primary"}
-              sx={{ cursor: "pointer" }}
+              sx={{ textDecoration: "none" }}
+              component={"a"}
+              href="/wish-list"
             >
               <Box width={{ xs: 25, sm: 35 }} height={{ xs: 25, sm: 35 }}>
                 <IoIosHeartEmpty
                   style={{ width: "inherit", height: "inherit" }}
                 />
               </Box>
+
               <Typography
                 fontSize={{ xs: "0.85rem", sm: "1.1rem" }}
                 letterSpacing={1}
@@ -89,14 +94,11 @@ function OverviewTabContent() {
           </Grid>
 
           <Grid item xs={4} sm={3}>
-            <Box
-              component={"div"}
-              display={"flex"}
-              flexDirection={"column"}
+            <Stack
               alignItems={"center"}
               gap={1}
               color={"text.primary"}
-              sx={{ cursor: "pointer" }}
+              sx={{ cursor: "not-allowed" }}
             >
               <Box width={{ xs: 25, sm: 35 }} height={{ xs: 25, sm: 35 }}>
                 <PiUserList style={{ width: "inherit", height: "inherit" }} />
@@ -108,18 +110,15 @@ function OverviewTabContent() {
               >
                 {t("following")}
               </Typography>
-            </Box>
+            </Stack>
           </Grid>
 
           <Grid item display={{ xs: "none", sm: "block" }} sm={3}>
-            <Box
-              component={"div"}
-              display={"flex"}
-              flexDirection={"column"}
+            <Stack
               alignItems={"center"}
               gap={1}
               color={"text.primary"}
-              sx={{ cursor: "pointer" }}
+              sx={{ cursor: "not-allowed" }}
             >
               <Box width={{ xs: 25, sm: 35 }} height={{ xs: 25, sm: 35 }}>
                 <PiClockCountdown
@@ -133,18 +132,15 @@ function OverviewTabContent() {
               >
                 {t("viewed")}
               </Typography>
-            </Box>
+            </Stack>
           </Grid>
 
           <Grid item xs={4} sm={3}>
-            <Box
-              component={"div"}
-              display={"flex"}
-              flexDirection={"column"}
+            <Stack
               alignItems={"center"}
               gap={1}
               color={"text.primary"}
-              sx={{ cursor: "pointer" }}
+              sx={{ cursor: "not-allowed" }}
             >
               <Box width={{ xs: 25, sm: 35 }} height={{ xs: 25, sm: 35 }}>
                 <RiCoupon2Line
@@ -158,17 +154,17 @@ function OverviewTabContent() {
               >
                 {t("coupons")}
               </Typography>
-            </Box>
+            </Stack>
           </Grid>
         </Grid>
       </Box>
 
       <Stack width={1} p={2} bgcolor={"background.lighter"}>
-        <Box
-          display={"flex"}
+        <Stack
           justifyContent={"space-between"}
           alignItems={"center"}
           color={"text.primary"}
+          direction={"row"}
         >
           <Typography
             letterSpacing={1}
@@ -178,7 +174,10 @@ function OverviewTabContent() {
             {t("myOrders")}
           </Typography>
           <Button
-            onClick={() => router.push(accountTabList[1].link)}
+            onClick={() => {
+              setOrderStatusType(-1);
+              router.push("/order");
+            }}
             sx={{
               color: "text.primary",
               display: "flex",
@@ -191,23 +190,24 @@ function OverviewTabContent() {
             }
           >
             <Typography fontSize={{ xs: "0.8rem", sm: "1rem" }}>
-              {t("viewAll")}
+              {t("viewAll", { ns: "common" })}
             </Typography>
           </Button>
-        </Box>
+        </Stack>
 
         <Divider flexItem sx={{ my: "1rem" }} />
 
         <Grid container py={"1rem"}>
           <Grid item xs={3}>
-            <Box
-              component={"div"}
-              display={"flex"}
-              flexDirection={"column"}
+            <Stack
               alignItems={"center"}
               sx={{ cursor: "pointer" }}
               gap={1}
               color={"text.primary"}
+              onClick={() => {
+                setOrderStatusType(3);
+                router.push("/order");
+              }}
             >
               <Box width={{ xs: 35, sm: 45 }} height={{ xs: 35, sm: 45 }}>
                 <Avatar
@@ -220,21 +220,23 @@ function OverviewTabContent() {
                 fontSize={{ xs: "0.75rem", sm: "1rem" }}
                 letterSpacing={1}
                 sx={{ textWrap: "wrap" }}
+                textAlign={"center"}
               >
-                {t("unpaid")}
+                {t("unpaid", { ns: "order" })}
               </Typography>
-            </Box>
+            </Stack>
           </Grid>
 
           <Grid item xs={3}>
-            <Box
-              component={"div"}
-              display={"flex"}
-              flexDirection={"column"}
+            <Stack
               alignItems={"center"}
               sx={{ cursor: "pointer" }}
               gap={1}
               color={"text.primary"}
+              onClick={() => {
+                setOrderStatusType(2);
+                router.push("/order");
+              }}
             >
               <Box width={{ xs: 35, sm: 45 }} height={{ xs: 35, sm: 45 }}>
                 <Avatar
@@ -243,26 +245,28 @@ function OverviewTabContent() {
                   sx={{ width: "inherit", height: "inherit" }}
                 />
               </Box>
+
               <Typography
                 fontSize={{ xs: "0.75rem", sm: "1rem" }}
                 letterSpacing={1}
                 sx={{ textWrap: "wrap" }}
                 textAlign={"center"}
               >
-                {t("toBeShipped")}
+                {t("toBeShipped", { ns: "order" })}
               </Typography>
-            </Box>
+            </Stack>
           </Grid>
 
           <Grid item xs={3}>
-            <Box
-              component={"div"}
-              display={"flex"}
-              flexDirection={"column"}
+            <Stack
               alignItems={"center"}
               gap={1}
               sx={{ cursor: "pointer" }}
               color={"text.primary"}
+              onClick={() => {
+                setOrderStatusType(1);
+                router.push("/order");
+              }}
             >
               <Box width={{ xs: 35, sm: 45 }} height={{ xs: 35, sm: 45 }}>
                 <Avatar
@@ -277,9 +281,9 @@ function OverviewTabContent() {
                 textAlign={"center"}
                 sx={{ textWrap: "wrap" }}
               >
-                {t("shipped")}
+                {t("shipped", { ns: "order" })}
               </Typography>
-            </Box>
+            </Stack>
           </Grid>
 
           <Grid item xs={3}>
@@ -291,6 +295,10 @@ function OverviewTabContent() {
               gap={1}
               sx={{ cursor: "pointer" }}
               color={"text.primary"}
+              onClick={() => {
+                setOrderStatusType(0);
+                router.push("/order");
+              }}
             >
               <Box width={{ xs: 35, sm: 45 }} height={{ xs: 35, sm: 45 }}>
                 <Avatar
@@ -305,7 +313,7 @@ function OverviewTabContent() {
                 textAlign={"center"}
                 sx={{ textWrap: "wrap" }}
               >
-                {t("toBeReviewed")}
+                {t("toBeReviewed", { ns: "order" })}
               </Typography>
             </Box>
           </Grid>
@@ -317,6 +325,7 @@ function OverviewTabContent() {
         />
 
         <Button
+          disabled
           sx={{
             display: { xs: "none", sm: "flex" },
             alignItems: "center",
@@ -342,6 +351,7 @@ function OverviewTabContent() {
         <Divider flexItem sx={{ my: "1rem" }} />
 
         <Button
+          disabled
           sx={{
             display: "flex",
             alignItems: "center",
@@ -370,22 +380,7 @@ function OverviewTabContent() {
         </Button>
       </Stack>
 
-      <Stack
-        display={{ xs: "none", sm: "flex" }}
-        width={1}
-        p={2}
-        bgcolor={"background.lighter"}
-      >
-        <Box color={"text.primary"}>
-          <Typography
-            letterSpacing={1}
-            fontSize={{ xs: "1rem", sm: "1.4rem" }}
-            fontWeight={{ xs: 400, sm: 500 }}
-          >
-            {t("moreToLove")}
-          </Typography>
-        </Box>
-      </Stack>
+      <MoreToLoveComponent />
 
       <Stack
         display={{ xs: "flex", sm: "none" }}
@@ -409,6 +404,7 @@ function OverviewTabContent() {
               <IoIosArrowForward />
             </Box>
           }
+          onClick={() => router.push("/account/settings")}
         >
           <Typography
             flex={1}

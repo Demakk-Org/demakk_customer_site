@@ -13,11 +13,11 @@ import useOrderStore from "@/store/order";
 import useUserStore from "@/store/user";
 import useTokenStore from "@/store/token";
 import usePageStore from "@/store/page";
-import "@/language/translation";
-import { t } from "i18next";
+import { useRouter } from "next/router";
+import { useTranslation } from "next-i18next";
 
 interface ITopNavigationBar {
-  pageType: string;
+  pageType?: string;
   setOpenAccountModal: Dispatch<SetStateAction<boolean>>;
 }
 
@@ -25,8 +25,10 @@ export default function TopNavigationBar({
   setOpenAccountModal,
   pageType,
 }: ITopNavigationBar) {
+  const { t } = useTranslation("common");
+  const router = useRouter();
   const { emptyOrderList } = useOrderStore();
-  const { lang, setUser } = useUserStore();
+  const { setUser, signOut } = useUserStore();
   const { token, setToken } = useTokenStore();
   const { setSnackBar } = usePageStore();
 
@@ -35,10 +37,10 @@ export default function TopNavigationBar({
     setSnackBar({
       type: "success",
       open: true,
-      message: t("loggedOutSuccessfully"),
+      message: t("loggedOutSuccessfully", { ns: "response" }),
     });
     setToken(null);
-    setUser();
+    token ? setUser(token) : signOut();
   };
 
   const handleLogIn = () => {
@@ -61,6 +63,7 @@ export default function TopNavigationBar({
             color="inherit"
             aria-label="menu"
             sx={{ mr: { xs: 0, sm: 1 } }}
+            onClick={() => router.back()}
           >
             <Box
               height={25}
@@ -87,13 +90,15 @@ export default function TopNavigationBar({
             >
               {t("demakk")}
             </Typography>
-            <Typography
-              variant="h6"
-              component="div"
-              sx={{ fontSize: { xs: "1rem" } }}
-            >
-              {pageType}
-            </Typography>
+            {pageType && (
+              <Typography
+                variant="h6"
+                component="div"
+                sx={{ fontSize: { xs: "1rem" } }}
+              >
+                {pageType}
+              </Typography>
+            )}
           </Stack>
           {token ? (
             <IconButton

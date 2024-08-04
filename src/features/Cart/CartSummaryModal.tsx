@@ -7,7 +7,6 @@ import {
   Stack,
   Typography,
 } from "@mui/material";
-import { IOrderItem } from "@/model/orderModel";
 import { useEffect, useState } from "react";
 import getPrice from "@/utils/getPrice";
 import useUserStore from "@/store/user";
@@ -17,18 +16,17 @@ import useCheckOutStore from "@/store/checkOut";
 import { PaymentType } from "@/model/paymentMethod";
 import { useRouter } from "next/router";
 import { Close, ExpandLess, ExpandMore } from "@mui/icons-material";
-import { t } from "i18next";
+import { useTranslation } from "next-i18next";
+import usePageStore from "@/store/page";
 
 function CartSummaryModal() {
+  const { t } = useTranslation();
   const router = useRouter();
 
   const { cart } = useCartStore();
-  const { lang, user } = useUserStore();
+  const { user } = useUserStore();
   const { setCheckOut } = useCheckOutStore();
-
-  const [selectedOrderItems] = useState<IOrderItem[]>(
-    getSelectedOrderItems({ cart })
-  );
+  const { setSnackBar } = usePageStore();
 
   const [subTotal, setSubTotal] = useState(0);
   const [shippingFee] = useState(0);
@@ -75,7 +73,7 @@ function CartSummaryModal() {
                   md: "inline-block",
                 }}
               >
-                {t("summary")}
+                {t("summary", { ns: "order" })}
               </Typography>
               <Grid
                 container
@@ -132,7 +130,7 @@ function CartSummaryModal() {
           </Slide>
           <Grid
             zIndex={1}
-            p={2}
+            p={1}
             container
             spacing={1}
             justifyContent={"flex-end"}
@@ -169,14 +167,30 @@ function CartSummaryModal() {
                 fullWidth
                 variant="contained"
                 sx={{ borderRadius: "2rem" }}
+                disabled={
+                  cart?.getCart().orderItems.filter((oi) => oi.isChecked)
+                    .length == 0
+                }
                 onClick={() => {
+                  if (
+                    cart?.getCart().orderItems.filter((oi) => oi.isChecked)
+                      .length == 0
+                  ) {
+                    setSnackBar({
+                      open: true,
+                      message: t("checkOutIsEmpty", { ns: "modal" }),
+                      type: "error",
+                    });
+                    return;
+                  }
+
                   setCheckOut({
                     paymentMethod: {
                       type: PaymentType.MasterCard,
                       value: "32435465545342",
                       id: "65aa4cb7bc1de989b45eaea6",
                     },
-                    shippingAddress: user?.getUser().shippingAddress,
+                    shippingAddress: user?.getUser().shippingAddress || null,
                     orderItems: getSelectedOrderItems({ cart }),
                   });
 
@@ -188,7 +202,7 @@ function CartSummaryModal() {
                   fontSize={{ xs: "0.8rem", md: "1.05rem" }}
                   noWrap
                 >
-                  {t("checkout")} (
+                  {t("checkout", { ns: "order" })} (
                   {cart
                     ?.getCart()
                     .orderItems.filter((oi) => oi.isChecked == true).length ||
@@ -203,7 +217,7 @@ function CartSummaryModal() {
       {expandCheckOutSummary && (
         <Stack
           position={"fixed"}
-          bgcolor="background.paper"
+          bgcolor="background.lightOpaque"
           width={"100vw"}
           height={"100vh"}
           top={0}

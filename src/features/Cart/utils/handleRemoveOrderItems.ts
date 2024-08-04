@@ -7,16 +7,19 @@ const handleRemoveOrderItems = ({
   token,
   setLoading,
   setCart,
+  single,
 }: {
   selectedOrderItems: IOrderItem[];
   token: string | null;
   setLoading: (loading: boolean) => void;
   setCart: ({ token }: { token: string }) => void;
+  single?: boolean;
 }) => {
   setLoading(true);
-  const selectedOrderItemIds = selectedOrderItems
-    .filter((oi) => oi.isChecked == true)
-    .map((oi) => oi._id);
+
+  let selectedOrderItemIds: string[] = selectedOrderItems.map((oi) =>
+    oi._id.toString()
+  );
 
   try {
     axios
@@ -29,13 +32,12 @@ const handleRemoveOrderItems = ({
         },
       })
       .then((response) => {
+        setLoading(false);
         console.log(response);
         token && setCart({ token });
       });
   } catch (error) {
     console.log(error);
-  } finally {
-    setLoading(false);
   }
 };
 

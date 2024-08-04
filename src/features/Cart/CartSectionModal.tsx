@@ -1,12 +1,11 @@
 import { Button, IconButton, Modal, Stack, Typography } from "@mui/material";
-import useCartStore from "@/store/cart";
-import useUserStore from "@/store/user";
 import { CloseOutlined } from "@mui/icons-material";
 import { t } from "i18next";
+import usePageStore from "@/store/page";
 
 function CartSectionModal() {
-  const { openModal, setOpenModal } = useCartStore();
-  const { lang } = useUserStore();
+  const { openModal, setOpenModal } = usePageStore();
+
   return (
     <Modal
       open={openModal?.open || false}

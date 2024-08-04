@@ -1,4 +1,5 @@
 import {
+  Box,
   Button,
   FormControlLabel,
   Grid,
@@ -9,10 +10,17 @@ import {
 } from "@mui/material";
 import {
   AddCircleOutline,
+  CheckBox,
+  CheckBoxOutlineBlank,
   ChevronRightOutlined,
+  Circle,
+  CircleOutlined,
   DeleteOutlined,
   FavoriteBorder,
   FavoriteOutlined,
+  InfoOutlined,
+  RadioButtonChecked,
+  RadioButtonUncheckedOutlined,
   RemoveCircleOutline,
 } from "@mui/icons-material";
 import ImageFromFirebase from "@/component/ImageFromFirebase";
@@ -25,17 +33,21 @@ import handleRemoveOrderItems from "./utils/handleRemoveOrderItems";
 import handleOrderItemQuantity from "../../api/orderItem/handleOrderItemUpdate";
 import handleLikeProduct from "../Product/ProductsCard/utils/handleLikeProduct";
 import handleOrderItemUpdate from "../../api/orderItem/handleOrderItemUpdate";
-import { t } from "i18next";
 import usePageStore from "@/store/page";
+import { ImageType } from "@/component/FirebaseImageUploadComponent";
+import { useTranslation } from "next-i18next";
+import { demakkFont } from "@/pages/_app";
 
 interface CartItemComponentProps {
   orderItem: IOrderItem;
+  outOfStock?: boolean;
 }
 
-function CartItemComponent({ orderItem }: CartItemComponentProps) {
-  const { lang, user, setUser } = useUserStore();
-  const { setCart, setOpenModal } = useCartStore();
-  const { setLoading } = usePageStore();
+function CartItemComponent({ orderItem, outOfStock }: CartItemComponentProps) {
+  const { t } = useTranslation("modal");
+  const { user, setUser } = useUserStore();
+  const { setCart } = useCartStore();
+  const { setLoading, setOpenModal, setSnackBar } = usePageStore();
   const { token } = useTokenStore();
 
   return (
@@ -45,19 +57,44 @@ function CartItemComponent({ orderItem }: CartItemComponentProps) {
           <Stack justifyContent={"center"} height={1}>
             <FormControlLabel
               value="select product variant"
-              control={<Radio color="warning" />}
+              control={
+                <Radio
+                  color="warning"
+                  icon={
+                    outOfStock ? (
+                      <Circle color="contrast" />
+                    ) : (
+                      <RadioButtonUncheckedOutlined />
+                    )
+                  }
+                  checkedIcon={
+                    outOfStock ? (
+                      <Circle color="contrast" />
+                    ) : (
+                      <RadioButtonChecked />
+                    )
+                  }
+                  sx={{
+                    "&:hover": {
+                      cursor: outOfStock ? "not-allowed" : "pointer",
+                    },
+                  }}
+                />
+              }
               label={""}
               sx={{ mr: 0 }}
               checked={orderItem.isChecked}
-              onClick={() =>
+              onClick={() => {
+                if (outOfStock) return;
+
                 handleOrderItemUpdate({
                   orderItem,
                   token,
                   setLoading,
                   setCart,
                   isChecked: !orderItem.isChecked,
-                })
-              }
+                });
+              }}
             />
           </Stack>
         </Grid>
@@ -68,13 +105,25 @@ function CartItemComponent({ orderItem }: CartItemComponentProps) {
               width={"100%"}
               name={orderItem?.productVariant?.imageUrl}
               quality={"240p"}
+              type={ImageType.product}
             />
-            {orderItem.productVariant.numberOfAvailable < 10 && (
+
+            {outOfStock && (
+              <Box
+                width={1}
+                height={1}
+                position={"absolute"}
+                zIndex={5}
+                bgcolor={"background.lightDark"}
+              />
+            )}
+
+            {!outOfStock && orderItem.productVariant.numberOfAvailable < 10 && (
               <Stack
                 position={"absolute"}
                 bottom={0}
                 left={0}
-                bgcolor={"background.dark"}
+                bgcolor={"background.lightDark"}
                 width={1}
                 py={"2px"}
               >
@@ -83,7 +132,8 @@ function CartItemComponent({ orderItem }: CartItemComponentProps) {
                   fontSize={"0.8rem"}
                   color={"text.primary"}
                 >
-                  {orderItem.productVariant.numberOfAvailable} {t("left")}
+                  {orderItem.productVariant.numberOfAvailable}{" "}
+                  {t("left", { ns: "common" })}
                 </Typography>
               </Stack>
             )}
@@ -101,25 +151,28 @@ function CartItemComponent({ orderItem }: CartItemComponentProps) {
                 noWrap
                 fontWeight={300}
                 fontSize={{ xs: "0.8rem", md: "1rem" }}
+                color={outOfStock ? "contrast.dark" : "inherit"}
               >
                 {orderItem.productVariant.product.name}
               </Typography>
 
               <Stack direction={"row"}>
-                <IconButton
-                  sx={{ padding: { xs: "2px", md: "6px" } }}
-                  onClick={() =>
-                    handleLikeProduct({ token, orderItem, setUser })
-                  }
-                >
-                  {user
-                    ?.getUser()
-                    ?.favs.includes(orderItem.productVariant.product._id) ? (
-                    <FavoriteOutlined fontSize="small" />
-                  ) : (
-                    <FavoriteBorder fontSize="small" />
-                  )}
-                </IconButton>
+                {!outOfStock && (
+                  <IconButton
+                    sx={{ padding: { xs: "2px", md: "6px" } }}
+                    onClick={() =>
+                      handleLikeProduct({ token, orderItem, setUser })
+                    }
+                  >
+                    {user
+                      ?.getUser()
+                      ?.favs.includes(orderItem.productVariant.product._id) ? (
+                      <FavoriteOutlined fontSize="small" />
+                    ) : (
+                      <FavoriteBorder fontSize="small" />
+                    )}
+                  </IconButton>
+                )}
 
                 <IconButton
                   sx={{ display: { xs: "none", md: "flex" } }}
@@ -143,93 +196,123 @@ function CartItemComponent({ orderItem }: CartItemComponentProps) {
               </Stack>
             </Stack>
 
-            <Stack>
-              <Button
-                variant="contained"
-                endIcon={<ChevronRightOutlined />}
-                size="small"
-                color="brighten"
-                sx={{ alignSelf: "flex-start", borderRadius: "2rem" }}
-              >
+            {!outOfStock ? (
+              <>
+                <Stack>
+                  <Button
+                    variant="contained"
+                    endIcon={<ChevronRightOutlined />}
+                    size="small"
+                    color="brighten"
+                    sx={{ alignSelf: "flex-start", borderRadius: "2rem" }}
+                  >
+                    <Stack
+                      direction={"row"}
+                      divider={<Typography fontSize={"0.8rem"}>/</Typography>}
+                    >
+                      {orderStockVarietiesByMainFirst(
+                        orderItem.productVariant.stockVarieties
+                      ).map((stockVariety, index) => (
+                        <Typography
+                          key={index}
+                          fontSize={"0.8rem"}
+                          fontWeight={500}
+                        >
+                          {stockVariety.value}
+                        </Typography>
+                      ))}
+                    </Stack>
+                  </Button>
+                </Stack>
                 <Stack
                   direction={"row"}
-                  divider={<Typography fontSize={"0.8rem"}>/</Typography>}
+                  justifyContent={"space-between"}
+                  height={1}
                 >
-                  {orderStockVarietiesByMainFirst(
-                    orderItem.productVariant.stockVarieties
-                  ).map((stockVariety, index) => (
-                    <Typography
-                      key={index}
-                      fontSize={"0.8rem"}
-                      fontWeight={500}
+                  <Typography fontSize={"1rem"} fontWeight={"bold"} my={"auto"}>
+                    {t("etb", { ns: "common" })}{" "}
+                    {orderItem.productVariant.price}
+                  </Typography>
+
+                  <Stack
+                    direction={"row"}
+                    alignItems={"center"}
+                    spacing={{ xs: 1, md: 2 }}
+                  >
+                    <IconButton
+                      sx={{ p: { xs: "2px", md: "6px" } }}
+                      onClick={() => {
+                        if (orderItem.quantity == 1) {
+                          setOpenModal({
+                            open: true,
+                            title: t("removeProduct"),
+                            description: t("removeProductFromCart"),
+                            callBackFn: () =>
+                              handleRemoveOrderItems({
+                                selectedOrderItems: [orderItem],
+                                token,
+                                setLoading,
+                                setCart,
+                                single: true,
+                              }),
+                          });
+                          return;
+                        }
+
+                        handleOrderItemQuantity({
+                          orderItem,
+                          quantity: orderItem.quantity - 1,
+                          token,
+                          setLoading,
+                          setCart,
+                        });
+                      }}
                     >
-                      {stockVariety.value}
-                    </Typography>
-                  ))}
+                      <RemoveCircleOutline />
+                    </IconButton>
+                    <Typography>{orderItem.quantity}</Typography>
+                    <IconButton
+                      sx={{ p: { xs: "2px", md: "6px" } }}
+                      onClick={() => {
+                        if (
+                          orderItem.productVariant.numberOfAvailable <
+                          orderItem.quantity + 1
+                        ) {
+                          setSnackBar({
+                            open: true,
+                            message: t("reachedTheLimit"),
+                            type: "error",
+                          });
+                          return;
+                        }
+
+                        handleOrderItemQuantity({
+                          orderItem,
+                          quantity: orderItem.quantity + 1,
+                          token,
+                          setLoading,
+                          setCart,
+                        });
+                      }}
+                    >
+                      <AddCircleOutline />
+                    </IconButton>
+                  </Stack>
                 </Stack>
-              </Button>
-            </Stack>
-            <Stack
-              direction={"row"}
-              justifyContent={"space-between"}
-              height={1}
-            >
-              <Typography fontSize={"1rem"} fontWeight={"bold"} my={"auto"}>
-                {t("etb")} {orderItem.productVariant.price}
-              </Typography>
-
-              <Stack
-                direction={"row"}
-                alignItems={"center"}
-                spacing={{ xs: 1, md: 2 }}
-              >
-                <IconButton
-                  sx={{ p: { xs: "2px", md: "6px" } }}
-                  onClick={() => {
-                    if (orderItem.quantity == 1) {
-                      setOpenModal({
-                        open: true,
-                        title: t("removeProduct"),
-                        description: t("removeProductFromCart"),
-                        callBackFn: () =>
-                          handleRemoveOrderItems({
-                            selectedOrderItems: [orderItem],
-                            token,
-                            setLoading,
-                            setCart,
-                          }),
-                      });
-                      return;
-                    }
-
-                    handleOrderItemQuantity({
-                      orderItem,
-                      quantity: orderItem.quantity - 1,
-                      token,
-                      setLoading,
-                      setCart,
-                    });
-                  }}
+              </>
+            ) : (
+              <Stack direction={"row"} alignItems={"center"} spacing={1}>
+                <InfoOutlined color="error" />
+                <Typography
+                  fontSize={"0.9rem"}
+                  fontWeight={500}
+                  color={"error.main"}
+                  className={demakkFont.className}
                 >
-                  <RemoveCircleOutline />
-                </IconButton>
-                <Typography>{orderItem.quantity}</Typography>
-                <IconButton
-                  sx={{ p: { xs: "2px", md: "6px" } }}
-                  onClick={() =>
-                    handleOrderItemQuantity({
-                      orderItem,
-                      quantity: orderItem.quantity + 1,
-                      token,
-                      setLoading,
-                      setCart,
-                    })
-                  }
-                >
-                  <AddCircleOutline />
-                </IconButton>
+                  {t("itemUnavailable", { ns: "order" })}
+                </Typography>
               </Stack>
-            </Stack>
+            )}
           </Stack>
         </Grid>
       </Grid>

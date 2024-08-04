@@ -31,6 +31,7 @@ const handleSelectAllOrderItems = ({
         `${chosenBackendUrl}/cart/orderItems/checkAll`,
         {
           isChecked: !isChecked,
+          orderItems: orderItems.map((oi) => oi._id),
         },
         {
           headers: {
@@ -39,13 +40,16 @@ const handleSelectAllOrderItems = ({
         }
       )
       .then(({ data }) => {
+        setLoading(false);
         console.log(data);
         token && setCart({ token });
+      })
+      .catch((err) => {
+        console.log(err);
+        setLoading(false);
       });
   } catch (error) {
     console.log(error);
-  } finally {
-    setLoading(false);
   }
 };
 

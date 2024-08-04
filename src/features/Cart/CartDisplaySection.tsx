@@ -6,10 +6,11 @@ import { useRouter } from "next/router";
 import useUserStore from "@/store/user";
 import BottomNavigationBar from "../AccountPage/BottomNavigation";
 import CartSummaryModal from "./CartSummaryModal";
-import { t } from "i18next";
+import { useTranslation } from "next-i18next";
 
 function CartDisplaySection() {
-  const { lang, user } = useUserStore();
+  const { t } = useTranslation("order");
+  const { user } = useUserStore();
   const { cart } = useCartStore();
   const router = useRouter();
 
@@ -18,8 +19,8 @@ function CartDisplaySection() {
       <Stack
         width={1}
         minHeight={"80vh"}
-        p={{ xs: "0.5rem 0rem", md: "1rem 12rem" }}
-        justifyContent={"center"}
+        p={{ xs: "0.5rem 0rem", md: "2rem 12rem" }}
+        justifyContent={"flex-start"}
       >
         {cart && cart?.getCart().orderItems.length > 0 ? (
           <Grid container spacing={4}>
@@ -31,16 +32,25 @@ function CartDisplaySection() {
             </Grid>
           </Grid>
         ) : (
-          <Stack p={"3rem"} alignItems={"center"} justifySelf={"center"}>
+          <Stack
+            p={"3rem"}
+            alignItems={"center"}
+            justifySelf={"center"}
+            m={"auto"}
+          >
             <Stack maxWidth={"400px"} spacing={4}>
               <Box
                 component={"img"}
-                src="assets/images/shopping-cart.png"
+                src={"/assets/images/shopping-cart.png"}
                 width="150px"
                 alignSelf={"center"}
               />
 
-              <Typography fontWeight={"bold"} color={"text.primary"}>
+              <Typography
+                fontWeight={"bold"}
+                color={"text.primary"}
+                textAlign={"center"}
+              >
                 {t("noItemsYet")}
               </Typography>
 
@@ -54,7 +64,7 @@ function CartDisplaySection() {
                     sx={{ borderRadius: "2rem" }}
                     onClick={() => router.push("/login")}
                   >
-                    {t("signIn")}
+                    {t("signIn", { ns: "auth" })}
                   </Button>
                 )}
                 <Button
@@ -64,7 +74,7 @@ function CartDisplaySection() {
                   size="large"
                   sx={{ borderRadius: "2rem" }}
                 >
-                  {t("exploreItems")}
+                  {t("exploreItems", { ns: "actions" })}
                 </Button>
               </Stack>
             </Stack>

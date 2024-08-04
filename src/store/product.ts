@@ -4,11 +4,13 @@ import {
   GetProductForPage,
   GetProductForCard,
   IProductForPage,
+  IProductForCard,
 } from "@/model/productModel";
 
 interface ProductStoreProps {
   products: GetProductForCard[];
   product: GetProductForPage | null;
+  favoriteProducts: IProductForCard[] | null;
   page: number;
   limit: number;
 
@@ -16,6 +18,7 @@ interface ProductStoreProps {
   setProduct: (props: IProductForPage) => void;
   nextPage: () => void;
   prevPage: () => void;
+  setFavoriteProducts: (products: IProductForCard[]) => void;
 }
 
 const useProductStore = create<ProductStoreProps>((set) => ({
@@ -23,6 +26,8 @@ const useProductStore = create<ProductStoreProps>((set) => ({
   product: null,
   page: 1,
   limit: 5,
+  favoriteProducts: null,
+
   setProducts: async (value) => {
     const productList: GetProductForCard[] = await getProducts(value);
     set({ products: productList });
@@ -36,6 +41,10 @@ const useProductStore = create<ProductStoreProps>((set) => ({
     );
     set({ product });
   },
+  setFavoriteProducts: (products) => {
+    set({ favoriteProducts: products });
+  },
+
   nextPage: () => set((state) => ({ page: state.page + 1 })),
   prevPage: () => set((state) => ({ page: state.page - 1 })),
 }));

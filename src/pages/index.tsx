@@ -11,11 +11,19 @@ import DealsContainer from "@/features/DealsContainer";
 import { Box } from "@mui/material";
 import { ReactElement } from "react";
 import RootLayout from "@/layout/RootLayout";
-import Loading from "@/component/Loading";
-import useCartStore from "@/store/cart";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+import SearchContainerComponent from "@/features/Search/SearchContainerComponent";
+import useParamsForSearch from "@/hooks/useParamsForSearch";
+import { useLocalSearchStore } from "@/store/search";
+import { InferGetServerSidePropsType } from "next";
 
-export default function Home(): ReactElement {
-  const { loading } = useCartStore();
+export default function Home(
+  _props: InferGetServerSidePropsType<typeof getServerSideProps>
+): ReactElement {
+  const { searchState } = useLocalSearchStore();
+
+  useParamsForSearch(_props.params);
+
   return (
     <>
       <Head>
@@ -27,22 +35,66 @@ export default function Home(): ReactElement {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main
-        className={`${styles.main}`}
-        style={{ overflow: loading ? "hidden" : "auto" }}
-      >
+      <main className={`${styles.main}`}>
         <Box width={"100%"} minHeight={"100vh"} bgcolor={"background.paper"}>
           <RootLayout>
             <Navbar />
-            <PinLocation />
-            <Recommendation />
-            {/* <DealsContainer /> */}
-            <DiscountSale />
-            <Footer />
+            {!searchState ? (
+              <>
+                <PinLocation />
+                <Recommendation />
+                <DealsContainer />
+                <DiscountSale />
+                <Footer />
+              </>
+            ) : (
+              <SearchContainerComponent />
+            )}
           </RootLayout>
-          {loading && <Loading />}
         </Box>
       </main>
     </>
   );
+}
+
+export const getServerSideProps = async ({ query, locale }: LocalProp) => {
+  const searchText = (query.searchText as string) || "";
+  const searchFilter = {
+    high: Number(query.lt) || null,
+    low: Number(query.gt) || null,
+  };
+
+  let params = {
+    text: searchText,
+    filter: searchFilter,
+  };
+
+  return {
+    props: {
+      params,
+      ...(await serverSideTranslations(locale ?? "en", [
+        "common",
+        "policies",
+        "footer",
+        "locationNames",
+        "modal",
+        "saleTerms",
+        "deal",
+        "auth",
+        "account",
+        "response",
+        "order",
+        "actions",
+      ])),
+    },
+  };
+};
+
+interface LocalProp {
+  query: {
+    searchText: string;
+    lt: string | null;
+    gt: string | null;
+  };
+  locale: string;
 }

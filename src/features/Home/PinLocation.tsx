@@ -1,12 +1,13 @@
 import { Box, Typography } from "@mui/material";
 import { LuMapPin } from "react-icons/lu";
 
-import useUserStore, { Addresses } from "@/store/user";
-import getRegion from "@/utils/getRegion";
-import { t } from "i18next";
+import useUserStore from "@/store/user";
+import { useTranslation } from "next-i18next";
 
 function PinLocation() {
-  const { address, lang } = useUserStore();
+  const { t } = useTranslation(["locationNames", "common"]);
+  const { address } = useUserStore();
+
   return (
     <Box
       display={{ xs: "flex", md: "none" }}
@@ -28,7 +29,7 @@ function PinLocation() {
         fontWeight={"bold"}
         fontSize={{ xs: "0.9rem", sm: "1.5rem" }}
       >
-        {t("deliverTo")} {t(getRegion(Addresses[address]).code)}
+        {t("deliverTo", { ns: "common" })} {t(address, { ns: "locationNames" })}
       </Typography>
     </Box>
   );

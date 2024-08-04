@@ -6,6 +6,8 @@ export default function getLang(lang: string): LANG {
       return LANG.en;
     case "am":
       return LANG.am;
+    case "om":
+      return LANG.om;
     default:
       return LANG.en;
   }

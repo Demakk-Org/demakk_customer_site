@@ -1,7 +1,9 @@
-import { LANG, Providers } from "@/store/user";
+import { chosenBackendUrl, LANG, Providers } from "@/store/user";
 import { ObjectId } from "mongoose";
 import { Image } from "./imageModel";
 import { IAddress } from "./addressModel";
+import axios from "axios";
+import { IProduct, IProductForCard } from "./productModel";
 
 interface Role {
   _id: string;
@@ -17,6 +19,15 @@ interface Cart {
   orderItems: ObjectId[];
 }
 
+interface IUserAddress {
+  city: string;
+  country: string;
+  streetAddress: string;
+  zipCode: string;
+}
+
+type Gender = "male" | "female" | null;
+
 export interface IUser {
   _id: ObjectId;
   firstName: string;
@@ -26,7 +37,7 @@ export interface IUser {
   phoneNumber?: string;
   phoneNumberVerified: boolean;
   role: Role;
-  shippingAddress?: IAddress;
+  shippingAddress: IAddress | null;
   billingAddress?: IAddress;
   cart: Cart;
   orders: ObjectId[];
@@ -37,6 +48,8 @@ export interface IUser {
   searchTerms: string[];
   views: View[];
   favs: ObjectId[];
+  gender: Gender;
+  address: IUserAddress;
 }
 
 export default class GetUser {
@@ -48,7 +61,7 @@ export default class GetUser {
   private phoneNumber?: string;
   private phoneNumberVerified: boolean;
   private role: Role;
-  private shippingAddress?: IAddress;
+  private shippingAddress: IAddress | null;
   private billingAddress?: IAddress;
   private cart: Cart;
   private orders: ObjectId[];
@@ -58,6 +71,8 @@ export default class GetUser {
   private searchTerms: string[];
   private views: View[];
   private favs: ObjectId[];
+  private gender: Gender;
+  private address: IUserAddress;
 
   constructor(user: IUser) {
     this._id = user._id;
@@ -78,6 +93,26 @@ export default class GetUser {
     this.searchTerms = user.searchTerms;
     this.views = user.views;
     this.favs = user.favs;
+    this.gender = user.gender;
+    this.address = user.address;
+  }
+
+  async getFavoriteProducts(): Promise<IProductForCard[]> {
+    let productIdsParamValue =
+      this.favs.length > 0 ? this.favs.join(",") : "empty";
+    return axios
+      .get(`${chosenBackendUrl}/product`, {
+        params: { productIds: productIdsParamValue },
+      })
+      .then(({ data }) => {
+        console.log(data.products.list);
+        let products: IProductForCard[] = data.products.list;
+        return products;
+      })
+      .catch((err) => {
+        console.log(err);
+        return [];
+      });
   }
 
   getUser() {
@@ -100,6 +135,8 @@ export default class GetUser {
       searchTerms: this.searchTerms,
       views: this.views,
       favs: this.favs,
+      gender: this.gender,
+      address: this.address,
     };
   }
 }

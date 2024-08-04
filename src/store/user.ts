@@ -22,7 +22,7 @@ export enum Providers {
 export enum LANG {
   am = "am",
   en = "en",
-  or = "or",
+  om = "om",
 }
 
 export enum Addresses {
@@ -66,14 +66,15 @@ const useUserStore = create<StoreInterface>((set) => ({
 
   setRefresh: () => set((state) => ({ refresh: !state.refresh })),
   setLang: (lang) => {
-    console.log(lang, "store");
     set({ lang });
   },
+
   setAddress: (address) => set({ address: Addresses[address] }),
   setUser: async (token) => {
     const user = await getUser(token);
     set({ user });
   },
+
   signOut: () => set({ user: null }),
   setBreadcrumbs: (breadcrumbs: IBreadcrumb[]) => set({ breadcrumbs }),
   setShippingAddress: async (token) => {

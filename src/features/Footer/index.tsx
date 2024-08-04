@@ -1,4 +1,4 @@
-import { Box, Grid, List } from "@mui/material";
+import { Box, Grid, List, Stack } from "@mui/material";
 import {
   Facebook,
   Google,
@@ -10,18 +10,15 @@ import FooterLink from "./components/FooterLinks";
 import FooterLinksTitle from "./components/FooterLinksTitle";
 import PaymentCard from "./components/PaymentCard";
 import FooterSocialLinks from "./components/FooterSocialLinks";
-import useUserStore from "@/store/user";
-import "@/language/translation";
-import { t } from "i18next";
+import { useTranslation } from "next-i18next";
 
 function Footer() {
-  const { lang } = useUserStore();
+  const { t } = useTranslation(["common", "footer", "policies"]);
 
   return (
     <Box width={1} bgcolor={"background.lighter"}>
-      <Box
-        display={"flex"}
-        gap={{ xs: 2, sm: 4, md: 6 }}
+      <Stack
+        spacing={{ xs: 2, sm: 4, md: 6 }}
         p={{ xs: "1rem 0", sm: "1.5rem 0", lg: "3rem 0" }}
         margin={"auto"}
         width={{ xs: "90%", md: 800, lg: 1100, xl: 1200 }}
@@ -29,12 +26,17 @@ function Footer() {
       >
         <Box flex={1} display={"flex"} gap={"1rem"} alignItems={"baseline"}>
           <Box flex={1} display={"flex"} flexDirection={"column"}>
-            <FooterLinksTitle name={t("customerServices")} />
+            <FooterLinksTitle name={t("customerServices", { ns: "footer" })} />
             <List disablePadding>
               <FooterLink name={t("helpCenter")} url={"#"} />
-              <FooterLink name={t("transactionServicesAgreement")} url={"#"} />
-              <FooterLink name={t("termsAndConditions")} url={"#"} />
-              <FooterLink url={"#"} name={t("helpCenter")} />
+              <FooterLink
+                name={t("transactionServicesAgreement", { ns: "policies" })}
+                url={"#"}
+              />
+              <FooterLink
+                name={t("termsAndConditions", { ns: "policies" })}
+                url={"#"}
+              />
             </List>
           </Box>
           <Box flex={1} display={"flex"} flexDirection={"column"}>
@@ -44,7 +46,7 @@ function Footer() {
               flexDirection={"column"}
               mb={"0.5rem"}
             >
-              <FooterLinksTitle name={t("shoppingWithUs")} />
+              <FooterLinksTitle name={t("shoppingWithUs", { ns: "footer" })} />
               <List disablePadding>
                 <FooterLink name={t("makingPayments")} url={"#"} />
                 <FooterLink name={t("deliveryOptions")} url={"#"} />
@@ -52,7 +54,9 @@ function Footer() {
               </List>
             </Box>
             <Box flex={1} display={"flex"} flexDirection={"column"}>
-              <FooterLinksTitle name={t("collaborateWithUs")} />
+              <FooterLinksTitle
+                name={t("collaborateWithUs", { ns: "footer" })}
+              />
               <List disablePadding>
                 <FooterLink name={t("partnerships")} url={"#"} />
                 <FooterLink name={t("affiliatePrograms")} url={"#"} />
@@ -79,7 +83,7 @@ function Footer() {
             flexDirection={"column"}
             justifyContent={{ xs: "center", sm: "unset" }}
           >
-            <FooterLinksTitle name={t("payWith")} />
+            <FooterLinksTitle name={t("payWith", { ns: "footer" })} />
             <Grid
               container
               spacing={0.5}
@@ -103,7 +107,7 @@ function Footer() {
             flexDirection={"column"}
             alignItems={{ xs: "center", sm: "unset" }}
           >
-            <FooterLinksTitle name={t("stayConnected")} />
+            <FooterLinksTitle name={t("stayConnected", { ns: "footer" })} />
             <Grid
               container
               columnSpacing={2.5}
@@ -117,7 +121,7 @@ function Footer() {
             </Grid>
           </Box>
         </Box>
-      </Box>
+      </Stack>
     </Box>
   );
 }

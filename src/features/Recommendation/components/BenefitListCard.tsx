@@ -26,6 +26,7 @@ function BenefitListCard({ icon, title, desc }: BenefitListCardInterface) {
         color={"text.primary"}
         fontSize={"0.7rem"}
         fontWeight={"bold"}
+        textAlign={"center"}
       >
         {title}
       </Typography>

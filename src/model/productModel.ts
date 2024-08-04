@@ -50,6 +50,10 @@ export type IProductForCard = IProduct & {
   reviews: ObjectId[];
 };
 
+export type IProductForSearch = IProductForCard & {
+  score: number;
+};
+
 export interface IReturnedProduct {
   id: ObjectId;
   name: string;
@@ -63,7 +67,8 @@ export interface IReturnedProduct {
 
 export type IReturnedProductForCard = {
   reviews: ObjectId[];
-  productVariants: ObjectId[];
+  productVariants?: ObjectId[];
+  productCategory: ObjectId;
 } & IReturnedProduct;
 
 export type IReturnedProductForPage = {
@@ -230,13 +235,13 @@ export class GetProduct {
 export class GetProductForCard extends GetProduct {
   private reviews: ObjectId[];
   private productCategory: ObjectId;
-  private productVariants: ObjectId[];
+  private productVariants?: ObjectId[];
 
   constructor(
     product: IProduct,
     reviews: ObjectId[],
     productCategory: ObjectId,
-    productVariants: ObjectId[]
+    productVariants?: ObjectId[]
   ) {
     super(product);
     this.reviews = reviews;
@@ -256,6 +261,7 @@ export class GetProductForCard extends GetProduct {
       deals: this.getDeals,
       productVariants: this.productVariants,
       reviews: this.reviews,
+      productCategory: this.productCategory,
     };
   }
 }

@@ -1,0 +1,31 @@
+{
+  "defaultAddress": "Teessoo Waliigalaa",
+  "countryRegion": "Biyya/Naannoo",
+  "contactInformation": "Odeeffannoo qunnamtii",
+  "contactName": "Maqaa Qunnamtii*",
+  "pleaseEnterContactName": "Maqaa qunnamtii galchaa",
+  "mobileNumber": "Lakkoofsa Bilbila*",
+  "pleaseEnterMobilePhoneNumber": "Lakkoofsa bilbila galchaa.",
+  "address": "Teessoo",
+  "streetHouseApartmentUnit": "Bakka, mana/apt/units*",
+  "pleaseEnterAddress": "Naannoo ykn Naannoo galchaa",
+  "aptSuiteUnitEtc": "Apt, suite, unit, kkf (filannoo)",
+  "stateProvince": "Naannoo/Naannoo*",
+  "pleaseEnterStateProvinceRegion": "Naannoo/Naannoo/Naannoo galchaa",
+  "city": "Magaalaa*",
+  "pleaseEnterCity": "Magaalaa galchaa",
+  "zipCode": "Koodii ZIP*",
+  "pleaseEnterZipPostalCode": "Koodii ZIP/Postal galchaa",
+  "setAsDefaultShippingAddress": "Teessoo ergaa waliigalaa taasisuu",
+
+  "pleaseEnterAlphaNumericCharacters": "Fakkii alphanumeric qofa galchaa",
+  "useCorrectCharacterRange": "Fakkii 2 - 128 gidduutti galchaa",
+  "useCorrectPhoneNumberRange": "Lakkoofsa bilbila digiti 9 galchaa",
+
+  "pleaseEnterYourFirstName": "Maqaa Kee Durii Galchi",
+  "pleaseEnterYourLastName": "Maqaa Kee Dhumaa Galchi",
+  "pleaseEnterYourGender": "Sanyii Kee Galchi",
+  "pleaseEnterACity": "Magaalaa Galchi",
+  "pleaseEnterAnAddress": "Teessoo Galchi",
+  "pleaseEnterYourCountryCode": "Koodii Biyyaa Kee Galchi"
+}

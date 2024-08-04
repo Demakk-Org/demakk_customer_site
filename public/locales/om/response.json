@@ -1,0 +1,13 @@
+{
+  "loggedInSuccessfully": "Galmaan seenameera!",
+  "loggedOutSuccessfully": "Galmaa bahameera!",
+  "userCreatedSuccessfully": "Fayyadamni milkaa'inaan uumame",
+  "serverError": "Dogoggora Saervara, mee irra deebii yaali!",
+  "networkError": "Dogoggora Network, gosa network kee ilaali",
+
+  "otpVerificationWasSuccessful": "Mirkaneessi OTP milkaa'eera",
+  "otpVerificationFailed": "Mirkaneessi OTP hin milkaa'in",
+  "passwordUpdatedSuccessfully": "Jecha Darbaa sirriitti haaromfame",
+  "otpIsSendToEmailAddress": "OTP gara iimeelii keetti ergameera",
+  "failedToSendVerification": "Iimeelii mirkaneessaa erguu hin dandeenye"
+}

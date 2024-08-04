@@ -1,0 +1,13 @@
+{
+  "loggedInSuccessfully": "Login in successfully!",
+  "loggedOutSuccessfully": "Login out successfully!",
+  "userCreatedSuccessfully": "User created successfully",
+  "serverError": "Server error, please try again!",
+  "networkError": "Network error, please check your network settings",
+
+  "otpVerificationWasSuccessful": "OTP verification was successfully",
+  "otpVerificationFailed": "OTP verification failed",
+  "passwordUpdatedSuccessfully": "Password updated successfully",
+  "otpIsSendToEmailAddress": "OTP is send to your email address",
+  "failedToSendVerification": "Failed to send verification email"
+}

@@ -1,0 +1,17 @@
+{
+  "provideFurtherInformation": "Provide further information",
+  "cardNumber": "Card Number",
+  "cardHolderName": "Card holder Name",
+  "invalidCardNumber": "The card number entered is invalid",
+  "enterCardHolderName": "Please enter a card holder name (within 50 characters).",
+  "cardNumberFormat": "Enter your 12-19 digit card number",
+  "cardHolderNameFormat": "Use a space to separate first and last name.",
+  "enterCVV": "Please enter the CVV",
+  "enterCardDetails": "Enter card details",
+  "mm": "MM",
+  "yyyy": "YYYY",
+  "expirationMonth": "Expiration month",
+  "expirationYear": "Expiration year",
+  "orderConfirmation": "Order confirmation",
+  "saveCardDetails": "Save card details"
+}

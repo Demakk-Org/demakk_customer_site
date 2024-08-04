@@ -1,0 +1,31 @@
+{
+  "defaultAddress": "ነባሪ አድራሻ",
+  "countryRegion": "አገር/ክልል",
+  "contactInformation": "የመገኛ አድራሻ",
+  "contactName": "የእውቂያ ስም*",
+  "pleaseEnterContactName": "እባክዎ የእውቂያ ስም ያስገቡ",
+  "mobileNumber": "ስልክ ቁጥር*",
+  "pleaseEnterMobilePhoneNumber": "እባክዎ የሞባይል ስልክ ቁጥር ያስገቡ።",
+  "address": "አድራሻ",
+  "streetHouseApartmentUnit": "ጎዳና ፣ ቤት / አፓርታማ / ክፍል*",
+  "pleaseEnterAddress": "እባክዎ አድራሻ ያስገቡ",
+  "aptSuiteUnitEtc": "አፓርታማ ተስማሚ፣ ክፍል፣ ወዘተ (አማራጭ)",
+  "stateProvince": "ግዛት/አውራጃ*",
+  "pleaseEnterStateProvinceRegion": "እባክዎ ግዛት/አውራጃ/ክልል ያስገቡ",
+  "city": "ከተማ*",
+  "pleaseEnterCity": "እባክዎ ከተማ ያስገቡ",
+  "zipCode": "አካባቢያዊ መለያ ቁጥር*",
+  "pleaseEnterZipPostalCode": "እባክዎ ዚፕ/ፖስታ ኮድ ያስገቡ",
+  "setAsDefaultShippingAddress": "እንደ ነባሪ የመላኪያ አድራሻ ያዘጋጁ",
+
+  "pleaseEnterAlphaNumericCharacters": "እባክህ የፊደል ቁጥር ያላቸውን ቁምፊዎች ብቻ አስገባ",
+  "useCorrectCharacterRange": "እባክዎን ከ2-128 ቁምፊዎች ያስገቡ",
+  "useCorrectPhoneNumberRange": "እባክዎ ባለ 9 አሃዝ ስልክ ቁጥር ያስገቡ",
+
+  "pleaseEnterYourFirstName": "እባክዎ የመጀመሪያ ስምዎን ያስገቡ",
+  "pleaseEnterYourLastName": "እባክዎ የመጨረሻ ስምዎን ያስገቡ",
+  "pleaseEnterYourGender": "እባክዎ ፆታዎን ያስገቡ",
+  "pleaseEnterACity": "እባክዎ ከተማ ያስገቡ",
+  "pleaseEnterAnAddress": "እባክዎ አድራሻ ያስገቡ",
+  "pleaseEnterYourCountryCode": "እባክዎ የአገር ኮድዎን ያስገቡ"
+}

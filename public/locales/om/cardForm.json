@@ -1,0 +1,17 @@
+{
+  "provideFurtherInformation": "Odeeffannoo dabalataa kennuu",
+  "cardNumber": "Lakkoofsa Kaardii",
+  "cardHolderName": "Maqaa abbaa kaardii",
+  "invalidCardNumber": "Lakkoofsi kaardii galchame sirrii miti",
+  "enterCardHolderName": "Maqaa abbaa kaardii galchaa (bakka arfii 50 keessatti).",
+  "cardNumberFormat": "Lakkoofsa kaardii 12-19 galchaa",
+  "cardHolderNameFormat": "Maqaa duraa fi dhumaa addaan baasuu keessatti iddoo fayyadamaa.",
+  "enterCVV": "CVV galchaa",
+  "enterCardDetails": "Odeeffannoo kaardii galchaa",
+  "mm": "MM",
+  "yyyy": "YYYY",
+  "expirationMonth": "Ji'a yeroo dhuma kaardii",
+  "expirationYear": "Bara yeroo dhuma kaardii",
+  "orderConfirmation": "Ragaa ajajaa",
+  "saveCardDetails": "Odeeffannoo kaardii qusadhu"
+}

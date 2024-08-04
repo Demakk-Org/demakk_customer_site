@@ -1,0 +1,27 @@
+{
+  "removeProduct": "Kitaaba Haquu",
+  "removeProductFromCart": "Mi’a kana kataarfachuu barbaaddaa?",
+  "removeAll": "Hunda Haquu",
+  "removeAllContent": "Tartiiba kana keessatti mi’a hunda kattaa keessan irraa haquu ni danda’ama.",
+  "deleteTheOrder": "Ajaja kana haquu barbaaddaa?",
+  "deleteTheOrderDescription": "Haquu erga gootee booda, ajaja kana yeroo muraasaaf 'Ajajoota Haqaman' gubbaa mirga irratti arguu dandeessa.",
+  "deleteShippingAddress": "Iddoo ergaa haquu",
+  "confirmDeletionOfShippingAddress": "Iddoo ergaa haquu mirkaneessi",
+  "checkOutIsEmpty": "Yeroo xiqqaate tokkoo olii barbaachisa itti fufuuf",
+  "reachedTheLimit": "Daangaa geessan",
+  "cantUndoThisAction": "Gochi kun deebi'ee hin danda'amu",
+  "emailVerificationCode": "Koodii mirkaneessaa iimeelii",
+  "enterThe6DigitCode": "Koodii lakkoofsa jaha kan gara iimeelii keetti ergine galchi",
+  "otherWaysToVerify": "Mirkaneessuu irratti karaa biroo",
+  "changePassword": "Jecha Darbaa jijjiiri",
+  "changeEmail": "Iimeelii jijjiiri",
+
+  "mustBe6To20Characters": "Herrega keessaa: qubee, lakkoofsa ykn mallattoo ta'uu qaba (6-20)",
+  "passwordChanged": "Jecha Darbaa jijjiirameera",
+  "emailChanged": "Email jijjiirame",
+  "yourPasswordHAsBeenUpdated": "Jecha darbii keetiin haaromsameera. Amma jecha darbii kanaan seenuu dandeessa.",
+  "otpIsSendToEmailAddress": "OTP gara iimeelii keetti ergameera",
+  "needToVerifyYourEmail": "Garaawwan nagaaf, iimeelii haaraa kee mirkaneessuu qabna",
+  "yourEmailHasBeenUpdated": "Iimeelii kee haaromsameera. Amma iimeelii kanaan seenuu dandeessa.",
+  "enterYourEmail": "Iimeelii kee galchi"
+}

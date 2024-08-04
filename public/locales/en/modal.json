@@ -1,0 +1,26 @@
+{
+  "removeProduct": "Remove Product",
+  "removeProductFromCart": "Remove item from cart?",
+  "removeAll": "Remove All",
+  "removeAllContent": "This action will remove these item from your shopping cart.",
+  "deleteTheOrder": "Delete the order?",
+  "deleteTheOrderDescription": "Once deleted, the order can still be found for a limited time in the 'Deleted orders' tab on the top right corner of this page.",
+  "deleteShippingAddress": "Delete shipping address",
+  "confirmDeletionOfShippingAddress": "Confirm deletion of shipping address",
+  "checkOutIsEmpty": "At least one product is required to proceed",
+  "reachedTheLimit": "You have reached the limit",
+  "cantUndoThisAction": "You can't undo this action",
+
+  "emailVerificationCode": "Email verification code",
+  "enterThe6DigitCode": "Enter the 6-digit code we emailed to",
+  "otherWaysToVerify": "Other ways to verify",
+  "changePassword": "Change password",
+  "changeEmail": "Change email",
+  "emailChanged": "Email changed",
+  "mustBe6To20Characters": "Must be 6-20 characters (letters, numbers or symbols)",
+  "passwordChanged": "Password changed",
+  "yourPasswordHAsBeenUpdated": "Your password has been updated. You can now sign in with this password.",
+  "needToVerifyYourEmail": "For security purposes, we need to verify your new email",
+  "yourEmailHasBeenUpdated": "Your email has been updated. You can sign in now using this Email.",
+  "enterYourEmail": "Enter your email"
+}

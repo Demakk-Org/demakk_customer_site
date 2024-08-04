@@ -1,0 +1,13 @@
+{
+  "loggedInSuccessfully": "በትክክል ገብተህታል!",
+  "loggedOutSuccessfully": "በትክክል ወጥተሃል!",
+  "userCreatedSuccessfully": "ተጠቃሚ በትክክል ተፈጥሯል",
+  "serverError": "የአገልግሎት አስተናጋጅ ስህተት, እባክህ እንደገና ይሞክሩ!",
+  "networkError": "የኔትወርክ ስህተት, እባክህ የኔትወርክ ቅንብሮችህን ተመልከት",
+
+  "otpVerificationWasSuccessful": "የOTP ማረጋገጫ ተሳክቷል",
+  "otpVerificationFailed": "የOTP ማረጋገጫ አልተሳካም",
+  "passwordUpdatedSuccessfully": "የመግቢያ ቃል በተሳካ ሁኔታ ተዘመነ",
+  "otpIsSendToEmailAddress": "OTP ኢሜል አድራሻዎት ተልኳል",
+  "failedToSendVerification": "የማረጋገጫ ኢሜል ላክን አልተቻለም"
+}

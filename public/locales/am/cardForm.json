@@ -1,0 +1,17 @@
+{
+  "provideFurtherInformation": "ተጨማሪ መረጃ አቅርቡ",
+  "cardNumber": "የካርድ ቁጥር",
+  "cardHolderName": "የካርድ ባለቤት ስም",
+  "invalidCardNumber": "የገባው የካርድ ቁጥር ልክ አይደለም",
+  "enterCardHolderName": "እባኮትን የካርድ ባለቤት ስም ያስገቡ (ከ 50 ፊደላት ውስጥ)።",
+  "cardNumberFormat": "የ 12-19 እቃዎች የካርድ ቁጥርዎን ያስገቡ",
+  "cardHolderNameFormat": "የመጀመሪያና የመጨረሻ ስም ለማስተካከል ቦታ ተጠቀሙ",
+  "enterCVV": "እባኮትን የ CVV ኮድ ያስገቡ",
+  "enterCardDetails": "የካርድ ዝርዝሮችን ያስገቡ",
+  "mm": "ወር",
+  "yyyy": "ዓመት",
+  "expirationMonth": "የካርድ ጊዜ ማለት ወር",
+  "expirationYear": "የካርድ ጊዜ ማለት ዓመት",
+  "orderConfirmation": "ትእዛዝ ማረጋገጫ",
+  "saveCardDetails": "የካርድ ዝርዝሮችን ያስቀምጡ"
+}

@@ -1,8 +1,10 @@
 import { Html, Head, Main, NextScript } from "next/document";
+const { i18n } = require("../../next-i18next.config");
+export default function Document({ ...props }) {
+  const currentLocale = props.__NEXT_DATA__?.locale ?? i18n.defaultLocale;
 
-export default function Document() {
   return (
-    <Html lang="en">
+    <Html lang={currentLocale}>
       <Head />
       <body>
         <Main />

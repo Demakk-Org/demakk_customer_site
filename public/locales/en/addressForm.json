@@ -1,0 +1,31 @@
+{
+  "defaultAddress": "Default address",
+  "countryRegion": "Country/region",
+  "contactInformation": "Contact information",
+  "contactName": "Contact name*",
+  "pleaseEnterContactName": "Please enter a contact name",
+  "mobileNumber": "Mobile number*",
+  "pleaseEnterMobilePhoneNumber": "Please enter mobile phone number.",
+  "address": "Address",
+  "streetHouseApartmentUnit": "Street, house/apartment/unit*",
+  "pleaseEnterAddress": "Please enter an Region or Province",
+  "aptSuiteUnitEtc": "Apt, suite, unit, etc (optional)",
+  "stateProvince": "State/Province*",
+  "pleaseEnterStateProvinceRegion": "Please enter state/Province/Region",
+  "city": "City*",
+  "pleaseEnterCity": "Please enter a city",
+  "zipCode": "ZIP Code*",
+  "pleaseEnterZipPostalCode": "Please enter a ZIP/Postal Code",
+  "setAsDefaultShippingAddress": "Set as default shipping address",
+
+  "pleaseEnterAlphaNumericCharacters": "Please enter only alphanumeric characters",
+  "useCorrectCharacterRange": "Please enter between 2 - 128 characters",
+  "useCorrectPhoneNumberRange": "Please enter 9 digit phone number",
+
+  "pleaseEnterYourFirstName": "Please enter your first name",
+  "pleaseEnterYourLastName": "Please enter your last name",
+  "pleaseEnterYourGender": "Please enter your gender",
+  "pleaseEnterACity": "Please enter a city",
+  "pleaseEnterAnAddress": "Please enter an address",
+  "pleaseEnterYourCountryCode": "Please enter your country code"
+}

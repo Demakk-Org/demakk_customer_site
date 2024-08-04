@@ -11,11 +11,11 @@ const getProductVariant = async ({
   lang,
 }: IGetProductVariantProps) => {
   try {
-    const productVariant = await axios.get(
+    const { data } = await axios.get(
       `${chosenBackendUrl}/stockVariety/${productVarietyId}?lang=${lang}`
     );
 
-    return productVariant.data.data;
+    return data.productVariant;
   } catch (error) {
     console.log(error);
     return null;

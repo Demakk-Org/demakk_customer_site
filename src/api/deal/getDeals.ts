@@ -10,9 +10,9 @@ export interface GetDealProps {
 
 const getDeals = async () => {
   try {
-    const deals = await axios.get(`${chosenBackendUrl}/deal`);
+    const { data } = await axios.get(`${chosenBackendUrl}/deal`);
 
-    const list: GetDeal[] = deals.data.data.map((deal: IDeal) => {
+    const list: GetDeal[] = data.deals.map((deal: IDeal) => {
       const newDeal = new GetDeal(deal);
       return newDeal;
     });

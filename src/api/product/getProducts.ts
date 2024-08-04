@@ -10,13 +10,13 @@ export interface GetProductProps {
 
 const getProducts = async ({ limit, page, lang }: GetProductProps) => {
   try {
-    const products = await axios.get(
+    const { data } = await axios.get(
       `${chosenBackendUrl}/product?${limit && `limit=${limit}`}&${
         page && `page=${page}`
       }&${lang && `lang=${lang}`}`
     );
 
-    const list: GetProductForCard[] = products.data.data.data.map(
+    const list: GetProductForCard[] = data.products.map(
       (product: IProductForCard) => {
         const newProduct = new GetProductForCard(
           product,

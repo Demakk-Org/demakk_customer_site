@@ -12,17 +12,17 @@ const getAddresses = async (token: string | null) => {
   if (!token) return [];
 
   try {
-    const addresses = await axios.get(`${chosenBackendUrl}/address`, {
+    const { data } = await axios.get(`${chosenBackendUrl}/address`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
     });
 
-    let list: GetAddress[] = addresses.data.data.addresses.map(
-      (address: IAddress) => {
-        return new GetAddress(address);
-      }
-    );
+    console.log(data.addresses.list);
+
+    let list: GetAddress[] = data.addresses.list.map((address: IAddress) => {
+      return new GetAddress(address);
+    });
     return list;
   } catch (err: any) {
     console.log(err.response);

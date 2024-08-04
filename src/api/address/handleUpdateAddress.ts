@@ -63,8 +63,7 @@ const handleUpdateAddress = ({
           },
         }
       )
-      .then(({ data }) => {
-        console.log(data);
+      .then(() => {
         setLoading(false);
         setSnackBar({
           type: "success",

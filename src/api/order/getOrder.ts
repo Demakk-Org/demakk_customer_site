@@ -18,13 +18,13 @@ const getOrder = async ({
   if (!token) return null;
 
   try {
-    const order = await axios.get(`${chosenBackendUrl}/order/${id}`, {
+    const { data } = await axios.get(`${chosenBackendUrl}/order/${id}`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
     });
 
-    const newOrder: GetOrder = new GetOrder(order.data.data);
+    const newOrder: GetOrder = new GetOrder(data.order);
 
     return newOrder;
   } catch (err: any) {

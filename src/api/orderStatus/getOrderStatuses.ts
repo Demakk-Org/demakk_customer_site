@@ -4,9 +4,9 @@ import axios from "axios";
 
 const getOrderStatuses = async (lang?: LANG) => {
   try {
-    const orderStatuses = await axios.get(`${chosenBackendUrl}/orderStatus`);
+    const { data } = await axios.get(`${chosenBackendUrl}/orderStatus`);
 
-    const orderStatusesList: IOrderStatus[] = orderStatuses.data.data;
+    const orderStatusesList: IOrderStatus[] = data.orderStatuses;
 
     return orderStatusesList;
   } catch (err: any) {

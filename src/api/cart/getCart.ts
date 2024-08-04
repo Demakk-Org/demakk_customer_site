@@ -12,7 +12,7 @@ const getCart = async ({ token }: { token: string | null }) => {
       },
     });
 
-    let cart = new GetCart(response.data.data);
+    let cart = new GetCart(response.data.cart);
 
     return cart;
   } catch (error) {

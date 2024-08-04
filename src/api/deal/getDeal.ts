@@ -10,8 +10,8 @@ export interface GetDealProps {
 
 const getDeal = async (id: string) => {
   try {
-    const deal = await axios.get(`${chosenBackendUrl}/deal/${id}`);
-    return deal.data;
+    const { data } = await axios.get(`${chosenBackendUrl}/deal/${id}`);
+    return data.deal;
   } catch (error) {
     console.log(error);
     return null;

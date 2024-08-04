@@ -8,11 +8,11 @@ export interface GetDealProps {
   lang: LANG;
 }
 
-const getOrders = async (token: string | null) => {
+const getDeletedOrders = async (token: string | null) => {
   if (!token) return [];
 
   try {
-    const { data } = await axios.get(`${chosenBackendUrl}/order`, {
+    const { data } = await axios.get(`${chosenBackendUrl}/order/deleted`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -30,4 +30,4 @@ const getOrders = async (token: string | null) => {
   }
 };
 
-export default getOrders;
+export default getDeletedOrders;

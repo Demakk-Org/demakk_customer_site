@@ -4,14 +4,16 @@ import axios from "axios";
 
 const getUser = async (token?: string) => {
   if (!token) return null;
+
   try {
-    const response = await axios.get(`${chosenBackendUrl}/user`, {
+    const { data } = await axios.get(`${chosenBackendUrl}/user`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
     });
 
-    const user = new GetUser(response.data.data);
+    const user = new GetUser(data.user);
+    // changeLanguage(getLang(user.getUser().lang));
     return user;
   } catch (error) {
     console.log(error);

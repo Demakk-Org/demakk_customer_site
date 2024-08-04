@@ -4,15 +4,13 @@ import axios from "axios";
 
 const getDiscounts = async () => {
   try {
-    const discounts = await axios.get(`${chosenBackendUrl}/discount`);
+    const { data } = await axios.get(`${chosenBackendUrl}/discount`);
 
-    const list: GetDiscount[] = discounts.data.data.map(
-      (discount: IDiscount) => {
-        discount;
-        const newDiscount = new GetDiscount(discount);
-        return newDiscount;
-      }
-    );
+    const list: GetDiscount[] = data.discounts.map((discount: IDiscount) => {
+      discount;
+      const newDiscount = new GetDiscount(discount);
+      return newDiscount;
+    });
 
     return list;
   } catch (err: any) {

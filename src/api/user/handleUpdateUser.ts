@@ -1,6 +1,6 @@
+import axios from "axios";
 import { ISnackBar } from "@/store/page";
 import { chosenBackendUrl } from "@/store/user";
-import axios from "axios";
 
 interface HandleUpdateUserProps {
   language?: string;
@@ -8,42 +8,65 @@ interface HandleUpdateUserProps {
   lastName?: string;
   email?: string;
   phoneNumber?: string;
+  gender?: string;
+  city?: string;
+  country?: string;
+  streetAddress?: string;
+  zipCode?: string;
+  verify?: boolean;
 
   token: string;
   setLoading: (value: boolean) => void;
   setSnackBar?: (value: ISnackBar) => void;
+  setUser: (token?: string) => void;
+  setEditProfile?: () => void;
 }
 
-const handleUpdateUser = ({
+const handleUpdateUser = async ({
   language,
   firstName,
   lastName,
   email,
   phoneNumber,
+  gender,
+  city,
+  country,
+  streetAddress,
+  zipCode,
+  verify,
+
   token,
   setLoading,
   setSnackBar,
+  setUser,
+  setEditProfile,
 }: HandleUpdateUserProps) => {
   setLoading(true);
 
-  axios
+  return axios
     .put(
       `${chosenBackendUrl}/user`,
-      { language, firstName, lastName, email, phoneNumber },
+      {
+        language,
+        firstName,
+        lastName,
+        email,
+        phoneNumber,
+        verify,
+        gender,
+        address: { city, country, streetAddress, zipCode },
+      },
       {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       }
     )
-    .then((response) => {
+    .then(({ data }) => {
       setLoading(false);
-      setSnackBar &&
-        setSnackBar({
-          open: true,
-          message: response.data.message,
-          type: "success",
-        });
+      token && setUser(token);
+      setEditProfile && setEditProfile();
+      return data;
     })
     .catch((err: any) => {
       setLoading(false);
@@ -54,6 +77,9 @@ const handleUpdateUser = ({
             err.response?.data.message || "Server error, please try again!",
           type: "error",
         });
+      throw new Error(
+        err.response?.data.message || "Server error, please try again!"
+      );
     });
 };
 

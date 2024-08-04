@@ -22,7 +22,7 @@ const getProduct = async ({
       }&${lang && `lang=${lang}`}`
     );
 
-    const product = data.data;
+    const product = data.product;
     return product;
   } catch (err: any) {
     console.log(err.message);

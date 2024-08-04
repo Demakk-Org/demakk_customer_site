@@ -1,344 +1,23 @@
 import useThemeProvider from "@/store/theme";
 import "@/styles/globals.css";
-import { ThemeProvider, createTheme } from "@mui/material/styles";
-import { outlinedInputClasses } from "@mui/material/OutlinedInput";
+import { ThemeProvider } from "@mui/material/styles";
 import { useEffect } from "react";
 import { AppProps } from "next/app";
 import { Montserrat } from "next/font/google";
-import useUserStore, { LANG } from "@/store/user";
+import useUserStore from "@/store/user";
+import Loading from "@/component/Loading";
+import usePageStore from "@/store/page";
 
+import darkTheme from "@/theme/darkTheme";
+import lightTheme from "@/theme/lightTheme";
+import "@/theme";
+import CommonModal from "@/component/CommonModal";
+import { Alert, Snackbar } from "@mui/material";
+import { appWithTranslation } from "next-i18next";
 export const demakkFont = Montserrat({ subsets: ["cyrillic"] });
 
-declare module "@mui/material/styles" {
-  interface Palette {
-    dark: Palette["primary"];
-    darken: Palette["secondary"];
-    bright: Palette["primary"];
-    brighten: Palette["secondary"];
-    demakkPrimary: Palette["primary"];
-    demakkSecondary: Palette["primary"];
-    primaryButton: Palette["primary"];
-    secondaryButton: Palette["primary"];
-  }
-
-  interface PaletteOptions {
-    dark?: PaletteOptions["primary"];
-    darken?: PaletteOptions["primary"];
-    bright?: PaletteOptions["primary"];
-    brighten?: PaletteOptions["primary"];
-    demakkPrimary?: PaletteOptions["primary"];
-    demakkSecondary?: PaletteOptions["primary"];
-    primaryButton?: PaletteOptions["primary"];
-    secondaryButton?: PaletteOptions["primary"];
-  }
-}
-
-declare module "@mui/material/Button" {
-  interface ButtonPropsColorOverrides {
-    dark: true;
-    darken: true;
-    bright: true;
-    brighten: true;
-    demakkPrimary: true;
-    demakkSecondary: true;
-    primaryButton: true;
-    secondaryButton: true;
-  }
-}
-
-declare module "@mui/material/AppBar" {
-  interface AppBarPropsColorOverrides {
-    dark: true;
-    darken: true;
-    bright: true;
-    brighten: true;
-    demakkPrimary: true;
-    demakkSecondary: true;
-    primaryButton: true;
-    secondaryButton: true;
-  }
-}
-
-declare module "@mui/material/IconButton" {
-  interface IconButtonPropsColorOverrides {
-    dark: true;
-    darken: true;
-    bright: true;
-    brighten: true;
-    demakkPrimary: true;
-    demakkSecondary: true;
-    primaryButton: true;
-    secondaryButton: true;
-  }
-}
-
-declare module "@mui/material/SvgIcon" {
-  interface SvgIconPropsColorOverrides {
-    dark: true;
-    darken: true;
-    bright: true;
-    brighten: true;
-    demakkPrimary: true;
-    demakkSecondary: true;
-    primaryButton: true;
-    secondaryButton: true;
-  }
-}
-
-const dTheme = createTheme({
-  palette: {
-    mode: "dark",
-    dark: { main: "#262626" },
-    bright: { main: "#e9e9e9" },
-    primary: { main: "#ee461c" },
-    secondary: { main: "#fcbe19" },
-  },
-  components: {
-    MuiOutlinedInput: {
-      styleOverrides: {
-        notchedOutline: {
-          borderColor: "darkgray",
-          letterSpacing: "0.2px",
-        },
-        root: {
-          [`&:hover .${outlinedInputClasses.notchedOutline}`]: {
-            borderColor: "#2c43a2",
-          },
-          [`&.Mui-focused .${outlinedInputClasses.notchedOutline}`]: {
-            borderColor: "#ffa889",
-          },
-        },
-      },
-    },
-  },
-  typography: {
-    fontFamily: [
-      "Montserrat",
-      "Poppins",
-      "-apple-system",
-      "BlinkMacSystemFont",
-      '"Segoe UI"',
-      "Roboto",
-    ].join(","),
-    button: {
-      textTransform: "capitalize",
-    },
-  },
-});
-
-const lTheme = createTheme({
-  palette: {
-    mode: "light",
-    dark: { main: "#606060" },
-    bright: { main: "#fafafa" },
-    primary: { main: "#ffab92" },
-    secondary: { main: "#fef06b" },
-  },
-  components: {
-    MuiOutlinedInput: {
-      styleOverrides: {
-        notchedOutline: {
-          borderColor: "darkgray",
-          letterSpacing: "0.2px",
-        },
-        root: {
-          [`&:hover .${outlinedInputClasses.notchedOutline}`]: {
-            borderColor: "#2c43a2",
-          },
-          [`&.Mui-focused .${outlinedInputClasses.notchedOutline}`]: {
-            borderColor: "#ffa889",
-          },
-        },
-      },
-    },
-  },
-  typography: {
-    fontFamily: [
-      "Montserrat",
-      "Poppins",
-      "-apple-system",
-      "BlinkMacSystemFont",
-      '"Segoe UI"',
-      "Roboto",
-    ].join(","),
-    button: {
-      textTransform: "capitalize",
-    },
-  },
-});
-
-const darkTheme = createTheme(dTheme, {
-  components: {
-    MuiOutlinedInput: {
-      styleOverrides: {
-        notchedOutline: {
-          borderColor: "darkgray",
-          letterSpacing: "0.2px",
-        },
-        root: {
-          [`&:hover .${outlinedInputClasses.notchedOutline}`]: {
-            borderColor: "#fff",
-          },
-          [`&.Mui-focused .${outlinedInputClasses.notchedOutline}`]: {
-            borderColor: "#ffa889",
-          },
-        },
-      },
-    },
-  },
-  typography: {
-    fontFamily: [
-      "Montserrat",
-      "Poppins",
-      "-apple-system",
-      "BlinkMacSystemFont",
-      '"Segoe UI"',
-      "Roboto",
-    ].join(","),
-    button: {
-      textTransform: "capitalize",
-    },
-  },
-  palette: {
-    text: {
-      teritiary: "#575757",
-      links: "#ffffffcc",
-      price: "#ff0000",
-      dealHeader: "#ff0000",
-    },
-    background: {
-      dark: "#111111cc",
-      lightOpaque: "#414141",
-      light: "#63636344",
-      lighter: "#63636322",
-      reddish: "#ff795b99",
-    },
-    demakkPrimary: dTheme.palette.augmentColor({
-      color: {
-        main: "#ee461c",
-      },
-      name: "demakkPrimary",
-    }),
-    demakkSecondary: dTheme.palette.augmentColor({
-      color: {
-        main: "#fcbe19",
-      },
-      name: "demakkSecondary",
-    }),
-    darken: dTheme.palette.augmentColor({
-      color: {
-        main: "#262626",
-      },
-      name: "darken",
-    }),
-    brighten: dTheme.palette.augmentColor({
-      color: {
-        main: "#e9e9e9",
-      },
-      name: "brighten",
-    }),
-    primaryButton: dTheme.palette.augmentColor({
-      color: {
-        main: "#e9e9e9",
-      },
-      name: "primaryButton",
-    }),
-    secondaryButton: dTheme.palette.augmentColor({
-      color: {
-        main: "#e9e9e90c",
-      },
-      name: "secondaryButton",
-    }),
-  },
-});
-
-const lightTheme = createTheme(lTheme, {
-  components: {
-    MuiOutlinedInput: {
-      styleOverrides: {
-        notchedOutline: {
-          borderColor: "darkgray",
-          letterSpacing: "0.2px",
-        },
-        root: {
-          [`&:hover .${outlinedInputClasses.notchedOutline}`]: {
-            borderColor: "#2c43a2",
-          },
-          [`&.Mui-focused .${outlinedInputClasses.notchedOutline}`]: {
-            borderColor: "#ffa889",
-          },
-        },
-      },
-    },
-  },
-  typography: {
-    fontFamily: [
-      "Montserrat",
-      "Poppins",
-      "-apple-system",
-      "BlinkMacSystemFont",
-      '"Segoe UI"',
-      "Roboto",
-    ].join(","),
-    button: {
-      textTransform: "capitalize",
-    },
-  },
-  palette: {
-    text: {
-      teritiary: "#e7e7e7",
-      links: "#191919cc",
-      price: "#ff0000",
-      dealHeader: "#ff0000",
-      contrast: "#191919cc",
-    },
-    background: {
-      dark: "#666666cc",
-      lightOpaque: "#d0d0d0",
-      light: "#d0d0d044 ",
-      lighter: "#d0d0d022",
-      reddish: "#ffc7b899",
-    },
-    demakkPrimary: lTheme.palette.augmentColor({
-      color: {
-        main: "#ffab92",
-      },
-      name: "demakkPrimary",
-    }),
-    demakkSecondary: lTheme.palette.augmentColor({
-      color: {
-        main: "#ff0000",
-      },
-      name: "demakkSecondary",
-    }),
-    darken: lTheme.palette.augmentColor({
-      color: {
-        main: "#262626",
-      },
-      name: "darken",
-    }),
-    brighten: lTheme.palette.augmentColor({
-      color: {
-        main: "#e9e9e9",
-      },
-      name: "brighten",
-    }),
-    primaryButton: lTheme.palette.augmentColor({
-      color: {
-        main: "#262626",
-      },
-      name: "primaryButton",
-    }),
-    secondaryButton: lTheme.palette.augmentColor({
-      color: {
-        main: "#2626261c",
-      },
-      name: "secondaryButton",
-    }),
-  },
-});
-
-export default function App({ Component, pageProps }: AppProps) {
+function App({ Component, pageProps }: AppProps) {
+  const { loading, snackBar, setSnackBar } = usePageStore();
   const { darkMode, setTheme } = useThemeProvider();
   const { user, setLang } = useUserStore();
 
@@ -363,6 +42,25 @@ export default function App({ Component, pageProps }: AppProps) {
   return (
     <ThemeProvider theme={darkMode ? darkTheme : lightTheme}>
       <Component {...pageProps} />
+      {loading && <Loading />}
+      <CommonModal />
+      <Snackbar
+        autoHideDuration={2500}
+        open={snackBar?.open}
+        onClose={() => setSnackBar(null)}
+        anchorOrigin={{ horizontal: "center", vertical: "top" }}
+      >
+        <Alert
+          onClose={() => setSnackBar(null)}
+          severity={snackBar?.type}
+          variant="filled"
+          sx={{ width: "100%" }}
+        >
+          {snackBar?.message}
+        </Alert>
+      </Snackbar>
     </ThemeProvider>
   );
 }
+
+export default appWithTranslation(App);

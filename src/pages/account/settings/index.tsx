@@ -1,10 +1,18 @@
+import Head from "next/head";
 import { ReactElement } from "react";
 import styles from "@/styles/Home.module.css";
-import Head from "next/head";
 import AccountPageLayout from "@/layout/AccountPageLayout";
 import SettingTabContent from "@/features/AccountPage/components/SettingTabContent";
+import { useTranslation } from "next-i18next";
+import { LocalProp } from "@/pages/checkout";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+import { InferGetServerSidePropsType } from "next";
 
-export default function Home(): ReactElement {
+export default function Home(
+  _props: InferGetServerSidePropsType<typeof getServerSideProps>
+): ReactElement {
+  const { t } = useTranslation();
+
   return (
     <>
       <Head>
@@ -17,10 +25,32 @@ export default function Home(): ReactElement {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main className={`${styles.main}`}>
-        <AccountPageLayout selectedTab={3} pageType="setting">
+        <AccountPageLayout selectedTab={"settings"} pageType={t("settings")}>
           <SettingTabContent />
         </AccountPageLayout>
       </main>
     </>
   );
 }
+
+export const getServerSideProps = async ({ locale }: LocalProp) => {
+  return {
+    props: {
+      ...(await serverSideTranslations(locale ?? "en", [
+        "order",
+        "actions",
+        "auth",
+        "common",
+        "policies",
+        "footer",
+        "locationNames",
+        "modal",
+        "saleTerms",
+        "deal",
+        "account",
+        "addressForm",
+        "response",
+      ])),
+    },
+  };
+};

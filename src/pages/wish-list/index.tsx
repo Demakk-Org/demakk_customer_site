@@ -2,20 +2,18 @@ import Head from "next/head";
 import { ReactElement } from "react";
 import styles from "@/styles/Home.module.css";
 import AccountPageLayout from "@/layout/AccountPageLayout";
-import PaymentTabContent from "@/features/AccountPage/components/PaymentTabContent";
-import { useTranslation } from "next-i18next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { LocalProp } from "../checkout";
 import { InferGetServerSidePropsType } from "next";
+import WishListComponent from "@/features/AccountPage/components/WishListComponent";
 
-export default function Home(
+export default function WishList(
   _props: InferGetServerSidePropsType<typeof getServerSideProps>
 ): ReactElement {
-  const { t } = useTranslation("account");
   return (
     <>
       <Head>
-        <title>Order</title>
+        <title>Wish List</title>
         <meta
           name="description"
           content="The best e-commerce to shop with custom design"
@@ -24,8 +22,8 @@ export default function Home(
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main className={`${styles.main}`}>
-        <AccountPageLayout selectedTab={"payments"} pageType={t("payments")}>
-          <PaymentTabContent />
+        <AccountPageLayout pageType="" selectedTab={"none"}>
+          <WishListComponent />
         </AccountPageLayout>
       </main>
     </>
@@ -47,6 +45,7 @@ export const getServerSideProps = async ({ locale }: LocalProp) => {
         "saleTerms",
         "deal",
         "account",
+        "response",
       ])),
     },
   };

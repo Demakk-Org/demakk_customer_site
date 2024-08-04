@@ -1,14 +1,16 @@
+import Head from "next/head";
 import { ReactElement } from "react";
 import styles from "@/styles/Home.module.css";
-import Head from "next/head";
 import AccountPageLayout from "@/layout/AccountPageLayout";
 import OrderDetailTabContent from "@/features/AccountPage/components/OrderDetailTabContent";
-import { GetStaticPaths, GetStaticProps } from "next";
-import axios from "axios";
-import { ObjectId } from "mongoose";
-import { chosenBackendUrl } from "@/store/user";
+import { GetServerSideProps, InferGetServerSidePropsType } from "next";
+import { useTranslation } from "next-i18next";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 
-export default function Home({ orderId }: { orderId: string }): ReactElement {
+export default function Home(
+  _props: InferGetServerSidePropsType<typeof getServerSideProps>
+): ReactElement {
+  const { t } = useTranslation("order");
   return (
     <>
       <Head>
@@ -21,35 +23,34 @@ export default function Home({ orderId }: { orderId: string }): ReactElement {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main className={`${styles.main}`}>
-        <AccountPageLayout selectedTab={1} pageType="order">
-          <OrderDetailTabContent orderId={orderId} />
+        <AccountPageLayout selectedTab={"orders"} pageType={t("order_one")}>
+          <OrderDetailTabContent orderId={_props.orderId} />
         </AccountPageLayout>
       </main>
     </>
   );
 }
 
-export const getStaticPaths = (async () => {
-  let orders = await axios.get(`${chosenBackendUrl}/order/ids`);
-
-  let paths = orders.data.data.map((order: { _id: ObjectId }) => {
-    return {
-      params: {
-        orderId: order._id,
-      },
-    };
-  });
-
+export const getServerSideProps: GetServerSideProps = async ({
+  params,
+  locale,
+}) => {
   return {
-    paths,
-    fallback: true,
+    props: {
+      orderId: params?.orderId,
+      ...(await serverSideTranslations(locale ?? "en", [
+        "common",
+        "policies",
+        "footer",
+        "locationNames",
+        "modal",
+        "saleTerms",
+        "deal",
+        "auth",
+        "account",
+        "response",
+        "order",
+      ])),
+    },
   };
-}) satisfies GetStaticPaths;
-
-export const getStaticProps = (async (context) => {
-  console.log(context, "context");
-
-  return { props: { orderId: context.params?.orderId } };
-}) satisfies GetStaticProps<{
-  orderId: string | string[] | undefined;
-}>;
+};

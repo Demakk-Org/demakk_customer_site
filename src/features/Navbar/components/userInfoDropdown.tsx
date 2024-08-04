@@ -1,4 +1,4 @@
-import { Box, Button, Divider, Grid, Typography } from "@mui/material";
+import { Box, Button, Divider, Grid, Stack, Typography } from "@mui/material";
 import { LuClipboardList } from "react-icons/lu";
 import { RiCopperCoinLine } from "react-icons/ri";
 import { AiOutlineMessage } from "react-icons/ai";
@@ -15,35 +15,34 @@ import { useRouter } from "next/router";
 import useTokenStore from "@/store/token";
 import ImageFromFirebase from "@/component/ImageFromFirebase";
 import { ImageType } from "@/component/FirebaseImageUploadComponent";
-import { t } from "i18next";
+import { useTranslation } from "next-i18next";
 
 interface UserInfoDropdownProps {
   openLogin: () => void;
 }
 
 function UserInfoDropdown({ openLogin }: UserInfoDropdownProps) {
-  const { lang, user, signOut } = useUserStore();
+  const { t } = useTranslation("account");
+  const { user, signOut } = useUserStore();
   const { setToken } = useTokenStore();
   const router = useRouter();
+
   return (
-    <>
-      <Box
-        position={"absolute"}
-        top={0}
-        right={0}
-        sx={{
-          display: { xs: "none", md: "flex" },
-        }}
-        flexDirection={"column"}
-        gap={"0.25rem"}
-        minWidth={300}
-        bgcolor={"background.paper"}
-        border={"1px solid lightgray"}
-        p={"1.5rem"}
-        borderRadius={"1rem"}
-        overflow={"auto"}
-        zIndex={2000}
-      >
+    <Box
+      position={"absolute"}
+      top={0}
+      right={0}
+      display={{ xs: "none", md: "flex" }}
+      flexDirection={"column"}
+      minWidth={300}
+      bgcolor={"background.paper"}
+      border={"1px solid lightgray"}
+      borderRadius={"1rem"}
+      zIndex={2000}
+      maxHeight={"95vh"}
+      overflow={"hidden"}
+    >
+      <Stack p={"1.5rem"} pb={1}>
         {!user ? (
           <>
             <Button
@@ -57,7 +56,7 @@ function UserInfoDropdown({ openLogin }: UserInfoDropdownProps) {
               }}
               onClick={() => openLogin()}
             >
-              {t("logIn")}
+              {t("logIn", { ns: "auth" })}
             </Button>
             <Button
               variant="text"
@@ -71,7 +70,7 @@ function UserInfoDropdown({ openLogin }: UserInfoDropdownProps) {
               }}
               onClick={() => router.push("/login")}
             >
-              {t("register")}
+              {t("register", { ns: "auth" })}
             </Button>
           </>
         ) : (
@@ -85,7 +84,7 @@ function UserInfoDropdown({ openLogin }: UserInfoDropdownProps) {
             >
               <Grid item md={3} display={"flex"}>
                 <ImageFromFirebase
-                  name={user?.getUser().image.imageUrls[0]}
+                  name={user?.getUser().image?.imageUrls[0]}
                   quality="240p"
                   shape="circular"
                   width={"100%"}
@@ -99,7 +98,7 @@ function UserInfoDropdown({ openLogin }: UserInfoDropdownProps) {
                   fontWeight={400}
                   fontSize={"0.9rem"}
                 >
-                  {t("welcomeBack")},&nbsp;
+                  {t("welcomeBack", { ns: "common" })},&nbsp;
                   <Box component={"span"} fontWeight={"bold"}>
                     {user?.getUser().firstName}
                   </Box>
@@ -119,14 +118,16 @@ function UserInfoDropdown({ openLogin }: UserInfoDropdownProps) {
                   color: "text.primary",
                 }}
               >
-                {t("signOut")}
+                {t("signOut", { ns: "auth" })}
               </Button>
             </Box>
           </>
         )}
+      </Stack>
 
-        <Divider flexItem sx={{ borderColor: "bright" }} />
+      <Divider flexItem sx={{ borderColor: "bright" }} />
 
+      <Stack overflow={"auto"} p={"1.5rem"} pt={1}>
         <SmallDeviceButton
           startImage={<LuClipboardList fontSize={"inherit"} />}
           title={t("myOrders")}
@@ -148,19 +149,24 @@ function UserInfoDropdown({ openLogin }: UserInfoDropdownProps) {
         <SmallDeviceButton
           startImage={<FavoriteBorderOutlined fontSize={"inherit"} />}
           title={t("wishList")}
+          action={() => router.push("/wish-list")}
         />
         <SmallDeviceButton
           startImage={<ConfirmationNumberOutlined fontSize={"inherit"} />}
           title={t("myCoupons")}
         />
         <Divider flexItem />
-        <SmallDeviceButton title={t("dsCenter")} />
-        <SmallDeviceButton title={t("buyerProtection")} />
-        <SmallDeviceButton title={t("helpCenter")} />
-        <SmallDeviceButton title={t("disputeAndReports")} />
-        <SmallDeviceButton title={t("accessibility")} />
-      </Box>
-    </>
+        <SmallDeviceButton
+          title={t("settings", { ns: "account" })}
+          action={() => router.push("/account/settings")}
+        />
+        <SmallDeviceButton title={t("dsCenter", { ns: "common" })} />
+        <SmallDeviceButton title={t("buyerProtection", { ns: "common" })} />
+        <SmallDeviceButton title={t("helpCenter", { ns: "common" })} />
+        <SmallDeviceButton title={t("disputeAndReports", { ns: "common" })} />
+        <SmallDeviceButton title={t("accessibility", { ns: "common" })} />
+      </Stack>
+    </Box>
   );
 }
 

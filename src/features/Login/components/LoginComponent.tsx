@@ -19,24 +19,23 @@ import handleContinueButton, {
 import useUserStore from "@/store/user";
 import useTokenStore from "@/store/token";
 import usePageStore from "@/store/page";
-import { t } from "i18next";
+import { useTranslation } from "next-i18next";
 
 interface ILoginComponent {
   setContinueStage: React.Dispatch<React.SetStateAction<boolean>>;
   continueStage: boolean;
   handleClose: () => void;
-  setLoading: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const LoginComponent = ({
   setContinueStage,
   continueStage,
   handleClose,
-  setLoading,
 }: ILoginComponent) => {
-  const { lang, setRefresh } = useUserStore();
+  const { t } = useTranslation();
+  const { lang } = useUserStore();
   const { setToken } = useTokenStore();
-  const { setSnackBar } = usePageStore();
+  const { setSnackBar, setLoading } = usePageStore();
 
   const [showPass, setShowPass] = useState(false);
   return (
@@ -53,7 +52,7 @@ const LoginComponent = ({
         }
         size={"small"}
         fullWidth
-        placeholder={t("email")}
+        placeholder={t("email", { ns: "auth" })}
         sx={{ bgcolor: "background.paper" }}
         endAdornment={
           <InputAdornment position="end">
@@ -85,7 +84,7 @@ const LoginComponent = ({
           })
         }
         type={showPass ? "text" : "password"}
-        placeholder={t("password")}
+        placeholder={t("password", { ns: "auth" })}
         sx={{ bgcolor: "background.paper" }}
         endAdornment={
           <InputAdornment position="end">
@@ -106,7 +105,7 @@ const LoginComponent = ({
         fontSize={"0.75rem"}
         sx={{ color: "primary.dark" }}
       >
-        {t("forgotPassword")}
+        {t("forgotPassword", { ns: "auth" })}
       </Box>
       <span
         style={{
@@ -133,10 +132,11 @@ const LoginComponent = ({
               requestFrom: "modal",
               lang,
               setToken,
+              t,
             })
           }
         >
-          {t("signIn")}
+          {t("signIn", { ns: "auth" })}
         </Button>
       </span>
     </Box>

@@ -25,24 +25,23 @@ import { demakkFont } from "@/pages/_app";
 import useTokenStore from "@/store/token";
 import useUserStore from "@/store/user";
 import usePageStore from "@/store/page";
-import { t } from "i18next";
+import { useTranslation } from "next-i18next";
 
 interface IRegisterComponent {
   setContinueStage: React.Dispatch<React.SetStateAction<boolean>>;
   continueStage: boolean;
   handleClose: () => void;
-  setLoading: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 function RegisterComponent({
   setContinueStage,
   continueStage,
   handleClose,
-  setLoading,
 }: IRegisterComponent) {
+  const { t } = useTranslation();
   const { lang, address, setAddress } = useUserStore();
   const { setToken } = useTokenStore();
-  const { setSnackBar } = usePageStore();
+  const { setSnackBar, setLoading } = usePageStore();
 
   const [showPass, setShowPass] = useState(false);
   console.log(continueStage);
@@ -114,7 +113,7 @@ function RegisterComponent({
         size="small"
         fullWidth
         sx={{ m: "0.5rem 0", bgcolor: "background.paper" }}
-        placeholder={t("email")}
+        placeholder={t("email", { ns: "auth" })}
         endAdornment={
           <InputAdornment position="end">
             <IconButton
@@ -148,7 +147,7 @@ function RegisterComponent({
           size="small"
           fullWidth
           type={showPass ? "text" : "password"}
-          placeholder={t("password")}
+          placeholder={t("password", { ns: "auth" })}
           sx={{ bgcolor: "background.paper" }}
           endAdornment={
             <InputAdornment position="end">
@@ -170,12 +169,14 @@ function RegisterComponent({
         >
           <Box display={"flex"} gap={"0.5rem"} alignItems={"center"}>
             <Circle sx={{ fontSize: "6px" }} />
-            <Typography fontSize={"0.7rem"}>6-20 {t("characters")}</Typography>
+            <Typography fontSize={"0.7rem"}>
+              6-20 {t("characters", { ns: "auth" })}
+            </Typography>
           </Box>
           <Box display={"flex"} gap={"0.5rem"} alignItems={"center"}>
             <Circle sx={{ fontSize: "6px" }} />
             <Typography fontSize={"0.7rem"}>
-              {t("containsNumberLetterOrSymbol")}
+              {t("containsNumberLetterOrSymbol", { ns: "auth" })}
             </Typography>
           </Box>
         </Box>
@@ -205,10 +206,11 @@ function RegisterComponent({
               requestFrom: "modal",
               lang,
               setToken,
+              t,
             })
           }
         >
-          {t("createAccount")}
+          {t("createAccount", { ns: "auth" })}
         </Button>
       </span>
       <Box
@@ -218,7 +220,7 @@ function RegisterComponent({
         fontSize={"0.75rem"}
         sx={{ color: "text.secondary" }}
       >
-        {t("troubleSigningIn")}
+        {t("troubleSigningIn", { ns: "auth" })}
       </Box>
     </Box>
   );

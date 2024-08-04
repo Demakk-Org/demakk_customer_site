@@ -40,7 +40,7 @@ const handleGoogleSignUp = (props: IHandleGoogleSignUp) => {
           lang: props.lang,
         })
         .then((response) => {
-          if (!response.data.data.exists) {
+          if (!response.data.exists) {
             axios
               .post(`${chosenBackendUrl}/auth`, {
                 account: email,

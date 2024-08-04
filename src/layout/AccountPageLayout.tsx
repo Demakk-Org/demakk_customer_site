@@ -1,42 +1,35 @@
+import { Box, Divider, Grid, Stack, Typography } from "@mui/material";
 import AccountPageBreadcrumbs from "@/features/AccountPage/Breadcrumbs";
 import TopNavigationBar from "@/features/AccountPage/TopNavigation";
 import SmallDeviceLogin from "@/features/Login/smallDeviceLogin";
-import usePageStore from "@/store/page";
 import useTokenStore from "@/store/token";
-import useUserStore from "@/store/user";
-import {
-  Alert,
-  Box,
-  Button,
-  Divider,
-  Grid,
-  Snackbar,
-  Stack,
-  Typography,
-} from "@mui/material";
-import { t } from "i18next";
-import { useRouter } from "next/router";
 import { ReactElement, useEffect, useState } from "react";
-
-export const accountTabList = [
-  { name: "overview", link: "/account" },
-  { name: "orders", link: "/order" },
-  { name: "payments", link: "/payment" },
-  { name: "settings", link: "/account/settings" },
-  { name: "shippingAddress", link: "/address" },
-  { name: "messageCenter", link: "/message-center" },
-  { name: "", link: "#" },
-  { name: "wallet", link: "/user/account/credit_card_management" },
-  { name: "inviteFriends", link: "#" },
-  { name: "", link: "#" },
-  { name: "helpCenter", link: "#" },
-  { name: "suggestion", link: "#" },
-];
+import { useTranslation } from "next-i18next";
+import NavBarContainer from "@/features/Navbar/containers/NavBarContainer";
+import AccountTabButton from "@/component/AccountTabButton";
 
 interface IAccountPageLayout {
   children: ReactElement;
-  pageType: "account" | "order" | "setting" | "payment" | "wallet" | "address";
-  selectedTab: number;
+  pageType:
+    | "Account"
+    | "Order"
+    | "Settings"
+    | "Payments"
+    | "Wallet"
+    | "Address"
+    | "";
+  selectedTab:
+    | "overview"
+    | "orders"
+    | "payments"
+    | "settings"
+    | "shippingAddress"
+    | "messageCenter"
+    | "wallet"
+    | "inviteFriends"
+    | "helpCenter"
+    | "suggestion"
+    | "none";
 }
 
 function AccountPageLayout({
@@ -44,44 +37,40 @@ function AccountPageLayout({
   pageType,
   selectedTab,
 }: IAccountPageLayout) {
-  const router = useRouter();
-  const { lang, setUser } = useUserStore();
+  const { t } = useTranslation(["account", "common"]);
   const { token } = useTokenStore();
-  const { snackBar, setSnackBar } = usePageStore();
 
   const [openAccountModal, setOpenAccountModal] = useState(false);
 
   useEffect(() => {
-    if (token) {
-      setUser(token);
-      return;
-    }
-
-    setOpenAccountModal(true);
-  }, [token, setUser]);
+    !token && setOpenAccountModal(true);
+  }, [token]);
 
   return (
     <Box
-      width={"100%"}
-      minHeight={"100vh"}
+      width={1}
+      height={1}
       bgcolor={"background.paper"}
       position={"relative"}
+      overflow={"auto"}
     >
-      <TopNavigationBar
-        setOpenAccountModal={setOpenAccountModal}
-        pageType={t(pageType)}
-      />
+      <NavBarContainer>
+        <TopNavigationBar
+          setOpenAccountModal={setOpenAccountModal}
+          pageType={pageType}
+        />
+      </NavBarContainer>
 
       <Box
         display={"flex"}
         maxWidth={{ xs: 1, md: "90%" }}
         margin={"auto"}
         flexDirection={"column"}
-        pb={"5rem"}
+        pb={"2rem"}
       >
         <AccountPageBreadcrumbs />
 
-        <Grid container spacing={{ sm: 3, md: 4 }}>
+        <Grid container spacing={{ sm: 3, md: 4 }} alignItems={"flex-start"}>
           <Grid item display={{ xs: "none", sm: "flex" }} sm={3}>
             <Stack bgcolor={"background.lighter"} p={"1rem 0"} pr={0} width={1}>
               <Typography
@@ -95,41 +84,63 @@ function AccountPageLayout({
                 {t("account")}
               </Typography>
 
-              {accountTabList.map((button, index) => {
-                if (button.name) {
-                  return (
-                    <Button
-                      key={index}
-                      fullWidth
-                      size="large"
-                      onClick={() => router.push(button.link)}
-                      sx={{
-                        justifyContent: "flex-start",
-                        borderLeft: "4px solid transparent",
-                        borderRadius: "0",
-                        color: "text.primary",
-                        bgcolor:
-                          accountTabList.indexOf(button) == selectedTab
-                            ? "background.paper"
-                            : "",
-                        borderColor:
-                          accountTabList.indexOf(button) == selectedTab
-                            ? "demakkPrimary.main"
-                            : "",
-                        "&:hover": {
-                          bgcolor: "background.paper",
-                        },
-                      }}
-                    >
-                      {t(button.name)}
-                    </Button>
-                  );
-                } else {
-                  return (
-                    <Divider key={index} flexItem sx={{ m: "0.5rem 1rem" }} />
-                  );
-                }
-              })}
+              <AccountTabButton
+                name={t("overview")}
+                selected={selectedTab == "overview"}
+                url="/account"
+              />
+              <AccountTabButton
+                name={t("orders")}
+                selected={selectedTab == "orders"}
+                url="/order"
+              />
+              <AccountTabButton
+                name={t("payments")}
+                selected={selectedTab == "payments"}
+                url="/payment"
+              />
+              <AccountTabButton
+                name={t("settings")}
+                selected={selectedTab == "settings"}
+                url="/account/settings"
+              />
+              <AccountTabButton
+                name={t("shippingAddress")}
+                selected={selectedTab == "shippingAddress"}
+                url="/address"
+              />
+              <AccountTabButton
+                name={t("messageCenter")}
+                selected={selectedTab == "messageCenter"}
+                url="/message-center"
+                disabled
+              />
+              <Divider flexItem sx={{ m: "0.5rem 1rem" }} />
+              <AccountTabButton
+                name={t("wallet")}
+                selected={selectedTab == "wallet"}
+                url="/user/account/credit_card_management"
+                disabled
+              />
+              <AccountTabButton
+                name={t("inviteFriends")}
+                selected={selectedTab == "inviteFriends"}
+                url="/user/account/credit_card_management"
+                disabled
+              />
+              <Divider flexItem sx={{ m: "0.5rem 1rem" }} />
+              <AccountTabButton
+                name={t("helpCenter")}
+                selected={selectedTab == "helpCenter"}
+                url="/user/account/credit_card_management"
+                disabled
+              />
+              <AccountTabButton
+                name={t("suggestion")}
+                selected={selectedTab == "suggestion"}
+                url="/user/account/credit_card_management"
+                disabled
+              />
             </Stack>
           </Grid>
 
@@ -143,22 +154,6 @@ function AccountPageLayout({
         open={openAccountModal}
         handleClose={() => setOpenAccountModal(false)}
       />
-
-      <Snackbar
-        autoHideDuration={2500}
-        open={snackBar?.open}
-        onClose={() => setSnackBar(null)}
-        anchorOrigin={{ horizontal: "center", vertical: "top" }}
-      >
-        <Alert
-          onClose={() => setSnackBar(null)}
-          severity={snackBar?.type}
-          variant="filled"
-          sx={{ width: "100%" }}
-        >
-          {snackBar?.message}
-        </Alert>
-      </Snackbar>
     </Box>
   );
 }

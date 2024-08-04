@@ -3,7 +3,7 @@ import { ISnackBar } from "@/store/page";
 import { LANG, Providers, chosenBackendUrl } from "@/store/user";
 import { NextRouter } from "next/router";
 import { Dispatch, SetStateAction } from "react";
-import { t } from "i18next";
+import { TFunction } from "i18next";
 
 export enum AuthMethodTypes {
   logIn = "login",
@@ -12,6 +12,7 @@ export enum AuthMethodTypes {
 }
 
 type IHandleContinueButtonProps = {
+  t: TFunction<"translation", undefined>;
   setSnackBar: (snackBar: ISnackBar) => void;
   setLoading: (value: boolean) => void;
   lang: LANG;
@@ -40,6 +41,7 @@ type IHandleContinueButtonProps = {
     ))
 );
 interface HandleAuthProps {
+  t: TFunction<"translation", undefined>;
   account: string;
   password: string;
   setSnackBar: (snackBar: ISnackBar) => void;
@@ -57,6 +59,7 @@ const handleAuth = ({
   password,
   lang,
   provider,
+  t,
 
   type,
   setSnackBar,
@@ -83,11 +86,12 @@ const handleAuth = ({
         message: t(
           type == AuthMethodTypes.logIn
             ? "loggedInSuccessfully"
-            : "userCreatedSuccessfully"
+            : "userCreatedSuccessfully",
+          { ns: "response" }
         ),
         open: true,
       });
-      setToken(res.data.data);
+      setToken(res.data.token);
       setLoading(false);
       handleClose && handleClose();
       router && router.back();
@@ -114,7 +118,7 @@ const handleContinueButton = (props: IHandleContinueButtonProps) => {
       axios
         .post(`${chosenBackendUrl}/user/exists`, { phoneOrEmail: account })
         .then(({ data }) => {
-          props.setUserExists(data.data.exists);
+          props.setUserExists(data.exists);
           props.setContinueStage(true);
           props.setContinueButton(false);
         })
@@ -123,7 +127,9 @@ const handleContinueButton = (props: IHandleContinueButtonProps) => {
           props.setContinueStage(true);
           props.setSnackBar({
             type: "error",
-            message: t("userDoesNotExistRegisterFirst"),
+            message: props.t("userDoesNotExistRegisterFirst", {
+              ns: "response",
+            }),
             open: true,
           });
         })
@@ -142,6 +148,7 @@ const handleContinueButton = (props: IHandleContinueButtonProps) => {
           account,
           password,
           type: AuthMethodTypes.logIn,
+          t: props.t,
 
           provider: Providers.password,
           lang: props.lang,
@@ -157,6 +164,7 @@ const handleContinueButton = (props: IHandleContinueButtonProps) => {
           account,
           password,
           type: AuthMethodTypes.register,
+          t: props.t,
 
           setSnackBar: props.setSnackBar,
           lang: props.lang,
@@ -182,6 +190,7 @@ const handleContinueButton = (props: IHandleContinueButtonProps) => {
         account,
         password,
         type: AuthMethodTypes.logIn,
+        t: props.t,
 
         provider: Providers.password,
         lang: props.lang,
@@ -194,6 +203,7 @@ const handleContinueButton = (props: IHandleContinueButtonProps) => {
 
     if (props.type == "register") {
       handleAuth({
+        t: props.t,
         account,
         password,
         type: AuthMethodTypes.register,

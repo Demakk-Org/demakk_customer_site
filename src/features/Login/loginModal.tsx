@@ -34,7 +34,7 @@ import Loading from "@/component/Loading";
 import useTokenStore from "@/store/token";
 import handlePasswordChange from "./libs/handlePasswordChange";
 import usePageStore from "@/store/page";
-import { t } from "i18next";
+import { useTranslation } from "next-i18next";
 
 const style = {
   minWidth: 375,
@@ -52,6 +52,14 @@ interface LoginModalProps {
 }
 
 function LoginModal({ open, handleClose }: LoginModalProps) {
+  const { t } = useTranslation([
+    "auth",
+    "common",
+    "locationNames",
+    "actions",
+    "policies",
+    "response",
+  ]);
   const { lang } = useUserStore();
   const { setToken } = useTokenStore();
   const { loading, setLoading, snackBar, setSnackBar } = usePageStore();
@@ -87,7 +95,7 @@ function LoginModal({ open, handleClose }: LoginModalProps) {
               pt={"1rem"}
               pb={"2rem"}
             >
-              {t("register")}/{t("signIn")}
+              {t("register", { ns: "auth" })}/{t("signIn")}
             </Typography>
             <Box
               overflow={"auto"}
@@ -104,14 +112,16 @@ function LoginModal({ open, handleClose }: LoginModalProps) {
                 alignItems={"baseline"}
                 gap={"0.25rem"}
               >
-                <Typography fontSize={"0.8rem"}>{t("location")}: </Typography>
+                <Typography fontSize={"0.8rem"}>
+                  {t("location", { ns: "common" })}:{" "}
+                </Typography>
                 <Box
                   display={"flex"}
                   alignItems={"center"}
                   sx={{ cursor: "pointer" }}
                 >
                   <Typography fontSize={"0.9rem"} fontWeight={"bold"}>
-                    {t("ethiopia")}
+                    {t("ethiopia", { ns: "locationNames" })}
                   </Typography>
                   <Box sx={{ color: ({ palette }) => palette.text.primary }}>
                     <ExpandMore fontSize="medium" color="inherit" />
@@ -134,7 +144,7 @@ function LoginModal({ open, handleClose }: LoginModalProps) {
                 size="small"
                 fullWidth
                 sx={{ m: "0.5rem 0" }}
-                placeholder="Email"
+                placeholder={t("email")}
                 endAdornment={
                   <InputAdornment position="end">
                     <IconButton
@@ -162,7 +172,7 @@ function LoginModal({ open, handleClose }: LoginModalProps) {
                   size="small"
                   fullWidth
                   type={showPass ? "text" : "password"}
-                  placeholder="Password"
+                  placeholder={t("password")}
                   onChange={({ target }) =>
                     handlePasswordChange({
                       value: target.value,
@@ -230,11 +240,12 @@ function LoginModal({ open, handleClose }: LoginModalProps) {
                     setUserExists,
                     userExists,
                     handleClose,
+                    t,
                   })
                 }
               >
                 {!continueStage
-                  ? t("continue")
+                  ? t("continue", { ns: "actions" })
                   : userExists
                   ? t("signIn")
                   : t("register")}
@@ -267,7 +278,7 @@ function LoginModal({ open, handleClose }: LoginModalProps) {
                 }}
               >
                 <Typography flex={1} textTransform={"lowercase"}>
-                  {t("facebook")}
+                  {t("facebook", { ns: "common" })}
                 </Typography>
               </Button>
               <Button
@@ -294,7 +305,7 @@ function LoginModal({ open, handleClose }: LoginModalProps) {
                 }}
               >
                 <Typography flex={1} textTransform={"lowercase"}>
-                  {t("google")}
+                  {t("google", { ns: "common" })}
                 </Typography>
               </Button>
               <Button
@@ -312,7 +323,7 @@ function LoginModal({ open, handleClose }: LoginModalProps) {
                 }}
               >
                 <Typography flex={1} textTransform={"lowercase"}>
-                  {t("tweeter")}
+                  {t("tweeter", { ns: "common" })}
                 </Typography>
               </Button>
 
@@ -331,11 +342,11 @@ function LoginModal({ open, handleClose }: LoginModalProps) {
                 }}
               >
                 <Typography flex={1} textTransform={"lowercase"}>
-                  {t("apple")}
+                  {t("apple", { ns: "common" })}
                 </Typography>
               </Button>
               <Typography fontSize={"0.7rem"} mt={"0.5rem"}>
-                {t("registerPolicy")}
+                {t("registerPolicy", { ns: "policies" })}
               </Typography>
             </Box>
             <IconButton
@@ -345,23 +356,6 @@ function LoginModal({ open, handleClose }: LoginModalProps) {
             >
               <Close />
             </IconButton>
-
-            {loading && <Loading />}
-            <Snackbar
-              autoHideDuration={2500}
-              open={snackBar?.open}
-              onClose={() => setSnackBar(null)}
-              anchorOrigin={{ horizontal: "center", vertical: "top" }}
-            >
-              <Alert
-                onClose={() => setSnackBar(null)}
-                severity={snackBar?.type}
-                variant="filled"
-                sx={{ width: "100%" }}
-              >
-                {snackBar?.message}
-              </Alert>
-            </Snackbar>
           </Box>
         </Grow>
       </Modal>

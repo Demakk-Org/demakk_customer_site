@@ -1,5 +1,4 @@
 import {
-  Avatar,
   Box,
   Button,
   FormControl,
@@ -10,40 +9,44 @@ import {
 
 import useUserStore, { LANG } from "@/store/user";
 import { useState } from "react";
-import getLang from "@/utils/getLang";
-import getAddress from "@/utils/getAddress";
 import useTokenStore from "@/store/token";
 import handleUpdateUser from "@/api/user/handleUpdateUser";
 import usePageStore from "@/store/page";
-import { t } from "i18next";
+import { useTranslation } from "next-i18next";
+import RegionDropdownSelect from "@/component/RegionDropdownSelect";
+import { useRouter } from "next/router";
 
 interface LanguageDropdownProps {
   setOpenLanguage: (value: boolean) => void;
 }
 
 function LanguageDropdown({ setOpenLanguage }: LanguageDropdownProps) {
+  const router = useRouter();
+  const { t } = useTranslation("locationNames");
   const { token } = useTokenStore();
   const { lang, setLang, address, setAddress } = useUserStore();
   const { setLoading } = usePageStore();
 
-  const [localLang, setLocalLang] = useState<string>(lang);
-  const [localAddress, setLocalAddress] = useState<string>(address);
+  const [localLang, setLocalLang] = useState(lang);
+  const [localAddress, setLocalAddress] = useState(address);
 
   const handleSubmit = (e: React.SyntheticEvent) => {
     e.preventDefault();
 
-    const target = e.target as typeof e.target & {
-      language: { value: string };
-      addresses: { value: string };
-    };
+    if (lang == localLang && address == localAddress) return;
 
-    const language = target.language.value;
-    const location = target.addresses.value;
-
-    if (lang != language) setLang(getLang(language));
-    if (address != location) setAddress(getAddress(location));
-
-    token && handleUpdateUser({ language: localLang, token, setLoading });
+    if (address != localAddress) setAddress(localAddress);
+    if (lang != localLang) {
+      setLang(localLang);
+      const { pathname, asPath, query } = router;
+      token
+        ? handleUpdateUser({ language: localLang, token, setLoading }).then(
+            () => {
+              router.push({ pathname, query }, asPath, { locale: localLang });
+            }
+          )
+        : router.push({ pathname, query }, asPath, { locale: localLang });
+    }
 
     setOpenLanguage(false);
   };
@@ -86,89 +89,13 @@ function LanguageDropdown({ setOpenLanguage }: LanguageDropdownProps) {
               fontSize={"1.3rem"}
               fontWeight={600}
             >
-              {t("shipTo")}
+              {t("shipTo", { ns: "common" })}
             </Typography>
-            <FormControl>
-              <Select
-                name="addresses"
-                size="small"
-                color={"primary"}
-                value={localAddress}
-                onChange={({ target }) => setLocalAddress(target.value)}
-                sx={{
-                  borderRadius: "0.5rem",
-                  bgcolor: "background.lighter",
-                  minWidth: 120,
-                }}
-              >
-                <MenuItem value={"addis-ababa"}>
-                  <Box display={"flex"} gap={1} width={1} alignItems={"center"}>
-                    <Avatar
-                      variant="square"
-                      src="/assets/images/addis-ababa-flag.png"
-                      sx={{
-                        width: 25,
-                        height: 20,
-                        border: "1px solid lightgray",
-                      }}
-                    />
-                    <Typography fontSize={"0.8rem"}>
-                      {t("addis-ababa")}
-                    </Typography>
-                  </Box>
-                </MenuItem>
-                <MenuItem value={"afar"}>
-                  <Box display={"flex"} gap={1} width={1} alignItems={"center"}>
-                    <Avatar
-                      variant="square"
-                      src="/assets/images/afar-flag.png"
-                      sx={{ width: 25, height: 20 }}
-                    />
-                    <Typography fontSize={"0.8rem"}>{t("afar")}</Typography>
-                  </Box>
-                </MenuItem>
-                <MenuItem value={"gumuz"}>
-                  <Box display={"flex"} gap={1} width={1} alignItems={"center"}>
-                    <Avatar
-                      variant="square"
-                      src="/assets/images/gumuz-flag.png"
-                      sx={{ width: 25, height: 20 }}
-                    />
-                    <Typography fontSize={"0.8rem"}>{t("gumuz")}</Typography>
-                  </Box>
-                </MenuItem>
-                <MenuItem value={"amhara"}>
-                  <Box display={"flex"} gap={1} width={1} alignItems={"center"}>
-                    <Avatar
-                      variant="square"
-                      src="/assets/images/amhara-flag.png"
-                      sx={{ width: 25, height: 20 }}
-                    />
-                    <Typography fontSize={"0.8rem"}>{t("amhara")}</Typography>
-                  </Box>
-                </MenuItem>
-                <MenuItem value={"harari"}>
-                  <Box display={"flex"} gap={1} width={1} alignItems={"center"}>
-                    <Avatar
-                      variant="square"
-                      src="/assets/images/harari-flag.png"
-                      sx={{ width: 25, height: 20 }}
-                    />
-                    <Typography fontSize={"0.8rem"}>{t("harari")}</Typography>
-                  </Box>
-                </MenuItem>
-                <MenuItem value={"oromia"}>
-                  <Box display={"flex"} gap={1} width={1} alignItems={"center"}>
-                    <Avatar
-                      variant="square"
-                      src="/assets/images/oromia-flag.png"
-                      sx={{ width: 25, height: 20 }}
-                    />
-                    <Typography fontSize={"0.8rem"}>{t("oromia")}</Typography>
-                  </Box>
-                </MenuItem>
-              </Select>
-            </FormControl>
+
+            <RegionDropdownSelect
+              value={localAddress}
+              setValue={setLocalAddress}
+            />
           </Box>
           <Box
             className="language--container"
@@ -181,7 +108,7 @@ function LanguageDropdown({ setOpenLanguage }: LanguageDropdownProps) {
               fontSize={"1.3rem"}
               fontWeight={600}
             >
-              {t("language")}
+              {t("language", { ns: "common" })}
             </Typography>
             <FormControl sx={{}}>
               <Select
@@ -189,7 +116,7 @@ function LanguageDropdown({ setOpenLanguage }: LanguageDropdownProps) {
                 size="small"
                 color={"primary"}
                 value={localLang}
-                onChange={({ target }) => setLocalLang(target.value)}
+                onChange={({ target }) => setLocalLang(target.value as LANG)}
                 sx={{
                   borderRadius: "0.5rem",
                   minWidth: 120,
@@ -197,13 +124,19 @@ function LanguageDropdown({ setOpenLanguage }: LanguageDropdownProps) {
                 }}
               >
                 <MenuItem value={LANG.en}>
-                  <Typography fontSize={"0.8rem"}>{t("english")}</Typography>
+                  <Typography fontSize={"0.8rem"}>
+                    {t("english", { ns: "common" })}
+                  </Typography>
                 </MenuItem>
-                <MenuItem value={LANG.or}>
-                  <Typography fontSize={"0.8rem"}>{t("afanOromo")}</Typography>
+                <MenuItem value={LANG.om}>
+                  <Typography fontSize={"0.8rem"}>
+                    {t("afanOromo", { ns: "common" })}
+                  </Typography>
                 </MenuItem>
                 <MenuItem value={LANG.am}>
-                  <Typography fontSize={"0.8rem"}>{t("amharic")}</Typography>
+                  <Typography fontSize={"0.8rem"}>
+                    {t("amharic", { ns: "common" })}
+                  </Typography>
                 </MenuItem>
               </Select>
             </FormControl>
@@ -219,7 +152,7 @@ function LanguageDropdown({ setOpenLanguage }: LanguageDropdownProps) {
               color: "text.primary",
             }}
           >
-            {t("save")}
+            {t("save", { ns: "actions" })}
           </Button>
         </form>
       </Box>

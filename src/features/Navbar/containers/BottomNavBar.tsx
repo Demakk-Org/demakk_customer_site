@@ -6,9 +6,9 @@ import { useState } from "react";
 import AllCategories from "../components/allCategories";
 import NavbarButton from "../components/navbarButton";
 import MoreCategories from "../components/moreCategories";
-import language from "@/data/dictionary";
 import getLanguage from "@/utils/getLanguage";
 import useUserStore from "@/store/user";
+import { t } from "i18next";
 
 function BottomNavbar() {
   const { lang } = useUserStore();
@@ -81,7 +81,7 @@ function BottomNavbar() {
           }}
         >
           <Typography fontWeight={"bold"} textTransform={"capitalize"} mr={6}>
-            {language.en.allCategories}
+            {t("allCategories")}
           </Typography>
         </Button>
         <Box

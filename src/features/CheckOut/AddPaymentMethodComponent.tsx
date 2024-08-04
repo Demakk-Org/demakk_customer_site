@@ -11,10 +11,10 @@ import {
   Typography,
 } from "@mui/material";
 import { demakkFont } from "@/pages/_app";
-import useUserStore, { LANG } from "@/store/user";
+import useUserStore from "@/store/user";
 import getMonths from "@/utils/getMonths";
 import { CreditCardOutlined, VerifiedUserOutlined } from "@mui/icons-material";
-import { useTranslation } from "react-i18next";
+import { useTranslation } from "next-i18next";
 
 interface AddPaymentMethodComponentProps {
   setAddPaymentMethod: () => void;
@@ -35,7 +35,7 @@ function AddPaymentMethodComponent({
           className={demakkFont.className}
           fontWeight={600}
         >
-          {t("provideFurtherInformation")}
+          {t("provideFurtherInformation", { ns: "cardForm" })}
         </Typography>
 
         <Stack
@@ -47,7 +47,7 @@ function AddPaymentMethodComponent({
         >
           <VerifiedUserOutlined sx={{ fontSize: "1rem" }} color="success" />
           <Typography fontSize={"0.8rem"} color="success.main">
-            {t("paymentInformationSafety")}
+            {t("paymentInformationSafety", { ns: "policies" })}
           </Typography>
         </Stack>
 
@@ -66,7 +66,7 @@ function AddPaymentMethodComponent({
             fontWeight={"bold"}
             fontSize={"0.9rem"}
           >
-            {t("addNewCard")}
+            {t("addNewCard", { ns: "actions" })}
           </Typography>
           <Stack direction={"row"} spacing={1}>
             <Box
@@ -104,12 +104,12 @@ function AddPaymentMethodComponent({
                   fullWidth
                   id="card-number"
                   size="medium"
-                  label={t("cardNumber")}
+                  label={t("cardNumber", { ns: "cardForm" })}
                   variant="outlined"
                   helperText={
                     true && (
                       <Typography fontSize={"0.8rem"}>
-                        {t("invalidCardNumber")}
+                        {t("invalidCardNumber", { ns: "cardForm" })}
                       </Typography>
                     )
                   }
@@ -122,11 +122,11 @@ function AddPaymentMethodComponent({
               <Stack>
                 <TextField
                   id="card-holder-name"
-                  label={t("cardHolderName")}
+                  label={t("cardHolderName", { ns: "cardForm" })}
                   helperText={
                     true && (
                       <Typography fontSize={"0.8rem"}>
-                        {t("enterCardHolderName")}
+                        {t("enterCardHolderName", { ns: "cardForm" })}
                       </Typography>
                     )
                   }
@@ -185,7 +185,7 @@ function AddPaymentMethodComponent({
                   helperText={
                     true && (
                       <Typography fontSize={"0.8rem"}>
-                        {t("enterCVV")}
+                        {t("enterCVV", { ns: "cardForm" })}
                       </Typography>
                     )
                   }
@@ -201,7 +201,7 @@ function AddPaymentMethodComponent({
                   checked={false}
                   control={<Radio color="warning" size="small" />}
                   sx={{ mr: 0 }}
-                  label={t("saveCardDetails")}
+                  label={t("saveCardDetails", { ns: "cardForm" })}
                   onClick={() => {}}
                 />
               </Stack>
@@ -213,7 +213,7 @@ function AddPaymentMethodComponent({
       <Stack p={"1.5rem 12rem"}>
         <Button variant="contained" size="large" sx={{ borderRadius: "4rem" }}>
           <Typography className={demakkFont.className} fontWeight={"bold"}>
-            {t("saveAndConfirm")}
+            {t("saveAndConfirm", { ns: "actions" })}
           </Typography>
         </Button>
       </Stack>

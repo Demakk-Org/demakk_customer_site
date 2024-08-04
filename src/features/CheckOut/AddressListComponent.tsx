@@ -17,18 +17,21 @@ import useUserStore from "@/store/user";
 import useTokenStore from "@/store/token";
 
 import GetCheckOut from "@/model/checkOutModel";
-import { t } from "i18next";
+import { useTranslation } from "next-i18next";
 
 function AddressListComponent({
   setAddShippingAddress,
 }: {
   setAddShippingAddress: () => void;
 }) {
+  const { t } = useTranslation();
   const { token } = useTokenStore();
-  const { setShippingAddress, shippingAddress, lang, user } = useUserStore();
+  const { setShippingAddress, shippingAddress } = useUserStore();
   const { setAddress } = useAddressStore();
   const { setCheckOut, checkOut } = useCheckOutStore();
   const { setLoading, setSnackBar } = usePageStore();
+
+  console.log(shippingAddress);
 
   useEffect(() => {
     token && setShippingAddress(token);
@@ -67,7 +70,7 @@ function AddressListComponent({
               }
             >
               <Grid container>
-                <Grid item xs={0.75}>
+                <Grid item xs={1} md={0.75}>
                   <Stack
                     height={1}
                     width={1}
@@ -98,7 +101,10 @@ function AddressListComponent({
                 </Grid>
 
                 <Grid item xs>
-                  <Stack>
+                  <Stack
+                    fontSize={{ xs: "0.9rem", md: "1rem" }}
+                    sx={{ "& p": { fontSize: "inherit" } }}
+                  >
                     <Stack direction={"row"} spacing={2}>
                       <Typography>{addressFromStore.contactName}</Typography>
                       <Typography>{addressFromStore.phoneNumber}</Typography>
@@ -166,7 +172,7 @@ function AddressListComponent({
                         setAddShippingAddress();
                       }}
                     >
-                      {t("edit")}
+                      {t("edit", { ns: "actions" })}
                     </Button>
                     {!addressFromStore.asDefault && (
                       <Button
@@ -183,7 +189,7 @@ function AddressListComponent({
                           });
                         }}
                       >
-                        {t("setAsDefault")}
+                        {t("setAsDefault", { ns: "actions" })}
                       </Button>
                     )}
                   </Stack>
@@ -202,7 +208,7 @@ function AddressListComponent({
           sx={{ borderRadius: "2rem" }}
           onClick={() => setAddShippingAddress()}
         >
-          {t("addNewAddress")}
+          {t("addNewAddress", { ns: "actions" })}
         </Button>
       </Stack>
     </>

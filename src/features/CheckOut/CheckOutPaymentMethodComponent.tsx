@@ -9,7 +9,6 @@ import {
 } from "@mui/material";
 import { IPaymentMethod } from "@/model/paymentMethod";
 import { demakkFont } from "@/pages/_app";
-import useUserStore from "@/store/user";
 import { useState } from "react";
 import PaymentListComponent from "./PaymentListComponent";
 import {
@@ -18,15 +17,14 @@ import {
   CloseOutlined,
 } from "@mui/icons-material";
 import AddPaymentMethodComponent from "./AddPaymentMethodComponent";
-import { t } from "i18next";
+import { useTranslation } from "next-i18next";
 
 function CheckOutPaymentMethodComponent({
   paymentMethod,
 }: {
   paymentMethod?: IPaymentMethod;
 }) {
-  const { lang } = useUserStore();
-
+  const { t } = useTranslation(["account"]);
   const [addPaymentMethod, setAddPaymentMethod] = useState(false);
   const [openChangePaymentModal, setOpenChangePaymentModal] = useState(false);
   return (
@@ -36,7 +34,7 @@ function CheckOutPaymentMethodComponent({
         fontWeight={"bold"}
         className={demakkFont.className}
       >
-        {t("paymentMethod")}
+        {t("account:paymentMethod")}
       </Typography>
 
       <Stack
@@ -61,7 +59,7 @@ function CheckOutPaymentMethodComponent({
           color="demakkSecondary"
           sx={{ display: { xs: "none", md: "flex" } }}
         >
-          {t("change")}
+          {t("change", { ns: "actions" })}
         </Button>
         <IconButton
           onClick={() => setOpenChangePaymentModal(true)}
@@ -86,7 +84,7 @@ function CheckOutPaymentMethodComponent({
         >
           <Grow in={openChangePaymentModal}>
             <Stack
-              width={"60%"}
+              width={{ xs: "90%", md: "60%" }}
               minHeight={"40%"}
               maxHeight={"90%"}
               bgcolor={"background.lightOpaque"}

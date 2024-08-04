@@ -3,13 +3,13 @@ import { IOrderItem } from "./orderModel";
 import { IPaymentMethod } from "./paymentMethod";
 
 export interface ICheckOut {
-  shippingAddress: IAddress;
+  shippingAddress: IAddress | null;
   paymentMethod?: IPaymentMethod;
   orderItems: IOrderItem[];
 }
 
 export default class GetCheckOut {
-  private shippingAddress: IAddress;
+  private shippingAddress: IAddress | null;
   private paymentMethod?: IPaymentMethod;
   private orderItems: IOrderItem[];
 

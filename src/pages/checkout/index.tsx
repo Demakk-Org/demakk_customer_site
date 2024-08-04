@@ -1,19 +1,15 @@
 import Head from "next/head";
-import { Alert, Box, Snackbar } from "@mui/material";
+import { Box } from "@mui/material";
 import styles from "@/styles/Home.module.css";
 import CheckOutNavBar from "@/features/Navbar/containers/CheckOutNavBar";
 import CheckOutDisplaySection from "../../features/CheckOut/CheckOutDisplaySection";
-import usePageStore from "@/store/page";
-import Loading from "@/component/Loading";
 import Footer from "@/features/Footer";
-import useCheckOutStore from "@/store/checkOut";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+import { InferGetServerSidePropsType } from "next";
 
-function CheckOutPage() {
-  const { loading, setSnackBar, snackBar } = usePageStore();
-  const { checkOut } = useCheckOutStore();
-
-  if (!checkOut) return <></>;
-
+function CheckOutPage(
+  _props: InferGetServerSidePropsType<typeof getServerSideProps>
+) {
   return (
     <>
       <Head>
@@ -44,24 +40,33 @@ function CheckOutPage() {
           <CheckOutDisplaySection />
           <Footer />
         </Box>
-        {loading && <Loading />}
-        <Snackbar
-          autoHideDuration={2500}
-          open={snackBar?.open}
-          onClose={() => setSnackBar(null)}
-          anchorOrigin={{ horizontal: "center", vertical: "top" }}
-        >
-          <Alert
-            onClose={() => setSnackBar(null)}
-            variant="filled"
-            sx={{ width: "100%" }}
-          >
-            {snackBar?.message}
-          </Alert>
-        </Snackbar>
       </main>
     </>
   );
 }
 
 export default CheckOutPage;
+
+export const getServerSideProps = async ({ locale }: LocalProp) => {
+  return {
+    props: {
+      ...(await serverSideTranslations(locale ?? "en", [
+        "order",
+        "actions",
+        "auth",
+        "common",
+        "policies",
+        "footer",
+        "locationNames",
+        "modal",
+        "saleTerms",
+        "deal",
+        "account",
+      ])),
+    },
+  };
+};
+
+export interface LocalProp {
+  locale: string;
+}

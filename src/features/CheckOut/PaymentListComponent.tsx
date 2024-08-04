@@ -9,9 +9,8 @@ import {
   Typography,
 } from "@mui/material";
 import { demakkFont } from "@/pages/_app";
-import useUserStore from "@/store/user";
 import { CreditCardOutlined, VerifiedUserOutlined } from "@mui/icons-material";
-import { t } from "i18next";
+import { useTranslation } from "next-i18next";
 
 interface PaymentListComponentProps {
   setAddPaymentMethod: () => void;
@@ -20,7 +19,7 @@ interface PaymentListComponentProps {
 function PaymentListComponent({
   setAddPaymentMethod,
 }: PaymentListComponentProps) {
-  const { lang } = useUserStore();
+  const { t } = useTranslation();
 
   return (
     <Stack divider={<Divider flexItem />} height={1}>
@@ -31,7 +30,7 @@ function PaymentListComponent({
           className={demakkFont.className}
           fontWeight={600}
         >
-          {t("paymentMethod")}
+          {t("paymentMethod", { ns: "account" })}
         </Typography>
 
         <Stack
@@ -43,7 +42,7 @@ function PaymentListComponent({
         >
           <VerifiedUserOutlined sx={{ fontSize: "1rem" }} color="success" />
           <Typography fontSize={"0.8rem"} color="success.main">
-            {t("paymentInformationSafety")}
+            {t("paymentInformationSafety", { ns: "policies" })}
           </Typography>
         </Stack>
 
@@ -64,7 +63,7 @@ function PaymentListComponent({
                 }}
               >
                 <Grid container>
-                  <Grid item xs={0.75}>
+                  <Grid item xs={2} md={0.75}>
                     <Stack
                       height={1}
                       width={1}
@@ -114,7 +113,7 @@ function PaymentListComponent({
             onClick={() => setAddPaymentMethod()}
           >
             <Grid container>
-              <Grid item xs={0.75}>
+              <Grid item xs={2} md={0.75}>
                 <Stack
                   height={1}
                   width={1}
@@ -142,7 +141,7 @@ function PaymentListComponent({
                   >
                     <CreditCardOutlined />
                     <Typography fontSize={"0.95rem"} fontWeight={600}>
-                      {t("addNewCard")}
+                      {t("addNewCard", { ns: "actions" })}
                     </Typography>
                   </Stack>
 
@@ -181,10 +180,10 @@ function PaymentListComponent({
           </Stack>
         </Stack>
       </Stack>
-      <Stack p={"1.5rem 12rem"}>
+      <Stack p={{ xs: "1rem 3rem", md: "1.5rem 12rem" }}>
         <Button variant="contained" size="large" sx={{ borderRadius: "4rem" }}>
           <Typography className={demakkFont.className} fontWeight={"bold"}>
-            {t("confirm")}
+            {t("confirm", { ns: "actions" })}
           </Typography>
         </Button>
       </Stack>

@@ -6,17 +6,17 @@ import useCartStore from "@/store/cart";
 import useCheckOutStore from "@/store/checkOut";
 import usePageStore from "@/store/page";
 import useTokenStore from "@/store/token";
-import useUserStore from "@/store/user";
 import orderStockVarietiesByMainFirst from "@/utils/orderStockVarieties";
 import { AddCircleOutline, RemoveCircleOutline } from "@mui/icons-material";
-import { t } from "i18next";
+import { ImageType } from "@/component/FirebaseImageUploadComponent";
+import { useTranslation } from "next-i18next";
 
 function CheckOutOrderItemsComponent({
   orderItems,
 }: {
   orderItems?: IOrderItem[];
 }) {
-  const { lang } = useUserStore();
+  const { t } = useTranslation();
   const { setLoading } = usePageStore();
   const { setCart } = useCartStore();
   const { token } = useTokenStore();
@@ -34,17 +34,18 @@ function CheckOutOrderItemsComponent({
         orderItems.map((orderItem) => (
           <Stack key={orderItem._id.toString()} p={2}>
             <Grid container spacing={2}>
-              <Grid item xs={2.25}>
+              <Grid item xs={3} md={2.25}>
                 <Stack position={"relative"} width={1}>
                   <ImageFromFirebase
                     width={"100%"}
                     name={orderItem?.productVariant?.imageUrl}
                     quality={"240p"}
+                    type={ImageType.product}
                   />
                 </Stack>
               </Grid>
 
-              <Grid item xs={9.75}>
+              <Grid item xs={9} md={9.75}>
                 <Stack color={"text.primary"} height={1} spacing={0.5}>
                   <Stack
                     direction={"row"}

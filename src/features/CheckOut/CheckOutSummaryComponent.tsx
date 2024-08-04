@@ -3,18 +3,29 @@ import { VerifiedUserOutlined } from "@mui/icons-material";
 
 import { demakkFont } from "@/pages/_app";
 import getPrice from "@/utils/getPrice";
-import useUserStore from "@/store/user";
 
 import TextWithLinksFromDictionary from "@/component/TextWithLinksFromDictionary";
 import { IOrderItem } from "@/model/orderModel";
-import { t } from "i18next";
+import handleAddOrder from "./utils/handleAddOrder";
+import useCheckOutStore from "@/store/checkOut";
+import useTokenStore from "@/store/token";
+import useCartStore from "@/store/cart";
+import usePageStore from "@/store/page";
+import { useTranslation } from "next-i18next";
+import { useContext } from "react";
 
 function CheckOutSummaryComponent({
   orderItems,
+  setIsCheckOutCompleted,
 }: {
   orderItems: IOrderItem[];
+  setIsCheckOutCompleted: () => void;
 }) {
-  const { lang } = useUserStore();
+  const { t } = useTranslation();
+  const { checkOut, setCheckOut, setOrderId } = useCheckOutStore();
+  const { token } = useTokenStore();
+  const { setCart } = useCartStore();
+  const { setLoading, setSnackBar } = usePageStore();
 
   let shippingFee = 0;
 
@@ -26,8 +37,10 @@ function CheckOutSummaryComponent({
 
   let total = subTotal - shippingFee;
 
+  if (!checkOut) return <></>;
+
   return (
-    <Stack gap={1} color={"text.primary"} position={"sticky"} top={"1rem"}>
+    <Stack gap={1} color={"text.primary"} position={"sticky"} top={"2rem"}>
       <Stack p={2} bgcolor={"background.light"} gap={2}>
         <Typography
           color={"text.primary"}
@@ -35,7 +48,7 @@ function CheckOutSummaryComponent({
           fontWeight={"bold"}
           className={demakkFont.className}
         >
-          {t("summary")}
+          {t("summary", { ns: "order" })}
         </Typography>
 
         <Grid container spacing={2}>
@@ -45,7 +58,9 @@ function CheckOutSummaryComponent({
                 <Typography fontWeight={600}>{t("subTotal")}</Typography>
               )}
               {shippingFee !== 0 && (
-                <Typography fontWeight={600}>Shipping fee</Typography>
+                <Typography fontWeight={600}>
+                  {t("shippingFee", { ns: "order" })}
+                </Typography>
               )}
               {/* <Typography fontWeight={600}>Saved</Typography> */}
               <Typography fontWeight={700}>{t("total")}</Typography>
@@ -80,16 +95,38 @@ function CheckOutSummaryComponent({
           size="large"
           variant="contained"
           sx={{ borderRadius: "2rem" }}
-          onClick={() => {}}
+          onClick={() => {
+            if (!checkOut.shippingAddress) {
+              setSnackBar({
+                open: true,
+                message: t("pleaseAllShippingAddress", { ns: "order" }),
+                type: "error",
+              });
+              return;
+            }
+
+            handleAddOrder({
+              deliveryAddressId: checkOut.shippingAddress._id.toString(),
+              token,
+              setCart,
+              setLoading,
+              deliveryDate: new Date(Date.now() + 1000 * 3600 * 24 * 10),
+            }).then((data) => {
+              console.log(data);
+              setOrderId(data.order._id);
+              setIsCheckOutCompleted();
+              setCheckOut(null);
+            });
+          }}
         >
           <Typography fontWeight={"bold"} fontSize={"1.05rem"}>
-            {t("payNow")}
+            {t("payNow", { ns: "actions" })}
           </Typography>
         </Button>
 
         <Typography fontSize={"0.9rem"} textAlign={"center"}>
           {TextWithLinksFromDictionary({
-            name: t("acceptTermsAndPoliciesFromCheckOut"),
+            name: t("acceptTermsAndPoliciesFromCheckOut", { ns: "policies" }),
             url: "#terms_and_policies",
           })}
         </Typography>
@@ -109,7 +146,7 @@ function CheckOutSummaryComponent({
             </Typography>
           </Stack>
           <Typography fontSize={"1rem"}>
-            {t("ensureCustomerAboutSafety")}
+            {t("ensureCustomerAboutSafety", { ns: "policies" })}
           </Typography>
         </Stack>
       </Stack>

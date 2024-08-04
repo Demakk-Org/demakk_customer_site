@@ -8,20 +8,19 @@ import {
 } from "@mui/material";
 import { IAddress } from "@/model/addressModel";
 import { demakkFont } from "@/pages/_app";
-import useUserStore from "@/store/user";
 import { ChevronLeft, ChevronRight, CloseOutlined } from "@mui/icons-material";
 import { useState } from "react";
 import { ShippingAddressForm } from "../AccountPage/components/ShippingAddressForm";
 import AddressListComponent from "./AddressListComponent";
 import useAddressStore from "@/store/address";
-import { t } from "i18next";
+import { useTranslation } from "next-i18next";
 
 function CheckOutShippingAddressComponent({
   shippingAddress,
 }: {
-  shippingAddress?: IAddress;
+  shippingAddress: IAddress | null;
 }) {
-  const { lang } = useUserStore();
+  const { t } = useTranslation(["account", "actions"]);
   const { address, setAddress } = useAddressStore();
 
   const [openChangeAddressModal, setOpenChangeAddressModal] = useState(false);
@@ -35,7 +34,7 @@ function CheckOutShippingAddressComponent({
         color={"text.primary"}
         className={demakkFont.className}
       >
-        {t("shippingAddress")}
+        {t("account:shippingAddress")}
       </Typography>
 
       <Stack
@@ -113,7 +112,7 @@ function CheckOutShippingAddressComponent({
           color="demakkSecondary"
           sx={{ display: { xs: "none", md: "flex" } }}
         >
-          {t("change")}
+          {t("actions:change")}
         </Button>
         <IconButton
           onClick={() => setOpenChangeAddressModal(true)}
@@ -140,8 +139,8 @@ function CheckOutShippingAddressComponent({
           <Grow in={openChangeAddressModal}>
             <Stack
               width={{ xs: "100%", md: "60%" }}
-              height={{ xs: "100%", md: "90%" }}
-              maxHeight={"100%"}
+              height={{ xs: "100%", md: "unset" }}
+              maxHeight={{ xs: "100%", md: "90%" }}
               bgcolor={"background.lightOpaque"}
               borderRadius={{ xs: 0, md: 4 }}
               p={{ xs: 0, md: 1 }}
@@ -162,8 +161,8 @@ function CheckOutShippingAddressComponent({
                   {!addShippingAddress
                     ? t("shippingAddress")
                     : !address
-                    ? t("addNewAddress")
-                    : t("updateAddress")}
+                    ? t("actions:addNewAddress")
+                    : t("actions:updateAddress")}
                 </Typography>
 
                 <IconButton
